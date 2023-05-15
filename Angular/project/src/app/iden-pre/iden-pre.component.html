@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<form>
+    <div class="container">
+        <h2>Identificación del Predio</h2>
+        
+            <label for="idoferta">Id de la Oferta</label>
+            <input type="number" id="idoferta" name="Id Oferta" placeholder="123456789" min="0" max="99999999999999999999999999999" maxlength="12" required>
+
+            <label for="numprenue">Número Predial Nuevo</label>
+            <input type="number" id="numprenue" name="numprenue" placeholder="158140000000000060399000000000" maxlength="30" required>
+
+            <label for="numpreant">Número Predial Antiguo</label>
+            <input type="number" id="numpreant" name="numpreant" placeholder="158140000000000060399000" maxlength="20" required>
+
+            <label for="codhom">Código Homologado</label>
+            <input type="text" id="codhom" name="codhom" placeholder="APY0001JHND" maxlength="12" required>
+
+            <label for="matrinmb">Matricula Inmobiliaria</label>
+            <input type="text" id="matrinmb" name="matrinmb" placeholder="070-73096" maxlength="12" required>
+
+            <label for="conjur">Condición Juridica</label>
+            <select id="conjur" name="conjur">
+                <option value="NPH">NPH</option>
+                <option value="PH">PH</option>
+                <option value="PH.MATRIZ">PH.MATRIZ</option>
+                <option value="PH.UNIDAD_PREDIAL">PH.UNIDAD_PREDIAL</option>
+                <option value="CONDOMINIO">CONDOMINIO</option>
+                <option value="CONDOMINIO.MATRIZ">CONDOMINIO.MATRIZ</option>
+                <option value="CONDOMINIO.UNIDAD_PREDIAL">CONDOMINIO.UNIDAD_PREDIAL</option>
+                <option value="PARQUE_CEMENTERIO.MATRIZ">PARQUE_CEMENTERIO.MATRIZ</option>
+                <option value="PARQUE_CEMENTERIO.UNIDAD_PREDIAL">PARQUE_CEMENTERIO.UNIDAD_PREDIAL</option>
+                <option value="VIA">VIA</option>
+                <option value="INFORMAL">INFORMAL</option>
+                <option value="BIEN_USO_PUBLICO">BIEN_USO_PUBLICO</option>
+            </select>
+
+            <label for="tipofer">Tipo Oferta</label>
+            <select id="tipofer" name="tipofer">
+                <option value="VENTA">VENTA</option>
+                <option value="ARRIENDO">ARRIENDO</option>
+            </select>
+
+            <label for="tippre">Tipo Predio</label>
+            <select id="tippre" name="tippre">
+                <option value="URBANO">URBANO</option>
+                <option value="RURAL">RURAL</option>
+                <option value="CORREGIMIENTO Y CASERIOS">CORREGIMIENTO Y CASERIOS</option>
+            </select>
+
+            <label for="oriofer">Origen de la Oferta</label>
+            <select id="oriofer" name="oriofer">
+                <option value="IVP">IVP</option>
+                <option value="ACTUALIZACIÓN">ACTUALIZACIÓN</option>
+                <option value="CONSERVACIÓN">CONSERVACIÓN</option>
+                <option value="FORMACIÓN">FORMACIÓN</option>
+                <option value="INVESTIGACIÓN">INVESTIGACIÓN</option>
+            </select>  
+    </div>
+    <div>
+        <p><input type="submit" value="Enviar"></p>
+    </div>
+</form>
+</body>
+</html>

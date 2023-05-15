@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<form>
+    <div class="container">
+        <h2>Datos Generales</h2>
+            <label for="dertip">Derecho Tipo</label>
+            <select id="dertip" name="dertip">
+                <option value="OCUPACION">OCUPACION</option>
+                <option value="POSESIÓN">POSESIÓN</option>
+                <option value="DERECHO DE DOMINIO O PROPIEDAD">DERECHO DE DOMINIO O PROPIEDAD</option>
+            </select>
+
+            <label for="tipinmb">Tipo de Inmueble</label>
+            <select id="tipinmb" name="tipinmb">
+                <option value="CASA">CASA</option>
+                <option value="APARTAMENTO">APARTAMENTO</option>
+                <option value="BODEGA">BODEGA</option>
+                <option value="OFICINA">OFICINA</option>
+                <option value="LOCAL_COMERCIAL">LOCAL_COMERCIAL</option>
+                <option value="EDIFICIO">EDIFICIO</option>
+                <option value="LOTE">LOTE</option>
+                <option value="FINCA">FINCA</option>
+                <option value="CASA_CAMPESTRE">CASA_CAMPESTRE</option>
+                <option value="CABAÑA">CABAÑA</option>
+                <option value="CASA_LOTE">CASA_LOTE</option>
+                <option value="GARAJE_EN_PH">GARAJE_EN_PH</option>
+                <option value="PARQUEADERO_COMERCIAL">PARQUEADERO_COMERCIAL</option>
+                <option value="DEPOSITO_EN_PH">DEPOSITO_EN_PH</option>
+                <option value="OTRO">OTRO</option>
+            </select>
+
+            <label for="valanex">Valor Incluye Anexidades</label>
+            <select id="valanex" name="valanex">
+                <option value="SI">SI</option>
+                <option value="NO">NO</option>
+            </select>
+
+            <label for="feccapofer">Fecha de Captura Oferta</label>
+            <div>
+                <input type="date" id="feccapofer" name="feccapofer"
+                       value="2023-07-22"
+                       min="2000-01-01" max="2030-12-31">
+            </div>
+
+            <label for="tiemofemer">Tiempo Oferta en el Mercado</label>
+            <select id="tiemofemer" name="tiemofemer" placeholder="2 Meses">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+            </select>
+
+            <label for="proinmb">Proyectos Inmobiliario</label>
+            <select id="proinmb" name="proinmb" placeholder="2 Meses">
+                <option value="SI">SI</option>
+                <option value="NO">NO</option>
+            </select>
+
+            <label for="desproy">Descripción del Proyecto</label>
+            <textarea id="desproy" name="desproy" placeholder="Escribir Descripción (Menor a 500 Caracteres)" style="height:200px" maxlength="500"></textarea>
+    </div>
+    <div>
+        <p><input type="submit" value="Enviar"></p>
+    </div>
+</form>
+</body>
+</html>

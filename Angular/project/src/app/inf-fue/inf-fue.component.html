@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<form>
+    <div class="container">
+        <h2>Información Fuente</h2>
+        
+            <label for="nom">Nombre</label>
+            <input type="text" id="nom" name="nom" placeholder="Juan Rodriguez" maxlength="50" required>
+
+            <label for="tel">Número de contacto</label>
+            <input type="text" id="tel" name="tel" placeholder="3102352067" maxlength="15" required>
+
+            <label for="url">Url</label>
+            <input type="text" id="url" name="url" placeholder="https://www.fincaraiz.com.co/inmueble/" maxlength="500">
+
+            <label for="myfile">Fotos (Carpeta Comprimida)</label>
+            <p>
+                <input type="file" name="Seleccionar-fotos">
+            </p>
+            <!-- <p>
+                <input type="submit" value="Adjuntar">
+            </p> -->
+
+            <label for="myfile">Documentos (Carpeta Comprimida)</label>
+            <p>
+                <input type="file" name="Seleccionar-documentos">
+            </p>
+            <!-- <p>
+                <input type="submit" value="Adjuntar">
+            </p> -->
+
+            <label for="obs-1">Observaciones</label>
+            <textarea id="obs-1" name="obs-1" placeholder="Escribir Observación (Menor a 4000 Caracteres)" style="height:200px" maxlength="4000"></textarea>
+
+            <h4>Información Administrativa</h4>
+
+            <label for="areresofer">Área responsable oferta</label>
+            <input type="text" id="areresofer" name="areresofer" placeholder="Avaluos" maxlength="50" required>
+
+            <label for="nomresofer">Nombre responsable oferta</label>
+            <input type="text" id="nomresofer" name="nomresofer" placeholder="Tulio Martinez" maxlength="50" required>
+
+            <label for="email">Email:</label>
+            <p>
+                <input type="email" id="email" name="email" placeholder="tulio.martinez@igac.gov.co" maxlength="50" required>
+            </p>
+
+            <label for="obs-2">Observaciones</label>
+            <textarea id="obs-2" name="obs-2" placeholder="Escribir Observación (Menor a 1000 Caracteres)" style="height:200px" maxlength="1000"></textarea>
+    </div>
+    <div>
+        <p><input type="submit" value="Enviar"></p>
+    </div>
+</form>
+</body>
+</html>
