@@ -1,69 +1,160 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-<body>
-<form>
-    <div class="container">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <form [formGroup]="formUser" (ngSubmit)="procesar()">
+      <div class="container">
         <h2>Identificación del Predio</h2>
-        
-            <label for="idoferta">Id de la Oferta</label>
-            <input type="number" id="idoferta" name="Id Oferta" placeholder="123456789" min="0" max="99999999999999999999999999999" maxlength="12" required>
 
-            <label for="numprenue">Número Predial Nuevo</label>
-            <input type="number" id="numprenue" name="numprenue" placeholder="158140000000000060399000000000" maxlength="30" required>
+        <label for="idoferta">Id de la Oferta</label>
+        <div class="alerError" [hidden]="idoferta.valid || idoferta.pristine">
+          El id es obligatorio
+        </div>
+        <input
+          type="number"
+          id="idoferta"
+          formControlName="idoferta"
+          name="Id Oferta"
+          placeholder="123456789"
+          min="0"
+          max="99999999999999999999999999999"
+          maxlength="12"
+        />
 
-            <label for="numpreant">Número Predial Antiguo</label>
-            <input type="number" id="numpreant" name="numpreant" placeholder="158140000000000060399000" maxlength="20" required>
+        <label for="numprenue">Número Predial Nuevo</label>
+        <div class="alerError" [hidden]="numprenue.valid || numprenue.pristine">
+          <div *ngIf="numprenue.errors?.['required']">
+            El número predial nuevo es obligatorio
+          </div>
+          <div
+            *ngIf="numprenue.errors?.['minlength'] || numprenue.errors?.['maxlength']"
+          >
+            La cantidad de números debe de ser igual a 30
+          </div>
+        </div>
+        <input
+          type="text"
+          id="numprenue"
+          formControlName="numprenue"
+          name="numprenue"
+          placeholder="158140000000000060399000000000"
+        />
 
-            <label for="codhom">Código Homologado</label>
-            <input type="text" id="codhom" name="codhom" placeholder="APY0001JHND" maxlength="12" required>
+        <label for="numpreant">Número Predial Antiguo</label>
+        <div class="alerError" [hidden]="numpreant.valid || numpreant.pristine">
+          <div *ngIf="numpreant.errors?.['required']">
+            El número predial Antiguo es obligatorio
+          </div>
+          <div
+            *ngIf="numpreant.errors?.['minlength'] || numpreant.errors?.['maxlength']"
+          >
+            La cantidad de números debe de ser igual a 20
+          </div>
+        </div>
+        <input
+          type="text"
+          id="numpreant"
+          formControlName="numpreant"
+          name="numpreant"
+          placeholder="158140000000000060399000"
+        />
 
-            <label for="matrinmb">Matricula Inmobiliaria</label>
-            <input type="text" id="matrinmb" name="matrinmb" placeholder="070-73096" maxlength="12" required>
+        <label for="codhom">Código Homologado</label>
+        <div class="alerError" [hidden]="codhom.valid || codhom.pristine">
+          <div
+            *ngIf="codhom.errors?.['minlength'] || codhom.errors?.['maxlength']"
+          >
+            La cantidad de caracteres debe de ser de 12
+          </div>
+        </div>
+        <input
+          type="text"
+          id="codhom"
+          formControlName="codhom"
+          name="codhom"
+          placeholder="APY0001JHND0"
+        />
 
-            <label for="conjur">Condición Juridica</label>
-            <select id="conjur" name="conjur">
-                <option value="NPH">NPH</option>
-                <option value="PH">PH</option>
-                <option value="PH.MATRIZ">PH.MATRIZ</option>
-                <option value="PH.UNIDAD_PREDIAL">PH.UNIDAD_PREDIAL</option>
-                <option value="CONDOMINIO">CONDOMINIO</option>
-                <option value="CONDOMINIO.MATRIZ">CONDOMINIO.MATRIZ</option>
-                <option value="CONDOMINIO.UNIDAD_PREDIAL">CONDOMINIO.UNIDAD_PREDIAL</option>
-                <option value="PARQUE_CEMENTERIO.MATRIZ">PARQUE_CEMENTERIO.MATRIZ</option>
-                <option value="PARQUE_CEMENTERIO.UNIDAD_PREDIAL">PARQUE_CEMENTERIO.UNIDAD_PREDIAL</option>
-                <option value="VIA">VIA</option>
-                <option value="INFORMAL">INFORMAL</option>
-                <option value="BIEN_USO_PUBLICO">BIEN_USO_PUBLICO</option>
-            </select>
+        <label for="matrinmb">Matricula Inmobiliaria</label>
+        <div class="alerError" [hidden]="matrinmb.valid || matrinmb.pristine">
+          <div
+            *ngIf="matrinmb.errors?.['minlength'] || matrinmb.errors?.['maxlength']"
+          >
+            La cantidad de caracteres debe de ser de 12
+          </div>
+        </div>
+        <input
+          type="text"
+          id="matrinmb"
+          formControlName="matrinmb"
+          name="matrinmb"
+          placeholder="070-73096"
+        />
 
-            <label for="tipofer">Tipo Oferta</label>
-            <select id="tipofer" name="tipofer">
-                <option value="VENTA">VENTA</option>
-                <option value="ARRIENDO">ARRIENDO</option>
-            </select>
+        <label for="conjur">Condición Juridica</label>
+        <div class="alerError" [hidden]="conjur.valid || conjur.pristine">
+          La condición jurídica es obligatoria
+        </div>
+        <select id="conjur" formControlName="conjur" name="conjur">
+          <option value="NPH">NPH</option>
+          <option value="PH">PH</option>
+          <option value="PH.MATRIZ">PH.MATRIZ</option>
+          <option value="PH.UNIDAD_PREDIAL">PH.UNIDAD_PREDIAL</option>
+          <option value="CONDOMINIO">CONDOMINIO</option>
+          <option value="CONDOMINIO.MATRIZ">CONDOMINIO.MATRIZ</option>
+          <option value="CONDOMINIO.UNIDAD_PREDIAL">
+            CONDOMINIO.UNIDAD_PREDIAL
+          </option>
+          <option value="PARQUE_CEMENTERIO.MATRIZ">
+            PARQUE_CEMENTERIO.MATRIZ
+          </option>
+          <option value="PARQUE_CEMENTERIO.UNIDAD_PREDIAL">
+            PARQUE_CEMENTERIO.UNIDAD_PREDIAL
+          </option>
+          <option value="VIA">VIA</option>
+          <option value="INFORMAL">INFORMAL</option>
+          <option value="BIEN_USO_PUBLICO">BIEN_USO_PUBLICO</option>
+        </select>
 
-            <label for="tippre">Tipo Predio</label>
-            <select id="tippre" name="tippre">
-                <option value="URBANO">URBANO</option>
-                <option value="RURAL">RURAL</option>
-                <option value="CORREGIMIENTO Y CASERIOS">CORREGIMIENTO Y CASERIOS</option>
-            </select>
+        <label for="tipofer">Tipo Oferta</label>
+        <div class="alerError" [hidden]="tipofer.valid || tipofer.pristine">
+          El tipo de oferta es obligatorio
+        </div>
+        <select id="tipofer" formControlName="tipofer" name="tipofer">
+          <option value="VENTA">VENTA</option>
+          <option value="ARRIENDO">ARRIENDO</option>
+        </select>
 
-            <label for="oriofer">Origen de la Oferta</label>
-            <select id="oriofer" name="oriofer">
-                <option value="IVP">IVP</option>
-                <option value="ACTUALIZACIÓN">ACTUALIZACIÓN</option>
-                <option value="CONSERVACIÓN">CONSERVACIÓN</option>
-                <option value="FORMACIÓN">FORMACIÓN</option>
-                <option value="INVESTIGACIÓN">INVESTIGACIÓN</option>
-            </select>  
-    </div>
-    <div>
-        <p><input type="submit" value="Enviar"></p>
-    </div>
-</form>
-</body>
+        <label for="tippre">Tipo Predio</label>
+        <div class="alerError" [hidden]="tippre.valid || tippre.pristine">
+          El tipo de predio es obligatorio
+        </div>
+        <select id="tippre" formControlName="tippre" name="tippre">
+          <option value="URBANO">URBANO</option>
+          <option value="RURAL">RURAL</option>
+          <option value="CORREGIMIENTO Y CASERIOS">
+            CORREGIMIENTO Y CASERIOS
+          </option>
+        </select>
+
+        <label for="oriofer">Origen de la Oferta</label>
+        <div class="alerError" [hidden]="oriofer.valid || oriofer.pristine">
+          El origen de la oferta es obligatorio
+        </div>
+        <select id="oriofer" formControlName="oriofer" name="oriofer">
+          <option value="IVP">IVP</option>
+          <option value="ACTUALIZACIÓN">ACTUALIZACIÓN</option>
+          <option value="CONSERVACIÓN">CONSERVACIÓN</option>
+          <option value="FORMACIÓN">FORMACIÓN</option>
+          <option value="INVESTIGACIÓN">INVESTIGACIÓN</option>
+        </select>
+      </div>
+
+      <button class="buttonEnviar" [disabled]="formUser.invalid">Enviar</button>
+    </form>
+
+    <!-- {{ numprenue.errors | json }} -->
+  </body>
 </html>
