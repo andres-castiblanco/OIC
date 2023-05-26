@@ -33,6 +33,28 @@ nav {
   transform: translateX(10%);
 }
 
+.navigation span {
+  font-size: 0.65rem;
+  color: black;
+  display: block;
+  line-height: 3;
+  padding: 0 1rem;
+  text-decoration: none;
+  transition: 0.4s ease;
+}
+
+.navigation span:hover {
+  transform: translateX(10%);
+}
+
+/* nav ul li ul {
+  display: none;
+}
+
+nav ul li:target ul {
+  display: inline-block;
+} */
+
 #btn-nav {
   display: none;
 }
