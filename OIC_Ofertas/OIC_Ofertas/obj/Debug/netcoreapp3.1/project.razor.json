@@ -17,8 +17,8 @@
   "RootNamespace": "OIC_Ofertas",
   "Documents": [
     {
-      "FilePath": "/Users/SamuelPerez/Desktop/OIC/OIC_Ofertas/OIC_Ofertas/Views/Shared/_Layout.cshtml",
-      "TargetPath": "Views\\Shared\\_Layout.cshtml",
+      "FilePath": "/Users/SamuelPerez/Desktop/OIC/OIC_Ofertas/OIC_Ofertas/Views/Shared/Error.cshtml",
+      "TargetPath": "Views\\Shared\\Error.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -32,23 +32,8 @@
       "FileKind": "mvc"
     },
     {
-      "FilePath": "/Users/SamuelPerez/Desktop/OIC/OIC_Ofertas/OIC_Ofertas/Views/Shared/_LoginPartial.cshtml",
-      "TargetPath": "Views\\Shared\\_LoginPartial.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "/Users/SamuelPerez/Desktop/OIC/OIC_Ofertas/OIC_Ofertas/Views/Home/Index.cshtml",
-      "TargetPath": "Views\\Home\\Index.cshtml",
-      "FileKind": "mvc"
-    },
-    {
       "FilePath": "/Users/SamuelPerez/Desktop/OIC/OIC_Ofertas/OIC_Ofertas/Views/_ViewStart.cshtml",
       "TargetPath": "Views\\_ViewStart.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "/Users/SamuelPerez/Desktop/OIC/OIC_Ofertas/OIC_Ofertas/Views/Shared/Error.cshtml",
-      "TargetPath": "Views\\Shared\\Error.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -59,6 +44,21 @@
     {
       "FilePath": "/Users/SamuelPerez/Desktop/OIC/OIC_Ofertas/OIC_Ofertas/Areas/Identity/Pages/_ViewStart.cshtml",
       "TargetPath": "Areas\\Identity\\Pages\\_ViewStart.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "/Users/SamuelPerez/Desktop/OIC/OIC_Ofertas/OIC_Ofertas/Views/Shared/_Layout.cshtml",
+      "TargetPath": "Views\\Shared\\_Layout.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "/Users/SamuelPerez/Desktop/OIC/OIC_Ofertas/OIC_Ofertas/Views/Home/Index.cshtml",
+      "TargetPath": "Views\\Home\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "/Users/SamuelPerez/Desktop/OIC/OIC_Ofertas/OIC_Ofertas/Views/Shared/_LoginPartial.cshtml",
+      "TargetPath": "Views\\Shared\\_LoginPartial.cshtml",
       "FileKind": "mvc"
     }
   ],
