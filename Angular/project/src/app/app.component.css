@@ -1,3 +1,5 @@
+@import url("https://use.fontawesome.com/releases/v5.8.1/css/all.css");
+
 nav {
   position: absolute;
   left: 0;
@@ -5,9 +7,10 @@ nav {
   width: 10rem;
   top: 8.6rem;
   /* height: calc(100vh - 50px); */
-  background: #009fe3;
+  background: #005FA6;
   transform: translateX(-100%);
   transition: 0.4s ease;
+  margin: -5px;
 }
 .navigation {
   padding-left: 0px;
@@ -21,7 +24,7 @@ nav {
 
 .navigation a {
   font-size: 0.65rem;
-  color: black;
+  color: white;
   display: block;
   line-height: 3;
   padding: 0 1rem;
@@ -64,7 +67,7 @@ nav ul li:target ul {
 }
 
 .btn-nav {
-  color: #009fe3;
+  color: #005FA6;
   font-size: 1.4rem;
   position: absolute;
   left: 0;

@@ -13,6 +13,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeOfertasComponent } from './home-ofertas/home-ofertas.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ConOferComponent } from './con-ofer/con-ofer.component';
+import { ModOferComponent } from './mod-ofer/mod-ofer.component';
+import { ValOferComponent } from './val-ofer/val-ofer.component';
 
 const routes: Routes = [
   {
@@ -44,6 +47,18 @@ const routes: Routes = [
     component: InfFueComponent,
   },
   {
+    path: 'ConPre',
+    component: ConOferComponent,
+  },
+  {
+    path: 'ModPre',
+    component: ModOferComponent,
+  },
+  {
+    path: 'ValPre',
+    component: ValOferComponent,
+  },
+  {
     path: '**',
     component: HomeOfertasComponent,
   },
@@ -59,6 +74,9 @@ const routes: Routes = [
     InfEcoComponent,
     InfFueComponent,
     HomeOfertasComponent,
+    ConOferComponent,
+    ModOferComponent,
+    ValOferComponent,
   ],
   imports: [
     BrowserModule,

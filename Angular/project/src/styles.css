@@ -7,6 +7,7 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap");
 
+
 body {
   overflow-x: hidden;
   /* margin: auto; */
@@ -91,6 +92,13 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
   background-color: #45a049;
+}
+
+.alerError {
+  color: rgba(216, 82, 82, 0.752);
+  padding: 4px;
+  font-weight: bolder;
+  font-size: 0.9rem;
 }
 
 #sidebar-wrapper {
