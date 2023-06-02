@@ -12,16 +12,7 @@
         <div class="alerError" [hidden]="idoferta.valid || idoferta.pristine">
           El id es obligatorio
         </div>
-        <input
-          type="number"
-          id="idoferta"
-          formControlName="idoferta"
-          name="Id Oferta"
-          placeholder="123456789"
-          min="0"
-          max="99999999999999999999999999999"
-          maxlength="12"
-        />
+        <input type="number" formControlName="idoferta" name="Id Oferta" />
 
         <label for="numprenue">Número Predial Nuevo</label>
         <div class="alerError" [hidden]="numprenue.valid || numprenue.pristine">
@@ -62,32 +53,16 @@
         />
 
         <label for="codhom">Código Homologado</label>
-        <div class="alerError" [hidden]="codhom.valid || codhom.pristine">
-          <div
-            *ngIf="codhom.errors?.['minlength'] || codhom.errors?.['maxlength']"
-          >
-            La cantidad de caracteres debe de ser de 12
-          </div>
-        </div>
         <input
           type="text"
-          id="codhom"
           formControlName="codhom"
           name="codhom"
           placeholder="APY0001JHND0"
         />
 
         <label for="matrinmb">Matricula Inmobiliaria</label>
-        <div class="alerError" [hidden]="matrinmb.valid || matrinmb.pristine">
-          <div
-            *ngIf="matrinmb.errors?.['minlength'] || matrinmb.errors?.['maxlength']"
-          >
-            La cantidad de caracteres debe de ser de 12
-          </div>
-        </div>
         <input
           type="text"
-          id="matrinmb"
           formControlName="matrinmb"
           name="matrinmb"
           placeholder="070-73096"
