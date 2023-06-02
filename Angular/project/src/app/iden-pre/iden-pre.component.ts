@@ -5,6 +5,7 @@ import {
   FormControl,
   Validators,
 } from '@angular/forms';
+import { disableDebugTools } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-iden-pre',
@@ -51,7 +52,7 @@ export class IdenPreComponent {
   }
 
   formUser = this.fb.group({
-    idoferta: ['', Validators.required],
+    idoferta: [{ value: '123456789', disabled: true }, Validators.required],
     numprenue: [
       '',
       [Validators.required, Validators.minLength(30), Validators.maxLength(30)],
@@ -60,8 +61,8 @@ export class IdenPreComponent {
       '',
       [Validators.required, Validators.minLength(20), Validators.maxLength(20)],
     ],
-    codhom: ['', [Validators.minLength(12), Validators.maxLength(12)]],
-    matrinmb: ['', [Validators.minLength(12), Validators.maxLength(12)]],
+    codhom: [''],
+    matrinmb: [''],
     conjur: ['', Validators.required],
     tipofer: ['', Validators.required],
     tippre: ['', Validators.required],

@@ -46,6 +46,21 @@ header {
   margin-bottom: 20px;
 }
 
+.alerError {
+  color: rgba(216, 82, 82, 0.752);
+  padding: 4px;
+  font-weight: bolder;
+  font-size: 0.9rem;
+}
+
+.buttonEnviar {
+  background-color: #4caf50;
+  border-radius: 8px;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+}
+
 h2,
 p {
   display: flex;
