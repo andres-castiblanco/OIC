@@ -5,22 +5,28 @@
 -- Comentario general: Ejecutar la siguiente línea de código si se desea conformar la BD desde el pgadmin psql
 
 -- \i 'ruta' Ejemplo: \i 'C:/Users/BD_Ofertas.sql'
--- \i 'C:/Users/DELL/OneDrive/Documentos/Trabajo_IGAC_2023/Repositorio_OIC_Ofertas_2/OIC/BD/Modelos/BD_Ofertas.sql'
+-- \i 'C:/Users/DELL/OneDrive/Documentos/Trabajo_IGAC_2023/Back_Ofertas/BD/Modelos/BD_Ofertas.sql'
 
 -- Comentario general: Ejecutar la siguiente línea de código si se desea conformar la BD desde el psql directamente
 
 -- psql -U postgres -d postgres -a -f "ruta" Ejemplo: psql -U postgres -d postgres -a -f "C:/Users/BD_Ofertas.sql"
--- psql -U postgres -d postgres -a -f "C:/Users/DELL/OneDrive/Documentos/Trabajo_IGAC_2023/Repositorio_OIC_Ofertas_2/OIC/BD/Modelos/BD_Ofertas.sql"
+-- psql -U postgres -d postgres -a -f "C:/Users/DELL/OneDrive/Documentos/Trabajo_IGAC_2023/Back_Ofertas/BD/Modelos/BD_Ofertas.sql"
 
-/**
+
 DROP DATABASE IF EXISTS ofertas;
 
 create database ofertas;
 \connect ofertas
 
-**/
 
 --*** Conformación relación Oferta ***--
+
+CREATE SEQUENCE id_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
 
 DROP table IF EXISTS public.oferta;
 
@@ -40,33 +46,34 @@ CONSTRAINT domi_oferta_origen
 CHECK (VALUE IN ('IVP', 'ACTUALIZACIÓN', 'CONSERVACIÓN', 'FORMACIÓN', 'INVESTIGACIÓN'));
 
 create table public.oferta (
-	id_oferta								serial,
-	FECHA_CAPTURA_OFERTA					date 									not null,
-	TIPO_OFERTA									dom_tipo_oferta 					not null,
+	id_oferta								bigint NOT NULL DEFAULT nextval('id_seq'::regclass),
+	FECHA_CAPTURA_OFERTA					date 									,
+	TIPO_OFERTA									dom_tipo_oferta 					,
 	SI_VALOR_INCLUYE_ANEXIDADES					dom_si_valor_incluye_anexidades,
 	TIEMPO_OFERTA_MERCADO					integer,
 	OFERTA_ORIGEN								dom_oferta_origen,
-	VALOR_OFERTA_INICIAL					integer 								not null,
-	PORCENTAJE_NEGOCIACION					integer									not null,
-	VALOR_OFERTA_FINAL						integer									not null,
+	VALOR_OFERTA_INICIAL					integer 								,
+	PORCENTAJE_NEGOCIACION					integer									,
+	VALOR_OFERTA_FINAL						integer									,
 	VALOR_TERRENO							integer,
 	VALOR_CONSTRUCCION_M2					integer,
 	VALOR_AREA_PRIVADA						integer,
-	VALOR_CULTIVO							integer									not null,
+	VALOR_CULTIVO							integer									,
 	AVALUO_CATASTRAL						integer,
-	VALOR_ADMINISTRACION					integer									not null,
-	VALOR_ARRIENDO_INICIAL					integer									not null,
-	VALOR_ARRIENDO_FINAL					integer									not null,
+	VALOR_ADMINISTRACION					integer									,
+	VALOR_ARRIENDO_INICIAL					integer									,
+	VALOR_ARRIENDO_FINAL					integer									,
 	VALOR_TERRAZA_BALCON_PATIO				integer,
 	VALOR_GARAJES							integer,
 	VALOR_DEPOSITOS							integer,
-	VALOR_ANEXIDADES						integer									not null,
-	NOMBRE_OFERENTE							varchar(512)							not null,
-	NUMERO_CONTACTO							integer									not null,
+	VALOR_ANEXIDADES						integer									,
+	NOMBRE_OFERENTE							varchar(512)							,
+	NUMERO_CONTACTO							integer									,
 	URL										varchar(512),
 	ENLACE_INTERNO_FOTO_PREDIO				varchar(100),
 	ENLACE_DOCUMENTOS						varchar(100),
-	OBSERVACIONES							varchar(100)							not null,
+	OBSERVACIONES							varchar(100)							,
+	ESTADO_OFERTA							smallint								,
 	
 	primary key(id_oferta)
 );
@@ -78,7 +85,7 @@ DROP table IF EXISTS public.persona;
 create table public.persona (
 	numero_identificacion 	varchar(30),
 	tipo_identificacion 	varchar(10),
-	id_oferta				bigint,
+	id_oferta				bigint														not null,
 	
 	primary key(numero_identificacion, tipo_identificacion, id_oferta)
 );
@@ -102,8 +109,8 @@ CONSTRAINT domi_derecho_tipo
 CHECK (VALUE IN ('OCUPACION', 'POSESIÓN', 'DERECHO DE DOMINIO O PROPIEDAD'));
 
 create table public.dominio (
-	DERECHO_TIPO		 	Dom_derecho_tipo										not null,
-	id_oferta				bigint,
+	DERECHO_TIPO		 	Dom_derecho_tipo											,
+	id_oferta				bigint														not null,
 	
 	primary key(id_oferta)
 );
@@ -124,7 +131,7 @@ DROP table IF EXISTS public.tenedor;
 create table public.tenedor (
 	numero_identificacion 	varchar(30),
 	tipo_identificacion 	varchar(10),
-	id_oferta				bigint,
+	id_oferta				bigint														not null,
 	
 	primary key(numero_identificacion, tipo_identificacion, id_oferta)
 );
@@ -148,14 +155,14 @@ references public.oferta (id_oferta);
 DROP table IF EXISTS public.perito;
 
 create table public.perito (
-	id_oferta								bigint,
+	id_oferta								bigint										not null,
 	numero_identificacion 					varchar(30),
 	tipo_identificacion 					varchar(10),
-	REVISION_PERSONA_RESPONSABLE		 	varchar(100)								not null,
-	REVISION_AREA_RESPONSABLE				varchar(100)								not null,
-	PROYECTO_EMAIL_PERSONAL					varchar(100)								not null,
-	PROYECTO_PERSONA_RESPONSABLE			varchar(100)								not null,
-	PROYECTO_AREA_RESPONSABLE				varchar(100)								not null,
+	REVISION_PERSONA_RESPONSABLE		 	varchar(100)								,
+	REVISION_AREA_RESPONSABLE				varchar(100)								,
+	PROYECTO_EMAIL_PERSONAL					varchar(100)								,
+	PROYECTO_PERSONA_RESPONSABLE			varchar(100)								,
+	PROYECTO_AREA_RESPONSABLE				varchar(100)								,
 	
 	primary key(numero_identificacion, tipo_identificacion, id_oferta)
 );
@@ -233,44 +240,44 @@ CHECK (VALUE IN ('NPH', 'PH', 'PH.MATRIZ', 'PH.UNIDAD_PREDIAL','CONDOMINIO','CON
 				 'VIA','INFORMAL','BIEN_USO_PUBLICO'));
 
 create table public.inmueble (
-	id_oferta								bigint,
-	NUMERO_PREDIAL_NUEVO					varchar(30),
-	NUMERO_PREDIAL_ANTIGUO					varchar(20),
+	id_oferta								bigint										not null,
+	NUMERO_PREDIAL_NUEVO					varchar(30)									not null,
+	NUMERO_PREDIAL_ANTIGUO					varchar(20)									not null,
 	CODIGO_HOMOLOGADO 						varchar(100),
-	DEPARTAMENTO							varchar(2)									not null,
-	MUNICIPIO								varchar(5)									not null,
-	VEREDA									varchar(100)								not null,
-	BARRIO									varchar(100)								not null,
-	DIRECCION								varchar(250)								not null,
-	LATITUD									decimal(12,7)								not null,
-	LONGITUD								decimal(12,7)								not null,
-	TIPO_INMUEBLE								GC_TipoInmueble							not null,
-	TIPO_PREDIO									dom_tipo_predio							not null,
+	DEPARTAMENTO							varchar(2)									,
+	MUNICIPIO								varchar(5)									,
+	VEREDA									varchar(100)								,
+	BARRIO									varchar(100)								,
+	DIRECCION								varchar(250)								,
+	LATITUD									decimal(12,7)								,
+	LONGITUD								decimal(12,7)								,
+	TIPO_INMUEBLE								GC_TipoInmueble							,
+	TIPO_PREDIO									dom_tipo_predio							,
 	PROYECTO_INMOBILIARIO					varchar(2),
 	PROYECTO_DESCRIPCION					varchar(100),
-	AREA_TERRENO							integer										not null,
+	AREA_TERRENO							integer										,
 	ANO_CONSTRUCCION						integer,
-	AREA_CONSTRUCCION						integer										not null,
-	CONSERVACION								dom_conservacionconstruccion			not null,
-	AREA_PRIVADA							integer										not null,
-	DESTINACION_ECONOMICA						LC_DestinacionEconómicaTipo				not null,
+	AREA_CONSTRUCCION						integer										,
+	CONSERVACION								dom_conservacionconstruccion			,
+	AREA_PRIVADA							integer										,
+	DESTINACION_ECONOMICA						LC_DestinacionEconómicaTipo				,
 	ALTURA_EDIFICIO							integer,
 	NUMERO_PISO								integer,
-	TIPO_INMUEBLE_RURAL						varchar(100)								not null,
+	TIPO_INMUEBLE_RURAL						varchar(100)								,
 	TIPOLOGIA_TIPO								Dom_tipologia_tipo,
 	AREA_CULTIVO							integer,
 	EDAD_CULTIVO							integer,
 	TIPO_CULTIVO								Dom_Tipo_Cultivo,
 	COEFICIENTE								integer,
-	SERVICIOS_PUBLICOS							Dom_Servicios_Publicos					not null,
+	SERVICIOS_PUBLICOS							Dom_Servicios_Publicos					,
 	ESTRATO									integer,
-	GARAJES									integer										not null,
-	NUMERO_BANOS							integer										not null,
-	NUMERO_HABITACIONES						integer										not null,
-	NUMERO_DEPOSITOS						integer										not null,
-	CONSTRUCCIONES_ANEXAS					varchar(256)								not null,
+	GARAJES									integer										,
+	NUMERO_BANOS							integer										,
+	NUMERO_HABITACIONES						integer										,
+	NUMERO_DEPOSITOS						integer										,
+	CONSTRUCCIONES_ANEXAS					varchar(256)								,
 	MATRICULA_INMOBILIARIA					varchar(100),
-	CONDICION_JURIDICA							GC_CondicionPredioTipo					not null,
+	CONDICION_JURIDICA							GC_CondicionPredioTipo					,
 	
 	primary key(id_oferta)
 );
