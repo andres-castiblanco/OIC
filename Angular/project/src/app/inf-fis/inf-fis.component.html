@@ -7,6 +7,12 @@
 <form>
     <div class="container">
         <h2>Información Física</h2>
+
+            <label for="idoferta">Id de la Oferta</label>
+            <!-- <div class="alerError" [hidden]="idoferta.valid || idoferta.pristine">
+            El id es obligatorio
+            </div> -->
+            <input type="number" formControlName="idoferta" name="Id Oferta" />
         
             <label for="atm2">Área terreno m2</label>
             <input type="number" id="atm2" name="atm2" placeholder="2500" maxlength="5">

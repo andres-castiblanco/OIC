@@ -7,6 +7,13 @@
 <form>
     <div class="container">
         <h2>Datos Generales</h2>
+
+            <label for="idoferta">Id de la Oferta</label>
+            <!-- <div class="alerError" [hidden]="idoferta.valid || idoferta.pristine">
+            El id es obligatorio
+            </div> -->
+            <input type="number" formControlName="idoferta" name="Id Oferta" />
+
             <label for="dertip">Derecho Tipo</label>
             <select id="dertip" name="dertip">
                 <option value="OCUPACION">OCUPACION</option>

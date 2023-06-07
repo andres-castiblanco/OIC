@@ -14,6 +14,10 @@ import { disableDebugTools } from '@angular/platform-browser';
 export class LocPreComponent {
   constructor(private fb: FormBuilder) {}
 
+  get idoferta() {
+    return this.formUserLoca.get('idoferta') as FormControl;
+  }
+
   get dep() {
     return this.formUserLoca.get('dep') as FormControl;
   }
@@ -71,6 +75,7 @@ export class LocPreComponent {
   }
 
   formUserLoca = this.fb.group({
+    idoferta: [{ value: '123456789', disabled: true }, Validators.required],
     dep: ['', Validators.required],
     mun: ['', Validators.required],
     nombar: ['', [Validators.required, Validators.maxLength(30)]],

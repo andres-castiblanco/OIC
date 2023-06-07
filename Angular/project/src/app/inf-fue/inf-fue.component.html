@@ -7,6 +7,12 @@
 <form>
     <div class="container">
         <h2>Información Fuente</h2>
+
+            <label for="idoferta">Id de la Oferta</label>
+            <!-- <div class="alerError" [hidden]="idoferta.valid || idoferta.pristine">
+            El id es obligatorio
+            </div> -->
+            <input type="number" formControlName="idoferta" name="Id Oferta" />
         
             <label for="nom">Nombre</label>
             <input type="text" id="nom" name="nom" placeholder="Juan Rodriguez" maxlength="50" required>

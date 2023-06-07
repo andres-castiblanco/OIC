@@ -8,6 +8,12 @@
       <div class="container">
         <h2>Localización del Predio</h2>
 
+        <label for="idoferta">Id de la Oferta</label>
+        <div class="alerError" [hidden]="idoferta.valid || idoferta.pristine">
+          El id es obligatorio
+        </div>
+        <input type="number" formControlName="idoferta" name="Id Oferta" />
+
         <label for="dep">Departamento</label>
         <div class="alerError" [hidden]="dep.valid || dep.pristine">
           El departamento es un campo obligatorio
