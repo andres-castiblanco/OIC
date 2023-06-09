@@ -20,7 +20,32 @@
   <label for="btn-nav" class="btn-nav"><i class="fas fa-bars"></i> Menu</label>
   <input type="checkbox" id="btn-nav" />
 
-  <nav >
+<nav>
+  <ul class="navigation">
+
+    <a routerLink="HomeOfertas" routerLinkActive="active">Home ofertas</a>
+
+    <details>
+      <summary>Crear oferta</summary>
+      <ul>
+        <li><a routerLink="IdenPre" routerLinkActive="active">Identificación predio</a></li>
+        <li><a routerLink="LocPre" routerLinkActive="active">Localización predio</a></li>
+        <li><a routerLink="DatGen" routerLinkActive="active">Datos generales</a></li>
+        <li><a routerLink="InfFis" routerLinkActive="active">Información física</a></li>
+        <li><a routerLink="InfEco" routerLinkActive="active">Información económica</a></li>
+        <li><a routerLink="InfFue" routerLinkActive="active">Información fuente</a></li>
+      </ul>
+    </details>
+
+    
+    <li><a routerLink="ConPre" routerLinkActive="active">Consultar oferta</a></li>
+    <li><a routerLink="ModPre" routerLinkActive="active">Modificar oferta</a></li>
+    <li><a routerLink="ValPre" routerLinkActive="active">Validar oferta</a></li>
+
+  </ul> 
+</nav> 
+
+  <!-- <nav>
     <ul class="navigation">
       <li>
         <a routerLink="HomeOfertas" routerLinkActive="active">Home ofertas</a>
@@ -73,7 +98,7 @@
       </li>
     </ul>
   </nav>
-</div>
+</div> -->
 
 <router-outlet></router-outlet>
 <hr _ngcontent-fyk-c9="" style="width: 95%;">
@@ -83,6 +108,7 @@
   <div><p>Copyright 1999 - 2023</p></div>
   <div><p>Todos los derechos reservados</p></div>
 </footer>
+
 
 <!-- <app-iden-pre></app-iden-pre>
 <app-loc-pre></app-loc-pre>
