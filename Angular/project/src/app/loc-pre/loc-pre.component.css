@@ -61,6 +61,10 @@ header {
   text-align: center;
 }
 
+.buttonEnviar:disabled {
+  background: #a09e9e;
+}
+
 h2,
 p {
   display: flex;

@@ -109,6 +109,22 @@ export class LocPreComponent {
   });
 
   procesar() {
-    console.log(this.formUserLoca.value);
+    let dirParte1 = `${this.formUserLoca.value.dir01} ${this.formUserLoca.value.dir02} ${this.formUserLoca.value.dir03}`,
+      dirParte2 = this.formUserLoca.value.dir04 ? `Bis` : ``,
+      dirParte3 = `${this.formUserLoca.value.dir05} ${this.formUserLoca.value.dir06} ${this.formUserLoca.value.dir07} ${this.formUserLoca.value.dir08}`,
+      dirCompleta = `${dirParte1} ${dirParte2} ${dirParte3}`
+        .replace(/\s+/gi, ' ')
+        .trim(),
+      objeLoca = {
+        dep: this.formUserLoca.value.dep,
+        mun: this.formUserLoca.value.mun,
+        nombar: this.formUserLoca.value.nombar,
+        nomver: this.formUserLoca.value.nomver,
+        lat: this.formUserLoca.value.lat,
+        lon: this.formUserLoca.value.lon,
+        dir: dirCompleta,
+      };
+
+    console.log(objeLoca);
   }
 }

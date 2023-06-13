@@ -579,9 +579,15 @@
           <option value="08849_USIACURÍ" *ngIf="dep.value == '08_ATLÁNTICO'">
             08849_USIACURÍ
           </option>
-          <option
+          <!-- <option
             value="11001_BOGOTÁ, D.C."
             *ngIf="dep.value == '11_BOGOTÁ, D.C.'"
+          >
+            11001_BOGOTÁ, D.C.
+          </option> -->
+          <option
+            value="11001_BOGOTÁ, D.C."
+            [hidden]="dep.value != '11_BOGOTÁ, D.C.'"
           >
             11001_BOGOTÁ, D.C.
           </option>
