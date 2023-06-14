@@ -21,7 +21,9 @@ img {
 }
 
 * {
+  /* display: grid; */
   box-sizing: border-box;
+  /* justify-items: stretch; */
 }
 
 header {
@@ -65,8 +67,7 @@ header {
   background: #a09e9e;
 }
 
-h2,
-p {
+h2,p {
   display: flex;
   flex-direction: row;
   justify-content: space-around;

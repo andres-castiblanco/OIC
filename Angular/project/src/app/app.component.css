@@ -1,76 +1,48 @@
 @import url("https://use.fontawesome.com/releases/v5.8.1/css/all.css");
 
 nav {
-  /* // para dejar quieto el menu // */
   position: absolute; 
   left: 0rem;  
-  /* height: calc(100vh - 50px); */
-
-  /* // para mover el menu // */
-  /* position: sticky;  
-  left: 10rem;
-  height: calc(10vh - 50px); */
-
-  top: 20;
+  top: 1rem;
   width: 10rem;
-  top: 8.5rem; 
+  top: 13.9rem;
   background: #005FA6;
   transform: translateX(-100%);
   transition: 0.4s ease;
-  margin: -5px;
+  margin: -1px;
 }
 
-.navigation {
-  padding-left: 0px;
-  
-}
-
-.navigation li {
-  list-style: none;
-  width: 100%;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-  float: left;
-}
-
-.navigation a{
-  /* margin-left: 5px; */
+.navigation a {
   font-size: 0.67rem;
   color: white;
   display: block;
   line-height: 3;
-  padding: 0 1rem;
+  padding: 10px 1rem;
   text-decoration: none;
   transition: 0.4s ease;
   border-width: .4rem;
 }
 
-
+/* .navigation ol{
+  text-align: center;
+  font-size: 0.67rem;
+  color: white;
+  display: block;
+  line-height: 3;
+  padding: 0px 1rem;
+  text-decoration: none;
+  transition: 0.4s ease;
+  border-width: .4rem;
+  background: #afafaf;
+} */
 
 .navigation a:hover {
   transform: translateX(10%);
 }
 
-.navigation span {
-  font-size: 0.65rem;
-  color: black;
-  display: block;
-  line-height: 3;
-  padding: 0 1rem;
-  text-decoration: none;
-  transition: 0.4s ease;
-}
-
-.navigation span:hover {
-  transform: translateX(10%);
-}
-
-nav ul li ul {
+nav ul li details{
   display: incline;
 }
-
-/* nav ul li:target ul {
-  display: inline-block;
-} */
 
 #btn-nav {
   display: none;
@@ -80,14 +52,12 @@ nav ul li ul {
   transform: translateX(0);
 }
 
-.btn-nav {
-  position: sticky;
-  top: 0;
+.btn-nav{
   color: #005FA6;
   font-size: 1.6rem;
   position: absolute;
   left: 0;
-  top: 6.2rem;
+  top: 11.3rem;
   cursor: pointer;
   padding: 0rem 1.3rem;
   transition: 0.2s ease;
@@ -103,54 +73,22 @@ nav ul li ul {
 }
 
 details {
-  /* width: 50%;
-  margin: 0 auto ; */
-  background: #77bcd9;
-  /* margin-bottom: .5rem;
-  box-shadow: 0 .1rem 1rem -.5rem rgba(187, 171, 171, 0.4);
-  border-radius: 5px; 
-  overflow: hidden; */
+  background-color: hsl(210, 100%, 26%);
+  /* background: hsl(205, 5%, 49%); */
+}
+
+.details, summary:hover {
+  transform: translateX(10%);
 }
 
 summary {
   font-size: 0.67rem;
   color: white;
-  display: block;
   line-height: 3;
-  padding: 0.5rem;
+  padding: 10px 1rem;
   text-decoration: none;
   transition: 0.4s ease;
   border-width: .4rem;
   background: #005FA6;
-  padding-left: 2.2rem;
   position: relative;
 }
-
-
-summary:before {
-  content: '';
-  border-width: .4rem;
-  border-style: solid;
-  border-color: transparent transparent transparent #fff;
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  transform: rotate(0);
-  transform-origin: .2rem 50%;
-  transition: .25s transform ease;
-}
-
-/* THE MAGIC 🧙‍♀️ */
-/* details[open] > summary:before {
-  transform: rotate(90deg);
-} */
-
-
-/* details summary::-webkit-details-marker {
-  display:none;
-}
-
-details > ul {
-  padding-bottom: 0rem;
-  margin-bottom: 0;
-} */
