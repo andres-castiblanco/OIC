@@ -1300,8 +1300,9 @@ export class LocPreComponent {
     dir08: [''],
   });
 
-  handleChange(dto: string) {
+  handleChange(dto: any) {
     this.formUserLoca.value.mun = null;
+    //console.log('hice clic');
     this.mpios = this.deptosMpios[dto as keyof typeof this.deptosMpios];
     this.formUserLoca.clearValidators();
   }

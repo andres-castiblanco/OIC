@@ -1,210 +1,210 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-  </head>
-  <body>
-    <form [formGroup]="formUserFis" (ngSubmit)="procesar()">
-      <div class="container">
-        <h2>Información Física</h2>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body>
+<form [formGroup]="formUserFis" (ngSubmit)="procesar()">
+    <div class="container">
+    <h2>Información Física</h2>
 
-        <label for="idoferta">Id de la Oferta</label>
-        <div class="alerError" [hidden]="idoferta.valid || idoferta.pristine">
-          El id es obligatorio
-        </div>
-        <input type="number" formControlName="idoferta" name="Id Oferta" />
+    <label for="idoferta">Id de la Oferta</label>
+    <div class="alerError" [hidden]="idoferta.valid || idoferta.pristine">
+        El id es obligatorio
+    </div>
+    <input type="number" formControlName="idoferta" name="Id Oferta" />
 
-        <label for="atm2">Área terreno m2</label>
-        <div class="alerError" [hidden]="atm2.valid || atm2.pristine">
-          <div *ngIf="atm2.errors?.['required']">
-            El área de terreno en metros cuadrados es obligatorio
-          </div>
-          <div *ngIf="atm2.errors?.['min'] || atm2.errors?.['max']">
-            La cantidad reportada debe de ser positiva, mayor a cero y no mayor
-            a 1.000.000
-          </div>
+    <label for="atm2">Área terreno m2</label>
+    <div class="alerError" [hidden]="atm2.valid || atm2.pristine">
+        <div *ngIf="atm2.errors?.['required']">
+        El área de terreno en metros cuadrados es obligatorio
         </div>
-        <input
-          type="number"
-          formControlName="atm2"
-          name="atm2"
-          placeholder="2500"
-        />
+        <div *ngIf="atm2.errors?.['min'] || atm2.errors?.['max']">
+        La cantidad reportada debe de ser positiva, mayor a cero y no mayor
+        a 1.000.000
+        </div>
+    </div>
+    <input
+        type="number"
+        formControlName="atm2"
+        name="atm2"
+        placeholder="2500"
+    />
 
-        <label for="atha">Área terreno ha</label>
-        <div class="alerError" [hidden]="atha.valid || atha.pristine">
-          <div *ngIf="atha.errors?.['required']">
-            El área de terreno en hectareas es obligatorio
-          </div>
-          <div *ngIf="atha.errors?.['min'] || atha.errors?.['max']">
-            La cantidad reportada debe de ser positiva, mayor a cero y no mayor
-            a 1.000.000
-          </div>
+    <label for="atha">Área terreno ha</label>
+    <div class="alerError" [hidden]="atha.valid || atha.pristine">
+        <div *ngIf="atha.errors?.['required']">
+        El área de terreno en hectareas es obligatorio
         </div>
-        <input
-          type="number"
-          formControlName="atha"
-          name="atha"
-          placeholder="1500"
-        />
+        <div *ngIf="atha.errors?.['min'] || atha.errors?.['max']">
+        La cantidad reportada debe de ser positiva, mayor a cero y no mayor
+        a 1.000.000
+        </div>
+    </div>
+    <input
+        type="number"
+        formControlName="atha"
+        name="atha"
+        placeholder="1500"
+    />
 
-        <label for="acm2">Área construcción m2</label>
-        <div class="alerError" [hidden]="acm2.valid || acm2.pristine">
-          <div *ngIf="acm2.errors?.['required']">
-            El área de construcción en metros cuadrados es obligatoria
-          </div>
-          <div *ngIf="acm2.errors?.['min'] || acm2.errors?.['max']">
-            La cantidad reportada debe de ser positiva y no mayor a 1.000.000
-          </div>
+    <label for="acm2">Área construcción m2</label>
+    <div class="alerError" [hidden]="acm2.valid || acm2.pristine">
+        <div *ngIf="acm2.errors?.['required']">
+        El área de construcción en metros cuadrados es obligatoria
         </div>
-        <input
-          type="number"
-          formControlName="acm2"
-          name="acm2"
-          placeholder="1203"
-        />
+        <div *ngIf="acm2.errors?.['min'] || acm2.errors?.['max']">
+        La cantidad reportada debe de ser positiva y no mayor a 1.000.000
+        </div>
+    </div>
+    <input
+        type="number"
+        formControlName="acm2"
+        name="acm2"
+        placeholder="1203"
+    />
 
-        <label for="apm2">Área privada m2</label>
-        <div class="alerError" [hidden]="apm2.valid || apm2.pristine">
-          <div *ngIf="apm2.errors?.['required']">
-            El área privada en metros cuadrados es obligatoria
-          </div>
-          <div *ngIf="apm2.errors?.['min'] || apm2.errors?.['max']">
-            La cantidad reportada debe de ser positiva y no mayor a 1.000.000
-          </div>
+    <label for="apm2">Área privada m2</label>
+    <div class="alerError" [hidden]="apm2.valid || apm2.pristine">
+        <div *ngIf="apm2.errors?.['required']">
+        El área privada en metros cuadrados es obligatoria
         </div>
-        <input
-          type="number"
-          formControlName="apm2"
-          name="apm2"
-          placeholder="50"
-        />
+        <div *ngIf="apm2.errors?.['min'] || apm2.errors?.['max']">
+        La cantidad reportada debe de ser positiva y no mayor a 1.000.000
+        </div>
+    </div>
+    <input
+        type="number"
+        formControlName="apm2"
+        name="apm2"
+        placeholder="50"
+    />
 
-        <label for="apha">Área cultivo ha</label>
-        <div class="alerError" [hidden]="apha.valid || apha.pristine">
-          <div *ngIf="apha.errors?.['required']">
-            El área de cultivos en hectareas es obligatoria
-          </div>
-          <div *ngIf="apha.errors?.['min'] || apha.errors?.['max']">
-            La cantidad reportada debe de ser positiva y no mayor a 1.000.000
-          </div>
+    <label for="apha">Área cultivo ha</label>
+    <div class="alerError" [hidden]="apha.valid || apha.pristine">
+        <div *ngIf="apha.errors?.['required']">
+        El área de cultivos en hectareas es obligatoria
         </div>
-        <input
-          type="number"
-          formControlName="apha"
-          name="apha"
-          placeholder="25"
-        />
+        <div *ngIf="apha.errors?.['min'] || apha.errors?.['max']">
+        La cantidad reportada debe de ser positiva y no mayor a 1.000.000
+        </div>
+    </div>
+    <input
+        type="number"
+        formControlName="apha"
+        name="apha"
+        placeholder="25"
+    />
 
-        <label for="ac">Año de construcción</label>
-        <div class="alerError" [hidden]="ac.valid || ac.pristine">
-          <div *ngIf="ac.errors?.['required']">
-            El área de cultivos en hectareas es obligatoria
-          </div>
-          <div *ngIf="ac.errors?.['min'] || ac.errors?.['max']">
-            La cantidad de años de la construcción debe de ser positiva y estar
-            entre 1400 a 2100
-          </div>
+    <label for="ac">Año de construcción</label>
+    <div class="alerError" [hidden]="ac.valid || ac.pristine">
+        <div *ngIf="ac.errors?.['required']">
+        El área de cultivos en hectareas es obligatoria
         </div>
-        <input
-          type="number"
-          formControlName="ac"
-          name="ac"
-          placeholder="1993"
-        />
+        <div *ngIf="ac.errors?.['min'] || ac.errors?.['max']">
+        La cantidad de años de la construcción debe de ser positiva y estar
+        entre 1400 a 2100
+        </div>
+    </div>
+    <input
+        type="number"
+        formControlName="ac"
+        name="ac"
+        placeholder="1993"
+    />
 
-        <label for="conser">Conservación</label>
-        <div class="alerError" [hidden]="conser.valid || conser.pristine">
-          La conservación es un campo obligatorio
-        </div>
-        <select formControlName="conser" name="conse" placeholder="---">
-          <option value="BUENO">BUENO</option>
-          <option value="REGULAR">REGULAR</option>
-          <option value="MALO">MALO</option>
-          <option value="NO CLASIFICADO">NO CLASIFICADO</option>
-        </select>
+    <label for="conser">Conservación</label>
+    <div class="alerError" [hidden]="conser.valid || conser.pristine">
+        La conservación es un campo obligatorio
+    </div>
+    <select formControlName="conser" name="conse" placeholder="---">
+        <option value="BUENO">BUENO</option>
+        <option value="REGULAR">REGULAR</option>
+        <option value="MALO">MALO</option>
+        <option value="NO CLASIFICADO">NO CLASIFICADO</option>
+    </select>
 
-        <label for="desecon">Destinación económica</label>
-        <div class="alerError" [hidden]="desecon.valid || desecon.pristine">
-          La destinación económica es un campo obligatorio
-        </div>
-        <select formControlName="desecon" name="desecon" placeholder="---">
-          <option value="Acuícola">Acuícola</option>
-          <option value="agrícola">Agrícola</option>
-          <option value="agroindustrial agroforestal">
-            Agroindustrial agroforestal
-          </option>
-          <option value="comercial">Comercial</option>
-          <option value="cultural">Cultural</option>
-          <option value="educativo">Educativo</option>
-          <option value="forestal">Forestal</option>
-          <option value="habitacional">Habitacional</option>
-          <option value="industrial">Industrial</option>
-          <option value="infraestructura asociada producción agropecuaria">
-            Infraestructura asociada producción agropecuaria
-          </option>
-          <option value="infraestructura hidráulica">
-            Infraestructura hidráulica
-          </option>
-          <option value="infraestructura saneamiento básico">
-            Infraestructura saneamiento básico
-          </option>
-          <option value="infraestructura seguridad">
-            Infraestructura seguridad
-          </option>
-          <option value="infraestructura transporte">
-            Infraestructura transporte
-          </option>
-          <option value="institucional">Institucional</option>
-          <option value="minería hidrocarburos">Minería hidrocarburos</option>
-          <option value="lote urbanizable no urbanizado">
-            Lote urbanizable no urbanizado
-          </option>
-          <option value="lote urbanizado no construido">
-            Lote urbanizado no construido
-          </option>
-          <option value="lote no urbanizable">Lote no urbanizable</option>
-          <option value="pecuario">Pecuario</option>
-          <option value="recreacional">Recreacional</option>
-          <option value="religioso">Religioso</option>
-          <option value="salubridad">Salubridad</option>
-          <option value="servicios funerarios">Servicios funerarios</option>
-          <option value="uso público">Uso público</option>
-        </select>
+    <label for="desecon">Destinación económica</label>
+    <div class="alerError" [hidden]="desecon.valid || desecon.pristine">
+        La destinación económica es un campo obligatorio
+    </div>
+    <select formControlName="desecon" name="desecon" placeholder="---">
+        <option value="Acuícola">Acuícola</option>
+        <option value="agrícola">Agrícola</option>
+        <option value="agroindustrial agroforestal">
+        Agroindustrial agroforestal
+        </option>
+        <option value="comercial">Comercial</option>
+        <option value="cultural">Cultural</option>
+        <option value="educativo">Educativo</option>
+        <option value="forestal">Forestal</option>
+        <option value="habitacional">Habitacional</option>
+        <option value="industrial">Industrial</option>
+        <option value="infraestructura asociada producción agropecuaria">
+        Infraestructura asociada producción agropecuaria
+        </option>
+        <option value="infraestructura hidráulica">
+        Infraestructura hidráulica
+        </option>
+        <option value="infraestructura saneamiento básico">
+        Infraestructura saneamiento básico
+        </option>
+        <option value="infraestructura seguridad">
+        Infraestructura seguridad
+        </option>
+        <option value="infraestructura transporte">
+        Infraestructura transporte
+        </option>
+        <option value="institucional">Institucional</option>
+        <option value="minería hidrocarburos">Minería hidrocarburos</option>
+        <option value="lote urbanizable no urbanizado">
+        Lote urbanizable no urbanizado
+        </option>
+        <option value="lote urbanizado no construido">
+        Lote urbanizado no construido
+        </option>
+        <option value="lote no urbanizable">Lote no urbanizable</option>
+        <option value="pecuario">Pecuario</option>
+        <option value="recreacional">Recreacional</option>
+        <option value="religioso">Religioso</option>
+        <option value="salubridad">Salubridad</option>
+        <option value="servicios funerarios">Servicios funerarios</option>
+        <option value="uso público">Uso público</option>
+    </select>
 
-        <label for="altedif">Altura edificio</label>
-        <div class="alerError" [hidden]="altedif.valid || altedif.pristine">
-          La espcificación de si se encuentra en altura del edificio es un campo
-          obligatorio
-        </div>
-        <select formControlName="altedif" name="altedif">
-          <option value="SI">SI</option>
-          <option value="NO">NO</option>
-        </select>
+    <label for="altedif">Altura edificio</label>
+    <div class="alerError" [hidden]="altedif.valid || altedif.pristine">
+        La espcificación de si se encuentra en altura del edificio es un campo
+        obligatorio
+    </div>
+    <select formControlName="altedif" name="altedif">
+        <option value="SI">SI</option>
+        <option value="NO">NO</option>
+    </select>
 
-        <label for="numpis">Número de pisos</label>
-        <div class="alerError" [hidden]="numpis.valid || numpis.pristine">
-          <div *ngIf="numpis.errors?.['required']">
-            El número de pisos es obligatorio
-          </div>
-          <div *ngIf="numpis.errors?.['min'] || numpis.errors?.['max']">
-            La cantidad de pisos debe de ser positiva y estar de 1 a 1000
-          </div>
+    <label for="numpis">Número de pisos</label>
+    <div class="alerError" [hidden]="numpis.valid || numpis.pristine">
+        <div *ngIf="numpis.errors?.['required']">
+        El número de pisos es obligatorio
         </div>
-        <input
-          type="number"
-          formControlName="numpis"
-          name="numpis"
-          placeholder="3"
-        />
-      </div>
-      <div>
-        <h2>
-        <button class="buttonEnviar" [disabled]="formUserFis.invalid">
-          Enviar
-        </button>
-        </h2>
-      </div>
-    </form>
-  </body>
+        <div *ngIf="numpis.errors?.['min'] || numpis.errors?.['max']">
+        La cantidad de pisos debe de ser positiva y estar de 1 a 1000
+        </div>
+    </div>
+    <input
+        type="number"
+        formControlName="numpis"
+        name="numpis"
+        placeholder="3"
+    />
+    </div>
+    <div>
+    <h2>
+    <button class="buttonEnviar" [disabled]="formUserFis.invalid">
+        Enviar
+    </button>
+    </h2>
+    </div>
+</form>
+</body>
 </html>
