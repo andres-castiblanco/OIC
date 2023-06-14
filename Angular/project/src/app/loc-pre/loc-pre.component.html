@@ -18,7 +18,18 @@
         <div class="alerError" [hidden]="dep.valid || dep.pristine">
           El departamento es un campo obligatorio
         </div>
+
         <select formControlName="dep" name="dep">
+          <option
+            *ngFor="let dto of deptos"
+            [value]="dto"
+            (click)="handleChange(dto)"
+          >
+            {{ dto }}
+          </option>
+        </select>
+
+        <!-- <select formControlName="dep" name="dep">
           <option value="05_ANTIOQUIA">05_ANTIOQUIA</option>
           <option value="08_ATLÁNTICO">08_ATLÁNTICO</option>
           <option value="11_BOGOTÁ, D.C.">11_BOGOTÁ, D.C.</option>
@@ -56,13 +67,20 @@
           <option value="95_GUAVIARE">95_GUAVIARE</option>
           <option value="97_VAUPÉS">97_VAUPÉS</option>
           <option value="99_VICHADA">99_VICHADA</option>
-        </select>
+        </select> -->
 
         <label for="mun">Municipio</label>
         <div class="alerError" [hidden]="mun.valid || mun.pristine">
           El municipio es un campo obligatorio
         </div>
+
         <select formControlName="mun" name="mun">
+          <option *ngFor="let mpio of mpios" [value]="mpio">
+            {{ mpio }}
+          </option>
+        </select>
+
+        <!-- <select formControlName="mun" name="mun">
           <option value="05001_MEDELLÍN" *ngIf="dep.value == '05_ANTIOQUIA'">
             05001_MEDELLÍN
           </option>
@@ -579,12 +597,6 @@
           <option value="08849_USIACURÍ" *ngIf="dep.value == '08_ATLÁNTICO'">
             08849_USIACURÍ
           </option>
-          <!-- <option
-            value="11001_BOGOTÁ, D.C."
-            *ngIf="dep.value == '11_BOGOTÁ, D.C.'"
-          >
-            11001_BOGOTÁ, D.C.
-          </option> -->
           <option
             value="11001_BOGOTÁ, D.C."
             [hidden]="dep.value != '11_BOGOTÁ, D.C.'"
@@ -4128,7 +4140,7 @@
           <option value="99773_CUMARIBO" *ngIf="dep.value == '99_VICHADA'">
             99773_CUMARIBO
           </option>
-        </select>
+        </select> -->
 
         <label for="nombar">Nombre Barrio</label>
         <div class="alerError" [hidden]="nombar.valid || nombar.pristine">
@@ -4341,7 +4353,10 @@
         </div>
       </div>
       <div>
-        <button class="buttonEnviar" [disabled]="formUserLoca.invalid">
+        <button
+          class="buttonEnviar"
+          [disabled]="formUserLoca.invalid || formUserLoca.value.mun == null"
+        >
           Enviar
         </button>
       </div>
