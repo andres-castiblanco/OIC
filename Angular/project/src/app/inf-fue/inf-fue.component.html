@@ -1,66 +1,176 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-<body>
-<form>
-    <div class="container">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <form [formGroup]="formUserFue" (ngSubmit)="procesar()">
+      <div class="container">
         <h2>Información Fuente</h2>
 
-            <label for="idoferta">Id de la Oferta</label>
-            <!-- <div class="alerError" [hidden]="idoferta.valid || idoferta.pristine">
-            El id es obligatorio
-            </div> -->
-            <input type="number" formControlName="idoferta" name="Id Oferta" />
-        
-            <label for="nom">Nombre</label>
-            <input type="text" id="nom" name="nom" placeholder="Juan Rodriguez" maxlength="50" required>
+        <label for="idoferta">Id de la Oferta</label>
+        <div class="alerError" [hidden]="idoferta.valid || idoferta.pristine">
+          El id es obligatorio
+        </div>
+        <input type="number" formControlName="idoferta" name="Id Oferta" />
 
-            <label for="tel">Número de contacto</label>
-            <input type="text" id="tel" name="tel" placeholder="3102352067" maxlength="15" required>
+        <label for="nom">Nombre</label>
+        <div class="alerError" [hidden]="nom.valid || nom.pristine">
+          <div *ngIf="nom.errors?.['required']">El nombre es obligatorio</div>
+          <div *ngIf="nom.errors?.['maxlength']">
+            La cantidad de caracteres debe de ser menor a 50
+          </div>
+        </div>
+        <input
+          type="text"
+          formControlName="nom"
+          name="nom"
+          placeholder="Juan Rodriguez"
+        />
 
-            <label for="url">Url</label>
-            <input type="text" id="url" name="url" placeholder="https://www.fincaraiz.com.co/inmueble/" maxlength="500">
+        <label for="tel">Número de contacto</label>
+        <div class="alerError" [hidden]="tel.valid || tel.pristine">
+          <div *ngIf="tel.errors?.['required']">El telefono es obligatorio</div>
+          <div *ngIf="tel.errors?.['max']">
+            La cantidad de caracteres debe de ser menor a 15
+          </div>
+        </div>
+        <input
+          type="number"
+          formControlName="tel"
+          name="tel"
+          placeholder="3102352067"
+        />
 
-            <label for="myfile">Fotos (Carpeta Comprimida)</label>
-            <p>
-                <input type="file" name="Seleccionar-fotos">
-            </p>
-            <!-- <p>
+        <label for="url">Url</label>
+        <div class="alerError" [hidden]="url.valid || url.pristine">
+          <div *ngIf="url.errors?.['required']">
+            La URL de la oferta es obligatoria
+          </div>
+          <div *ngIf="url.errors?.['maxlength']">
+            La cantidad de caracteres debe de ser menor a 500
+          </div>
+        </div>
+        <input
+          type="text"
+          formControlName="url"
+          name="url"
+          placeholder="https://www.fincaraiz.com.co/inmueble/"
+        />
+
+        <label for="myfile">Fotos (Carpeta Comprimida)</label>
+        <p>
+          <input type="file" name="Seleccionar-fotos" />
+        </p>
+        <!-- <p>
                 <input type="submit" value="Adjuntar">
             </p> -->
 
-            <label for="myfile">Documentos (Carpeta Comprimida)</label>
-            <p>
-                <input type="file" name="Seleccionar-documentos">
-            </p>
-            <!-- <p>
+        <label for="myfile">Documentos (Carpeta Comprimida)</label>
+        <p>
+          <input type="file" name="Seleccionar-documentos" />
+        </p>
+        <!-- <p>
                 <input type="submit" value="Adjuntar">
             </p> -->
 
-            <label for="obs-1">Observaciones</label>
-            <textarea id="obs-1" name="obs-1" placeholder="Escribir Observación (Menor a 4000 Caracteres)" style="height:200px" maxlength="4000"></textarea>
+        <label for="obs1">Observaciones</label>
+        <div class="alerError" [hidden]="obs1.valid || obs1.pristine">
+          <div *ngIf="obs1.errors?.['required']">
+            La observación de la oferta es obligatoria
+          </div>
+          <div *ngIf="obs1.errors?.['maxlength']">
+            La cantidad de caracteres debe de ser menor a 4000
+          </div>
+        </div>
+        <textarea
+          formControlName="obs1"
+          name="obs1"
+          placeholder="Escribir Observación (Menor a 4000 Caracteres)"
+          style="height: 200px"
+        ></textarea>
 
-            <h4>Información Administrativa</h4>
+        <h4>Información Administrativa</h4>
 
-            <label for="areresofer">Área responsable oferta</label>
-            <input type="text" id="areresofer" name="areresofer" placeholder="Avaluos" maxlength="50" required>
+        <label for="areresofer">Área responsable oferta</label>
+        <div
+          class="alerError"
+          [hidden]="areresofer.valid || areresofer.pristine"
+        >
+          <div *ngIf="areresofer.errors?.['required']">
+            El área responsable de la oferta es obligatoria
+          </div>
+          <div *ngIf="areresofer.errors?.['maxlength']">
+            La cantidad de caracteres debe de ser menor a 100
+          </div>
+        </div>
+        <input
+          type="text"
+          formControlName="areresofer"
+          name="areresofer"
+          placeholder="Avaluos"
+        />
 
-            <label for="nomresofer">Nombre responsable oferta</label>
-            <input type="text" id="nomresofer" name="nomresofer" placeholder="Tulio Martinez" maxlength="50" required>
+        <label for="nomresofer">Nombre responsable oferta</label>
+        <div
+          class="alerError"
+          [hidden]="nomresofer.valid || nomresofer.pristine"
+        >
+          <div *ngIf="nomresofer.errors?.['required']">
+            El área responsable de la oferta es obligatoria
+          </div>
+          <div *ngIf="nomresofer.errors?.['maxlength']">
+            La cantidad de caracteres debe de ser menor a 50
+          </div>
+        </div>
+        <input
+          type="text"
+          formControlName="nomresofer"
+          name="nomresofer"
+          placeholder="Tulio Martinez"
+        />
 
-            <label for="email">Email:</label>
-            <p>
-                <input type="email" id="email" name="email" placeholder="tulio.martinez@igac.gov.co" maxlength="50" required>
-            </p>
+        <label for="email">Email:</label>
+        <div class="alerError" [hidden]="email.valid || email.pristine">
+          <div *ngIf="email.errors?.['required']">
+            El correo del responsable de la oferta es obligatorio
+          </div>
+          <div *ngIf="email.errors?.['maxlength']">
+            La cantidad de caracteres debe de ser menor a 50
+          </div>
+        </div>
+        <p>
+          <input
+            type="email"
+            formControlName="email"
+            name="email"
+            placeholder="tulio.martinez@igac.gov.co"
+          />
+        </p>
 
-            <label for="obs-2">Observaciones</label>
-            <textarea id="obs-2" name="obs-2" placeholder="Escribir Observación (Menor a 1000 Caracteres)" style="height:200px" maxlength="1000"></textarea>
-    </div>
-    <div>
-        <p><input type="submit" value="Enviar"></p>
-    </div>
-</form>
-</body>
+        <label for="obs2">Observaciones</label>
+        <div class="alerError" [hidden]="obs2.valid || obs2.pristine">
+          <div *ngIf="obs2.errors?.['required']">
+            Incluir una observación es obligatorio
+          </div>
+          <div *ngIf="obs2.errors?.['maxlength']">
+            La cantidad de caracteres debe de ser menor a 1000
+          </div>
+        </div>
+        <textarea
+          formControlName="obs2"
+          name="obs2"
+          placeholder="Escribir Observación (Menor a 1000 Caracteres)"
+          style="height: 200px"
+        ></textarea>
+      </div>
+      <div>
+        <h2>
+          <button class="buttonEnviar" [disabled]="formUserFue.invalid">
+            Enviar
+          </button>
+        </h2>
+      </div>
+    </form>
+  </body>
 </html>
