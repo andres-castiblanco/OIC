@@ -74,6 +74,10 @@ export class LocPreComponent {
     return this.formUserLoca.get('dir08') as FormControl;
   }
 
+  get dirrur() {
+    return this.formUserLoca.get('dirrur') as FormControl;
+  }
+
   deptosMpios = {
     '05 ANTIOQUIA': [
       '05001 MEDELLÍN',
@@ -1298,6 +1302,7 @@ export class LocPreComponent {
     dir06: ['', [Validators.required, Validators.max(1000), Validators.min(0)]],
     dir07: [''],
     dir08: [''],
+    dirrur: ['', [Validators.required, Validators.maxLength(100)]],
   });
 
   handleChange(dto: any) {

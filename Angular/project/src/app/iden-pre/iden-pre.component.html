@@ -7,12 +7,15 @@
     <form [formGroup]="formUser" (ngSubmit)="procesar()">
       <div class="container">
         <h2>Identificación del Predio</h2>
+        
 
         <label for="idoferta">Id de la Oferta</label>
         <div class="alerError" [hidden]="idoferta.valid || idoferta.pristine">
           El id es obligatorio
         </div>
         <input type="number" formControlName="idoferta" name="Id Oferta" />
+
+        <h2><button class="buttonEnviar" [disabled]="formUser.invalid">Generar ID</button></h2>
 
         <label for="numprenue">Número Predial Nuevo</label>
         <div class="alerError" [hidden]="numprenue.valid || numprenue.pristine">
@@ -129,7 +132,7 @@
 
       <div>
       <h2><button class="buttonEnviar" [disabled]="formUser.invalid">Guardar Información</button></h2>
-      <!-- <h2><button class="buttonEnviar" [disabled]="formUser.invalid">Siguiente</button></h2> -->
+      <h2><button class="buttonEnviar" [disabled]="formUser.invalid">Siguiente</button></h2>
       </div>
 
     </form>

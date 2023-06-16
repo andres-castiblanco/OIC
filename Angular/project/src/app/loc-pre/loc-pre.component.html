@@ -114,7 +114,7 @@
           step="0.00000001"
         />
 
-        <label for="dir">Dirección</label>
+        <label for="dir">Dirección Urbana</label>
 
         <div class="alerError" [hidden]="dir01.valid || dir01.pristine">
           <div *ngIf="dir01.errors?.['required']">
@@ -249,6 +249,23 @@
             />
           </div>
         </div>
+
+        <label for="dirrur">Dirección Rural</label>
+        <div class="alerError" [hidden]="dirrur.valid || dirrur.pristine">
+          <div *ngIf="dirrur.errors?.['required']">
+            La Dirección Rural es obligatorio
+          </div>
+          <div *ngIf="dirrur.errors?.['maxlength']">
+            La cantidad de caracteres debe de ser inferior a 100
+          </div>
+        </div>
+        <input
+          type="text"
+          formControlName="dirrur"
+          name="dirrur"
+          placeholder="Km 3 via Belen, Finca La Hermosa"
+        />
+
       </div>
       <div>
         <h2>
