@@ -14,7 +14,7 @@
     </div>
     <input type="number" formControlName="idoferta" name="Id Oferta" />
 
-    <label for="atm2">Área terreno m2</label>
+    <label for="atm2">Área terreno (m2)</label>
     <div class="alerError" [hidden]="atm2.valid || atm2.pristine">
         <div *ngIf="atm2.errors?.['required']">
         El área de terreno en metros cuadrados es obligatorio
@@ -31,7 +31,7 @@
         placeholder="2500"
     />
 
-    <label for="atha">Área terreno ha</label>
+    <label for="atha">Área terreno (ha)</label>
     <div class="alerError" [hidden]="atha.valid || atha.pristine">
         <div *ngIf="atha.errors?.['required']">
         El área de terreno en hectareas es obligatorio
@@ -48,7 +48,7 @@
         placeholder="1500"
     />
 
-    <label for="acm2">Área construcción m2</label>
+    <label for="acm2">Área construcción (m2)</label>
     <div class="alerError" [hidden]="acm2.valid || acm2.pristine">
         <div *ngIf="acm2.errors?.['required']">
         El área de construcción en metros cuadrados es obligatoria
@@ -64,7 +64,7 @@
         placeholder="1203"
     />
 
-    <label for="apm2">Área privada m2</label>
+    <label for="apm2">Área privada (m2)</label>
     <div class="alerError" [hidden]="apm2.valid || apm2.pristine">
         <div *ngIf="apm2.errors?.['required']">
         El área privada en metros cuadrados es obligatoria
@@ -80,7 +80,7 @@
         placeholder="50"
     />
 
-    <label for="apha">Área cultivo ha</label>
+    <label for="apha">Área cultivo (ha)</label>
     <div class="alerError" [hidden]="apha.valid || apha.pristine">
         <div *ngIf="apha.errors?.['required']">
         El área de cultivos en hectareas es obligatoria
@@ -197,11 +197,203 @@
         name="numpis"
         placeholder="3"
     />
+
+    <label for="tir">Tipo de inmueble rural</label>
+    <input
+        type="text"
+        formControlName="tir"
+        name="tir"
+        placeholder="Casa, Finca, Parcela, Condominio..."
+    />
+    
+    <label for="tiptipo">Tipologia Tipo</label>
+    <div class="alerError" [hidden]="tiptipo.valid || tiptipo.pristine">
+        La Tipologia tipo es un campo obligatorio
     </div>
+    <select formControlName="tiptipo" name="tiptipo" placeholder="---">
+        <option value="RESIDENCIAL.TIPO_1A">RESIDENCIAL.TIPO_1A</option>
+        <option value="RESIDENCIAL.TIPO_1B">RESIDENCIAL.TIPO_1B</option>
+        <option value="RESIDENCIAL.TIPO_2A">RESIDENCIAL.TIPO_2A</option>
+        <option value="RESIDENCIAL.TIPO_2B">RESIDENCIAL.TIPO_2B</option>
+        <option value="RESIDENCIAL.TIPO_3A">RESIDENCIAL.TIPO_3A</option>
+        <option value="RESIDENCIAL.TIPO_3B">RESIDENCIAL.TIPO_3B</option>
+        <option value="RESIDENCIAL.TIPO_4A">RESIDENCIAL.TIPO_4A</option>
+        <option value="RESIDENCIAL.TIPO_4B">RESIDENCIAL.TIPO_4B</option>
+        <option value="RESIDENCIAL.TIPO_5A">RESIDENCIAL.TIPO_5A</option>
+        <option value="RESIDENCIAL.TIPO_5B">RESIDENCIAL.TIPO_5B</option>
+        <option value="RESIDENCIAL.TIPO_6A">RESIDENCIAL.TIPO_6A</option>
+        <option value="RESIDENCIAL.TIPO_6B">RESIDENCIAL.TIPO_6B</option>
+        <option value="COMERCIAL.BARRIAL_1">COMERCIAL.BARRIAL_1</option>
+        <option value="COMERCIAL.BARRIAL_2">COMERCIAL.BARRIAL_2</option>
+        <option value="COMERCIAL.SECTORIAL_1">COMERCIAL.SECTORIAL_1</option>
+        <option value="COMERCIAL.SECTORIAL_2">COMERCIAL.SECTORIAL_2</option>
+        <option value="COMERCIAL.ESPECIALIZADO_1">COMERCIAL.ESPECIALIZADO_1</option>
+        <option value="COMERCIAL.ESPECIALIZADO_2">COMERCIAL.ESPECIALIZADO_2</option>
+        <option value="INDUSTRIAL.LIVIANA_1">INDUSTRIAL.LIVIANA_1</option>
+        <option value="INDUSTRIAL.LIVIANA_2">INDUSTRIAL.LIVIANA_2</option>
+        <option value="INDUSTRIAL.MEDIANA_1">INDUSTRIAL.MEDIANA_1</option>
+        <option value="INDUSTRIAL.MEDIANA_2">INDUSTRIAL.MEDIANA_2</option>
+        <option value="INDUSTRIAL.PESADA_1">INDUSTRIAL.PESADA_1</option>
+        <option value="INDUSTRIAL.PESADA_2">INDUSTRIAL.PESADA_2</option>
+        <option value="OTRO">OTRO</option>
+    </select>
+    
+    <label for="edcul">Edad cultivo (Años)</label>
+    <div class="alerError" [hidden]="edcul.valid || edcul.pristine">
+        <div *ngIf="edcul.errors?.['required']">
+        La edad del cultivo es obligatorio
+        </div>
+        <div *ngIf="edcul.errors?.['min'] || edcul.errors?.['max']">
+        La edad del cultivo debe de ser positiva y estar de 1 a 1000
+        </div>
+    </div>
+    <input
+        type="number"
+        formControlName="edcul"
+        name="edcul"
+        placeholder="5"
+    />
+
+    <label for="tipcul">Tipo de cultivo</label>
+    <div class="alerError" [hidden]="tipcul.valid || tipcul.pristine">
+        El Tipo de cultivo es un campo obligatorio
+    </div>
+    <select formControlName="tipcul" name="tipcul" placeholder="---">
+        <option value="PERMANENTE">PERMANENTE</option>
+        <option value="SEMIPERMANENTE">SEMIPERMANENTE</option>
+        <option value="TRANSITORIO">TRANSITORIO</option>
+        <option value="NO APLICA">NO APLICA</option>
+    </select>
+
+    <label for="coef">Coeficiente</label>
+    <div class="alerError" [hidden]="coef.valid || coef.pristine">
+        <div *ngIf="coef.errors?.['required']">
+        El Coeficiente es obligatorio
+        </div>
+        <div *ngIf="coef.errors?.['min'] || coef.errors?.['max']">
+        El Coeficiente debe de ser positivo y estar de 1 a 1000
+        </div>
+    </div>
+    <input
+        type="number"
+        formControlName="coef"
+        name="coef"
+        placeholder="4"
+    />
+
+    <label for="serpubl">Servicios publicos</label>
+    <div class="alerError" [hidden]="serpubl.valid || serpubl.pristine">
+        Los Servicios publicos son un campo obligatorio
+    </div>
+    <select formControlName="serpubl" name="serpubl" placeholder="---">
+        <option value="BASICOS MAS COMPLEMENTARIOS">BASICOS MAS COMPLEMENTARIOS</option>
+        <option value="BASICOS">BASICOS</option>
+        <option value="INCOMPLETOS">INCOMPLETOS</option>
+        <option value="SIN SERVICIOS">SIN SERVICIOS</option>
+    </select>
+
+    <label for="estra">Estrato</label>
+    <div class="alerError" [hidden]="estra.valid || estra.pristine">
+        <div *ngIf="estra.errors?.['required']">
+        El Estrato es obligatorio
+        </div>
+        <div *ngIf="estra.errors?.['min'] || estra.errors?.['max']">
+        El Estrato debe de ser positivo y estar de 1 a 6
+        </div>
+    </div>
+    <input
+        type="number"
+        formControlName="estra"
+        name="estra"
+        placeholder="3"
+    /> 
+
+    <label for="garaje">Garajes</label>
+    <div class="alerError" [hidden]="garaje.valid || garaje.pristine">
+        <div *ngIf="garaje.errors?.['required']">
+        El Garaje es obligatorio
+        </div>
+        <div *ngIf="garaje.errors?.['min'] || garaje.errors?.['max']">
+        El Garaje debe de ser positivo y estar de 1 a 50
+        </div>
+    </div>
+    <input
+        type="number"
+        formControlName="garaje"
+        name="garaje"
+        placeholder="2"
+    />
+
+    <label for="banos">Numero de baños</label>
+    <div class="alerError" [hidden]="banos.valid || banos.pristine">
+        <div *ngIf="banos.errors?.['required']">
+        El Numero de baños es obligatorio
+        </div>
+        <div *ngIf="banos.errors?.['min'] || banos.errors?.['max']">
+        El Numero de baños debe de ser positivo y estar de 1 a 50
+        </div>
+    </div>
+    <input
+        type="number"
+        formControlName="banos"
+        name="banos"
+        placeholder="1"
+    />
+
+    <label for="numhabi">Numero de habitaciones</label>
+    <div class="alerError" [hidden]="numhabi.valid || numhabi.pristine">
+        <div *ngIf="numhabi.errors?.['required']">
+        El Numero de habitaciones es obligatorio
+        </div>
+        <div *ngIf="numhabi.errors?.['min'] || numhabi.errors?.['max']">
+        El Numero de habitaciones debe de ser positivo y estar de 1 a 50
+        </div>
+    </div>
+    <input
+        type="number"
+        formControlName="numhabi"
+        name="numhabi"
+        placeholder="5"
+    />
+
+    <label for="numdep">Numero de depositos</label>
+    <div class="alerError" [hidden]="numdep.valid || numdep.pristine">
+        <div *ngIf="numdep.errors?.['required']">
+        El Numero de depositos es obligatorio
+        </div>
+        <div *ngIf="numdep.errors?.['min'] || numdep.errors?.['max']">
+        El Numero de depositos debe de ser positivo y estar de 1 a 50
+        </div>
+    </div>
+    <input
+        type="number"
+        formControlName="numdep"
+        name="numdep"
+        placeholder="2"
+    />
+
+    <label for="conanex">Construcciones Anexas</label>
+    <div class="alerError" [hidden]="conanex.valid || conanex.pristine">
+        <div *ngIf="conanex.errors?.['required']">
+        Incluir Construcciones Anexas es obligatorio
+        </div>
+        <div *ngIf="conanex.errors?.['maxlength']">
+        La cantidad de caracteres debe de ser menor a 100
+        </div>
+    </div>
+
+    <input
+        type="text"
+        formControlName="conanex"
+        name="conanex"
+        placeholder="Zona dura, Muro de antepecho, Lavadero, Tanque de concreto, etc"
+    />
+
+    </div>    
     <div>
     <h2>
     <button class="buttonEnviar" [disabled]="formUserFis.invalid">
-        Enviar
+        Guardar Información
     </button>
     </h2>
     </div>

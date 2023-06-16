@@ -163,7 +163,121 @@
           placeholder="Escribir Observación (Menor a 1000 Caracteres)"
           style="height: 200px"
         ></textarea>
+
+        <h4>Información Persona Responsable Captura</h4>
+
+        <label for="revperres">Revision persona responsable</label>
+        <div
+          class="alerError"
+          [hidden]="revperres.valid || revperres.pristine"
+        >
+          <div *ngIf="revperres.errors?.['required']">
+            La Revision persona responsable de la oferta es obligatoria
+          </div>
+          <div *ngIf="revperres.errors?.['maxlength']">
+            La Revision persona responsable debe de ser menor a 50
+          </div>
+        </div>
+        <input
+          type="text"
+          formControlName="revperres"
+          name="revperres"
+          placeholder="Ofelio Lizarazo"
+        />
+
+        <label for="revareres">Revision area responsable</label>
+        <div
+          class="alerError"
+          [hidden]="revareres.valid || revareres.pristine"
+        >
+          <div *ngIf="revareres.errors?.['required']">
+            La Revision area responsable de la oferta es obligatoria
+          </div>
+          <div *ngIf="revareres.errors?.['maxlength']">
+            La Revision area responsable debe de ser menor a 50
+          </div>
+        </div>
+        <input
+          type="text"
+          formControlName="revareres"
+          name="revareres"
+          placeholder="GIT Avaluos"
+        />
+
+        <label for="tipercap">Tipo de Identificación persona captura</label>
+        <div class="alerError" [hidden]="tipercap.valid || tipercap.pristine">
+            Los Servicios publicos son un campo obligatorio
+        </div>
+        <select formControlName="tipercap" name="tipercap" placeholder="---">
+            <option value="CÉDULA DE CIUDADANÍA">CÉDULA DE CIUDADANÍA</option>
+            <option value="CÉDULA DE EXTRANJERÍA">CÉDULA DE EXTRANJERÍA</option>
+            <option value="TARJETA DE IDENTIDAD">TARJETA DE IDENTIDAD</option>
+            <option value="PERMISO ESPECIAL DE PERMANENCIA">PERMISO ESPECIAL DE PERMANENCIA</option>
+        </select>
+      
+        <label for="numidencap">Numero de Identificación persona captura</label>
+        <div class="alerError" [hidden]="numidencap.valid || numidencap.pristine">
+            <div *ngIf="numidencap.errors?.['required']">
+            El Numero de Identificación es obligatorio
+            </div>
+            <div *ngIf="numidencap.errors?.['min'] || numidencap.errors?.['max']">
+            El Numero de Identificación debe de ser positivo y estar de 1 a 1000000000
+            </div>
+        </div>
+        <input
+            type="number"
+            formControlName="numidencap"
+            name="numidencap"
+            placeholder="1016253461"
+        />
+
+        <h4>Información Persona Responsable Verificacion</h4>
+
+        <label for="tiperver">Tipo de Identificación persona verifica</label>
+        <div class="alerError" [hidden]="tiperver.valid || tiperver.pristine">
+            Los Servicios publicos son un campo obligatorio
+        </div>
+        <select formControlName="tiperver" name="tiperver" placeholder="---">
+            <option value="CÉDULA DE CIUDADANÍA">CÉDULA DE CIUDADANÍA</option>
+            <option value="CÉDULA DE EXTRANJERÍA">CÉDULA DE EXTRANJERÍA</option>
+            <option value="TARJETA DE IDENTIDAD">TARJETA DE IDENTIDAD</option>
+            <option value="PERMISO ESPECIAL DE PERMANENCIA">PERMISO ESPECIAL DE PERMANENCIA</option>
+        </select>
+      
+        <label for="numidenver">Numero de Identificación persona verifica</label>
+        <div class="alerError" [hidden]="numidenver.valid || numidenver.pristine">
+            <div *ngIf="numidenver.errors?.['required']">
+            El Numero de Identificación es obligatorio
+            </div>
+            <div *ngIf="numidenver.errors?.['min'] || numidenver.errors?.['max']">
+            El Numero de Identificación debe de ser positivo y estar de 1 a 1000000000
+            </div>
+        </div>
+        <input
+            type="number"
+            formControlName="numidenver"
+            name="numidenver"
+            placeholder="1011461253"
+        />
+
+        <label for="obs3">Observaciones</label>
+        <div class="alerError" [hidden]="obs3.valid || obs3.pristine">
+          <div *ngIf="obs3.errors?.['required']">
+            Incluir una observación es obligatorio
+          </div>
+          <div *ngIf="obs3.errors?.['maxlength']">
+            La cantidad de caracteres debe de ser menor a 1000
+          </div>
+        </div>
+        <textarea
+          formControlName="obs3"
+          name="obs3"
+          placeholder="Escribir Observación (Menor a 1000 Caracteres)"
+          style="height: 200px"
+        ></textarea>
+      
       </div>
+
       <div>
         <h2>
           <button class="buttonEnviar" [disabled]="formUserFue.invalid">

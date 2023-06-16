@@ -59,6 +59,54 @@ export class InfFisComponent {
     return this.formUserFis.get('numpis') as FormControl;
   }
 
+  get tir() {
+    return this.formUserFis.get('tir') as FormControl;
+  }
+
+  get tiptipo() {
+    return this.formUserFis.get('tiptipo') as FormControl;
+  }
+
+  get edcul() {
+    return this.formUserFis.get('edcul') as FormControl;
+  }
+
+  get tipcul() {
+    return this.formUserFis.get('tipcul') as FormControl;
+  }
+
+  get coef() {
+    return this.formUserFis.get('coef') as FormControl;
+  }
+
+  get serpubl() {
+    return this.formUserFis.get('serpubl') as FormControl;
+  }
+
+  get estra() {
+    return this.formUserFis.get('estra') as FormControl;
+  }
+  
+  get garaje() {
+    return this.formUserFis.get('garaje') as FormControl;
+  }
+
+  get banos() {
+    return this.formUserFis.get('banos') as FormControl;
+  }
+
+  get numhabi() {
+    return this.formUserFis.get('numhabi') as FormControl;
+  }
+
+  get numdep() {
+    return this.formUserFis.get('numdep') as FormControl;
+  }
+  
+  get conanex() {
+    return this.formUserFis.get('conanex') as FormControl;
+  }
+
   formUserFis = this.fb.group({
     idoferta: [{ value: '123456789', disabled: true }, Validators.required],
     atm2: [
@@ -96,6 +144,42 @@ export class InfFisComponent {
     numpis: [
       '',
       [Validators.required, Validators.max(1000), Validators.min(1)],
+    ],
+    tir: [''],
+    tiptipo: ['', Validators.required],
+    edcul: [
+      '',
+      [Validators.required, Validators.max(1000), Validators.min(1)],
+    ],
+    tipcul: ['', Validators.required],
+    coef: [
+      '',
+      [Validators.required, Validators.max(1000), Validators.min(1)],
+    ],
+    serpubl: ['', Validators.required],
+    estra: [
+      '',
+      [Validators.required, Validators.max(6), Validators.min(1)],
+    ],
+    garaje: [
+      '',
+      [Validators.required, Validators.max(50), Validators.min(1)],
+    ],
+    banos: [
+      '',
+      [Validators.required, Validators.max(50), Validators.min(1)],
+    ],
+    numhabi: [
+      '',
+      [Validators.required, Validators.max(50), Validators.min(1)],
+    ],
+    numdep: [
+      '',
+      [Validators.required, Validators.max(50), Validators.min(1)],
+    ],
+    conanex: [
+      '',
+      [Validators.required, Validators.maxLength(100)],
     ],
   });
 

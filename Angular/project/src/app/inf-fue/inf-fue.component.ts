@@ -51,6 +51,34 @@ export class InfFueComponent {
     return this.formUserFue.get('obs2') as FormControl;
   }
 
+  get revperres() {
+    return this.formUserFue.get('revperres') as FormControl;
+  }
+
+  get revareres() {
+    return this.formUserFue.get('revareres') as FormControl;
+  }
+
+  get tipercap() {
+    return this.formUserFue.get('tipercap') as FormControl;
+  }
+
+  get numidencap() {
+    return this.formUserFue.get('numidencap') as FormControl;
+  }
+
+  get tiperver() {
+    return this.formUserFue.get('tiperver') as FormControl;
+  }
+
+  get numidenver() {
+    return this.formUserFue.get('numidenver') as FormControl;
+  }
+
+  get obs3() {
+    return this.formUserFue.get('obs3') as FormControl;
+  }
+
   formUserFue = this.fb.group({
     idoferta: [{ value: '123456789', disabled: true }, Validators.required],
     nom: ['', [Validators.required, Validators.maxLength(50)]],
@@ -61,6 +89,19 @@ export class InfFueComponent {
     nomresofer: ['', [Validators.required, Validators.maxLength(50)]],
     email: ['', [Validators.required, Validators.maxLength(50)]],
     obs2: ['', [Validators.required, Validators.maxLength(1000)]],
+    revperres: ['', [Validators.required, Validators.maxLength(50)]],
+    revareres: ['', [Validators.required, Validators.maxLength(50)]],
+    tipercap: ['', Validators.required],
+    numidencap: [
+      '',
+      [Validators.required, Validators.max(100000000000000), Validators.min(1)],
+    ],
+    tiperver: ['', Validators.required],
+    numidenver: [
+      '',
+      [Validators.required, Validators.max(100000000000000), Validators.min(1)],
+    ],
+    obs3: ['', [Validators.required, Validators.maxLength(1000)]],
   });
 
   procesar() {
