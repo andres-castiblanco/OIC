@@ -52,7 +52,7 @@ export class IdenPreComponent {
   }
 
   formUser = this.fb.group({
-    idoferta: [{ value: '123456789', disabled: true }, Validators.required],
+    idoferta: [{ value: '', disabled: true }, Validators.required],
     numprenue: [
       '',
       [Validators.required, Validators.minLength(30), Validators.maxLength(30)],
@@ -61,8 +61,8 @@ export class IdenPreComponent {
       '',
       [Validators.required, Validators.minLength(20), Validators.maxLength(20)],
     ],
-    codhom: [''],
-    matrinmb: [''],
+    codhom: ['', [Validators.maxLength(20)]],
+    matrinmb: ['', [Validators.maxLength(20)]],
     conjur: ['', Validators.required],
     tipofer: ['', Validators.required],
     tippre: ['', Validators.required],
