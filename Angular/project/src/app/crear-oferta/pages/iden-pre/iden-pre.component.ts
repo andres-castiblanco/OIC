@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { disableDebugTools } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-iden-pre',
