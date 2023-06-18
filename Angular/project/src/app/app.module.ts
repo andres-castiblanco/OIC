@@ -5,6 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 
 import { AppRoutingModule } from './app-routing.module';
+import { HeaderComponent } from './compartidos/componentes/header/header.component';
+import { FooterComponent } from './compartidos/componentes/footer/footer.component';
 
 // import { IdenPreComponent } from './crear-oferta/iden-pre/iden-pre.component';
 // import { LocPreComponent } from './crear-oferta/loc-pre/loc-pre.component';
@@ -20,6 +22,8 @@ import { AppRoutingModule } from './app-routing.module';
 @NgModule({
   declarations: [
     AppComponent,
+    HeaderComponent,
+    FooterComponent,
     // IdenPreComponent,
     // LocPreComponent,
     // DatGenComponent,
