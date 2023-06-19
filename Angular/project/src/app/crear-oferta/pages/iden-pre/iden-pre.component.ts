@@ -8,13 +8,16 @@ import {
 import { disableDebugTools } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { ApiService } from '../../../servicios/api/api.service';
+import { idenPreI } from '../../../modelos/crear-oferta-iden-pre.interface';
+
 @Component({
   selector: 'app-iden-pre',
   templateUrl: './iden-pre.component.html',
   styleUrls: ['./iden-pre.component.css'],
 })
 export class IdenPreComponent {
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private api: ApiService) {}
 
   get idoferta() {
     return this.formUser.get('idoferta') as FormControl;
@@ -70,7 +73,32 @@ export class IdenPreComponent {
     oriofer: ['', Validators.required],
   });
 
+  objIdenPre: idenPreI = {
+    numero_predial_nuevo: '',
+    numero_predial_antiguo: '',
+    codigo_homologado: '',
+    matricula_inmobiliaria: '',
+    condicion_juridica: '',
+    tipo_oferta: '',
+    tipo_predio: '',
+    oferta_origen: '',
+    estado_oferta: 1,
+    obs_verifica: 'Sin comentarios' as unknown | Text,
+  };
+
   procesar() {
-    console.log(this.formUser.value);
+    this.objIdenPre.numero_predial_antiguo = this.formUser.value.numpreant;
+    this.objIdenPre.codigo_homologado = this.formUser.value.codhom;
+    this.objIdenPre.matricula_inmobiliaria = this.formUser.value.matrinmb;
+    this.objIdenPre.condicion_juridica = this.formUser.value.conjur;
+    this.objIdenPre.numero_predial_nuevo = this.formUser.value.numprenue;
+    this.objIdenPre.tipo_oferta = this.formUser.value.tipofer;
+    this.objIdenPre.tipo_predio = this.formUser.value.tippre;
+    this.objIdenPre.oferta_origen = this.formUser.value.oriofer;
+
+    this.api.capOferRestIDOferta(this.objIdenPre).subscribe((data) => {
+      console.log(data);
+    });
+    // console.log(this.objIdenPre);
   }
 }

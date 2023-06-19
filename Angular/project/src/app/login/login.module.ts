@@ -5,7 +5,7 @@ import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './pages/login/login.component';
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, LoginComponent],
   imports: [CommonModule, LoginRoutingModule],
 })
 export class LoginModule {}

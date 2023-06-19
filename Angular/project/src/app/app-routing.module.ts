@@ -1,63 +1,23 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
-// import { IdenPreComponent } from './crear-oferta/iden-pre/iden-pre.component';
-// import { LocPreComponent } from './crear-oferta/loc-pre/loc-pre.component';
-// import { DatGenComponent } from './crear-oferta/dat-gen/dat-gen.component';
-// import { InfFisComponent } from './crear-oferta/inf-fis/inf-fis.component';
-// import { InfEcoComponent } from './crear-oferta/inf-eco/inf-eco.component';
-// import { InfFueComponent } from './crear-oferta/inf-fue/inf-fue.component';
-// import { HomeOfertasComponent } from './home-oferta/home-ofertas/home-ofertas.component';
-// import { ConOferComponent } from './consultar-oferta/con-ofer/con-ofer.component';
-// import { ModOferComponent } from './modificar-oferta/mod-ofer/mod-ofer.component';
-// import { ValOferComponent } from './validar-oferta/val-ofer/val-ofer.component';
+import { IdenPreComponent } from './crear-oferta/pages/iden-pre/iden-pre.component';
+import { HomeOfertasComponent } from './home-oferta/pages/home-ofertas/home-ofertas.component';
+import { DatGenComponent } from './crear-oferta/pages/dat-gen/dat-gen.component';
+import { InfEcoComponent } from './crear-oferta/pages/inf-eco/inf-eco.component';
+import { InfFisComponent } from './crear-oferta/pages/inf-fis/inf-fis.component';
+import { InfFueComponent } from './crear-oferta/pages/inf-fue/inf-fue.component';
+import { LocPreComponent } from './crear-oferta/pages/loc-pre/loc-pre.component';
+import { ConOferComponent } from './consultar-oferta/pages/con-ofer/con-ofer.component';
+import { LoginComponent } from './login/pages/login/login.component';
+import { ModOferComponent } from './modificar-oferta/pages/mod-ofer/mod-ofer.component';
+import { ValOferComponent } from './validar-oferta/pages/val-ofer/val-ofer.component';
 
 const routes: Routes = [
-  // {
-  //   path: 'HomeOfertas',
-  //   component: HomeOfertasComponent,
-  // },
-  // {
-  //   path: 'IdenPre',
-  //   component: IdenPreComponent,
-  // },
-  // {
-  //   path: 'LocPre',
-  //   component: LocPreComponent,
-  // },
-  // {
-  //   path: 'DatGen',
-  //   component: DatGenComponent,
-  // },
-  // {
-  //   path: 'InfFis',
-  //   component: InfFisComponent,
-  // },
-  // {
-  //   path: 'InfEco',
-  //   component: InfEcoComponent,
-  // },
-  // {
-  //   path: 'InfFue',
-  //   component: InfFueComponent,
-  // },
-  // {
-  //   path: 'ConPre',
-  //   component: ConOferComponent,
-  // },
-  // {
-  //   path: 'ModPre',
-  //   component: ModOferComponent,
-  // },
-  // {
-  //   path: 'ValPre',
-  //   component: ValOferComponent,
-  // },
-  // {
-  //   path: '**',
-  //   component: HomeOfertasComponent,
-  // },
-  //
+  {
+    path: '',
+    redirectTo: 'HomeOfertas',
+    pathMatch: 'full',
+  },
   {
     path: 'HomeOfertas',
     loadChildren: () =>
@@ -108,3 +68,16 @@ const routes: Routes = [
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
+export const routingComponents = [
+  HomeOfertasComponent,
+  IdenPreComponent,
+  DatGenComponent,
+  InfEcoComponent,
+  InfFisComponent,
+  InfFueComponent,
+  LocPreComponent,
+  ConOferComponent,
+  LoginComponent,
+  ModOferComponent,
+  ValOferComponent,
+];
