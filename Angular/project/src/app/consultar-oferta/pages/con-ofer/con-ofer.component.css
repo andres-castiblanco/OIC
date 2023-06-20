@@ -11,8 +11,8 @@
 body {
 overflow-x: hidden;
 /* margin: auto; */
-margin-left: 7rem;
-margin-right: 7rem;
+margin-left: 11rem;
+margin-right: 11rem;
 font-family: Montserrat;
 }
 
@@ -34,7 +34,7 @@ padding-right: 20px;
 }
 
 .container {
-border-radius: 5px;
+border-radius: 50px;
 background-color: #f2f2f2;
 padding: 20px;
 margin-bottom: 20px;
