@@ -8,13 +8,15 @@
       <div class="container">
         <h2>Identificación del Predio</h2>
 
-        <label for="idoferta"
-          >Id de la Oferta (Se genera automaticamente)</label
-        >
-        <div class="alerError" [hidden]="idoferta.valid || idoferta.pristine">
-          El id es obligatorio
+        <div *ngIf="noVistaOfer">
+          <label for="idoferta"
+            >Id de la Oferta (Se genera automaticamente)</label
+          >
+          <div class="alerError" [hidden]="idoferta.valid || idoferta.pristine">
+            El id es obligatorio
+          </div>
+          <input type="number" formControlName="idoferta" name="Id Oferta" />
         </div>
-        <input type="number" formControlName="idoferta" name="Id Oferta" />
 
         <label for="numprenue">Número Predial Nuevo</label>
         <div class="alerError" [hidden]="numprenue.valid || numprenue.pristine">

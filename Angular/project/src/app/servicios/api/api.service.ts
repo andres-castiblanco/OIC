@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ApiService {
-  url: string = 'http://localhost:8081/ofertainmobiliaria/';
+  url: string = 'http://172.28.163.141:8081/ofertainmobiliaria/';
 
   constructor(private http: HttpClient) {}
 

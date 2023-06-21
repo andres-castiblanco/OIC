@@ -74,10 +74,11 @@ export class IdenPreComponent {
   });
 
   objIdenPre: idenPreI = {
-    numero_predial_nuevo: '',
-    numero_predial_antiguo: '',
+    id_oferta: 0,
+    npn: '',
+    npa: '',
     codigo_homologado: '',
-    matricula_inmobiliaria: '',
+    matricula: '',
     condicion_juridica: '',
     tipo_oferta: '',
     tipo_predio: '',
@@ -86,15 +87,19 @@ export class IdenPreComponent {
     obs_verifica: 'Sin comentarios' as unknown | Text,
   };
 
+  noVistaOfer: boolean = false;
+
   procesar() {
-    this.objIdenPre.numero_predial_antiguo = this.formUser.value.numpreant;
+    this.objIdenPre.npa = this.formUser.value.numpreant;
     this.objIdenPre.codigo_homologado = this.formUser.value.codhom;
-    this.objIdenPre.matricula_inmobiliaria = this.formUser.value.matrinmb;
+    this.objIdenPre.matricula = this.formUser.value.matrinmb;
     this.objIdenPre.condicion_juridica = this.formUser.value.conjur;
-    this.objIdenPre.numero_predial_nuevo = this.formUser.value.numprenue;
+    this.objIdenPre.npn = this.formUser.value.numprenue;
     this.objIdenPre.tipo_oferta = this.formUser.value.tipofer;
     this.objIdenPre.tipo_predio = this.formUser.value.tippre;
     this.objIdenPre.oferta_origen = this.formUser.value.oriofer;
+
+    console.log(this.objIdenPre);
 
     this.api.capOferRestIDOferta(this.objIdenPre).subscribe((data) => {
       console.log(data);

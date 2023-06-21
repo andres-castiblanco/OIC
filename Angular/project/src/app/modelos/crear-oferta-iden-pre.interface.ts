@@ -1,8 +1,9 @@
 export interface idenPreI {
-  numero_predial_nuevo: String | null | undefined;
-  numero_predial_antiguo: String | null | undefined;
+  id_oferta: Number;
+  npn: String | null | undefined;
+  npa: String | null | undefined;
   codigo_homologado: String | null | undefined;
-  matricula_inmobiliaria: String | null | undefined;
+  matricula: String | null | undefined;
   condicion_juridica: String | null | undefined;
   tipo_oferta: String | null | undefined;
   tipo_predio: String | null | undefined;
