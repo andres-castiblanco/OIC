@@ -56,6 +56,7 @@ header {
 }
 
 .buttonEnviar {
+  font-size: 15px;
   background-color: #4caf50;
   border-radius: 8px;
   color: white;

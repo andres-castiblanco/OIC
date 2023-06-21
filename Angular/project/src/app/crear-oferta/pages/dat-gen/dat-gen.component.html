@@ -122,13 +122,19 @@
           style="height: 200px"
         ></textarea>
       </div>
-      <div>
-        <h2>
-        <button class="buttonEnviar" [disabled]="formUserGen.invalid">
-          Guardar Información
-        </button>
+      
+      <div class="row">
+        <h2 class="col-4">
+          <button class="buttonEnviar">Anterior</button>
+        </h2>
+        <h2 class="col-4">
+          <button class="buttonEnviar" [disabled]="formUserGen.invalid">Guardar</button>
+        </h2>
+        <h2 class="col-4">
+          <button class="buttonEnviar" [disabled]="true">Siguiente</button>
         </h2>
       </div>
+
     </form>
   </body>
 </html>

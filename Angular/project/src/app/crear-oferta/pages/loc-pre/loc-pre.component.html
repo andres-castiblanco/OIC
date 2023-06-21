@@ -259,7 +259,7 @@
             La cantidad de caracteres debe de ser inferior a 100
           </div>
         </div>
-        <input
+        <inpu
           type="text"
           formControlName="dirrur"
           name="dirrur"
@@ -267,16 +267,19 @@
         />
 
       </div>
-      <div>
-        <h2>
-        <button
-          class="buttonEnviar"
-          [disabled]="formUserLoca.invalid || formUserLoca.value.mun == null"
-        >
-          Guardar Información
-        </button>
+
+      <div class="row">
+        <h2 class="col-4">
+          <button class="buttonEnviar">Anterior</button>
+        </h2>
+        <h2 class="col-4">
+          <button class="buttonEnviar" [disabled]="formUserLoca.invalid">Guardar</button>
+        </h2>
+        <h2 class="col-4">
+          <button class="buttonEnviar" [disabled]="true">Siguiente</button>
         </h2>
       </div>
+
     </form>
   </body>
 </html>

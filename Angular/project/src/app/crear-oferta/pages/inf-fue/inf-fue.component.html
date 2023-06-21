@@ -278,11 +278,15 @@
       
       </div>
 
-      <div>
-        <h2>
-          <button class="buttonEnviar" [disabled]="formUserFue.invalid">
-            Enviar
-          </button>
+      <div class="row">
+        <h2 class="col-4">
+            <button class="buttonEnviar">Anterior</button>
+        </h2>
+        <h2 class="col-4">
+            <button class="buttonEnviar" [disabled]="formUserFue.invalid">Guardar</button>
+        </h2>
+        <h2 class="col-4">
+            <button class="buttonEnviar" [disabled]="true">Enviar y terminar</button>
         </h2>
       </div>
     </form>

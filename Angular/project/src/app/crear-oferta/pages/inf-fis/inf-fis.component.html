@@ -389,13 +389,18 @@
         placeholder="Zona dura, Muro de antepecho, Lavadero, Tanque de concreto, etc"
     />
 
-    </div>    
-    <div>
-    <h2>
-    <button class="buttonEnviar" [disabled]="formUserFis.invalid">
-        Guardar Información
-    </button>
-    </h2>
+    </div>
+    
+    <div class="row">
+        <h2 class="col-4">
+            <button class="buttonEnviar">Anterior</button>
+        </h2>
+        <h2 class="col-4">
+            <button class="buttonEnviar" [disabled]="formUserFis.invalid">Guardar</button>
+        </h2>
+        <h2 class="col-4">
+            <button class="buttonEnviar" [disabled]="true">Siguiente</button>
+        </h2>
     </div>
 </form>
 </body>
