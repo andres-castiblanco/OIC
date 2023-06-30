@@ -1,5 +1,5 @@
 export interface idenPreI {
-  id_oferta: Number;
+  id_oferta: Number | null;
   npn: String | null | undefined;
   npa: String | null | undefined;
   codigo_homologado: String | null | undefined;

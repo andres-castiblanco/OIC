@@ -259,13 +259,12 @@
             La cantidad de caracteres debe de ser inferior a 100
           </div>
         </div>
-        <inpu
+        <input
           type="text"
           formControlName="dirrur"
           name="dirrur"
           placeholder="Km 3 via Belen, Finca La Hermosa"
         />
-
       </div>
 
       <div class="row">
@@ -273,13 +272,14 @@
           <button class="buttonEnviar">Anterior</button>
         </h2>
         <h2 class="col-4">
-          <button class="buttonEnviar" [disabled]="formUserLoca.invalid">Guardar</button>
+          <button class="buttonEnviar" [disabled]="formUserLoca.invalid">
+            Guardar
+          </button>
         </h2>
         <h2 class="col-4">
           <button class="buttonEnviar" [disabled]="true">Siguiente</button>
         </h2>
       </div>
-
     </form>
   </body>
 </html>

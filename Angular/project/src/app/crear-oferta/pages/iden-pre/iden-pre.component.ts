@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ApiService } from '../../../servicios/api/api.service';
 import { idenPreI } from '../../../modelos/crear-oferta-iden-pre.interface';
+import { resIdenPreI } from '../../../modelos/res-iden-pre.interface';
 
 @Component({
   selector: 'app-iden-pre',
@@ -74,7 +75,7 @@ export class IdenPreComponent {
   });
 
   objIdenPre: idenPreI = {
-    id_oferta: 0,
+    id_oferta: null,
     npn: '',
     npa: '',
     codigo_homologado: '',
@@ -87,7 +88,7 @@ export class IdenPreComponent {
     obs_verifica: 'Sin comentarios' as unknown | Text,
   };
 
-  noVistaOfer: boolean = false;
+  noVistaOfer: boolean = this.objIdenPre.id_oferta === null ? false : true;
 
   procesar() {
     this.objIdenPre.npa = this.formUser.value.numpreant;
@@ -101,9 +102,19 @@ export class IdenPreComponent {
 
     console.log(this.objIdenPre);
 
-    this.api.capOferRestIDOferta(this.objIdenPre).subscribe((data) => {
-      console.log(data);
-    });
-    // console.log(this.objIdenPre);
+    if (this.objIdenPre.id_oferta === null) {
+      this.api.capOferRestIDOferta(this.objIdenPre).subscribe((data) => {
+        this.objIdenPre.id_oferta = Number(data);
+        this.noVistaOfer = true;
+        this.formUser.controls['idoferta'].setValue(
+          String(this.objIdenPre.id_oferta)
+        );
+      });
+    } else {
+      console.warn(
+        `El valor de id_oferta ya fue asigando su valor es de: ${this.objIdenPre.id_oferta}`
+      );
+    }
+    console.log(this.objIdenPre);
   }
 }

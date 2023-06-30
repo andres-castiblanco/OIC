@@ -89,17 +89,17 @@
         <select id="conjur" formControlName="conjur" name="conjur">
           <option value="NPH">NPH</option>
           <option value="PH">PH</option>
-          <option value="PH.MATRIZ">PH MATRIZ</option>
-          <option value="PH.UNIDAD_PREDIAL">PH UNIDAD PREDIAL</option>
+          <option value="PH_MATRIZ">PH MATRIZ</option>
+          <option value="PH_UNIDAD_PREDIAL">PH UNIDAD PREDIAL</option>
           <option value="CONDOMINIO">CONDOMINIO</option>
-          <option value="CONDOMINIO.MATRIZ">CONDOMINIO MATRIZ</option>
-          <option value="CONDOMINIO.UNIDAD_PREDIAL">
+          <option value="CONDOMINIO_MATRIZ">CONDOMINIO MATRIZ</option>
+          <option value="CONDOMINIO_UNIDAD_PREDIAL">
             CONDOMINIO UNIDAD PREDIAL
           </option>
-          <option value="PARQUE_CEMENTERIO.MATRIZ">
+          <option value="PARQUE_CEMENTERIO_MATRIZ">
             PARQUE CEMENTERIO MATRIZ
           </option>
-          <option value="PARQUE_CEMENTERIO.UNIDAD_PREDIAL">
+          <option value="PARQUE_CEMENTERIO_UNIDAD_PREDIAL">
             PARQUE CEMENTERIO UNIDAD PREDIAL
           </option>
           <option value="VIA">VIA</option>
@@ -123,7 +123,7 @@
         <select id="tippre" formControlName="tippre" name="tippre">
           <option value="URBANO">URBANO</option>
           <option value="RURAL">RURAL</option>
-          <option value="CORREGIMIENTO Y CASERIOS">
+          <option value="CORREGIMIENTO_Y_CASERIOS">
             CORREGIMIENTO Y/O CASERIOS
           </option>
         </select>
@@ -134,16 +134,15 @@
         </div>
         <select id="oriofer" formControlName="oriofer" name="oriofer">
           <option value="IVP">IVP</option>
-          <option value="ACTUALIZACIÓN">ACTUALIZACIÓN</option>
-          <option value="CONSERVACIÓN">CONSERVACIÓN</option>
-          <option value="FORMACIÓN">FORMACIÓN</option>
-          <option value="INVESTIGACIÓN">INVESTIGACIÓN</option>
+          <option value="ACTUALIZACION">ACTUALIZACIÓN</option>
+          <option value="CONSERVACION">CONSERVACIÓN</option>
+          <option value="FORMACION">FORMACIÓN</option>
+          <option value="INVESTIGACION">INVESTIGACIÓN</option>
         </select>
       </div>
 
       <div class="row">
-        <h2 class="col-4">
-        </h2>
+        <h2 class="col-4"></h2>
         <h2 class="col-4">
           <button class="buttonEnviar" [disabled]="formUser.invalid">
             Guardar

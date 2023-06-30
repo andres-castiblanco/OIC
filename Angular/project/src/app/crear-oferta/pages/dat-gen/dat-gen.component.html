@@ -20,8 +20,8 @@
         </div>
         <select formControlName="dertip" name="dertip">
           <option value="OCUPACION">OCUPACION</option>
-          <option value="POSESIÓN">POSESIÓN</option>
-          <option value="DERECHO DE DOMINIO O PROPIEDAD">
+          <option value="POSESION">POSESIÓN</option>
+          <option value="DERECHO_DE_DOMINIO_O_PROPIEDAD">
             DERECHO DE DOMINIO O PROPIEDAD
           </option>
         </select>
@@ -35,16 +35,16 @@
           <option value="APARTAMENTO">APARTAMENTO</option>
           <option value="BODEGA">BODEGA</option>
           <option value="OFICINA">OFICINA</option>
-          <option value="LOCAL_COMERCIAL">LOCAL_COMERCIAL</option>
+          <option value="LOCAL_COMERCIAL">LOCAL COMERCIAL</option>
           <option value="EDIFICIO">EDIFICIO</option>
           <option value="LOTE">LOTE</option>
           <option value="FINCA">FINCA</option>
-          <option value="CASA_CAMPESTRE">CASA_CAMPESTRE</option>
+          <option value="CASA_CAMPESTRE">CASA CAMPESTRE</option>
           <option value="CABAÑA">CABAÑA</option>
-          <option value="CASA_LOTE">CASA_LOTE</option>
-          <option value="GARAJE_EN_PH">GARAJE_EN_PH</option>
-          <option value="PARQUEADERO_COMERCIAL">PARQUEADERO_COMERCIAL</option>
-          <option value="DEPOSITO_EN_PH">DEPOSITO_EN_PH</option>
+          <option value="CASA_LOTE">CASA LOTE</option>
+          <option value="GARAJE_EN_PH">GARAJE EN_PH</option>
+          <option value="PARQUEADERO_COMERCIAL">PARQUEADERO COMERCIAL</option>
+          <option value="DEPOSITO_EN_PH">DEPOSITO EN PH</option>
           <option value="OTRO">OTRO</option>
         </select>
 
@@ -122,19 +122,20 @@
           style="height: 200px"
         ></textarea>
       </div>
-      
+
       <div class="row">
         <h2 class="col-4">
           <button class="buttonEnviar">Anterior</button>
         </h2>
         <h2 class="col-4">
-          <button class="buttonEnviar" [disabled]="formUserGen.invalid">Guardar</button>
+          <button class="buttonEnviar" [disabled]="formUserGen.invalid">
+            Guardar
+          </button>
         </h2>
         <h2 class="col-4">
           <button class="buttonEnviar" [disabled]="true">Siguiente</button>
         </h2>
       </div>
-
     </form>
   </body>
 </html>
