@@ -149,7 +149,13 @@
           </button>
         </h2>
         <h2 class="col-4">
-          <button class="buttonEnviar" [disabled]="true">Siguiente</button>
+          <button
+            class="buttonEnviar"
+            [disabled]="noVistaSiguiente"
+            routerLink="../LocPre"
+          >
+            Siguiente
+          </button>
         </h2>
       </div>
     </form>

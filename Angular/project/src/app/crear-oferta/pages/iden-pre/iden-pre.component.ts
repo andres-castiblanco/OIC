@@ -12,13 +12,19 @@ import { ApiService } from '../../../servicios/api/api.service';
 import { idenPreI } from '../../../modelos/crear-oferta-iden-pre.interface';
 import { resIdenPreI } from '../../../modelos/res-iden-pre.interface';
 
+import { ValrelacionesService } from '../../../servicios/valrelaciones/valrelaciones.service';
+
 @Component({
   selector: 'app-iden-pre',
   templateUrl: './iden-pre.component.html',
   styleUrls: ['./iden-pre.component.css'],
 })
 export class IdenPreComponent {
-  constructor(private fb: FormBuilder, private api: ApiService) {}
+  constructor(
+    private fb: FormBuilder,
+    private api: ApiService,
+    public valrelacionesService: ValrelacionesService
+  ) {}
 
   get idoferta() {
     return this.formUser.get('idoferta') as FormControl;
@@ -88,33 +94,43 @@ export class IdenPreComponent {
     obs_verifica: 'Sin comentarios' as unknown | Text,
   };
 
-  noVistaOfer: boolean = this.objIdenPre.id_oferta === null ? false : true;
+  noVistaOfer: boolean =
+    this.valrelacionesService.idenPredio.id_oferta === null ? false : true;
+  noVistaSiguiente: boolean =
+    this.valrelacionesService.idenPredio.id_oferta === null ? true : false;
 
   procesar() {
-    this.objIdenPre.npa = this.formUser.value.numpreant;
-    this.objIdenPre.codigo_homologado = this.formUser.value.codhom;
-    this.objIdenPre.matricula = this.formUser.value.matrinmb;
-    this.objIdenPre.condicion_juridica = this.formUser.value.conjur;
-    this.objIdenPre.npn = this.formUser.value.numprenue;
-    this.objIdenPre.tipo_oferta = this.formUser.value.tipofer;
-    this.objIdenPre.tipo_predio = this.formUser.value.tippre;
-    this.objIdenPre.oferta_origen = this.formUser.value.oriofer;
+    this.objIdenPre.npa = this.formUser.value.numpreant?.valueOf();
+    this.objIdenPre.codigo_homologado = this.formUser.value.codhom?.valueOf();
+    this.objIdenPre.matricula = this.formUser.value.matrinmb?.valueOf();
+    this.objIdenPre.condicion_juridica = this.formUser.value.conjur?.valueOf();
+    this.objIdenPre.npn = this.formUser.value.numprenue?.valueOf();
+    this.objIdenPre.tipo_oferta = this.formUser.value.tipofer?.valueOf();
+    this.objIdenPre.tipo_predio = this.formUser.value.tippre?.valueOf();
+    this.objIdenPre.oferta_origen = this.formUser.value.oriofer?.valueOf();
 
-    console.log(this.objIdenPre);
-
-    if (this.objIdenPre.id_oferta === null) {
+    if (
+      this.valrelacionesService.idenPredio.id_oferta === null ||
+      JSON.stringify(this.valrelacionesService.idenPredio) !==
+        JSON.stringify(this.objIdenPre)
+    ) {
       this.api.capOferRestIDOferta(this.objIdenPre).subscribe((data) => {
         this.objIdenPre.id_oferta = Number(data);
+        this.valrelacionesService.idenPredio.id_oferta = Number(data);
+        this.valrelacionesService.setIdenPredio = this.objIdenPre;
         this.noVistaOfer = true;
+        this.noVistaSiguiente = false;
         this.formUser.controls['idoferta'].setValue(
-          String(this.objIdenPre.id_oferta)
+          String(this.valrelacionesService.idenPredio.id_oferta)
+        );
+        console.warn(
+          `El valor de id_oferta se inicializó y fue asignado su valor es de: ${this.valrelacionesService.idenPredio.id_oferta}. Se evidencia actualizaciones por lo tanto se actualizan los datos.`
         );
       });
     } else {
       console.warn(
-        `El valor de id_oferta ya fue asigando su valor es de: ${this.objIdenPre.id_oferta}`
+        `El valor de id_oferta ya fue asignado su valor es de: ${this.valrelacionesService.idenPredio.id_oferta}. No se evidencia actualizaciones.`
       );
     }
-    console.log(this.objIdenPre);
   }
 }
