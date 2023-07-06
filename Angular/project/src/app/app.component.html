@@ -30,24 +30,36 @@
 
     <details>
       <summary>Crear oferta</summary>
-      <a routerLink="CrearOferta/IdenPre" routerLinkActive="active"
-        >Identificación predio</a
-      >
-      <a routerLink="CrearOferta/LocPre" routerLinkActive="active"
-        >Localización predio</a
-      >
-      <a routerLink="CrearOferta/DatGen" routerLinkActive="active"
-        >Datos generales</a
-      >
-      <a routerLink="CrearOferta/InfFis" routerLinkActive="active"
-        >Información física</a
-      >
-      <a routerLink="CrearOferta/InfEco" routerLinkActive="active"
-        >Información económica</a
-      >
-      <a routerLink="CrearOferta/InfFue" routerLinkActive="active"
-        >Información fuente</a
-      >
+      <div *ngIf="valrelacionesService.vistasHabilitar.noVistaIdenPreOfer">
+        <a routerLink="CrearOferta/IdenPre" routerLinkActive="active"
+          >Identificación predio</a
+        >
+      </div>
+      <div *ngIf="valrelacionesService.vistasHabilitar.noVistaLocOfer">
+        <a routerLink="CrearOferta/LocPre" routerLinkActive="active"
+          >Localización predio</a
+        >
+      </div>
+      <div *ngIf="valrelacionesService.vistasHabilitar.noVistaDatGen">
+        <a routerLink="CrearOferta/DatGen" routerLinkActive="active"
+          >Datos generales</a
+        >
+      </div>
+      <div *ngIf="valrelacionesService.vistasHabilitar.noVistaInfoFisi">
+        <a routerLink="CrearOferta/InfFis" routerLinkActive="active"
+          >Información física</a
+        >
+      </div>
+      <div *ngIf="valrelacionesService.vistasHabilitar.noVistaInfoEnoco">
+        <a routerLink="CrearOferta/InfEco" routerLinkActive="active"
+          >Información económica</a
+        >
+      </div>
+      <div *ngIf="valrelacionesService.vistasHabilitar.noVistaInfoFuen">
+        <a routerLink="CrearOferta/InfFue" routerLinkActive="active"
+          >Información fuente</a
+        >
+      </div>
     </details>
 
     <a routerLink="ConOfer" routerLinkActive="active">Consultar oferta</a>

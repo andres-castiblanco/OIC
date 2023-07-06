@@ -63,21 +63,45 @@ export class IdenPreComponent {
   }
 
   formUser = this.fb.group({
-    idoferta: [{ value: '', disabled: true }, Validators.required],
+    idoferta: [
+      {
+        value: String(this.valrelacionesService.idenPredio.id_oferta),
+        disabled: true,
+      },
+      Validators.required,
+    ],
     numprenue: [
-      '',
+      this.valrelacionesService.idenPredio.npn,
       [Validators.required, Validators.minLength(30), Validators.maxLength(30)],
     ],
     numpreant: [
-      '',
+      this.valrelacionesService.idenPredio.npa,
       [Validators.required, Validators.minLength(20), Validators.maxLength(20)],
     ],
-    codhom: ['', [Validators.maxLength(20)]],
-    matrinmb: ['', [Validators.maxLength(20)]],
-    conjur: ['', Validators.required],
-    tipofer: ['', Validators.required],
-    tippre: ['', Validators.required],
-    oriofer: ['', Validators.required],
+    codhom: [
+      this.valrelacionesService.idenPredio.codigo_homologado,
+      [Validators.maxLength(20)],
+    ],
+    matrinmb: [
+      this.valrelacionesService.idenPredio.matricula,
+      [Validators.maxLength(20)],
+    ],
+    conjur: [
+      this.valrelacionesService.idenPredio.condicion_juridica,
+      Validators.required,
+    ],
+    tipofer: [
+      this.valrelacionesService.idenPredio.tipo_oferta,
+      Validators.required,
+    ],
+    tippre: [
+      this.valrelacionesService.idenPredio.tipo_predio,
+      Validators.required,
+    ],
+    oriofer: [
+      this.valrelacionesService.idenPredio.oferta_origen,
+      Validators.required,
+    ],
   });
 
   objIdenPre: idenPreI = {
@@ -122,6 +146,10 @@ export class IdenPreComponent {
         this.noVistaSiguiente = false;
         this.formUser.controls['idoferta'].setValue(
           String(this.valrelacionesService.idenPredio.id_oferta)
+        );
+        this.valrelacionesService.habilitarVista(
+          'noVistaLocOfer',
+          this.noVistaSiguiente
         );
         console.warn(
           `El valor de id_oferta se inicializó y fue asignado su valor es de: ${this.valrelacionesService.idenPredio.id_oferta}. Se evidencia actualizaciones por lo tanto se actualizan los datos.`

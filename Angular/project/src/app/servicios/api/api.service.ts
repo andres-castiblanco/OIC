@@ -8,7 +8,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ApiService {
-  url: string = 'http://172.28.163.141:8081/ofertainmobiliaria/';
+  // url: string = 'http://172.28.163.141:8081/ofertainmobiliaria/';
+  // url: string = 'http://172.19.3.110:8081/ofertainmobiliaria/';
+  url: string = 'https://309edcca-12b0-466d-a296-f6a172af65b7.mock.pstmn.io/';
 
   constructor(private http: HttpClient) {}
 
