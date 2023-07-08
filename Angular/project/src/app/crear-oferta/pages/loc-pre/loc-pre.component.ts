@@ -6,13 +6,27 @@ import {
   Validators,
 } from '@angular/forms';
 import { disableDebugTools } from '@angular/platform-browser';
+
+import {
+  locPreI,
+  locPreIDir,
+} from '../../../modelos/crear-oferta-loc-pre.interface';
+import { resCearOfer } from '../../../modelos/res-crear-ofer.interface';
+
+import { ApiService } from '../../../servicios/api/api.service';
+import { ValrelacionesService } from '../../../servicios/valrelaciones/valrelaciones.service';
+
 @Component({
   selector: 'app-loc-pre',
   templateUrl: './loc-pre.component.html',
   styleUrls: ['./loc-pre.component.css'],
 })
 export class LocPreComponent {
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private api: ApiService,
+    public valrelacionesService: ValrelacionesService
+  ) {}
 
   get idoferta() {
     return this.formUserLoca.get('idoferta') as FormControl;
@@ -1271,13 +1285,22 @@ export class LocPreComponent {
   mpios: any;
 
   formUserLoca = this.fb.group({
-    idoferta: [{ value: '123456789', disabled: true }, Validators.required],
-    dep: ['', Validators.required],
-    mun: ['', Validators.required],
-    nombar: ['', [Validators.required, Validators.maxLength(30)]],
-    nomver: ['', [Validators.required, Validators.maxLength(30)]],
+    idoferta: [
+      { value: this.valrelacionesService.idenPredio.id_oferta, disabled: true },
+      Validators.required,
+    ],
+    dep: [this.valrelacionesService.locPre.departamento, Validators.required],
+    mun: [this.valrelacionesService.locPre.municipio, Validators.required],
+    nombar: [
+      this.valrelacionesService.locPre.barrio,
+      [Validators.maxLength(30)],
+    ],
+    nomver: [
+      this.valrelacionesService.locPre.vereda,
+      [Validators.maxLength(30)],
+    ],
     lat: [
-      '',
+      this.valrelacionesService.locPre.latitud,
       [
         Validators.required,
         Validators.max(15),
@@ -1286,7 +1309,7 @@ export class LocPreComponent {
       ],
     ],
     lon: [
-      '',
+      this.valrelacionesService.locPre.longitud,
       [
         Validators.required,
         Validators.max(-65),
@@ -1294,41 +1317,150 @@ export class LocPreComponent {
         Validators.maxLength(12),
       ],
     ],
-    dir01: ['', Validators.required],
-    dir02: ['', [Validators.required, Validators.max(1000), Validators.min(0)]],
-    dir03: [''],
-    dir04: [''],
-    dir05: [''],
-    dir06: ['', [Validators.required, Validators.max(1000), Validators.min(0)]],
-    dir07: [''],
-    dir08: [''],
-    dirrur: ['', [Validators.required, Validators.maxLength(100)]],
+    dir01: [this.valrelacionesService.locPreDir.dir01],
+    dir02: [
+      this.valrelacionesService.locPreDir.dir02,
+      [Validators.max(1000), Validators.min(0)],
+    ],
+    dir03: [this.valrelacionesService.locPreDir.dir03],
+    dir04: [this.valrelacionesService.locPreDir.dir04],
+    dir05: [this.valrelacionesService.locPreDir.dir05],
+    dir06: [
+      this.valrelacionesService.locPreDir.dir06,
+      [Validators.max(1000), Validators.min(0)],
+    ],
+    dir07: [this.valrelacionesService.locPreDir.dir07],
+    dir08: [this.valrelacionesService.locPreDir.dir08],
+    dirrur: [
+      this.valrelacionesService.locPreDir.dirrur,
+      [Validators.maxLength(100)],
+    ],
   });
 
   handleChange(dto: any) {
-    this.formUserLoca.value.mun = null;
-    //console.log('hice clic');
+    this.formUserLoca.value.mun = String(
+      this.valrelacionesService.locPre.municipio?.valueOf
+    );
     this.mpios = this.deptosMpios[dto as keyof typeof this.deptosMpios];
     this.formUserLoca.clearValidators();
   }
 
-  procesar() {
-    let dirParte1 = `${this.formUserLoca.value.dir01} ${this.formUserLoca.value.dir02} ${this.formUserLoca.value.dir03}`,
-      dirParte2 = this.formUserLoca.value.dir04 ? `Bis` : ``,
-      dirParte3 = `${this.formUserLoca.value.dir05} ${this.formUserLoca.value.dir06} ${this.formUserLoca.value.dir07} ${this.formUserLoca.value.dir08}`,
-      dirCompleta = `${dirParte1} ${dirParte2} ${dirParte3}`
-        .replace(/\s+/gi, ' ')
-        .trim(),
-      objeLoca = {
-        dep: this.formUserLoca.value.dep,
-        mun: this.formUserLoca.value.mun,
-        nombar: this.formUserLoca.value.nombar,
-        nomver: this.formUserLoca.value.nomver,
-        lat: this.formUserLoca.value.lat,
-        lon: this.formUserLoca.value.lon,
-        dir: dirCompleta,
-      };
+  objIdenLoc: locPreI = {
+    id_oferta: null,
+    departamento: null,
+    municipio: null,
+    barrio: null,
+    vereda: null,
+    latitud: null,
+    longitud: null,
+    direccion: null,
+  };
 
-    console.log(objeLoca);
+  objIdenLocDir: locPreIDir = {
+    id_oferta: null,
+    dir01: '',
+    dir02: '',
+    dir03: '',
+    dir04: '',
+    dir05: '',
+    dir06: '',
+    dir07: '',
+    dir08: '',
+    dirParte1: '',
+    dirParte2: '',
+    dirParte3: '',
+    dirCompleta: '',
+    dirrur: '',
+  };
+
+  envioFormVistaBack: boolean = false;
+  noVistaSiguienteBoton: boolean = true;
+
+  noVistaDir: boolean =
+    this.valrelacionesService.idenPredio.tipo_predio === 'URBANO'
+      ? true
+      : false;
+
+  resLocpre: resCearOfer = {
+    id_oferta: null,
+    status: null,
+  };
+
+  procesar() {
+    this.objIdenLoc.id_oferta =
+      this.valrelacionesService.idenPredio.id_oferta?.valueOf();
+    this.objIdenLoc.departamento = this.formUserLoca.value.dep?.valueOf();
+    this.objIdenLoc.municipio = this.formUserLoca.value.mun?.valueOf();
+    this.objIdenLoc.barrio = this.formUserLoca.value.nombar?.valueOf();
+    this.objIdenLoc.vereda = this.formUserLoca.value.nomver?.valueOf();
+    this.objIdenLoc.latitud = Number(this.formUserLoca.value.lat?.valueOf());
+    this.objIdenLoc.longitud = Number(this.formUserLoca.value.lon?.valueOf());
+
+    this.objIdenLocDir.id_oferta =
+      this.valrelacionesService.idenPredio.id_oferta?.valueOf();
+    this.objIdenLocDir.dir01 = this.formUserLoca.value.dir01?.valueOf();
+    this.objIdenLocDir.dir02 = this.formUserLoca.value.dir02?.valueOf();
+    this.objIdenLocDir.dir03 = this.formUserLoca.value.dir03?.valueOf();
+    this.objIdenLocDir.dir04 = this.formUserLoca.value.dir04?.valueOf();
+    this.objIdenLocDir.dir05 = this.formUserLoca.value.dir05?.valueOf();
+    this.objIdenLocDir.dir06 = this.formUserLoca.value.dir06?.valueOf();
+    this.objIdenLocDir.dir07 = this.formUserLoca.value.dir07?.valueOf();
+    this.objIdenLocDir.dir08 = this.formUserLoca.value.dir08?.valueOf();
+    this.objIdenLocDir.dirrur = this.formUserLoca.value.dirrur?.valueOf();
+
+    if (this.noVistaDir) {
+      this.objIdenLocDir.dirParte1 = `${this.formUserLoca.value.dir01} ${this.formUserLoca.value.dir02} ${this.formUserLoca.value.dir03}`;
+      this.objIdenLocDir.dirParte2 = !!this.formUserLoca.value.dir04
+        ? `Bis`
+        : ` `;
+      this.objIdenLocDir.dirParte3 = `${this.formUserLoca.value.dir05} ${this.formUserLoca.value.dir06} ${this.formUserLoca.value.dir07} ${this.formUserLoca.value.dir08}`;
+      this.objIdenLocDir.dirCompleta =
+        `${this.objIdenLocDir.dirParte1} ${this.objIdenLocDir.dirParte2} ${this.objIdenLocDir.dirParte3}`
+          .replace(/\s+/gi, ' ')
+          .trim();
+
+      this.objIdenLoc.direccion = this.objIdenLocDir.dirCompleta?.valueOf();
+    } else {
+      this.objIdenLoc.direccion = this.formUserLoca.value.dirrur?.valueOf();
+    }
+    console.log(this.objIdenLoc);
+    console.log(this.valrelacionesService.locPre);
+
+    if (
+      this.valrelacionesService.idenPredio.id_oferta !== null &&
+      JSON.stringify(this.valrelacionesService.locPre) !==
+        JSON.stringify(this.objIdenLoc)
+    ) {
+      this.api.capOferRestLocOferta(this.objIdenLoc).subscribe((resLocpre) => {
+        if (resLocpre.status === '200 OK') {
+          this.valrelacionesService.setLocaPredio = this.objIdenLoc;
+          this.valrelacionesService.setLocaPredioDir = this.objIdenLocDir;
+          console.log(this.valrelacionesService.locPre);
+          console.log(this.valrelacionesService.locPreDir);
+          this.envioFormVistaBack = true;
+          this.noVistaSiguienteBoton =
+            this.valrelacionesService.idenPredio.id_oferta !== null &&
+            this.envioFormVistaBack
+              ? false
+              : true;
+          this.valrelacionesService.habilitarVista(
+            'noVistaDatGen',
+            this.noVistaSiguienteBoton
+          );
+          console.warn(
+            `El valor de id_oferta  se inicializó y fue asignado su valor es de: ${this.valrelacionesService.idenPredio.id_oferta}. Se evidencia actualizaciones por lo tanto se actualizan los datos.`
+          );
+        } else {
+          console.warn(
+            `Error no status '200 OK' para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se actualizan los datos.`
+          );
+        }
+      });
+    } else {
+      console.warn(
+        `El valor de id_oferta ya fue asignado su valor es de: ${this.valrelacionesService.idenPredio.id_oferta}. No se evidencia actualizaciones en el formulario.`
+      );
+    }
+    console.log(this.valrelacionesService.locPre);
   }
 }

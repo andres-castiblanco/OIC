@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { idenPreI } from '../../modelos/crear-oferta-iden-pre.interface';
 import { resIdenPreI } from '../../modelos/res-iden-pre.interface';
+import { resCearOfer } from '../../modelos/res-crear-ofer.interface';
+import { locPreI } from '../../modelos/crear-oferta-loc-pre.interface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -17,5 +19,10 @@ export class ApiService {
   capOferRestIDOferta(form: idenPreI): Observable<resIdenPreI> {
     let direccion = this.url + 'pre_iden';
     return this.http.post<resIdenPreI>(direccion, form);
+  }
+
+  capOferRestLocOferta(form: locPreI): Observable<resCearOfer> {
+    let direccion = this.url + 'pre_loca';
+    return this.http.post<resCearOfer>(direccion, form);
   }
 }

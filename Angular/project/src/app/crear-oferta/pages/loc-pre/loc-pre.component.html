@@ -40,21 +40,23 @@
           </option>
         </select>
 
-        <label for="nombar">Nombre Barrio</label>
-        <div class="alerError" [hidden]="nombar.valid || nombar.pristine">
-          <div *ngIf="nombar.errors?.['required']">
-            El nombre del barrio es obligatorio
+        <div *ngIf="noVistaDir">
+          <label for="nombar">Nombre Barrio</label>
+          <div class="alerError" [hidden]="nombar.valid || nombar.pristine">
+            <div *ngIf="nombar.errors?.['required']">
+              El nombre del barrio es obligatorio
+            </div>
+            <div *ngIf="nombar.errors?.['maxlength']">
+              La cantidad de caracteres debe de ser inferior a 30
+            </div>
           </div>
-          <div *ngIf="nombar.errors?.['maxlength']">
-            La cantidad de caracteres debe de ser inferior a 30
-          </div>
+          <input
+            type="text"
+            formControlName="nombar"
+            name="nombar"
+            placeholder="San Benito"
+          />
         </div>
-        <input
-          type="text"
-          formControlName="nombar"
-          name="nombar"
-          placeholder="San Benito"
-        />
 
         <label for="nomver">Nombre Vereda</label>
         <div class="alerError" [hidden]="nomver.valid || nomver.pristine">
@@ -114,157 +116,162 @@
           step="0.00000001"
         />
 
-        <label for="dir">Dirección Urbana</label>
+        <div *ngIf="noVistaDir">
+          <label for="dir">Dirección Urbana</label>
 
-        <div class="alerError" [hidden]="dir01.valid || dir01.pristine">
-          <div *ngIf="dir01.errors?.['required']">
-            La via principal de la dirección es obligatoria
+          <div class="alerError" [hidden]="dir01.valid || dir01.pristine">
+            <div *ngIf="dir01.errors?.['required']">
+              La via principal de la dirección es obligatoria
+            </div>
           </div>
-        </div>
-        <div class="alerError" [hidden]="dir02.valid || dir02.pristine">
-          <div *ngIf="dir02.errors?.['required']">
-            El número de la vía principal de la dirección es obligatoria
+          <div class="alerError" [hidden]="dir02.valid || dir02.pristine">
+            <div *ngIf="dir02.errors?.['required']">
+              El número de la vía principal de la dirección es obligatoria
+            </div>
+            <div *ngIf="dir02.errors?.['min'] || dir02.errors?.['max']">
+              El número de la vía principal debe de estar entre 0 y 1000
+            </div>
           </div>
-          <div *ngIf="dir02.errors?.['min'] || dir02.errors?.['max']">
-            El número de la vía principal debe de estar entre 0 y 1000
-          </div>
-        </div>
-        <div class="alerError" [hidden]="dir06.valid || dir06.pristine">
-          <div *ngIf="dir06.errors?.['required']">
-            El número de la vía secundaria de la dirección es obligatoria
-          </div>
-          <div *ngIf="dir06.errors?.['min'] || dir06.errors?.['max']">
-            El número de la vía secundaria debe de estar entre 0 y 1000
-          </div>
-        </div>
-
-        <div class="direction">
-          <div>
-            <select formControlName="dir01" name="dir01">
-              <option value="CL">CL</option>
-              <option value="CR">CR</option>
-              <option value="DG">DG</option>
-              <option value="TR">TR</option>
-              <option value="AV CL">AV CL</option>
-              <option value="AV CR">AV CR</option>
-            </select>
+          <div class="alerError" [hidden]="dir06.valid || dir06.pristine">
+            <div *ngIf="dir06.errors?.['required']">
+              El número de la vía secundaria de la dirección es obligatoria
+            </div>
+            <div *ngIf="dir06.errors?.['min'] || dir06.errors?.['max']">
+              El número de la vía secundaria debe de estar entre 0 y 1000
+            </div>
           </div>
 
-          <div>
-            <input
-              type="number"
-              formControlName="dir02"
-              name="dir02"
-              placeholder="85"
-            />
-          </div>
+          <div class="direction">
+            <div>
+              <select formControlName="dir01" name="dir01">
+                <option value="CL">CL</option>
+                <option value="CR">CR</option>
+                <option value="DG">DG</option>
+                <option value="TR">TR</option>
+                <option value="AV CL">AV CL</option>
+                <option value="AV CR">AV CR</option>
+              </select>
+            </div>
 
-          <div>
-            <select formControlName="dir03" name="dir03">
-              <option value="A">A</option>
-              <option value="B">B</option>
-              <option value="C">C</option>
-              <option value="D">D</option>
-              <option value="E">E</option>
-              <option value="F">F</option>
-              <option value="G">G</option>
-              <option value="H">H</option>
-              <option value="I">I</option>
-              <option value="J">J</option>
-              <option value="K">K</option>
-              <option value="L">L</option>
-              <option value="M">M</option>
-              <option value="N">N</option>
-              <option value="O">O</option>
-              <option value="P">P</option>
-              <option value="Q">Q</option>
-              <option value="R">R</option>
-              <option value="T">T</option>
-              <option value="U">U</option>
-              <option value="V">V</option>
-              <option value="W">W</option>
-              <option value="X">X</option>
-              <option value="Y">Y</option>
-              <option value="Z">Z</option>
-            </select>
-          </div>
-          <div>
-            <input type="checkbox" name="dir04" formControlName="dir04" /><label
-              for="dir04"
-              >Bis</label
-            >
-          </div>
-          <div>
-            <select formControlName="dir05" name="dir05">
-              <option value="Norte">Norte</option>
-              <option value="Sur">Sur</option>
-              <option value="Este">Este</option>
-              <option value="Oeste">Oeste</option>
-            </select>
-          </div>
-          <div>
-            <input
-              type="number"
-              formControlName="dir06"
-              name="dir06"
-              placeholder="15"
-            />
-          </div>
-          <div>
-            <select formControlName="dir07" name="dir07">
-              <option value="A">A</option>
-              <option value="B">B</option>
-              <option value="C">C</option>
-              <option value="D">D</option>
-              <option value="E">E</option>
-              <option value="F">F</option>
-              <option value="G">G</option>
-              <option value="H">H</option>
-              <option value="I">I</option>
-              <option value="J">J</option>
-              <option value="K">K</option>
-              <option value="L">L</option>
-              <option value="M">M</option>
-              <option value="N">N</option>
-              <option value="O">O</option>
-              <option value="P">P</option>
-              <option value="Q">Q</option>
-              <option value="R">R</option>
-              <option value="T">T</option>
-              <option value="U">U</option>
-              <option value="V">V</option>
-              <option value="W">W</option>
-              <option value="X">X</option>
-              <option value="Y">Y</option>
-              <option value="Z">Z</option>
-            </select>
-          </div>
-          <div>
-            <input
-              type="number"
-              formControlName="dir08"
-              name="dir08"
-              placeholder="56"
-              maxlength="3"
-            />
+            <div>
+              <input
+                type="number"
+                formControlName="dir02"
+                name="dir02"
+                placeholder="85"
+              />
+            </div>
+
+            <div>
+              <select formControlName="dir03" name="dir03">
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+                <option value="E">E</option>
+                <option value="F">F</option>
+                <option value="G">G</option>
+                <option value="H">H</option>
+                <option value="I">I</option>
+                <option value="J">J</option>
+                <option value="K">K</option>
+                <option value="L">L</option>
+                <option value="M">M</option>
+                <option value="N">N</option>
+                <option value="O">O</option>
+                <option value="P">P</option>
+                <option value="Q">Q</option>
+                <option value="R">R</option>
+                <option value="T">T</option>
+                <option value="U">U</option>
+                <option value="V">V</option>
+                <option value="W">W</option>
+                <option value="X">X</option>
+                <option value="Y">Y</option>
+                <option value="Z">Z</option>
+              </select>
+            </div>
+            <div>
+              <input
+                type="checkbox"
+                name="dir04"
+                formControlName="dir04"
+              /><label for="dir04">Bis</label>
+            </div>
+            <div>
+              <select formControlName="dir05" name="dir05">
+                <option value="Norte">Norte</option>
+                <option value="Sur">Sur</option>
+                <option value="Este">Este</option>
+                <option value="Oeste">Oeste</option>
+              </select>
+            </div>
+            <div>
+              <input
+                type="number"
+                formControlName="dir06"
+                name="dir06"
+                placeholder="15"
+              />
+            </div>
+            <div>
+              <select formControlName="dir07" name="dir07">
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+                <option value="E">E</option>
+                <option value="F">F</option>
+                <option value="G">G</option>
+                <option value="H">H</option>
+                <option value="I">I</option>
+                <option value="J">J</option>
+                <option value="K">K</option>
+                <option value="L">L</option>
+                <option value="M">M</option>
+                <option value="N">N</option>
+                <option value="O">O</option>
+                <option value="P">P</option>
+                <option value="Q">Q</option>
+                <option value="R">R</option>
+                <option value="T">T</option>
+                <option value="U">U</option>
+                <option value="V">V</option>
+                <option value="W">W</option>
+                <option value="X">X</option>
+                <option value="Y">Y</option>
+                <option value="Z">Z</option>
+              </select>
+            </div>
+            <div>
+              <input
+                type="number"
+                formControlName="dir08"
+                name="dir08"
+                placeholder="56"
+                maxlength="3"
+              />
+            </div>
           </div>
         </div>
 
-        <label for="dirrur">Dirección Rural</label>
-        <div class="alerError" [hidden]="dirrur.valid || dirrur.pristine">
-          <div *ngIf="dirrur.errors?.['required']">
-            La Dirección Rural es obligatorio
+        <div *ngIf="!noVistaDir">
+          <label for="dirrur">Dirección Rural</label>
+          <div class="alerError" [hidden]="dirrur.valid || dirrur.pristine">
+            <div *ngIf="dirrur.errors?.['required']">
+              La Dirección Rural es obligatorio
+            </div>
+            <div *ngIf="dirrur.errors?.['maxlength']">
+              La cantidad de caracteres debe de ser inferior a 100
+            </div>
           </div>
-          <div *ngIf="dirrur.errors?.['maxlength']">
-            La cantidad de caracteres debe de ser inferior a 100
-          </div>
+          <input
+            type="text"
+            formControlName="dirrur"
+            name="dirrur"
+            placeholder="Km 3 via Belen, Finca La Hermosa"
+          />
         </div>
-        <input
-          type="text"
-          formControlName="dirrur"
-          name="dirrur"
-          placeholder="Km 3 via Belen, Finca La Hermosa"
-        />
       </div>
 
       <div class="row">
@@ -277,7 +284,13 @@
           </button>
         </h2>
         <h2 class="col-4">
-          <button class="buttonEnviar" [disabled]="true">Siguiente</button>
+          <button
+            class="buttonEnviar"
+            [disabled]="!valrelacionesService.vistasHabilitar.noVistaDatGen"
+            routerLink="../DatGen"
+          >
+            Siguiente
+          </button>
         </h2>
       </div>
     </form>

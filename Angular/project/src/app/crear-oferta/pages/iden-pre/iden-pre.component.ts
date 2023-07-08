@@ -106,14 +106,14 @@ export class IdenPreComponent {
 
   objIdenPre: idenPreI = {
     id_oferta: null,
-    npn: '',
-    npa: '',
-    codigo_homologado: '',
-    matricula: '',
-    condicion_juridica: '',
-    tipo_oferta: '',
-    tipo_predio: '',
-    oferta_origen: '',
+    npn: null,
+    npa: null,
+    codigo_homologado: null,
+    matricula: null,
+    condicion_juridica: null,
+    tipo_oferta: null,
+    tipo_predio: null,
+    oferta_origen: null,
     estado_oferta: 1,
     obs_verifica: 'Sin comentarios' as unknown | Text,
   };
