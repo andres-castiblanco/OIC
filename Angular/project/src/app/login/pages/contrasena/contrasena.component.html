@@ -12,6 +12,7 @@
       rel="stylesheet"
     />
   </head>
+
   <body>
     <section class="ftco-section">
       <div class="container">
@@ -20,14 +21,14 @@
             <div class="d-flex">
               <div class="w-100">
                 <h2 class="row justify-content-center">
-                  Iniciar sesión - OIC Ofertas
+                  Recuperar Contraseña - OIC
                 </h2>
               </div>
             </div>
 
             <form
               class="signin-form"
-              [formGroup]="formLogin"
+              [formGroup]="formContrasena"
               (ngSubmit)="procesar()"
             >
               <div class="form-group mb-3">
@@ -73,22 +74,39 @@
                 />
               </div>
 
+              <div class="form-group mb-3">
+                <label class="label" for="valpassword"
+                  >Validar Contraseña</label
+                >
+                <div
+                  class="alerError"
+                  [hidden]="valpassword.valid || valpassword.pristine"
+                >
+                  <div *ngIf="valpassword.errors?.['required']">
+                    La validación de contraseña es obligatoria
+                  </div>
+                  <div *ngIf="valpassword.errors?.['maxlength']">
+                    La cantidad de caracteres debe de ser menor a 50
+                  </div>
+                </div>
+
+                <input
+                  class="form-control"
+                  type="valpassword"
+                  formControlName="valpassword"
+                  name="valpassword"
+                  placeholder="contraseña"
+                />
+              </div>
+
               <div class="form-group">
                 <button
                   type="submit"
                   class="form-control btn btn-primary rounded submit px-3"
                   onClick="clicked()"
                 >
-                  Ingresar
+                  Enviar
                 </button>
-              </div>
-
-              <div class="form-group d-md-flex">
-                <div class="w-50 text-left"><a href="#">Registrarse</a></div>
-
-                <div class="w-50 text-md-right">
-                  <a href="#">¿Olvido su Contraseña?</a>
-                </div>
               </div>
             </form>
           </div>

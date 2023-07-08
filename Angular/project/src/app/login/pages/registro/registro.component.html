@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <section class="ftco-section">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="login-wrap p-4 p-md-5">
+            <div class="d-flex">
+              <div class="w-100">
+                <h2 class="row justify-content-center">
+                  Registro Usuario - OIC
+                </h2>
+              </div>
+            </div>
+
+            <form
+              class="signin-form"
+              [formGroup]="formRegistro"
+              (ngSubmit)="procesar()"
+            >
+              <div class="form-group mb-3">
+                <label class="label" for="tiper">Tipo de Identificación</label>
+                <div class="alerError" [hidden]="tiper.valid || tiper.pristine">
+                  El Tipo de Identificación un campo obligatorio
+                </div>
+                <select
+                  class="form-select"
+                  formControlName="tiper"
+                  name="tiper"
+                  placeholder="---"
+                >
+                  <option value="CÉDULA DE CIUDADANÍA">
+                    CÉDULA DE CIUDADANÍA
+                  </option>
+                  <option value="CÉDULA DE EXTRANJERÍA">
+                    CÉDULA DE EXTRANJERÍA
+                  </option>
+                  <!-- <option value="TARJETA DE IDENTIDAD">TARJETA DE IDENTIDAD</option>
+                                <option value="PERMISO ESPECIAL DE PERMANENCIA">PERMISO ESPECIAL DE PERMANENCIA</option> -->
+                </select>
+              </div>
+
+              <div class="form-group mb-3">
+                <label class="label" for="numiden"
+                  >Numero de Identificación</label
+                >
+                <div
+                  class="alerError"
+                  [hidden]="numiden.valid || numiden.pristine"
+                >
+                  <div *ngIf="numiden.errors?.['required']">
+                    El Numero de Identificación es obligatorio
+                  </div>
+                  <div
+                    *ngIf="numiden.errors?.['min'] || numiden.errors?.['max']"
+                  >
+                    El Numero de Identificación debe de ser positivo y estar de
+                    1 a 1000000000
+                  </div>
+                </div>
+
+                <input
+                  class="form-control"
+                  type="number"
+                  formControlName="numiden"
+                  name="numiden"
+                  placeholder="1016253461"
+                />
+              </div>
+
+              <div class="form-group mb-3">
+                <label class="label" for="nom">Nombre (s)</label>
+                <div class="alerError" [hidden]="nom.valid || nom.pristine">
+                  <div *ngIf="nom.errors?.['required']">
+                    El nombre es obligatorio
+                  </div>
+                  <div *ngIf="nom.errors?.['maxlength']">
+                    La cantidad de caracteres debe de ser menor a 50
+                  </div>
+                </div>
+                <input
+                  class="form-control"
+                  type="text"
+                  formControlName="nom"
+                  name="nom"
+                  placeholder="Juan Andres"
+                />
+              </div>
+
+              <div class="form-group mb-3">
+                <label class="label" for="apl">Apellido (s)</label>
+                <div class="alerError" [hidden]="apl.valid || apl.pristine">
+                  <div *ngIf="apl.errors?.['required']">
+                    El apellido es obligatorio
+                  </div>
+                  <div *ngIf="apl.errors?.['maxlength']">
+                    La cantidad de caracteres debe de ser menor a 50
+                  </div>
+                </div>
+                <input
+                  class="form-control"
+                  type="text"
+                  formControlName="apl"
+                  name="apl"
+                  placeholder="Rodriguez Borrero"
+                />
+              </div>
+
+              <div class="form-group mb-3">
+                <label class="label" for="email">Correo Electrónico</label>
+                <div class="alerError" [hidden]="email.valid || email.pristine">
+                  <div *ngIf="email.errors?.['required']">
+                    El correo del responsable de la oferta es obligatorio
+                  </div>
+                  <div *ngIf="email.errors?.['maxlength']">
+                    La cantidad de caracteres debe de ser menor a 50
+                  </div>
+                </div>
+
+                <input
+                  class="form-control"
+                  type="email"
+                  formControlName="email"
+                  name="email"
+                  placeholder="juan.rodriguez@igac.gov.co"
+                />
+              </div>
+
+              <div class="form-group mb-3">
+                <label class="label" for="tel">Número de contacto</label>
+                <div class="alerError" [hidden]="tel.valid || tel.pristine">
+                  <div *ngIf="tel.errors?.['required']">
+                    El telefono es obligatorio
+                  </div>
+                  <div *ngIf="tel.errors?.['max']">
+                    La cantidad de caracteres debe de ser menor a 15
+                  </div>
+                </div>
+                <input
+                  class="form-control"
+                  type="tel"
+                  formControlName="tel"
+                  name="tel"
+                  placeholder="3102352067"
+                />
+              </div>
+
+              <div class="form-group mb-3">
+                <label class="label" for="matrinmb">Área</label>
+                <div class="alerError" [hidden]="area.valid || area.pristine">
+                  El Área institucional es obligatoria
+                </div>
+                <select
+                  class="form-select"
+                  id="area"
+                  formControlName="area"
+                  name="area"
+                >
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                </select>
+              </div>
+
+              <div class="form-group mb-3">
+                <label class="label" for="rol">Rol</label>
+                <div class="alerError" [hidden]="rol.valid || rol.pristine">
+                  El Rol institucional es obligatorio
+                </div>
+                <select
+                  class="form-select"
+                  id="rol"
+                  formControlName="rol"
+                  name="rol"
+                >
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                </select>
+              </div>
+
+              <div class="form-group mb-3">
+                <label class="label" for="password">Contraseña</label>
+                <div
+                  class="alerError"
+                  [hidden]="password.valid || password.pristine"
+                >
+                  <div *ngIf="password.errors?.['required']">
+                    La contraseña del responsable de la oferta es obligatorio
+                  </div>
+                  <div *ngIf="password.errors?.['maxlength']">
+                    La cantidad de caracteres debe de ser menor a 50
+                  </div>
+                </div>
+
+                <input
+                  class="form-control"
+                  type="password"
+                  formControlName="password"
+                  name="password"
+                  placeholder="contraseña"
+                />
+              </div>
+
+              <div class="form-group mb-3">
+                <label class="label" for="valpassword"
+                  >Validar Contraseña</label
+                >
+                <div
+                  class="alerError"
+                  [hidden]="valpassword.valid || valpassword.pristine"
+                >
+                  <div *ngIf="valpassword.errors?.['required']">
+                    La validación de contraseña es obligatoria
+                  </div>
+                  <div *ngIf="valpassword.errors?.['maxlength']">
+                    La cantidad de caracteres debe de ser menor a 50
+                  </div>
+                </div>
+
+                <input
+                  class="form-control"
+                  type="valpassword"
+                  formControlName="valpassword"
+                  name="valpassword"
+                  placeholder="contraseña"
+                />
+              </div>
+
+              <div class="form-group">
+                <button
+                  type="submit"
+                  class="form-control btn btn-primary rounded submit px-3"
+                  onClick="clicked()"
+                >
+                  Registrarme
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

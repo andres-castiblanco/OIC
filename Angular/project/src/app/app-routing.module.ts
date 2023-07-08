@@ -8,9 +8,9 @@ import { InfFisComponent } from './crear-oferta/pages/inf-fis/inf-fis.component'
 import { InfFueComponent } from './crear-oferta/pages/inf-fue/inf-fue.component';
 import { LocPreComponent } from './crear-oferta/pages/loc-pre/loc-pre.component';
 import { ConOferComponent } from './consultar-oferta/pages/con-ofer/con-ofer.component';
-import { LoginComponent } from './login/pages/login/login.component';
 import { ModOferComponent } from './modificar-oferta/pages/mod-ofer/mod-ofer.component';
 import { ValOferComponent } from './validar-oferta/pages/val-ofer/val-ofer.component';
+import { LoginComponent } from './login/pages/login/login.component';
 
 const routes: Routes = [
   {
@@ -54,6 +54,11 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'Login',
+    loadChildren: () =>
+      import('src/app/login/login.module').then((m) => m.LoginModule),
+  },
+  {
     path: '**',
     loadChildren: () =>
       import('src/app/home-oferta/home-oferta.module').then(
@@ -77,7 +82,7 @@ export const routingComponents = [
   InfFueComponent,
   LocPreComponent,
   ConOferComponent,
-  LoginComponent,
   ModOferComponent,
   ValOferComponent,
+  LoginComponent,
 ];
