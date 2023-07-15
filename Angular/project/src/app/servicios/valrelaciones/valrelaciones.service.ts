@@ -12,45 +12,45 @@ export class ValrelacionesService {
   constructor() {}
 
   idenPredio: idenPreI = {
-    id_oferta: null,
-    npn: '',
-    npa: '',
-    codigo_homologado: '',
-    matricula: '',
-    condicion_juridica: '',
-    tipo_oferta: '',
-    tipo_predio: '',
-    oferta_origen: '',
+    id_oferta: undefined,
+    npn: undefined,
+    npa: undefined,
+    codigo_homologado: undefined,
+    matricula: undefined,
+    condicion_juridica: undefined,
+    tipo_oferta: undefined,
+    tipo_predio: undefined,
+    oferta_origen: undefined,
     estado_oferta: 1,
     obs_verifica: 'Sin comentarios' as unknown | Text,
   };
 
   locPre: locPreI = {
     id_oferta: this.idenPredio.id_oferta,
-    departamento: null,
-    municipio: null,
-    barrio: null,
-    vereda: null,
-    latitud: null,
-    longitud: null,
-    direccion: null,
+    departamento: undefined,
+    municipio: undefined,
+    barrio: undefined,
+    vereda: undefined,
+    latitud: undefined,
+    longitud: undefined,
+    direccion: undefined,
   };
 
   locPreDir: locPreIDir = {
     id_oferta: this.idenPredio.id_oferta,
-    dir01: null,
-    dir02: null,
-    dir03: null,
-    dir04: null,
-    dir05: null,
-    dir06: null,
-    dir07: null,
-    dir08: null,
-    dirParte1: null,
-    dirParte2: null,
-    dirParte3: null,
-    dirCompleta: null,
-    dirrur: null,
+    dir01: undefined,
+    dir02: undefined,
+    dir03: undefined,
+    dir04: undefined,
+    dir05: undefined,
+    dir06: undefined,
+    dir07: undefined,
+    dir08: undefined,
+    dirParte1: undefined,
+    dirParte2: undefined,
+    dirParte3: undefined,
+    dirCompleta: undefined,
+    dirrur: undefined,
   };
 
   vistasHabilitar: interVistasOfertas = {
@@ -76,6 +76,6 @@ export class ValrelacionesService {
 
   habilitarVista(vista: keyof interVistasOfertas, controlVista: boolean) {
     this.vistasHabilitar[vista] =
-      this.idenPredio.id_oferta === null || controlVista ? false : true;
+      this.idenPredio.id_oferta === undefined || controlVista ? false : true;
   }
 }

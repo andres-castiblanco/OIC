@@ -43,9 +43,6 @@
         <div *ngIf="noVistaDir">
           <label for="nombar">Nombre Barrio</label>
           <div class="alerError" [hidden]="nombar.valid || nombar.pristine">
-            <div *ngIf="nombar.errors?.['required']">
-              El nombre del barrio es obligatorio
-            </div>
             <div *ngIf="nombar.errors?.['maxlength']">
               La cantidad de caracteres debe de ser inferior a 30
             </div>
@@ -60,9 +57,6 @@
 
         <label for="nomver">Nombre Vereda</label>
         <div class="alerError" [hidden]="nomver.valid || nomver.pristine">
-          <div *ngIf="nomver.errors?.['required']">
-            El nombre de la vereda es obligatorio
-          </div>
           <div *ngIf="nomver.errors?.['maxlength']">
             La cantidad de caracteres debe de ser inferior a 30
           </div>
@@ -119,23 +113,13 @@
         <div *ngIf="noVistaDir">
           <label for="dir">Dirección Urbana</label>
 
-          <div class="alerError" [hidden]="dir01.valid || dir01.pristine">
-            <div *ngIf="dir01.errors?.['required']">
-              La via principal de la dirección es obligatoria
-            </div>
-          </div>
+          <div class="alerError" [hidden]="dir01.valid || dir01.pristine"></div>
           <div class="alerError" [hidden]="dir02.valid || dir02.pristine">
-            <div *ngIf="dir02.errors?.['required']">
-              El número de la vía principal de la dirección es obligatoria
-            </div>
             <div *ngIf="dir02.errors?.['min'] || dir02.errors?.['max']">
               El número de la vía principal debe de estar entre 0 y 1000
             </div>
           </div>
           <div class="alerError" [hidden]="dir06.valid || dir06.pristine">
-            <div *ngIf="dir06.errors?.['required']">
-              El número de la vía secundaria de la dirección es obligatoria
-            </div>
             <div *ngIf="dir06.errors?.['min'] || dir06.errors?.['max']">
               El número de la vía secundaria debe de estar entre 0 y 1000
             </div>

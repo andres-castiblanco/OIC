@@ -72,11 +72,11 @@ export class IdenPreComponent {
     ],
     numprenue: [
       this.valrelacionesService.idenPredio.npn,
-      [Validators.required, Validators.minLength(30), Validators.maxLength(30)],
+      [Validators.minLength(20), Validators.maxLength(30)],
     ],
     numpreant: [
       this.valrelacionesService.idenPredio.npa,
-      [Validators.required, Validators.minLength(20), Validators.maxLength(20)],
+      [Validators.minLength(10), Validators.maxLength(20)],
     ],
     codhom: [
       this.valrelacionesService.idenPredio.codigo_homologado,
@@ -86,10 +86,7 @@ export class IdenPreComponent {
       this.valrelacionesService.idenPredio.matricula,
       [Validators.maxLength(20)],
     ],
-    conjur: [
-      this.valrelacionesService.idenPredio.condicion_juridica,
-      Validators.required,
-    ],
+    conjur: [this.valrelacionesService.idenPredio.condicion_juridica],
     tipofer: [
       this.valrelacionesService.idenPredio.tipo_oferta,
       Validators.required,
@@ -105,23 +102,23 @@ export class IdenPreComponent {
   });
 
   objIdenPre: idenPreI = {
-    id_oferta: null,
-    npn: null,
-    npa: null,
-    codigo_homologado: null,
-    matricula: null,
-    condicion_juridica: null,
-    tipo_oferta: null,
-    tipo_predio: null,
-    oferta_origen: null,
+    id_oferta: this.valrelacionesService.idenPredio.id_oferta,
+    npn: undefined,
+    npa: undefined,
+    codigo_homologado: undefined,
+    matricula: undefined,
+    condicion_juridica: undefined,
+    tipo_oferta: undefined,
+    tipo_predio: undefined,
+    oferta_origen: undefined,
     estado_oferta: 1,
     obs_verifica: 'Sin comentarios' as unknown | Text,
   };
 
   noVistaOfer: boolean =
-    this.valrelacionesService.idenPredio.id_oferta === null ? false : true;
+    this.valrelacionesService.idenPredio.id_oferta === undefined ? false : true;
   noVistaSiguiente: boolean =
-    this.valrelacionesService.idenPredio.id_oferta === null ? true : false;
+    this.valrelacionesService.idenPredio.id_oferta === undefined ? true : false;
 
   procesar() {
     this.objIdenPre.npa = this.formUser.value.numpreant?.valueOf();
@@ -134,7 +131,7 @@ export class IdenPreComponent {
     this.objIdenPre.oferta_origen = this.formUser.value.oriofer?.valueOf();
 
     if (
-      this.valrelacionesService.idenPredio.id_oferta === null ||
+      this.valrelacionesService.idenPredio.id_oferta === undefined ||
       JSON.stringify(this.valrelacionesService.idenPredio) !==
         JSON.stringify(this.objIdenPre)
     ) {

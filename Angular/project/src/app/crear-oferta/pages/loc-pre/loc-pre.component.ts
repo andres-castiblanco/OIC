@@ -1346,31 +1346,31 @@ export class LocPreComponent {
   }
 
   objIdenLoc: locPreI = {
-    id_oferta: null,
-    departamento: null,
-    municipio: null,
-    barrio: null,
-    vereda: null,
-    latitud: null,
-    longitud: null,
-    direccion: null,
+    id_oferta: undefined,
+    departamento: undefined,
+    municipio: undefined,
+    barrio: undefined,
+    vereda: undefined,
+    latitud: undefined,
+    longitud: undefined,
+    direccion: undefined,
   };
 
   objIdenLocDir: locPreIDir = {
-    id_oferta: null,
-    dir01: '',
-    dir02: '',
-    dir03: '',
-    dir04: '',
-    dir05: '',
-    dir06: '',
-    dir07: '',
-    dir08: '',
-    dirParte1: '',
-    dirParte2: '',
-    dirParte3: '',
-    dirCompleta: '',
-    dirrur: '',
+    id_oferta: this.valrelacionesService.idenPredio.id_oferta,
+    dir01: undefined,
+    dir02: undefined,
+    dir03: undefined,
+    dir04: undefined,
+    dir05: undefined,
+    dir06: undefined,
+    dir07: undefined,
+    dir08: undefined,
+    dirParte1: undefined,
+    dirParte2: undefined,
+    dirParte3: undefined,
+    dirCompleta: undefined,
+    dirrur: undefined,
   };
 
   envioFormVistaBack: boolean = false;
@@ -1391,43 +1391,91 @@ export class LocPreComponent {
       this.valrelacionesService.idenPredio.id_oferta?.valueOf();
     this.objIdenLoc.departamento = this.formUserLoca.value.dep?.valueOf();
     this.objIdenLoc.municipio = this.formUserLoca.value.mun?.valueOf();
-    this.objIdenLoc.barrio = this.formUserLoca.value.nombar?.valueOf();
     this.objIdenLoc.vereda = this.formUserLoca.value.nomver?.valueOf();
     this.objIdenLoc.latitud = Number(this.formUserLoca.value.lat?.valueOf());
     this.objIdenLoc.longitud = Number(this.formUserLoca.value.lon?.valueOf());
 
     this.objIdenLocDir.id_oferta =
       this.valrelacionesService.idenPredio.id_oferta?.valueOf();
-    this.objIdenLocDir.dir01 = this.formUserLoca.value.dir01?.valueOf();
-    this.objIdenLocDir.dir02 = this.formUserLoca.value.dir02?.valueOf();
-    this.objIdenLocDir.dir03 = this.formUserLoca.value.dir03?.valueOf();
-    this.objIdenLocDir.dir04 = this.formUserLoca.value.dir04?.valueOf();
-    this.objIdenLocDir.dir05 = this.formUserLoca.value.dir05?.valueOf();
-    this.objIdenLocDir.dir06 = this.formUserLoca.value.dir06?.valueOf();
-    this.objIdenLocDir.dir07 = this.formUserLoca.value.dir07?.valueOf();
-    this.objIdenLocDir.dir08 = this.formUserLoca.value.dir08?.valueOf();
-    this.objIdenLocDir.dirrur = this.formUserLoca.value.dirrur?.valueOf();
 
     if (this.noVistaDir) {
-      this.objIdenLocDir.dirParte1 = `${this.formUserLoca.value.dir01} ${this.formUserLoca.value.dir02} ${this.formUserLoca.value.dir03}`;
+      this.objIdenLoc.barrio = this.formUserLoca.value.nombar?.valueOf();
+
+      this.objIdenLocDir.dir01 = this.formUserLoca.value.dir01?.valueOf();
+      this.objIdenLocDir.dir02 = this.formUserLoca.value.dir02?.valueOf();
+      this.objIdenLocDir.dir03 = this.formUserLoca.value.dir03?.valueOf();
+      this.objIdenLocDir.dir04 = this.formUserLoca.value.dir04?.valueOf();
+      this.objIdenLocDir.dir05 = this.formUserLoca.value.dir05?.valueOf();
+      this.objIdenLocDir.dir06 = this.formUserLoca.value.dir06?.valueOf();
+      this.objIdenLocDir.dir07 = this.formUserLoca.value.dir07?.valueOf();
+      this.objIdenLocDir.dir08 = this.formUserLoca.value.dir08?.valueOf();
+
+      this.objIdenLocDir.dirParte1 = `${
+        !!this.formUserLoca.value.dir01 ? this.formUserLoca.value.dir01 : ``
+      } ${
+        !!this.formUserLoca.value.dir02 ? this.formUserLoca.value.dir02 : ``
+      } ${
+        !!this.formUserLoca.value.dir03 ? this.formUserLoca.value.dir03 : ``
+      }`;
       this.objIdenLocDir.dirParte2 = !!this.formUserLoca.value.dir04
         ? `Bis`
         : ` `;
-      this.objIdenLocDir.dirParte3 = `${this.formUserLoca.value.dir05} ${this.formUserLoca.value.dir06} ${this.formUserLoca.value.dir07} ${this.formUserLoca.value.dir08}`;
+      this.objIdenLocDir.dirParte3 = `${
+        !!this.formUserLoca.value.dir05 ? this.formUserLoca.value.dir05 : ``
+      } ${
+        !!this.formUserLoca.value.dir06 ? this.formUserLoca.value.dir06 : ``
+      } ${
+        !!this.formUserLoca.value.dir07 ? this.formUserLoca.value.dir07 : ``
+      } ${
+        !!this.formUserLoca.value.dir08 ? this.formUserLoca.value.dir08 : ``
+      }`;
       this.objIdenLocDir.dirCompleta =
         `${this.objIdenLocDir.dirParte1} ${this.objIdenLocDir.dirParte2} ${this.objIdenLocDir.dirParte3}`
           .replace(/\s+/gi, ' ')
           .trim();
 
       this.objIdenLoc.direccion = this.objIdenLocDir.dirCompleta?.valueOf();
+
+      this.objIdenLocDir.dirrur = undefined;
+      this.formUserLoca.controls['dirrur'].setValue(undefined);
     } else {
+      this.objIdenLocDir.dirrur = this.formUserLoca.value.dirrur?.valueOf();
+
       this.objIdenLoc.direccion = this.formUserLoca.value.dirrur?.valueOf();
+
+      this.objIdenLoc.barrio = undefined;
+
+      this.objIdenLocDir.dir01 = undefined;
+      this.objIdenLocDir.dir02 = undefined;
+      this.objIdenLocDir.dir03 = undefined;
+      this.objIdenLocDir.dir04 = undefined;
+      this.objIdenLocDir.dir05 = undefined;
+      this.objIdenLocDir.dir06 = undefined;
+      this.objIdenLocDir.dir07 = undefined;
+      this.objIdenLocDir.dir08 = undefined;
+
+      this.objIdenLocDir.dirParte1 = undefined;
+      this.objIdenLocDir.dirParte2 = undefined;
+      this.objIdenLocDir.dirParte3 = undefined;
+
+      this.objIdenLocDir.dirCompleta = undefined;
+
+      this.formUserLoca.controls['nombar'].setValue(undefined);
+
+      this.formUserLoca.controls['dir01'].setValue(undefined);
+      this.formUserLoca.controls['dir02'].setValue(undefined);
+      this.formUserLoca.controls['dir03'].setValue(undefined);
+      this.formUserLoca.controls['dir04'].setValue(undefined);
+      this.formUserLoca.controls['dir05'].setValue(undefined);
+      this.formUserLoca.controls['dir06'].setValue(undefined);
+      this.formUserLoca.controls['dir07'].setValue(undefined);
+      this.formUserLoca.controls['dir08'].setValue(undefined);
     }
     console.log(this.objIdenLoc);
     console.log(this.valrelacionesService.locPre);
 
     if (
-      this.valrelacionesService.idenPredio.id_oferta !== null &&
+      this.valrelacionesService.idenPredio.id_oferta !== undefined &&
       JSON.stringify(this.valrelacionesService.locPre) !==
         JSON.stringify(this.objIdenLoc)
     ) {
@@ -1439,7 +1487,7 @@ export class LocPreComponent {
           console.log(this.valrelacionesService.locPreDir);
           this.envioFormVistaBack = true;
           this.noVistaSiguienteBoton =
-            this.valrelacionesService.idenPredio.id_oferta !== null &&
+            this.valrelacionesService.idenPredio.id_oferta !== undefined &&
             this.envioFormVistaBack
               ? false
               : true;
@@ -1462,5 +1510,6 @@ export class LocPreComponent {
       );
     }
     console.log(this.valrelacionesService.locPre);
+    console.log(this.valrelacionesService.idenPredio);
   }
 }
