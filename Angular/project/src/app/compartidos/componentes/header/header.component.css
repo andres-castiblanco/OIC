@@ -1,0 +1,104 @@
+@import url("https://use.fontawesome.com/releases/v5.8.1/css/all.css");
+
+h1{
+  text-align: center;
+  padding: 20px;
+}
+nav {
+  position: absolute;
+  left: 0rem;
+  top: 1rem;
+  width: 10rem;
+  top: 13.9rem;
+  background: #005fa6;
+  transform: translateX(-100%);
+  transition: 0.4s ease;
+  margin: -1px;
+}
+
+.navigation a {
+  font-size: 0.67rem;
+  color: white;
+  display: block;
+  line-height: 3;
+  padding: 10px 1rem;
+  text-decoration: none;
+  transition: 0.4s ease;
+  border-width: 0.4rem;
+}
+
+.not-active {
+  pointer-events: none;
+  cursor: default;
+}
+
+/* .navigation ol{
+  text-align: center;
+  font-size: 0.67rem;
+  color: white;
+  display: block;
+  line-height: 3;
+  padding: 0px 1rem;
+  text-decoration: none;
+  transition: 0.4s ease;
+  border-width: .4rem;
+  background: #afafaf;
+} */
+
+.navigation a:hover {
+  transform: translateX(10%);
+}
+
+nav ul li details {
+  display: incline;
+}
+
+#btn-nav {
+  display: none;
+}
+
+#btn-nav:checked ~ nav {
+  transform: translateX(0);
+}
+
+.btn-nav {
+  color: #005fa6;
+  font-size: 1.6rem;
+  position: absolute;
+  left: 0;
+  top: 11.3rem;
+  cursor: pointer;
+  padding: 0rem 1.3rem;
+  transition: 0.2s ease;
+  background: rgba(112, 111, 111, 0.1);
+}
+
+.btn-nav:hover {
+  background: rgba(146, 146, 146, 0.5);
+}
+
+.active {
+  background: #77bcd9;
+}
+
+details {
+  background-color: hsl(210, 100%, 26%);
+  /* background: hsl(205, 5%, 49%); */
+}
+
+.details,
+summary:hover {
+  transform: translateX(10%);
+}
+
+summary {
+  font-size: 0.67rem;
+  color: white;
+  line-height: 3;
+  padding: 10px 1rem;
+  text-decoration: none;
+  transition: 0.4s ease;
+  border-width: 0.4rem;
+  background: #005fa6;
+  position: relative;
+}

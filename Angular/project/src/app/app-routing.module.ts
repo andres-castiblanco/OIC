@@ -15,7 +15,7 @@ import { LoginComponent } from './login/pages/login/login.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'HomeOfertas',
+    redirectTo: 'Login',
     pathMatch: 'full',
   },
   {
@@ -56,13 +56,14 @@ const routes: Routes = [
   {
     path: 'Login',
     loadChildren: () =>
-      import('src/app/login/login.module').then((m) => m.LoginModule),
+      import('src/app/login/login.module').then((m) => m.LoginModule
+      ),
   },
   {
     path: '**',
     loadChildren: () =>
-      import('src/app/home-oferta/home-oferta.module').then(
-        (m) => m.HomeOfertaModule
+      import('src/app/login/login.module').then(
+        (m) => m.LoginModule
       ),
   },
 ];

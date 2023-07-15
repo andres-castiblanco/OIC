@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
   <body>
+    <app-header></app-header>
     <form [formGroup]="formUserEco" (ngSubmit)="procesar()">
       <div class="container">
         <h2>Información Económica</h2>
@@ -282,5 +283,6 @@
         </h2>
     </div>
     </form>
+    <app-footer></app-footer>
   </body>
 </html>

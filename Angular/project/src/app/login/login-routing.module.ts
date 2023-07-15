@@ -6,7 +6,7 @@ import { ContrasenaComponent } from './pages/contrasena/contrasena.component';
 
 const routes: Routes = [
   {
-    path: 'login',
+    path: '',
     component: LoginComponent,
   },
   {

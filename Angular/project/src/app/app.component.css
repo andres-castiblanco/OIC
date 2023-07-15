@@ -32,19 +32,6 @@ nav {
   cursor: default;
 }
 
-/* .navigation ol{
-  text-align: center;
-  font-size: 0.67rem;
-  color: white;
-  display: block;
-  line-height: 3;
-  padding: 0px 1rem;
-  text-decoration: none;
-  transition: 0.4s ease;
-  border-width: .4rem;
-  background: #afafaf;
-} */
-
 .navigation a:hover {
   transform: translateX(10%);
 }
@@ -83,7 +70,6 @@ nav ul li details {
 
 details {
   background-color: hsl(210, 100%, 26%);
-  /* background: hsl(205, 5%, 49%); */
 }
 
 .details,

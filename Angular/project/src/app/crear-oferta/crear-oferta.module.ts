@@ -10,6 +10,9 @@ import { DatGenComponent } from './pages/dat-gen/dat-gen.component';
 import { InfFisComponent } from './pages/inf-fis/inf-fis.component';
 import { InfEcoComponent } from './pages/inf-eco/inf-eco.component';
 import { InfFueComponent } from './pages/inf-fue/inf-fue.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { HeaderComponent } from './components/header/header.component';
+import { NavComponent } from './components/nav/nav.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +22,9 @@ import { InfFueComponent } from './pages/inf-fue/inf-fue.component';
     InfFisComponent,
     InfEcoComponent,
     InfFueComponent,
+    FooterComponent,
+    HeaderComponent,
+    NavComponent,
   ],
   imports: [
     CommonModule,

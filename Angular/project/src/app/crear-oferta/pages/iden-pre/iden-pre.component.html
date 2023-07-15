@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
   <body>
+    <app-header></app-header>
     <form [formGroup]="formUser" (ngSubmit)="procesar()">
       <div class="container">
         <h2>Identificación del Predio</h2>
@@ -150,7 +151,6 @@
         </h2>
       </div>
     </form>
-
-    <!-- {{ numprenue.errors | json }} -->
+    <app-footer></app-footer>
   </body>
 </html>
