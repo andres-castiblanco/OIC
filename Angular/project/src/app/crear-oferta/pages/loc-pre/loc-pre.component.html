@@ -19,7 +19,6 @@
         <div class="alerError" [hidden]="dep.valid || dep.pristine">
           El departamento es un campo obligatorio
         </div>
-
         <select
           formControlName="dep"
           name="dep"
@@ -34,7 +33,6 @@
         <div class="alerError" [hidden]="mun.valid || mun.pristine">
           El municipio es un campo obligatorio
         </div>
-
         <select formControlName="mun" name="mun">
           <option *ngFor="let mpio of mpios" [value]="mpio">
             {{ mpio }}

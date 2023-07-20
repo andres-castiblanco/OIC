@@ -1280,10 +1280,6 @@ export class LocPreComponent {
     ],
   };
 
-  deptos = Object.keys(this.deptosMpios);
-
-  mpios: any;
-
   formUserLoca = this.fb.group({
     idoferta: [
       { value: this.valrelacionesService.idenPredio.id_oferta, disabled: true },
@@ -1300,7 +1296,7 @@ export class LocPreComponent {
       [Validators.maxLength(30)],
     ],
     lat: [
-      this.valrelacionesService.locPre.latitud,
+      this.valrelacionesService.locPre.latitud?.toFixed(8),
       [
         Validators.required,
         Validators.max(15),
@@ -1309,7 +1305,7 @@ export class LocPreComponent {
       ],
     ],
     lon: [
-      this.valrelacionesService.locPre.longitud,
+      this.valrelacionesService.locPre.longitud?.toFixed(8),
       [
         Validators.required,
         Validators.max(-65),
@@ -1336,6 +1332,13 @@ export class LocPreComponent {
       [Validators.maxLength(100)],
     ],
   });
+
+  deptos = Object.keys(this.deptosMpios);
+
+  mpios =
+    this.deptosMpios[
+      this.formUserLoca.value.dep?.valueOf() as keyof typeof this.deptosMpios
+    ];
 
   handleChange(dto: any) {
     this.formUserLoca.value.mun = String(
