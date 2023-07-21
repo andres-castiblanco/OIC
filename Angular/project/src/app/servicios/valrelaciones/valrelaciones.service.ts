@@ -5,6 +5,8 @@ import {
   locPreI,
   locPreIDir,
 } from 'src/app/modelos/crear-oferta-loc-pre.interface';
+import { datGenI } from '../../modelos/crear-oferta-datgen.interface';
+import { infoFisiI } from '../../modelos/crear-oferta-inf-fis.interface';
 @Injectable({
   providedIn: 'root',
 })
@@ -53,6 +55,41 @@ export class ValrelacionesService {
     dirrur: undefined,
   };
 
+  datGen: datGenI = {
+    id_oferta: this.idenPredio.id_oferta,
+    derecho_tipo: undefined,
+    tipo_inmueble: undefined,
+    si_valor_incluye_anexidades: undefined,
+    fecha: undefined,
+    tiempo_oferta_mercado: undefined,
+    proyecto_inmobiliario: undefined,
+    proyecto_descripcion: undefined,
+  };
+
+  infoFis: infoFisiI = {
+    id_oferta: this.idenPredio.id_oferta,
+    area_terreno: undefined,
+    ano_construccion: undefined,
+    conservacion: undefined,
+    area_privada: undefined,
+    destinacion_economica: undefined,
+    altura_edificio: undefined,
+    numero_piso: undefined,
+    area_cultivo: undefined,
+    tipo_inmueble_rural: undefined,
+    tipologia_tipo: undefined,
+    edad_cultivo: undefined,
+    tipo_cultivo: undefined,
+    coeficiente: undefined,
+    servicios_publicos: undefined,
+    estrato: undefined,
+    garajes: undefined,
+    numero_banos: undefined,
+    numero_habitaciones: undefined,
+    numero_depositos: undefined,
+    construcciones_anexas: undefined,
+  };
+
   vistasHabilitar: interVistasOfertas = {
     noVistaIdenPreOfer: true,
     noVistaLocOfer: false,
@@ -72,6 +109,14 @@ export class ValrelacionesService {
 
   set setLocaPredioDir(locaPredioDirCom: locPreIDir) {
     this.locPreDir = { ...locaPredioDirCom };
+  }
+
+  set setDatGenPredio(datGenPredio: datGenI) {
+    this.datGen = { ...datGenPredio };
+  }
+
+  set setInfoFisPredio(InfofisiPredio: infoFisiI) {
+    this.infoFis = { ...InfofisiPredio };
   }
 
   habilitarVista(vista: keyof interVistasOfertas, controlVista: boolean) {

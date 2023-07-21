@@ -7,13 +7,23 @@ import {
 } from '@angular/forms';
 import { disableDebugTools } from '@angular/platform-browser';
 
+import { ApiService } from '../../../servicios/api/api.service';
+import { ValrelacionesService } from '../../../servicios/valrelaciones/valrelaciones.service';
+
+import { datGenI } from '../../../modelos/crear-oferta-datgen.interface';
+import { resCearOfer } from '../../../modelos/res-crear-ofer.interface';
+
 @Component({
   selector: 'app-dat-gen',
   templateUrl: './dat-gen.component.html',
   styleUrls: ['./dat-gen.component.css'],
 })
 export class DatGenComponent {
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private api: ApiService,
+    public valrelacionesService: ValrelacionesService
+  ) {}
 
   get idoferta() {
     return this.formUserGen.get('idoferta') as FormControl;

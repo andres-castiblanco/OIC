@@ -3,6 +3,8 @@ import { idenPreI } from '../../modelos/crear-oferta-iden-pre.interface';
 import { resIdenPreI } from '../../modelos/res-iden-pre.interface';
 import { resCearOfer } from '../../modelos/res-crear-ofer.interface';
 import { locPreI } from '../../modelos/crear-oferta-loc-pre.interface';
+import { datGenI } from '../../modelos/crear-oferta-datgen.interface';
+import { infoFisiI } from '../../modelos/crear-oferta-inf-fis.interface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -23,6 +25,16 @@ export class ApiService {
 
   capOferRestLocOferta(form: locPreI): Observable<resCearOfer> {
     let direccion = this.url + 'pre_loca';
+    return this.http.post<resCearOfer>(direccion, form);
+  }
+
+  capOferRestDatGenOferta(form: datGenI): Observable<resCearOfer> {
+    let direccion = this.url + 'pre_gene';
+    return this.http.post<resCearOfer>(direccion, form);
+  }
+
+  capOferRestInfoFisOferta(form: infoFisiI): Observable<resCearOfer> {
+    let direccion = this.url + 'pre_fisi';
     return this.http.post<resCearOfer>(direccion, form);
   }
 }

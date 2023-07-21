@@ -81,9 +81,17 @@
           class="alerError"
           [hidden]="tiemofemer.valid || tiemofemer.pristine"
         >
-          El timpo de oferta en el mercado de la oferta es obligatorio
+          El tiempo de oferta en el mercado de la oferta es obligatorio
         </div>
-        <select
+        <input
+          type="number"
+          formControlName="tiemofemer"
+          name="tiemofemer"
+          placeholder="2"
+          step="1"
+        />
+
+        <!-- <select
           formControlName="tiemofemer"
           name="tiemofemer"
           placeholder="2 Meses"
@@ -101,7 +109,7 @@
           <option value="10 Meses">10</option>
           <option value="11 Meses">11</option>
           <option value="12 Meses">12</option>
-        </select>
+        </select> -->
 
         <label for="proinmb">Proyectos Inmobiliario</label>
         <div class="alerError" [hidden]="proinmb.valid || proinmb.pristine">

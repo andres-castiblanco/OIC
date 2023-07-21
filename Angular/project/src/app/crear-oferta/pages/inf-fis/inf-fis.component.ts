@@ -7,13 +7,23 @@ import {
 } from '@angular/forms';
 import { disableDebugTools } from '@angular/platform-browser';
 
+import { ApiService } from '../../../servicios/api/api.service';
+import { ValrelacionesService } from '../../../servicios/valrelaciones/valrelaciones.service';
+
+import { infoFisiI } from '../../../modelos/crear-oferta-inf-fis.interface';
+import { resCearOfer } from '../../../modelos/res-crear-ofer.interface';
+
 @Component({
   selector: 'app-inf-fis',
   templateUrl: './inf-fis.component.html',
   styleUrls: ['./inf-fis.component.css'],
 })
 export class InfFisComponent {
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private api: ApiService,
+    public valrelacionesService: ValrelacionesService
+  ) {}
 
   get idoferta() {
     return this.formUserFis.get('idoferta') as FormControl;
@@ -86,7 +96,7 @@ export class InfFisComponent {
   get estra() {
     return this.formUserFis.get('estra') as FormControl;
   }
-  
+
   get garaje() {
     return this.formUserFis.get('garaje') as FormControl;
   }
@@ -102,7 +112,7 @@ export class InfFisComponent {
   get numdep() {
     return this.formUserFis.get('numdep') as FormControl;
   }
-  
+
   get conanex() {
     return this.formUserFis.get('conanex') as FormControl;
   }
@@ -147,40 +157,16 @@ export class InfFisComponent {
     ],
     tir: [''],
     tiptipo: ['', Validators.required],
-    edcul: [
-      '',
-      [Validators.required, Validators.max(1000), Validators.min(1)],
-    ],
+    edcul: ['', [Validators.required, Validators.max(1000), Validators.min(1)]],
     tipcul: ['', Validators.required],
-    coef: [
-      '',
-      [Validators.required, Validators.max(1000), Validators.min(1)],
-    ],
+    coef: ['', [Validators.required, Validators.max(1000), Validators.min(1)]],
     serpubl: ['', Validators.required],
-    estra: [
-      '',
-      [Validators.required, Validators.max(6), Validators.min(1)],
-    ],
-    garaje: [
-      '',
-      [Validators.required, Validators.max(50), Validators.min(1)],
-    ],
-    banos: [
-      '',
-      [Validators.required, Validators.max(50), Validators.min(1)],
-    ],
-    numhabi: [
-      '',
-      [Validators.required, Validators.max(50), Validators.min(1)],
-    ],
-    numdep: [
-      '',
-      [Validators.required, Validators.max(50), Validators.min(1)],
-    ],
-    conanex: [
-      '',
-      [Validators.required, Validators.maxLength(100)],
-    ],
+    estra: ['', [Validators.required, Validators.max(6), Validators.min(1)]],
+    garaje: ['', [Validators.required, Validators.max(50), Validators.min(1)]],
+    banos: ['', [Validators.required, Validators.max(50), Validators.min(1)]],
+    numhabi: ['', [Validators.required, Validators.max(50), Validators.min(1)]],
+    numdep: ['', [Validators.required, Validators.max(50), Validators.min(1)]],
+    conanex: ['', [Validators.required, Validators.maxLength(100)]],
   });
 
   procesar() {
