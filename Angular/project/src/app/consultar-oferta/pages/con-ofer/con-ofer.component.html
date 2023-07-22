@@ -179,64 +179,72 @@
             </div>
         </div>
 
-            <div>
-                <p><input type="submit" value="Consultar"></p>
-            </div> 
+        <div class="col-md-12 text-center">
+            <!-- <p><input type="submit" value="Consultar"></p> -->
+            <button class="btn btn-success btn-lg">Consultar</button>
+        </div> 
             
-            <hr style="width:95%;">
-            
-            
-            <div>
-                <table>
-                    <tr>
-                    <th>Id Oferta</th>                    
-                    <th>Descripción</th>
-                    <th>Opciones</th>
-                    </tr>
-                    <tr>
-                    <td>123456789</td>
-                    <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
-                    <td>
-                        <button><i class="fas fa-edit" style="font-size:12px;color:black;"></i> Editar </button>
-                        <button><i class="fas fa-trash-alt" style="font-size:12px;color:red;"></i> Eliminar </button>
-                        <button><i class="fas fa-clone" style="font-size:12px;color:rgb(30, 48, 80);"></i> Duplicar </button> 
-                        <button><i class="fas fa-list-alt" style="font-size:12px;color:green;"></i> Inspeccionar </button>   
-                    </td>
-                    </tr>
-                    <tr>
-                    <td>987654321</td>
-                    <td>Lorem ipsum dolor sit amet, consectetur</td>
-                    <td>
-                        <button><i class="fas fa-edit" style="font-size:12px;color:black;"></i> Editar </button>
-                        <button><i class="fas fa-trash-alt" style="font-size:12px;color:red;"></i> Eliminar </button>
-                        <button><i class="fas fa-clone" style="font-size:12px;color:rgb(30, 48, 80);"></i> Duplicar </button> 
-                        <button><i class="fas fa-list-alt" style="font-size:12px;color:green;"></i> Inspeccionar </button>   
-                    </td>
-                    </tr>
-                    <!-- <tr>
-                    <td>Ernst Handel</td>
-                    <td>Roland Mendel</td>
-                    <td>Austria</td>
-                    </tr>
-                    <tr>
-                    <td>Island Trading</td>
-                    <td>Helen Bennett</td>
-                    <td>UK</td>
-                    </tr>
-                    <tr>
-                    <td>Laughing Bacchus Winecellars</td>
-                    <td>Yoshi Tannamuri</td>
-                    <td>Canada</td>
-                    </tr>
-                    <tr>
-                    <td>Magazzini Alimentari Riuniti</td>
-                    <td>Giovanni Rovelli</td>
-                    <td>Italy</td>
-                    </tr> -->
-                </table>
-            </div>
-
     </div>
+
+    <hr class="style-seven">
+
+    <div>
+        <table class="table table-borderless table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Id Oferta</th>
+                    <th scope="col">Matrícula Inmobiliaria</th>
+                    <th scope="col">Opciones</th>
+                
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">123456789</th>
+                    <td>300-5329325</td>
+                    <td>
+                        <button class="m-1 btn btn-primary btn-sm"><i class="fas fa-edit" style="font-size:12px;color:black;"></i> Editar </button>
+                        <button class="m-1 btn btn-danger btn-sm"><i class="fas fa-trash-alt" style="font-size:12px;color:red;"></i> Eliminar </button>
+                        <button class="m-1 btn btn-warning btn-sm"><i class="fas fa-clone" style="font-size:12px;color:rgb(30, 48, 80);"></i> Duplicar </button> 
+                        <button class="m-1 btn btn-info btn-sm"><i class="fas fa-list-alt" style="font-size:12px;color:green;"></i> Inspeccionar </button>  
+                    </td>
+                    
+                </tr>
+                <tr>
+                    <th scope="row">987654321</th>
+                    <td>50C-1826372</td>
+                    <td>
+                        <button class="m-1 btn btn-primary btn-sm"><i class="fas fa-edit" style="font-size:12px;color:black;"></i> Editar </button>
+                        <button class="m-1 btn btn-danger btn-sm"><i class="fas fa-trash-alt" style="font-size:12px;color:red;"></i> Eliminar </button>
+                        <button class="m-1 btn btn-warning btn-sm"><i class="fas fa-clone" style="font-size:12px;color:rgb(30, 48, 80);"></i> Duplicar </button> 
+                        <button class="m-1 btn btn-info btn-sm"><i class="fas fa-list-alt" style="font-size:12px;color:green;"></i> Inspeccionar </button>  
+                    </td>
+                    
+                </tr>
+                
+            </tbody>
+        </table>
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+                </li>
+            </ul>
+        </nav>
+
+    </div> 
+
     <app-footer></app-footer>
 </body>
 </html>

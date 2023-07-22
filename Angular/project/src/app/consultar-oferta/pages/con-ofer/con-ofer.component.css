@@ -151,9 +151,27 @@ table {
 }
 
 td, th {
-border: 1px solid #dddddd;
-text-align: center;
-padding: 10px;
+    text-align: center;
+    padding: 10px;
+}
+
+hr.style-seven {
+    overflow: visible; /* For IE */
+    height: 30px;
+    border-style: solid;
+    border-color: black;
+    border-width: 2px 0 0 0;
+    border-radius: 20px;
+}
+hr.style-seven:before { /* Not really supposed to work, but does */
+    display: block;
+    content: "";
+    height: 28px;
+    margin-top: -32px;
+    border-style: solid;
+    border-color: black;
+    border-width: 0 0 2px 0;
+    border-radius: 20px;
 }
 
 tr:nth-child(even) {
