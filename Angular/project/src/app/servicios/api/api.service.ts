@@ -5,6 +5,9 @@ import { resCearOfer } from '../../modelos/res-crear-ofer.interface';
 import { locPreI } from '../../modelos/crear-oferta-loc-pre.interface';
 import { datGenI } from '../../modelos/crear-oferta-datgen.interface';
 import { infoFisiI } from '../../modelos/crear-oferta-inf-fis.interface';
+import { infoEconoI } from '../../modelos/crear-oferta-inf-eco.interface';
+import { infoFuenteI } from '../../modelos/crear-oferta-inf-fuente.interface';
+import { infoAdminI } from '../../modelos/crear-oferta-inf-admin.interface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -35,6 +38,21 @@ export class ApiService {
 
   capOferRestInfoFisOferta(form: infoFisiI): Observable<resCearOfer> {
     let direccion = this.url + 'pre_fisi';
+    return this.http.post<resCearOfer>(direccion, form);
+  }
+
+  capOferRestInfoEconoOferta(form: infoEconoI): Observable<resCearOfer> {
+    let direccion = this.url + 'pre_econo';
+    return this.http.post<resCearOfer>(direccion, form);
+  }
+
+  capOferRestInfoFuenteOferta(form: infoFuenteI): Observable<resCearOfer> {
+    let direccion = this.url + 'info_fuente';
+    return this.http.post<resCearOfer>(direccion, form);
+  }
+
+  capOferRestInfoAdminOferta(form: infoAdminI): Observable<resCearOfer> {
+    let direccion = this.url + 'info_admin';
     return this.http.post<resCearOfer>(direccion, form);
   }
 }

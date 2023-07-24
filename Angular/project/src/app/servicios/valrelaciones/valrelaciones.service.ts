@@ -7,6 +7,10 @@ import {
 } from 'src/app/modelos/crear-oferta-loc-pre.interface';
 import { datGenI } from '../../modelos/crear-oferta-datgen.interface';
 import { infoFisiI } from '../../modelos/crear-oferta-inf-fis.interface';
+import { infoEconoI } from '../../modelos/crear-oferta-inf-eco.interface';
+import { infoFuenteI } from '../../modelos/crear-oferta-inf-fuente.interface';
+import { infoPerI } from '../../modelos/crear-oferta-personas.interface';
+import { infoAdminI } from '../../modelos/crear-oferta-inf-admin.interface';
 @Injectable({
   providedIn: 'root',
 })
@@ -90,6 +94,59 @@ export class ValrelacionesService {
     construcciones_anexas: undefined,
   };
 
+  infoEnono: infoEconoI = {
+    id_oferta: this.idenPredio.id_oferta,
+    valor_oferta_inicial: undefined,
+    porcentaje_negociacion: undefined,
+    valor_oferta_final: undefined,
+    valor_terreno: undefined,
+    valor_construccion_m2: undefined,
+    valor_area_privada: undefined,
+    valor_cultivo: undefined,
+    avaluo_catastral: undefined,
+    valor_administracion: undefined,
+    valor_arriendo_inicial: undefined,
+    valor_arriendo_final: undefined,
+    valor_terraza_balcon_patio: undefined,
+    valor_garajes: undefined,
+    valor_depositos: undefined,
+    valor_anexidades: undefined,
+  };
+
+  infoFuente: infoFuenteI = {
+    id_oferta: this.idenPredio.id_oferta,
+    nombre_oferente: undefined,
+    numero_contacto: undefined,
+    url: undefined,
+    enlace_interno_foto_predio: undefined,
+    enlace_documentos: undefined,
+    observaciones: undefined,
+  };
+
+  infoPer: infoPerI = {
+    ti_persona: undefined,
+    ni_persona: undefined,
+    nombres: undefined,
+    apellidos: undefined,
+    email: undefined,
+    telefono: undefined,
+    contrasena: undefined,
+    area: undefined,
+    rol: undefined,
+  };
+
+  infoAdmin: infoAdminI = {
+    id_oferta: undefined,
+    ti_persona_captura: undefined,
+    ni_persona_captura: undefined,
+    email_persona_captura: undefined,
+    area_persona_captura: undefined,
+    ti_persona_verifica: undefined,
+    ni_persona_verifica: undefined,
+    email_persona_verifica: undefined,
+    area_persona_verifica: undefined,
+  };
+
   vistasHabilitar: interVistasOfertas = {
     noVistaIdenPreOfer: true,
     noVistaLocOfer: false,
@@ -115,8 +172,24 @@ export class ValrelacionesService {
     this.datGen = { ...datGenPredio };
   }
 
-  set setInfoFisPredio(InfofisiPredio: infoFisiI) {
-    this.infoFis = { ...InfofisiPredio };
+  set setInfoFisPredio(InfoFisiPredio: infoFisiI) {
+    this.infoFis = { ...InfoFisiPredio };
+  }
+
+  set setInfoEconoPredio(InfoEconoPredio: infoEconoI) {
+    this.infoEnono = { ...InfoEconoPredio };
+  }
+
+  set setInfoFuentePredio(InfoFuentePredio: infoFuenteI) {
+    this.infoFuente = { ...InfoFuentePredio };
+  }
+
+  set setInfoPersona(InfoPersona: infoPerI) {
+    this.infoPer = { ...InfoPersona };
+  }
+
+  set setInfoAdminePredio(InfoAdminPredio: infoAdminI) {
+    this.infoAdmin = { ...InfoAdminPredio };
   }
 
   habilitarVista(vista: keyof interVistasOfertas, controlVista: boolean) {
