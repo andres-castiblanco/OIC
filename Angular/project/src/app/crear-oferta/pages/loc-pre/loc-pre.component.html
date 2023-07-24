@@ -259,14 +259,14 @@
 
       <div class="row">
         <h2 class="col-4">
-          <button class="btn btn-primary btn-lg" routerLink="../IdenPre">Anterior</button>
+          <button class="buttonEnviar" routerLink="../IdenPre">Anterior</button>
         </h2>
         <h2 class="col-4">
-          <button class="btn btn-warning btn-lg" [disabled]="formUserLoca.invalid">Guardar</button>
+          <button class="buttonEnviar" [disabled]="formUserLoca.invalid">Guardar</button>
         </h2>
         <h2 class="col-4">
           <button
-            class="btn btn-outline-success btn-lg" [disabled]="!valrelacionesService.vistasHabilitar.noVistaDatGen" routerLink="../DatGen">Siguiente</button>
+            class="buttonEnviar" [disabled]="!valrelacionesService.vistasHabilitar.noVistaDatGen" routerLink="../DatGen">Siguiente</button>
         </h2>
       </div>
     </form>
