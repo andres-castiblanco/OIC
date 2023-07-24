@@ -11,6 +11,7 @@ import { infoEconoI } from '../../modelos/crear-oferta-inf-eco.interface';
 import { infoFuenteI } from '../../modelos/crear-oferta-inf-fuente.interface';
 import { infoPerI } from '../../modelos/crear-oferta-personas.interface';
 import { infoAdminI } from '../../modelos/crear-oferta-inf-admin.interface';
+
 @Injectable({
   providedIn: 'root',
 })

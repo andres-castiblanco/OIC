@@ -8,6 +8,8 @@ import { infoFisiI } from '../../modelos/crear-oferta-inf-fis.interface';
 import { infoEconoI } from '../../modelos/crear-oferta-inf-eco.interface';
 import { infoFuenteI } from '../../modelos/crear-oferta-inf-fuente.interface';
 import { infoAdminI } from '../../modelos/crear-oferta-inf-admin.interface';
+import { loginLoginI } from '../../modelos/login-login.interface';
+import { resLoginLoginI } from '../../modelos/res-login-login.interface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -20,6 +22,11 @@ export class ApiService {
   url: string = 'https://309edcca-12b0-466d-a296-f6a172af65b7.mock.pstmn.io/';
 
   constructor(private http: HttpClient) {}
+
+  loginLoginUsuario(form: loginLoginI): Observable<resLoginLoginI> {
+    let direccion = this.url + 'login';
+    return this.http.post<resLoginLoginI>(direccion, form);
+  }
 
   capOferRestIDOferta(form: idenPreI): Observable<resIdenPreI> {
     let direccion = this.url + 'pre_iden';
