@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <section class="ftco-section">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="login-wrap p-4 p-md-5">
+            <div class="d-flex">
+              <div class="w-100">
+                <h2 class="row justify-content-center">
+                  Cambiar Contraseña - OIC
+                </h2>
+              </div>
+            </div>
+
+            <form
+              class="signin-form"
+              [formGroup]="formCamContrasena"
+              (ngSubmit)="recuperar()"
+            >
+              <div class="form-group mb-3">
+                <label class="label" for="email">Correo Electrónico</label>
+                <div class="alerError" [hidden]="email.valid || email.pristine">
+                  <div *ngIf="email.errors?.['required']">
+                    El correo del responsable de la oferta es obligatorio
+                  </div>
+                  <div *ngIf="email.errors?.['maxlength']">
+                    La cantidad de caracteres debe de ser menor a 50
+                  </div>
+                  <div
+                    *ngIf="
+                      formCamContrasena.controls['email'].hasError('email')
+                    "
+                  >
+                    Ingrese un correo electrónico valido.
+                  </div>
+                </div>
+
+                <input
+                  class="form-control"
+                  type="email"
+                  formControlName="email"
+                  name="email"
+                  placeholder="juan.rodriguez@igac.gov.co"
+                />
+              </div>
+
+              <div class="form-group mb-3">
+                <label class="label" for="contractual">Contraseña actual</label>
+                <div
+                  class="alerError"
+                  [hidden]="contractual.valid || contractual.pristine"
+                >
+                  <div *ngIf="contractual.errors?.['required']">
+                    La contraseña actual del responsable de la oferta es
+                    obligatorio
+                  </div>
+                  <div *ngIf="contractual.errors?.['maxlength']">
+                    La cantidad de caracteres debe de ser menor a 50
+                  </div>
+                </div>
+
+                <input
+                  class="form-control"
+                  type="password"
+                  formControlName="contractual"
+                  name="contractual"
+                  placeholder="contraseña actual"
+                />
+              </div>
+
+              <div class="form-group mb-3">
+                <label class="label" for="contranueva">Nueva contraseña</label>
+                <div
+                  class="alerError"
+                  [hidden]="contranueva.valid || contranueva.pristine"
+                >
+                  <div *ngIf="contranueva.errors?.['required']">
+                    La nueva contraseña del responsable de la oferta es
+                    obligatoria
+                  </div>
+                  <div *ngIf="contranueva.errors?.['maxlength']">
+                    La cantidad de caracteres debe de ser menor a 50
+                  </div>
+                  <div *ngIf="contranueva.errors?.['minlength']">
+                    La cantidad de caracteres debe de ser mayor a 8 caracteres
+                  </div>
+                  <div
+                    *ngIf="
+                      formCamContrasena.controls['contranueva'].hasError(
+                        'hasNumber'
+                      )
+                    "
+                  >
+                    Las contraseñas dede de tener al menos un número.
+                  </div>
+                  <div
+                    *ngIf="
+                      formCamContrasena.controls['contranueva'].hasError(
+                        'hasCapitalCase'
+                      )
+                    "
+                  >
+                    Las contraseñas dede de tener al menos una letra en
+                    mayúscula.
+                  </div>
+                  <div
+                    *ngIf="
+                      formCamContrasena.controls['contranueva'].hasError(
+                        'hasSmallCase'
+                      )
+                    "
+                  >
+                    Las contraseñas dede de tener al menos una letra en
+                    minúscula.
+                  </div>
+                  <div
+                    *ngIf="
+                      formCamContrasena.controls['contranueva'].hasError(
+                        'hasSpecialCharacters'
+                      )
+                    "
+                  >
+                    Las contraseñas dede de tener al menos un caracter especial
+                    Ejemplo: * + , .
+                  </div>
+                </div>
+
+                <input
+                  class="form-control"
+                  type="password"
+                  formControlName="contranueva"
+                  name="contranueva"
+                  placeholder="Nueva contraseña"
+                />
+              </div>
+
+              <div class="form-group mb-3">
+                <label class="label" for="valcontranueva"
+                  >Validar nueva contraseña</label
+                >
+                <div
+                  class="alerError"
+                  [hidden]="valcontranueva.valid || valcontranueva.pristine"
+                >
+                  <div *ngIf="valcontranueva.errors?.['required']">
+                    La validación de la nueva contraseña es obligatoria
+                  </div>
+                  <div *ngIf="valcontranueva.errors?.['maxlength']">
+                    La cantidad de caracteres debe de ser menor a 50
+                  </div>
+                  <div
+                    *ngIf="
+                      formCamContrasena.controls['valcontranueva'].hasError(
+                        'NoPassswordMatch'
+                      )
+                    "
+                  >
+                    Las contraseñas digitadas deben de ser iguales.
+                  </div>
+                </div>
+              </div>
+
+              <input
+                class="form-control"
+                type="password"
+                formControlName="valcontranueva"
+                name="valcontranueva"
+                placeholder="Nueva contraseña"
+              />
+
+              <div class="form-group">
+                <button
+                  type="submit"
+                  class="form-control btn btn-primary rounded submit px-3"
+                  [disabled]="formCamContrasena.invalid"
+                >
+                  Enviar
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

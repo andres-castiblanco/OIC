@@ -15,6 +15,7 @@ import { resLoginRegistroI } from '../../modelos/res-login-registro.interface';
 import { loginContraI } from '../../modelos/login-contra.interface';
 import { resLoginContraI } from '../../modelos/res-logis-contra.interface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { loginCambContraI } from 'src/app/modelos/login-camb-contra.interface';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -39,6 +40,11 @@ export class ApiService {
 
   loginContraUsuario(form: loginRegistroI): Observable<resLoginContraI> {
     let direccion = this.url + 'contrasena';
+    return this.http.post<resLoginContraI>(direccion, form);
+  }
+
+  loginCambContraUsuario(form: loginCambContraI): Observable<resLoginContraI> {
+    let direccion = this.url + 'cambiocontrasena';
     return this.http.post<resLoginContraI>(direccion, form);
   }
 
