@@ -4,22 +4,36 @@
 ></script>
 
 <header>
+  <div class="mb-3 col-2 row mt-4">
+    <img class="img_oic" src="assets/igac_1.jpeg" alt="igac" />
+  </div>
+
+  <h1 class="mb-3 col-10 row" class="text-center">
+    Módulo de Ofertas Inmobiliarias - OIC
+  </h1>
 
   <div class="mb-3 col-2 row mt-4">
-    <img class="img_oic"
-      src="assets/igac_1.jpeg"
-      alt="igac"
-    />
-  </div>  
-
-  <h1 class="mb-3 col-10 row" class="text-center">Módulo de Ofertas Inmobiliarias - OIC</h1>  
-  
-  <div class="mb-3 col-2 row mt-4">
-    <img 
-      src="assets/igac_oic_3.png"
-      alt="ObservatorioInmobiliarioCatastral"
-    />
+    <img src="assets/igac_oic_3.png" alt="ObservatorioInmobiliarioCatastral" />
   </div>
 </header>
 <hr _ngcontent-fyk-c9="" style="width: 100%" />
 
+<div class="row text-center">
+  <div class="col-5"></div>
+  <div class="col-2"><span class="my-2 my-sm-0">Bienvenido</span></div>
+  <div class="col-2">
+    <a class="w-50 text-right" routerLink="#"
+      >{{ personaLogin.nombres }} {{ personaLogin.apellidos }}</a
+    >
+  </div>
+  <div class="col-3">
+    <button
+      class="btn btn-outline-success my-2 my-sm-0"
+      (click)="cerrarSesion()"
+    >
+      Cerrar sesión
+    </button>
+  </div>
+</div>
+
+<hr _ngcontent-fyk-c9="" style="width: 100%" />

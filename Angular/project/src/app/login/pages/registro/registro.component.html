@@ -128,6 +128,9 @@
                   <div *ngIf="email.errors?.['maxlength']">
                     La cantidad de caracteres debe de ser menor a 50
                   </div>
+                  <div *ngIf="formRegistro.controls['email'].hasError('email')">
+                    Ingrese un correo electrónico valido.
+                  </div>
                 </div>
 
                 <input
@@ -163,16 +166,17 @@
                 <div class="alerError" [hidden]="area.valid || area.pristine">
                   El Área institucional es obligatoria
                 </div>
-                <select
-                  class="form-select"
-                  id="area"
+                <div *ngIf="area.errors?.['maxlength']">
+                  La cantidad de caracteres debe de ser menor a 50
+                </div>
+
+                <input
+                  class="form-control"
+                  type="text"
                   formControlName="area"
                   name="area"
-                >
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                </select>
+                  placeholder="OIC"
+                />
               </div>
 
               <div class="form-group mb-3">
@@ -204,6 +208,46 @@
                   <div *ngIf="contrasena.errors?.['maxlength']">
                     La cantidad de caracteres debe de ser menor a 50
                   </div>
+                  <div *ngIf="contrasena.errors?.['minlength']">
+                    La cantidad de caracteres debe de ser mayor a 8 caracteres
+                  </div>
+                  <div
+                    *ngIf="
+                      formRegistro.controls['contrasena'].hasError('hasNumber')
+                    "
+                  >
+                    Las contraseñas dede de tener al menos un número.
+                  </div>
+                  <div
+                    *ngIf="
+                      formRegistro.controls['contrasena'].hasError(
+                        'hasCapitalCase'
+                      )
+                    "
+                  >
+                    Las contraseñas dede de tener al menos una letra en
+                    mayúscula.
+                  </div>
+                  <div
+                    *ngIf="
+                      formRegistro.controls['contrasena'].hasError(
+                        'hasSmallCase'
+                      )
+                    "
+                  >
+                    Las contraseñas dede de tener al menos una letra en
+                    minúscula.
+                  </div>
+                  <div
+                    *ngIf="
+                      formRegistro.controls['contrasena'].hasError(
+                        'hasSpecialCharacters'
+                      )
+                    "
+                  >
+                    Las contraseñas dede de tener al menos un caracter especial
+                    Ejemplo:*+,.
+                  </div>
                 </div>
 
                 <input
@@ -229,7 +273,13 @@
                   <div *ngIf="valcontrasena.errors?.['maxlength']">
                     La cantidad de caracteres debe de ser menor a 50
                   </div>
-                  <div *ngIf="contrasena !== valcontrasena">
+                  <div
+                    *ngIf="
+                      formRegistro.controls['valcontrasena'].hasError(
+                        'NoPassswordMatch'
+                      )
+                    "
+                  >
                     Las contraseñas digitadas deben de ser iguales.
                   </div>
                 </div>

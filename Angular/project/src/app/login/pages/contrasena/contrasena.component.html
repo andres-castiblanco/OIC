@@ -40,6 +40,11 @@
                   <div *ngIf="email.errors?.['maxlength']">
                     La cantidad de caracteres debe de ser menor a 50
                   </div>
+                  <div
+                    *ngIf="formContrasena.controls['email'].hasError('email')"
+                  >
+                    Ingrese un correo electrónico valido.
+                  </div>
                 </div>
 
                 <input

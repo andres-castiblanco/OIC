@@ -37,7 +37,10 @@ export class ContrasenaComponent {
   // }
 
   formContrasena = this.fb.group({
-    email: ['', [Validators.required, Validators.maxLength(50)]],
+    email: [
+      '',
+      [Validators.required, Validators.maxLength(50), Validators.email],
+    ],
     // password: ['', [Validators.required, Validators.maxLength(50)]],
     // valpassword: ['', [Validators.required, Validators.maxLength(50)]],
   });

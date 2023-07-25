@@ -39,6 +39,9 @@
                   <div *ngIf="email.errors?.['maxlength']">
                     La cantidad de caracteres debe de ser menor a 50
                   </div>
+                  <div *ngIf="formLogin.controls['email'].hasError('email')">
+                    Ingrese un correo electrónico valido.
+                  </div>
                 </div>
 
                 <input
@@ -93,7 +96,7 @@
                 </div>
 
                 <div class="w-50 text-md-right">
-                  <a routerLink="contrasena">¿Olvido su Contraseña?</a>
+                  <a routerLink="contrasena">¿Olvido su contraseña?</a>
                 </div>
               </div>
             </form>

@@ -7,6 +7,10 @@ import {
   FormGroup,
   FormControl,
   Validators,
+  PatternValidator,
+  ValidationErrors,
+  ValidatorFn,
+  AbstractControl,
 } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -62,21 +66,65 @@ export class RegistroComponent {
     return this.formRegistro.get('valcontrasena') as FormControl;
   }
 
-  formRegistro = this.fb.group({
-    tiper: ['', [Validators.required]],
-    numiden: [
-      '',
-      [Validators.required, Validators.max(100000000000000), Validators.min(1)],
-    ],
-    nom: ['', [Validators.required, Validators.maxLength(50)]],
-    apl: ['', [Validators.required, Validators.maxLength(50)]],
-    email: ['', [Validators.required, Validators.maxLength(50)]],
-    tel: ['', [Validators.required, Validators.max(100000000000000)]],
-    area: ['', [Validators.required]],
-    rol: ['', [Validators.required]],
-    contrasena: ['', [Validators.required, Validators.maxLength(50)]],
-    valcontrasena: ['', [Validators.required, Validators.maxLength(50)]],
-  });
+  static patternValidator(regex: RegExp, error: ValidationErrors): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } => {
+      if (!control.value) {
+        return null!;
+      }
+      const valid = regex.test(control.value);
+      return valid ? null! : error;
+    };
+  }
+
+  static passwordMatchValidator(control: AbstractControl) {
+    const contrasena: string = control.get('contrasena')?.value;
+    const valcontrasena: string = control.get('valcontrasena')?.value;
+    if (contrasena !== valcontrasena) {
+      control.get('valcontrasena')?.setErrors({ NoPassswordMatch: true });
+    }
+  }
+
+  formRegistro = this.fb.group(
+    {
+      tiper: ['', [Validators.required]],
+      numiden: [
+        '',
+        [
+          Validators.required,
+          Validators.max(100000000000000),
+          Validators.min(1),
+        ],
+      ],
+      nom: ['', [Validators.required, Validators.maxLength(50)]],
+      apl: ['', [Validators.required, Validators.maxLength(50)]],
+      email: [
+        '',
+        [Validators.required, Validators.maxLength(50), Validators.email],
+      ],
+      tel: ['', [Validators.required, Validators.max(100000000000000)]],
+      area: ['', [Validators.required, Validators.maxLength(50)]],
+      rol: ['', [Validators.required]],
+      contrasena: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(50),
+          Validators.minLength(8),
+          RegistroComponent.patternValidator(/\d/, { hasNumber: true }),
+          RegistroComponent.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
+          RegistroComponent.patternValidator(/[a-z]/, { hasSmallCase: true }),
+          RegistroComponent.patternValidator(
+            /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/,
+            { hasSpecialCharacters: true }
+          ),
+        ],
+      ],
+      valcontrasena: ['', [Validators.required, Validators.maxLength(50)]],
+    },
+    {
+      validator: RegistroComponent.passwordMatchValidator,
+    }
+  );
 
   datosRegistro: loginRegistroI = {
     ti_persona: undefined,
