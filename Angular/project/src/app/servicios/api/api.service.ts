@@ -10,6 +10,10 @@ import { infoFuenteI } from '../../modelos/crear-oferta-inf-fuente.interface';
 import { infoAdminI } from '../../modelos/crear-oferta-inf-admin.interface';
 import { loginLoginI } from '../../modelos/login-login.interface';
 import { resLoginLoginI } from '../../modelos/res-login-login.interface';
+import { loginRegistroI } from '../../modelos/login-registro.interface';
+import { resLoginRegistroI } from '../../modelos/res-login-registro.interface';
+import { loginContraI } from '../../modelos/login-contra.interface';
+import { resLoginContraI } from '../../modelos/res-logis-contra.interface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -26,6 +30,16 @@ export class ApiService {
   loginLoginUsuario(form: loginLoginI): Observable<resLoginLoginI> {
     let direccion = this.url + 'login';
     return this.http.post<resLoginLoginI>(direccion, form);
+  }
+
+  loginRegistroUsuario(form: loginContraI): Observable<resLoginRegistroI> {
+    let direccion = this.url + 'registro';
+    return this.http.post<resLoginRegistroI>(direccion, form);
+  }
+
+  loginContraUsuario(form: loginRegistroI): Observable<resLoginContraI> {
+    let direccion = this.url + 'contrasena';
+    return this.http.post<resLoginContraI>(direccion, form);
   }
 
   capOferRestIDOferta(form: idenPreI): Observable<resIdenPreI> {

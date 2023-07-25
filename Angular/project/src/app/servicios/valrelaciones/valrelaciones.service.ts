@@ -131,7 +131,6 @@ export class ValrelacionesService {
     apellidos: undefined,
     email: undefined,
     telefono: undefined,
-    contrasena: undefined,
     area: undefined,
     rol: undefined,
   };

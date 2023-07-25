@@ -29,7 +29,7 @@
             <form
               class="signin-form"
               [formGroup]="formRegistro"
-              (ngSubmit)="procesar()"
+              (ngSubmit)="registrar()"
             >
               <div class="form-group mb-3">
                 <label class="label" for="tiper">Tipo de Identificación</label>
@@ -193,15 +193,15 @@
               </div>
 
               <div class="form-group mb-3">
-                <label class="label" for="password">Contraseña</label>
+                <label class="label" for="contrasena">Contraseña</label>
                 <div
                   class="alerError"
-                  [hidden]="password.valid || password.pristine"
+                  [hidden]="contrasena.valid || contrasena.pristine"
                 >
-                  <div *ngIf="password.errors?.['required']">
+                  <div *ngIf="contrasena.errors?.['required']">
                     La contraseña del responsable de la oferta es obligatorio
                   </div>
-                  <div *ngIf="password.errors?.['maxlength']">
+                  <div *ngIf="contrasena.errors?.['maxlength']">
                     La cantidad de caracteres debe de ser menor a 50
                   </div>
                 </div>
@@ -209,8 +209,8 @@
                 <input
                   class="form-control"
                   type="password"
-                  formControlName="password"
-                  name="password"
+                  formControlName="contrasena"
+                  name="contrasena"
                   placeholder="contraseña"
                 />
               </div>
@@ -221,21 +221,24 @@
                 >
                 <div
                   class="alerError"
-                  [hidden]="valpassword.valid || valpassword.pristine"
+                  [hidden]="valcontrasena.valid || valcontrasena.pristine"
                 >
-                  <div *ngIf="valpassword.errors?.['required']">
+                  <div *ngIf="valcontrasena.errors?.['required']">
                     La validación de contraseña es obligatoria
                   </div>
-                  <div *ngIf="valpassword.errors?.['maxlength']">
+                  <div *ngIf="valcontrasena.errors?.['maxlength']">
                     La cantidad de caracteres debe de ser menor a 50
+                  </div>
+                  <div *ngIf="contrasena !== valcontrasena">
+                    Las contraseñas digitadas deben de ser iguales.
                   </div>
                 </div>
 
                 <input
                   class="form-control"
-                  type="valpassword"
-                  formControlName="valpassword"
-                  name="valpassword"
+                  type="password"
+                  formControlName="valcontrasena"
+                  name="valcontrasena"
                   placeholder="contraseña"
                 />
               </div>
@@ -244,7 +247,7 @@
                 <button
                   type="submit"
                   class="form-control btn btn-primary rounded submit px-3"
-                  onClick="clicked()"
+                  [disabled]="formRegistro.invalid"
                 >
                   Registrarme
                 </button>

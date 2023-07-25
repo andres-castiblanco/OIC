@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
+import { loginRegistroI } from '../../../modelos/login-registro.interface';
+import { resLoginRegistroI } from '../../../modelos/res-login-registro.interface';
+import { ApiService } from '../../../servicios/api/api.service';
 import {
   FormBuilder,
   FormGroup,
   FormControl,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registro',
@@ -12,7 +16,11 @@ import {
   styleUrls: ['./registro.component.css'],
 })
 export class RegistroComponent {
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private api: ApiService,
+    private router: Router
+  ) {}
 
   get tiper() {
     return this.formRegistro.get('tiper') as FormControl;
@@ -46,12 +54,12 @@ export class RegistroComponent {
     return this.formRegistro.get('rol') as FormControl;
   }
 
-  get password() {
-    return this.formRegistro.get('password') as FormControl;
+  get contrasena() {
+    return this.formRegistro.get('contrasena') as FormControl;
   }
 
-  get valpassword() {
-    return this.formRegistro.get('valpassword') as FormControl;
+  get valcontrasena() {
+    return this.formRegistro.get('valcontrasena') as FormControl;
   }
 
   formRegistro = this.fb.group({
@@ -66,11 +74,46 @@ export class RegistroComponent {
     tel: ['', [Validators.required, Validators.max(100000000000000)]],
     area: ['', [Validators.required]],
     rol: ['', [Validators.required]],
-    password: ['', [Validators.required, Validators.maxLength(50)]],
-    valpassword: ['', [Validators.required, Validators.maxLength(50)]],
+    contrasena: ['', [Validators.required, Validators.maxLength(50)]],
+    valcontrasena: ['', [Validators.required, Validators.maxLength(50)]],
   });
 
-  procesar() {
-    console.log(this.formRegistro.value);
+  datosRegistro: loginRegistroI = {
+    ti_persona: undefined,
+    ni_persona: undefined,
+    nombres: undefined,
+    apellidos: undefined,
+    email: undefined,
+    contrasena: undefined,
+    telefono: undefined,
+    area: undefined,
+    rol: undefined,
+  };
+
+  registrar() {
+    this.datosRegistro.ti_persona = this.formRegistro.value.tiper?.valueOf();
+    this.datosRegistro.ni_persona = Number(
+      this.formRegistro.value.numiden?.valueOf()
+    );
+    this.datosRegistro.nombres = this.formRegistro.value.nom?.valueOf();
+    this.datosRegistro.apellidos = this.formRegistro.value.apl?.valueOf();
+    this.datosRegistro.email = this.formRegistro.value.email?.valueOf();
+    this.datosRegistro.contrasena =
+      this.formRegistro.value.contrasena?.valueOf();
+    this.datosRegistro.telefono = Number(
+      this.formRegistro.value.tel?.valueOf()
+    );
+    this.datosRegistro.area = this.formRegistro.value.area?.valueOf();
+    this.datosRegistro.rol = Number(this.formRegistro.value.rol?.valueOf());
+
+    this.api.loginRegistroUsuario(this.datosRegistro).subscribe((data) => {
+      let resRegistro: resLoginRegistroI = data;
+      if (resRegistro.status === '200 OK') {
+        console.log(resRegistro.msj);
+        this.router.navigate(['Login']);
+      } else {
+        console.log(resRegistro.msj);
+      }
+    });
   }
 }

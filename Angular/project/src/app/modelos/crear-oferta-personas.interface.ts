@@ -5,7 +5,6 @@ export interface infoPerI {
   apellidos: String | null | undefined;
   email: String | null | undefined;
   telefono: Number | null | undefined;
-  contrasena: String | null | undefined;
   area: String | null | undefined;
   rol: Number | null | undefined;
 }
