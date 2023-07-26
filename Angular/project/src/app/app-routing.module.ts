@@ -15,7 +15,7 @@ import { LoginComponent } from './login/pages/login/login.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'Login',
+    redirectTo: 'login',
     pathMatch: 'full',
   },
   {
@@ -54,7 +54,7 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'Login',
+    path: 'login',
     loadChildren: () =>
       import('src/app/login/login.module').then((m) => m.LoginModule
       ),

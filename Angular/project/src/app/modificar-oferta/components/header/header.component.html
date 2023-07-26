@@ -4,24 +4,30 @@
 ></script>
 
 <header>
+  <div class="col">
+    <img class="img-igac img-fluid " src="assets/igac_1.jpeg" alt="igac" />
+  </div>
 
-  <div class="mb-3 col-2 row mt-4">
-    <img class="img_oic"
-      src="assets/igac_1.jpeg"
-      alt="igac"
-    />
-  </div>  
+  <div class="col-9 text-center">
+    <h1>Módulo de Ofertas Inmobiliarias - OIC</h1>
+  </div> 
 
-  <h1 class="mb-3 col-10 row" class="text-center">Módulo de Ofertas Inmobiliarias - OIC</h1>  
-  
-  <div class="mb-3 col-2 row mt-4">
-    <img class="img_oic"
-      src="assets/igac_oic_3.png"
-      alt="ObservatorioInmobiliarioCatastral"
-    />
+  <div class="col">
+    <img class="img-oic img-fluid " src="assets/igac_oic_3.png" alt="ObservatorioInmobiliarioCatastral" />
   </div>
 </header>
-<hr _ngcontent-fyk-c9="" style="width: 100%" />
 
 
+<ul class="text-center nav nav-tabs ">
+  <li class="col nav-item">
+    <a class="nav-link text-dark" href="#">Usuario</a>
+  </li>
+  <li class="col nav-item">
+    <a class="nav-link text-dark">{{ personaLogin.nombres }} {{ personaLogin.apellidos }}</a>
+  </li>
+  <li class="col nav-item">
+    <a class="nav-link text-warning" routerLink="../Login">Cerrar sesión</a>
+  </li>
+</ul>
 
+<br>
