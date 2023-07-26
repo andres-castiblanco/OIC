@@ -3,73 +3,82 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /> -->
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-    />
-    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
   </head>
   <body>
     <app-header></app-header>
+
     <div class="responsive">
-      <!-- <div class="gallery">
-            <a target="_self" href="http://localhost:4200/IdenPre">
-            <img src="https://mcdn.wallpapersafari.com/medium/62/25/eAtj5p.jpg" alt="Cinque Terre" width="600" height="400">
 
-            </a>
-            <div class="desc">Consultar Oferta</div>
-        </div> -->
+        <div class="text-center">
+          <div class="row">
+            <div class="col">
+              
+              <div class="gallery"> 
+                <a target="_self" routerLink="CrearOferta/IdenPre">
+                  <div class="fa-3x">
+                    <i
+                      class="material-icons fal fa-file-plus"
+                      style="font-size: 90px; color: black"
+                      >add</i
+                    >
+                  </div>
+                </a>
+                <div class="desc">Crear Oferta</div>
+              </div>
 
-      <div class="gallery"> 
-        <a target="_self" routerLink="CrearOferta/IdenPre">
-          <div class="fa-3x">
-            <i
-              class="material-icons fal fa-file-plus"
-              style="font-size: 90px; color: black"
-              >add</i
-            >
+            </div>
+            <div class="col">
+              
+              <div class="gallery">
+                <a target="_self" routerLink="ConOfer">
+                  <div class="fa-3x">
+                    <i
+                      class="material-icons fal fa-file-plus"
+                      style="font-size: 90px; color: black"
+                      >zoom_in</i
+                    >
+                  </div>
+                </a>
+                <div class="desc">Consultar Oferta</div>
+              </div>
+
+            </div>
           </div>
-        </a>
-        <div class="desc">Crear Oferta</div>
-      </div>
+        </div>
+    
+        <div class="text-center">
+          <div class="row">
+            <div class="col">
+              
+              <div class="gallery">
+                <a target="_self" routerLink="ModOfer/IdenPre">
+                  <div class="fa-3x">
+                    <i class="material-icons fal" style="font-size: 90px; color: black"
+                      >autorenew</i
+                    >
+                  </div>
+                </a>
+                <div class="desc">Modificar Oferta</div>
+              </div>
 
-      <div class="gallery">
-        <a target="_self" routerLink="ConOfer">
-          <div class="fa-3x">
-            <i
-              class="material-icons fal fa-file-plus"
-              style="font-size: 90px; color: black"
-              >zoom_in</i
-            >
-          </div>
-        </a>
-        <div class="desc">Consultar Oferta</div>
-      </div>
+            </div>
+            <div class="col">
+              
+              <div class="gallery">
+                <a target="_self" routerLink="ValOfer/IdenPre">
+                  <div class="fa-3x">
+                    <i class="material-icons fal" style="font-size: 90px; color: black"
+                      >check</i
+                    >
+                  </div>
+                </a>
+                <div class="desc">Validar Oferta</div>
+              </div>
 
-      <div class="gallery">
-        <a target="_self" routerLink="ModOfer/IdenPre">
-          <div class="fa-3x">
-            <!-- <i class="material-symbols-outlined">auto_fix</i> -->
-            <i class="material-icons fal" style="font-size: 90px; color: black"
-              >autorenew</i
-            >
+            </div>
           </div>
-        </a>
-        <div class="desc">Modificar Oferta</div>
-      </div>
-
-      <div class="gallery">
-        <a target="_self" routerLink="ValOfer/IdenPre">
-          <div class="fa-3x">
-            <i class="material-icons fal" style="font-size: 90px; color: black"
-              >check</i
-            >
-          </div>
-        </a>
-        <div class="desc">Validar Oferta</div>
-      </div>
+        </div>
     </div>
     <app-footer></app-footer>
   </body>
