@@ -6,7 +6,7 @@
   <body>
     <app-header></app-header>
     <form [formGroup]="formUserFue" (ngSubmit)="procesar()">
-      <h2>Información Fuente</h2>
+      <h2>Información de la persona que publica la oferta</h2>
       <div class="container">
 
         <label for="idoferta">Id de la Oferta</label>
@@ -100,7 +100,7 @@
         ></textarea>
       </div>
       
-      <h2>Información Administrativa</h2>
+      <h2>Información de la persona que captura la oferta</h2>
 
       <div class="container">  
 
@@ -190,6 +190,8 @@
           style="height: 200px"
         ></textarea>
       </div>
+
+      <h2>Información de la persona que verifica la oferta</h2>
 
       <div class="container">
 

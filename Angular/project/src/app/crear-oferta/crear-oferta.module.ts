@@ -13,6 +13,7 @@ import { InfFueComponent } from './pages/inf-fue/inf-fue.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { NavComponent } from './components/nav/nav.component';
+import { MapaComponent } from './components/mapa/mapa.component';
 
 @NgModule({
   declarations: [
@@ -25,8 +26,9 @@ import { NavComponent } from './components/nav/nav.component';
     FooterComponent,
     HeaderComponent,
     NavComponent,
+    MapaComponent,
   ],
-  imports: [
+  imports: [ 
     CommonModule,
     CrearOfertaRoutingModule,
     FormsModule,

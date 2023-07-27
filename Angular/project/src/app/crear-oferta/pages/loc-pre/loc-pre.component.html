@@ -67,6 +67,8 @@
           placeholder="Belen"
         />
 
+        <app-mapa></app-mapa>
+
         <label for="lat">Latitud</label>
         <div class="alerError" [hidden]="lat.valid || lat.pristine">
           <div *ngIf="lat.errors?.['required']">La latitud es obligatoria</div>
