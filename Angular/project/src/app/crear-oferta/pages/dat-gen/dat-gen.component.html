@@ -49,14 +49,16 @@
           <option value="OTRO">OTRO</option>
         </select>
 
-        <label for="valanex">Valor Incluye Anexidades</label>
-        <div class="alerError" [hidden]="valanex.valid || valanex.pristine">
-          El especificar si incluye anexidades es obligatorio
+        <div *ngIf="formUserGen.value.tipinmb?.valueOf() !== 'LOTE'">
+          <label for="valanex">Valor Incluye Anexidades</label>
+          <div class="alerError" [hidden]="valanex.valid || valanex.pristine">
+            El especificar si incluye anexidades es obligatorio
+          </div>
+          <select formControlName="valanex" name="valanex">
+            <option value="SI">SI</option>
+            <option value="NO">NO</option>
+          </select>
         </div>
-        <select formControlName="valanex" name="valanex">
-          <option value="SI">SI</option>
-          <option value="NO">NO</option>
-        </select>
 
         <label for="feccapofer">Fecha de Captura Oferta</label>
         <div
@@ -91,45 +93,29 @@
           step="1"
         />
 
-        <!-- <select
-          formControlName="tiemofemer"
-          name="tiemofemer"
-          placeholder="2 Meses"
-        >
-          <option value="0 Meses">0</option>
-          <option value="1 Meses">1</option>
-          <option value="2 Meses">2</option>
-          <option value="3 Meses">3</option>
-          <option value="4 Meses">4</option>
-          <option value="5 Meses">5</option>
-          <option value="6 Meses">6</option>
-          <option value="7 Meses">7</option>
-          <option value="8 Meses">8</option>
-          <option value="9 Meses">9</option>
-          <option value="10 Meses">10</option>
-          <option value="11 Meses">11</option>
-          <option value="12 Meses">12</option>
-        </select> -->
+        <div *ngIf="controlEntrevariables.val_proyecto_inmobiliario">
+          <label for="proinmb">Proyectos Inmobiliario</label>
+          <div class="alerError" [hidden]="proinmb.valid || proinmb.pristine">
+            El especificar si es proyecto inmobiliario es obligatorio
+          </div>
+          <select formControlName="proinmb" name="proinmb">
+            <option value="SI">SI</option>
+            <option value="NO">NO</option>
+          </select>
 
-        <label for="proinmb">Proyectos Inmobiliario</label>
-        <div class="alerError" [hidden]="proinmb.valid || proinmb.pristine">
-          El especificar si es proyecto inmobiliario es obligatorio
+          <div *ngIf="this.formUserGen.value.proinmb?.valueOf() === 'SI'">
+            <label for="desproy">Descripción del Proyecto</label>
+            <div class="alerError" [hidden]="desproy.valid || desproy.pristine">
+              La descripción del proyecto inmobiliario es obligatorio
+            </div>
+            <textarea
+              formControlName="desproy"
+              name="desproy"
+              placeholder="Escribir Descripción (Menor a 500 Caracteres)"
+              style="height: 200px"
+            ></textarea>
+          </div>
         </div>
-        <select formControlName="proinmb" name="proinmb">
-          <option value="SI">SI</option>
-          <option value="NO">NO</option>
-        </select>
-
-        <label for="desproy">Descripción del Proyecto</label>
-        <div class="alerError" [hidden]="desproy.valid || desproy.pristine">
-          La descripción del proyecto inmobiliario es obligatorio
-        </div>
-        <textarea
-          formControlName="desproy"
-          name="desproy"
-          placeholder="Escribir Descripción (Menor a 500 Caracteres)"
-          style="height: 200px"
-        ></textarea>
       </div>
 
       <div class="row">
@@ -142,7 +128,13 @@
           </button>
         </h2>
         <h2 class="col-4">
-          <button class="buttonEnviar" [disabled]="true">Siguiente</button>
+          <button
+            class="buttonEnviar"
+            [disabled]="!valrelacionesService.vistasHabilitar.noVistaInfoFisi"
+            routerLink="../InfFis"
+          >
+            Siguiente
+          </button>
         </h2>
       </div>
     </form>

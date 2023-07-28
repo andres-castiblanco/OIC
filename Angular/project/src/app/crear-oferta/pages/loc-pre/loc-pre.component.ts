@@ -1474,8 +1474,8 @@ export class LocPreComponent {
       this.formUserLoca.controls['dir07'].setValue(undefined);
       this.formUserLoca.controls['dir08'].setValue(undefined);
     }
-    console.log(this.objIdenLoc);
-    console.log(this.valrelacionesService.locPre);
+    // console.log(this.objIdenLoc);
+    // console.log(this.valrelacionesService.locPre);
 
     if (
       this.valrelacionesService.idenPredio.id_oferta !== undefined &&
@@ -1486,8 +1486,8 @@ export class LocPreComponent {
         if (resLocpre.status === '200 OK') {
           this.valrelacionesService.setLocaPredio = this.objIdenLoc;
           this.valrelacionesService.setLocaPredioDir = this.objIdenLocDir;
-          console.log(this.valrelacionesService.locPre);
-          console.log(this.valrelacionesService.locPreDir);
+          // console.log(this.valrelacionesService.locPre);
+          // console.log(this.valrelacionesService.locPreDir);
           this.envioFormVistaBack = true;
           this.noVistaSiguienteBoton =
             this.valrelacionesService.idenPredio.id_oferta !== undefined &&
@@ -1512,7 +1512,7 @@ export class LocPreComponent {
         `El valor de id_oferta ya fue asignado su valor es de: ${this.valrelacionesService.idenPredio.id_oferta}. No se evidencia actualizaciones en el formulario.`
       );
     }
-    console.log(this.valrelacionesService.locPre);
-    console.log(this.valrelacionesService.idenPredio);
+    // console.log(this.valrelacionesService.locPre);
+    // console.log(this.valrelacionesService.idenPredio);
   }
 }
