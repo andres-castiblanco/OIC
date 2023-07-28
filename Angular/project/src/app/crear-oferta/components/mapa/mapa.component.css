@@ -1,21 +1,27 @@
-/* 
- * Always set the map height explicitly to define the size of the div element
- * that contains the map. 
- */
-#map {
+/* .map-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 30px;
+} */
+
+/* .map-frame {
+    border: 2px solid black;
     height: 100%;
+} */
+
+/* #map {
+    height: 100%;
+} */
+
+#map {
+    height: 35em;
 }
 
 .map-container {
     height: 100%;
-}
-
-/* 
-* Optional: Makes the sample page fill the window. 
-*/
-html,
-body {
-    height: 100%;
-    margin: 0;
+    margin: 20px 0px;
     padding: 0;
 }

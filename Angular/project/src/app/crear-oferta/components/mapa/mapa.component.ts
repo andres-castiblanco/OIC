@@ -1,6 +1,10 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
 // Instalar npm install @angular/google-maps
 // Instalar npm install @types/googlemaps --save-dev
+// Instalar npm install leaflet@1.7.1
+
+import { Component, AfterViewInit, EventEmitter, Output, Input } from '@angular/core';
+import * as L from 'leaflet';
+
 
 @Component({
   selector: 'app-mapa',
@@ -8,46 +12,33 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
   styleUrls: ['./mapa.component.css']
 })
 
-export class MapaComponent {
-  // function initMap() {
-  //     const myLatlng = { lat: -25.363, lng: 131.044 };
+export class MapaComponent implements AfterViewInit { 
+  
+  private map: any;
+  
+  private initMap(): void {
+    this.map = L.map('map', {
+      center: [ 4.30246, -72.5811 ],
+      zoom: 5
+    });
+
+    const tiles = L.tileLayer('https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}', {
+      maxZoom: 18,
+      minZoom: 3,
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    });
+
+    tiles.addTo(this.map);
     
-  //     const map = new google.maps.Map(document.getElementById("map")!, {
-  //       zoom: 4,
-  //       center: myLatlng,
-  //     });
+    // this.map.on('click', () => { console.log(Event.latlng); });
     
-  //     // Create the initial InfoWindow.
-  //     let infoWindow = new google.maps.InfoWindow({
-  //       content: "Click the map to get Lat/Lng!",
-  //       position: myLatlng,
-  //     });
-    
-  //     infoWindow.open(map);
-    
-    
-  //     // Configure the click listener.
-  //     map.addListener("click", (mapsMouseEvent) => {
-  //       // Close the current InfoWindow.
-  //       infoWindow.close();
-    
-  //       // Create a new InfoWindow.
-  //       infoWindow = new google.maps.InfoWindow({
-  //         position: mapsMouseEvent.latLng,
-  //       });
-  //       infoWindow.setContent(
-  //         JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
-  //       );
-  //       infoWindow.open(map);
-  //     });
-  //   }
-    
-  //   declare global {
-  //     interface Window {
-  //       initMap: () => void;
-  //     }
-  //   }
-  //   window.initMap = initMap;
+  }
+
+  constructor() {}
+
+  ngAfterViewInit(): void { 
+    this.initMap();
+  } 
 
 }
 
