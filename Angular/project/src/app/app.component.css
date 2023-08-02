@@ -4,8 +4,9 @@ h1{
   text-align: center;
   padding: 20px;
 }
-nav {
+nav{
   position: absolute;
+  /* position: sticky; */
   left: 0rem;
   top: 1rem;
   width: 10rem;
@@ -17,6 +18,7 @@ nav {
 }
 
 .navigation a {
+  /* position: sticky; */
   font-size: 0.67rem;
   color: white;
   display: block;
@@ -42,6 +44,9 @@ nav ul li details {
 
 #btn-nav {
   display: none;
+  /* display: flex;
+  position: sticky;
+  margin-top: -18rem; */
 }
 
 #btn-nav:checked ~ nav {

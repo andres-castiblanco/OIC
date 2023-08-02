@@ -12,33 +12,34 @@ import * as L from 'leaflet';
   styleUrls: ['./mapa.component.css']
 })
 
-export class MapaComponent implements AfterViewInit { 
+export class MapaComponent { 
+// export class MapaComponent implements AfterViewInit { 
   
-  private map: any;
+  // private map: any;
   
-  private initMap(): void {
-    this.map = L.map('map', {
-      center: [ 4.30246, -72.5811 ],
-      zoom: 5
-    });
+  // private initMap(): void {
+  //   this.map = L.map('map', {
+  //     center: [ 4.30246, -72.5811 ],
+  //     zoom: 5
+  //   });
 
-    const tiles = L.tileLayer('https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}', {
-      maxZoom: 18,
-      minZoom: 3,
-      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    });
+  //   const tiles = L.tileLayer('https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}', {
+  //     maxZoom: 18,
+  //     minZoom: 3,
+  //     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+  //   });
 
-    tiles.addTo(this.map);
+  //   tiles.addTo(this.map);
     
     // this.map.on('click', () => { console.log(Event.latlng); });
     
-  }
+  //}
 
-  constructor() {}
+  //constructor() {}
 
-  ngAfterViewInit(): void { 
-    this.initMap();
-  } 
+  // ngAfterViewInit(): void { 
+  //   this.initMap();
+  // } 
 
 }
 
