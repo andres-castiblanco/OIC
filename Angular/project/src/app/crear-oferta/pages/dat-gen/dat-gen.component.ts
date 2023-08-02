@@ -60,22 +60,6 @@ export class DatGenComponent {
     return this.formUserGen.get('desproy') as FormControl;
   }
 
-  // static setRequiredValidation(control: AbstractControl) {
-  //   const tipo_inmueble: string = control.get('tipinmb')?.value;
-  //   const val_anexi: string = control.get('valanex')?.value;
-  //   if (
-  //     tipo_inmueble === 'LOTE'
-  //     // && (val_anexi === undefined || val_anexi === null)
-  //   ) {
-  //     control.get('valanex')?.clearValidators();
-  //     control.get('valanex')?.updateValueAndValidity();
-  //   }
-  //   //  else {
-  //   //   control.get('valanex')?.addValidators([Validators.required]);
-  //   //   control.get('valanex')?.updateValueAndValidity();
-  //   // }
-  // }
-
   formUserGen = this.fb.group(
     {
       idoferta: [
@@ -96,22 +80,46 @@ export class DatGenComponent {
       valanex: [this.valrelacionesService.datGen.si_valor_incluye_anexidades],
       feccapofer: [this.valrelacionesService.datGen.fecha, Validators.required],
       tiemofemer: [this.valrelacionesService.datGen.tiempo_oferta_mercado],
-      proinmb: [
-        this.valrelacionesService.datGen.proyecto_inmobiliario,
-        Validators.required,
-      ],
+      proinmb: [this.valrelacionesService.datGen.proyecto_inmobiliario],
       desproy: [
         this.valrelacionesService.datGen.proyecto_descripcion,
-        [Validators.required, Validators.maxLength(500)],
+        [Validators.maxLength(500)],
       ],
     },
     {
-      validator: (group: any) => {
-        if (group.controls.tipinmb.value !== 'LOTE') {
-          return Validators.required(group.controls.valanex);
-        }
-        return null;
-      },
+      validator: [
+        (group: any) => {
+          if (group.controls.tipinmb.value !== 'LOTE') {
+            return Validators.required(group.controls.valanex);
+          }
+          return null;
+        },
+        (group: any) => {
+          if (
+            this.valrelacionesService.idenPredio.condicion_juridica?.valueOf() ===
+              'PH' ||
+            this.valrelacionesService.idenPredio.condicion_juridica?.valueOf() ===
+              'PH_MATRIZ' ||
+            this.valrelacionesService.idenPredio.condicion_juridica?.valueOf() ===
+              'PH_UNIDAD_PREDIAL' ||
+            this.valrelacionesService.idenPredio.condicion_juridica?.valueOf() ===
+              'CONDOMINIO' ||
+            this.valrelacionesService.idenPredio.condicion_juridica?.valueOf() ===
+              'CONDOMINIO_MATRIZ' ||
+            this.valrelacionesService.idenPredio.condicion_juridica?.valueOf() ===
+              'CONDOMINIO_UNIDAD_PREDIAL'
+          ) {
+            return Validators.required(group.controls.proinmb);
+          }
+          return null;
+        },
+        (group: any) => {
+          if (group.controls.proinmb.value === 'SI') {
+            return Validators.required(group.controls.desproy);
+          }
+          return null;
+        },
+      ],
     }
   );
 
