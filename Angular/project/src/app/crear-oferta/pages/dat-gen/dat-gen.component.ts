@@ -193,7 +193,7 @@ export class DatGenComponent {
         .subscribe((resDatGene) => {
           if (resDatGene.status === '200 OK') {
             this.valrelacionesService.setDatGenPredio = this.objDatGen;
-            console.log(this.valrelacionesService.datGen);
+            // console.log(this.valrelacionesService.datGen);
             this.envioFormVistaBack = true;
             this.noVistaSiguienteBoton =
               this.valrelacionesService.idenPredio.id_oferta !== undefined &&
@@ -218,7 +218,7 @@ export class DatGenComponent {
         `El valor de id_oferta ya fue asignado su valor es de: ${this.valrelacionesService.idenPredio.id_oferta}. No se evidencia actualizaciones en el formulario.`
       );
     }
-    console.log(this.formUserGen.value);
-    console.log(this.valrelacionesService.datGen);
+    // console.log(this.formUserGen.value);
+    // console.log(this.valrelacionesService.datGen);
   }
 }

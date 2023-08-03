@@ -15,115 +15,123 @@
         </div>
         <input type="number" formControlName="idoferta" name="Id Oferta" />
 
-        <label for="atm2">Área terreno (m2)</label>
-        <div class="alerError" [hidden]="atm2.valid || atm2.pristine">
-          <div *ngIf="atm2.errors?.['required']">
-            El área de terreno en metros cuadrados es obligatorio
+        <div *ngIf="controlEntrevariables.val_area_terreno">
+          <div *ngIf="!controlEntrevariables.val_tipo_rural">
+            <label for="atm2">Área terreno (m2)</label>
+            <div class="alerError" [hidden]="atm2.valid || atm2.pristine">
+              <div *ngIf="formUserFis.controls['atm2'].hasError('areasVacias')">
+                Debe de existir al menos un valor en área de terreno o de
+                construcción
+              </div>
+              <div *ngIf="atm2.errors?.['min'] || atm2.errors?.['max']">
+                La cantidad reportada debe de ser positiva, mayor a cero y no
+                mayor a 1.000.000
+              </div>
+            </div>
+            <input
+              type="number"
+              formControlName="atm2"
+              name="atm2"
+              placeholder="2500"
+            />
           </div>
-          <div *ngIf="atm2.errors?.['min'] || atm2.errors?.['max']">
-            La cantidad reportada debe de ser positiva, mayor a cero y no mayor
-            a 1.000.000
-          </div>
-        </div>
-        <input
-          type="number"
-          formControlName="atm2"
-          name="atm2"
-          placeholder="2500"
-        />
 
-        <label for="atha">Área terreno (ha)</label>
-        <div class="alerError" [hidden]="atha.valid || atha.pristine">
-          <div *ngIf="atha.errors?.['required']">
-            El área de terreno en hectareas es obligatorio
-          </div>
-          <div *ngIf="atha.errors?.['min'] || atha.errors?.['max']">
-            La cantidad reportada debe de ser positiva, mayor a cero y no mayor
-            a 1.000.000
+          <div *ngIf="controlEntrevariables.val_tipo_rural">
+            <label for="atha">Área terreno (ha)</label>
+            <div class="alerError" [hidden]="atha.valid || atha.pristine">
+              <div *ngIf="formUserFis.controls['atha'].hasError('areasVacias')">
+                Debe de existir al menos un valor en área de terreno o de
+                construcción
+              </div>
+              <div *ngIf="atha.errors?.['min'] || atha.errors?.['max']">
+                La cantidad reportada debe de ser positiva, mayor a cero y no
+                mayor a 1.000.000
+              </div>
+            </div>
+            <input
+              type="number"
+              formControlName="atha"
+              name="atha"
+              placeholder="1500"
+            />
           </div>
         </div>
-        <input
-          type="number"
-          formControlName="atha"
-          name="atha"
-          placeholder="1500"
-        />
 
-        <label for="acm2">Área construcción (m2)</label>
-        <div class="alerError" [hidden]="acm2.valid || acm2.pristine">
-          <div *ngIf="acm2.errors?.['required']">
-            El área de construcción en metros cuadrados es obligatoria
+        <div *ngIf="controlEntrevariables.val_n_lote">
+          <label for="acm2">Área construcción (m2)</label>
+          <div class="alerError" [hidden]="acm2.valid || acm2.pristine">
+            <div *ngIf="formUserFis.controls['acm2'].hasError('areasVacias')">
+              Debe de existir al menos un valor en área de terreno o de
+              construcción
+            </div>
+            <div *ngIf="acm2.errors?.['min'] || acm2.errors?.['max']">
+              La cantidad reportada debe de ser positiva y no mayor a 1.000.000
+            </div>
           </div>
-          <div *ngIf="acm2.errors?.['min'] || acm2.errors?.['max']">
-            La cantidad reportada debe de ser positiva y no mayor a 1.000.000
-          </div>
+          <input
+            type="number"
+            formControlName="acm2"
+            name="acm2"
+            placeholder="1203"
+          />
         </div>
-        <input
-          type="number"
-          formControlName="acm2"
-          name="acm2"
-          placeholder="1203"
-        />
 
-        <label for="apm2">Área privada (m2)</label>
-        <div class="alerError" [hidden]="apm2.valid || apm2.pristine">
-          <div *ngIf="apm2.errors?.['required']">
-            El área privada en metros cuadrados es obligatoria
+        <div *ngIf="controlEntrevariables.val_area_privada">
+          <label for="apm2">Área privada (m2)</label>
+          <div class="alerError" [hidden]="apm2.valid || apm2.pristine">
+            <div *ngIf="apm2.errors?.['required']">
+              El área privada en metros cuadrados es obligatoria
+            </div>
+            <div *ngIf="apm2.errors?.['min'] || apm2.errors?.['max']">
+              La cantidad reportada debe de ser positiva y no mayor a 1.000.000
+            </div>
           </div>
-          <div *ngIf="apm2.errors?.['min'] || apm2.errors?.['max']">
-            La cantidad reportada debe de ser positiva y no mayor a 1.000.000
-          </div>
+          <input
+            type="number"
+            formControlName="apm2"
+            name="apm2"
+            placeholder="50"
+          />
         </div>
-        <input
-          type="number"
-          formControlName="apm2"
-          name="apm2"
-          placeholder="50"
-        />
 
-        <label for="apha">Área cultivo (ha)</label>
-        <div class="alerError" [hidden]="apha.valid || apha.pristine">
-          <div *ngIf="apha.errors?.['required']">
-            El área de cultivos en hectareas es obligatoria
+        <div *ngIf="controlEntrevariables.val_n_lote_finca">
+          <label for="apha">Área cultivo (ha)</label>
+          <div class="alerError" [hidden]="apha.valid || apha.pristine">
+            <div *ngIf="apha.errors?.['min'] || apha.errors?.['max']">
+              La cantidad reportada debe de ser positiva y no mayor a 1.000.000
+            </div>
           </div>
-          <div *ngIf="apha.errors?.['min'] || apha.errors?.['max']">
-            La cantidad reportada debe de ser positiva y no mayor a 1.000.000
-          </div>
+          <input
+            type="number"
+            formControlName="apha"
+            name="apha"
+            placeholder="25"
+          />
         </div>
-        <input
-          type="number"
-          formControlName="apha"
-          name="apha"
-          placeholder="25"
-        />
 
-        <label for="ac">Año de construcción</label>
-        <div class="alerError" [hidden]="ac.valid || ac.pristine">
-          <div *ngIf="ac.errors?.['required']">
-            El área de cultivos en hectareas es obligatoria
+        <div *ngIf="controlEntrevariables.val_n_lote">
+          <label for="ac">Año de construcción</label>
+          <div class="alerError" [hidden]="ac.valid || ac.pristine">
+            <div *ngIf="ac.errors?.['min'] || ac.errors?.['max']">
+              La cantidad de años de la construcción debe de ser positiva y
+              estar entre 1400 a 2100
+            </div>
           </div>
-          <div *ngIf="ac.errors?.['min'] || ac.errors?.['max']">
-            La cantidad de años de la construcción debe de ser positiva y estar
-            entre 1400 a 2100
-          </div>
-        </div>
-        <input
-          type="number"
-          formControlName="ac"
-          name="ac"
-          placeholder="1993"
-        />
+          <input
+            type="number"
+            formControlName="ac"
+            name="ac"
+            placeholder="1993"
+          />
 
-        <label for="conser">Conservación</label>
-        <div class="alerError" [hidden]="conser.valid || conser.pristine">
-          La conservación es un campo obligatorio
+          <label for="conser">Conservación</label>
+          <select formControlName="conser" name="conse" placeholder="---">
+            <option value="BUENO">BUENO</option>
+            <option value="REGULAR">REGULAR</option>
+            <option value="MALO">MALO</option>
+            <option value="NO_CLASIFICADO">NO CLASIFICADO</option>
+          </select>
         </div>
-        <select formControlName="conser" name="conse" placeholder="---">
-          <option value="BUENO">BUENO</option>
-          <option value="REGULAR">REGULAR</option>
-          <option value="MALO">MALO</option>
-          <option value="NO_CLASIFICADO">NO CLASIFICADO</option>
-        </select>
 
         <label for="desecon">Destinación económica</label>
         <div class="alerError" [hidden]="desecon.valid || desecon.pristine">
@@ -172,39 +180,36 @@
           <option value="USO_PUBLICO">USO PUBLICO</option>
         </select>
 
-        <label for="altedif">Altura edificio</label>
-        <div class="alerError" [hidden]="altedif.valid || altedif.pristine">
-          La espcificación de si se encuentra en altura del edificio es un campo
-          obligatorio
-        </div>
-        <select formControlName="altedif" name="altedif">
-          <option value="SI">SI</option>
-          <option value="NO">NO</option>
-        </select>
+        <div *ngIf="controlEntrevariables.val_n_lote">
+          <label for="altedif">Altura edificio</label>
+          <select formControlName="altedif" name="altedif">
+            <option value="SI">SI</option>
+            <option value="NO">NO</option>
+          </select>
 
-        <label for="numpis">Número de pisos</label>
-        <div class="alerError" [hidden]="numpis.valid || numpis.pristine">
-          <div *ngIf="numpis.errors?.['required']">
-            El número de pisos es obligatorio
+          <label for="numpis">Número de pisos</label>
+          <div class="alerError" [hidden]="numpis.valid || numpis.pristine">
+            <div *ngIf="numpis.errors?.['min'] || numpis.errors?.['max']">
+              La cantidad de pisos debe de ser positiva y estar de 1 a 1000
+            </div>
           </div>
-          <div *ngIf="numpis.errors?.['min'] || numpis.errors?.['max']">
-            La cantidad de pisos debe de ser positiva y estar de 1 a 1000
-          </div>
+          <input
+            type="number"
+            formControlName="numpis"
+            name="numpis"
+            placeholder="3"
+          />
         </div>
-        <input
-          type="number"
-          formControlName="numpis"
-          name="numpis"
-          placeholder="3"
-        />
 
-        <label for="tir">Tipo de inmueble rural</label>
-        <input
-          type="text"
-          formControlName="tir"
-          name="tir"
-          placeholder="Casa, Finca, Parcela, Condominio..."
-        />
+        <div *ngIf="controlEntrevariables.val_tipo_rural">
+          <label for="tir">Tipo de inmueble rural</label>
+          <input
+            type="text"
+            formControlName="tir"
+            name="tir"
+            placeholder="Casa, Finca, Parcela, Condominio..."
+          />
+        </div>
 
         <label for="tiptipo">Tipologia Tipo</label>
         <div class="alerError" [hidden]="tiptipo.valid || tiptipo.pristine">
@@ -242,48 +247,43 @@
           <option value="OTRO">OTRO</option>
         </select>
 
-        <label for="edcul">Edad cultivo (Años)</label>
-        <div class="alerError" [hidden]="edcul.valid || edcul.pristine">
-          <div *ngIf="edcul.errors?.['required']">
-            La edad del cultivo es obligatorio
+        <div *ngIf="controlEntrevariables.val_n_lote_finca">
+          <label for="edcul">Edad cultivo (Años)</label>
+          <div class="alerError" [hidden]="edcul.valid || edcul.pristine">
+            <div *ngIf="edcul.errors?.['min'] || edcul.errors?.['max']">
+              La edad del cultivo debe de ser positiva y estar de 1 a 1000
+            </div>
           </div>
-          <div *ngIf="edcul.errors?.['min'] || edcul.errors?.['max']">
-            La edad del cultivo debe de ser positiva y estar de 1 a 1000
-          </div>
-        </div>
-        <input
-          type="number"
-          formControlName="edcul"
-          name="edcul"
-          placeholder="5"
-        />
+          <input
+            type="number"
+            formControlName="edcul"
+            name="edcul"
+            placeholder="5"
+          />
 
-        <label for="tipcul">Tipo de cultivo</label>
-        <div class="alerError" [hidden]="tipcul.valid || tipcul.pristine">
-          El Tipo de cultivo es un campo obligatorio
+          <label for="tipcul">Tipo de cultivo</label>
+          <select formControlName="tipcul" name="tipcul" placeholder="---">
+            <option value="PERMANENTE">PERMANENTE</option>
+            <option value="SEMIPERMANENTE">SEMIPERMANENTE</option>
+            <option value="TRANSITORIO">TRANSITORIO</option>
+            <option value="NO_APLICA">NO APLICA</option>
+          </select>
         </div>
-        <select formControlName="tipcul" name="tipcul" placeholder="---">
-          <option value="PERMANENTE">PERMANENTE</option>
-          <option value="SEMIPERMANENTE">SEMIPERMANENTE</option>
-          <option value="TRANSITORIO">TRANSITORIO</option>
-          <option value="NO_APLICA">NO APLICA</option>
-        </select>
 
-        <label for="coef">Coeficiente</label>
-        <div class="alerError" [hidden]="coef.valid || coef.pristine">
-          <div *ngIf="coef.errors?.['required']">
-            El Coeficiente es obligatorio
+        <div *ngIf="controlEntrevariables.val_area_privada">
+          <label for="coef">Coeficiente</label>
+          <div class="alerError" [hidden]="coef.valid || coef.pristine">
+            <div *ngIf="coef.errors?.['min'] || coef.errors?.['max']">
+              El Coeficiente debe de ser positivo y estar de 1 a 1000
+            </div>
           </div>
-          <div *ngIf="coef.errors?.['min'] || coef.errors?.['max']">
-            El Coeficiente debe de ser positivo y estar de 1 a 1000
-          </div>
+          <input
+            type="number"
+            formControlName="coef"
+            name="coef"
+            placeholder="4"
+          />
         </div>
-        <input
-          type="number"
-          formControlName="coef"
-          name="coef"
-          placeholder="4"
-        />
 
         <label for="serpubl">Servicios publicos</label>
         <div class="alerError" [hidden]="serpubl.valid || serpubl.pristine">
@@ -300,9 +300,6 @@
 
         <label for="estra">Estrato</label>
         <div class="alerError" [hidden]="estra.valid || estra.pristine">
-          <div *ngIf="estra.errors?.['required']">
-            El Estrato es obligatorio
-          </div>
           <div *ngIf="estra.errors?.['min'] || estra.errors?.['max']">
             El Estrato debe de ser positivo y estar de 1 a 6
           </div>
@@ -316,9 +313,6 @@
 
         <label for="garaje">Garajes</label>
         <div class="alerError" [hidden]="garaje.valid || garaje.pristine">
-          <div *ngIf="garaje.errors?.['required']">
-            El Garaje es obligatorio
-          </div>
           <div *ngIf="garaje.errors?.['min'] || garaje.errors?.['max']">
             El Garaje debe de ser positivo y estar de 1 a 50
           </div>
@@ -330,75 +324,65 @@
           placeholder="2"
         />
 
-        <label for="banos">Numero de baños</label>
-        <div class="alerError" [hidden]="banos.valid || banos.pristine">
-          <div *ngIf="banos.errors?.['required']">
-            El Numero de baños es obligatorio
+        <div *ngIf="controlEntrevariables.val_n_lote">
+          <label for="banos">Numero de baños</label>
+          <div class="alerError" [hidden]="banos.valid || banos.pristine">
+            <div *ngIf="banos.errors?.['min'] || banos.errors?.['max']">
+              El Numero de baños debe de ser positivo y estar de 1 a 50
+            </div>
           </div>
-          <div *ngIf="banos.errors?.['min'] || banos.errors?.['max']">
-            El Numero de baños debe de ser positivo y estar de 1 a 50
-          </div>
-        </div>
-        <input
-          type="number"
-          formControlName="banos"
-          name="banos"
-          placeholder="1"
-        />
+          <input
+            type="number"
+            formControlName="banos"
+            name="banos"
+            placeholder="1"
+          />
 
-        <label for="numhabi">Numero de habitaciones</label>
-        <div class="alerError" [hidden]="numhabi.valid || numhabi.pristine">
-          <div *ngIf="numhabi.errors?.['required']">
-            El Numero de habitaciones es obligatorio
+          <label for="numhabi">Numero de habitaciones</label>
+          <div class="alerError" [hidden]="numhabi.valid || numhabi.pristine">
+            <div *ngIf="numhabi.errors?.['min'] || numhabi.errors?.['max']">
+              El Numero de habitaciones debe de ser positivo y estar de 1 a 50
+            </div>
           </div>
-          <div *ngIf="numhabi.errors?.['min'] || numhabi.errors?.['max']">
-            El Numero de habitaciones debe de ser positivo y estar de 1 a 50
-          </div>
-        </div>
-        <input
-          type="number"
-          formControlName="numhabi"
-          name="numhabi"
-          placeholder="5"
-        />
+          <input
+            type="number"
+            formControlName="numhabi"
+            name="numhabi"
+            placeholder="5"
+          />
 
-        <label for="numdep">Numero de depositos</label>
-        <div class="alerError" [hidden]="numdep.valid || numdep.pristine">
-          <div *ngIf="numdep.errors?.['required']">
-            El Numero de depositos es obligatorio
+          <label for="numdep">Numero de depositos</label>
+          <div class="alerError" [hidden]="numdep.valid || numdep.pristine">
+            <div *ngIf="numdep.errors?.['min'] || numdep.errors?.['max']">
+              El Numero de depositos debe de ser positivo y estar de 1 a 50
+            </div>
           </div>
-          <div *ngIf="numdep.errors?.['min'] || numdep.errors?.['max']">
-            El Numero de depositos debe de ser positivo y estar de 1 a 50
-          </div>
-        </div>
-        <input
-          type="number"
-          formControlName="numdep"
-          name="numdep"
-          placeholder="2"
-        />
+          <input
+            type="number"
+            formControlName="numdep"
+            name="numdep"
+            placeholder="2"
+          />
 
-        <label for="conanex">Construcciones Anexas</label>
-        <div class="alerError" [hidden]="conanex.valid || conanex.pristine">
-          <div *ngIf="conanex.errors?.['required']">
-            Incluir Construcciones Anexas es obligatorio
+          <label for="conanex">Construcciones Anexas</label>
+          <div class="alerError" [hidden]="conanex.valid || conanex.pristine">
+            <div *ngIf="conanex.errors?.['maxlength']">
+              La cantidad de caracteres debe de ser menor a 100
+            </div>
           </div>
-          <div *ngIf="conanex.errors?.['maxlength']">
-            La cantidad de caracteres debe de ser menor a 100
-          </div>
-        </div>
 
-        <input
-          type="text"
-          formControlName="conanex"
-          name="conanex"
-          placeholder="Zona dura, Muro de antepecho, Lavadero, Tanque de concreto, etc"
-        />
+          <input
+            type="text"
+            formControlName="conanex"
+            name="conanex"
+            placeholder="Zona dura, Muro de antepecho, Lavadero, Tanque de concreto, etc"
+          />
+        </div>
       </div>
 
       <div class="row">
         <h2 class="col-4">
-          <button class="buttonEnviar">Anterior</button>
+          <button class="buttonEnviar" routerLink="../DatGen">Anterior</button>
         </h2>
         <h2 class="col-4">
           <button class="buttonEnviar" [disabled]="formUserFis.invalid">
@@ -406,7 +390,13 @@
           </button>
         </h2>
         <h2 class="col-4">
-          <button class="buttonEnviar" [disabled]="true">Siguiente</button>
+          <button
+            class="buttonEnviar"
+            [disabled]="!valrelacionesService.vistasHabilitar.noVistaInfoEnoco"
+            routerLink="../InfEco"
+          >
+            Siguiente
+          </button>
         </h2>
       </div>
     </form>

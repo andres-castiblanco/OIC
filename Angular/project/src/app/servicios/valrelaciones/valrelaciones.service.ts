@@ -74,6 +74,7 @@ export class ValrelacionesService {
   infoFis: infoFisiI = {
     id_oferta: this.idenPredio.id_oferta,
     area_terreno: undefined,
+    area_construccion: undefined,
     ano_construccion: undefined,
     conservacion: undefined,
     area_privada: undefined,
