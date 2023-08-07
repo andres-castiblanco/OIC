@@ -122,18 +122,22 @@ export class InfFisComponent {
     const areaTerrenom2: string = control.get('atm2')?.value;
     const areaTerrenoha: string = control.get('atha')?.value;
     const areaConstruccionm2: string = control.get('acm2')?.value;
+    const areaPrivadanm2: string = control.get('apm2')?.value;
     if (
       (areaTerrenom2 === undefined || areaTerrenom2 === null) &&
       (areaTerrenoha === undefined || areaTerrenoha === null) &&
-      (areaConstruccionm2 === undefined || areaConstruccionm2 === null)
+      (areaConstruccionm2 === undefined || areaConstruccionm2 === null) &&
+      (areaPrivadanm2 === undefined || areaPrivadanm2 === null)
     ) {
       control.get('atm2')?.setErrors({ areasVacias: true });
       control.get('atha')?.setErrors({ areasVacias: true });
       control.get('acm2')?.setErrors({ areasVacias: true });
+      control.get('apm2')?.setErrors({ areasVacias: true });
     } else {
       control.get('atm2')?.setErrors(null);
       control.get('atha')?.setErrors(null);
       control.get('acm2')?.setErrors(null);
+      control.get('apm2')?.setErrors(null);
     }
   }
 
@@ -342,9 +346,7 @@ export class InfFisComponent {
     );
     this.objDatFis.destinacion_economica =
       this.formUserFis.value.desecon?.valueOf();
-    this.objDatFis.altura_edificio = Number(
-      this.formUserFis.value.altedif?.valueOf()
-    );
+    this.objDatFis.altura_edificio = this.formUserFis.value.altedif?.valueOf();
     this.objDatFis.numero_piso = Number(
       this.formUserFis.value.numpis?.valueOf()
     );
@@ -384,7 +386,7 @@ export class InfFisComponent {
         .subscribe((resDatFis) => {
           if (resDatFis.status === '200 OK') {
             this.valrelacionesService.setInfoFisPredio = this.objDatFis;
-            console.log(this.valrelacionesService.infoFis);
+            // console.log(this.valrelacionesService.infoFis);
             this.envioFormVistaBack = true;
             this.noVistaSiguienteBoton =
               this.valrelacionesService.idenPredio.id_oferta !== undefined &&
@@ -410,7 +412,7 @@ export class InfFisComponent {
       );
     }
 
-    console.log(this.formUserFis.value);
-    console.log(this.valrelacionesService.infoFis);
+    // console.log(this.formUserFis.value);
+    // console.log(this.valrelacionesService.infoFis);
   }
 }

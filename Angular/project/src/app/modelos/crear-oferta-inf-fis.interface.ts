@@ -6,7 +6,7 @@ export interface infoFisiI {
   conservacion: String | null | undefined;
   area_privada: Number | null | undefined;
   destinacion_economica: String | null | undefined;
-  altura_edificio: Number | null | undefined;
+  altura_edificio: String | null | undefined;
   numero_piso: Number | null | undefined;
   area_cultivo: Number | null | undefined;
   tipo_inmueble_rural: String | null | undefined;

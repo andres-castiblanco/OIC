@@ -64,6 +64,10 @@
               Debe de existir al menos un valor en área de terreno o de
               construcción
             </div>
+            <div *ngIf="formUserFis.controls['acm2'].hasError('areasVacias')">
+              Debe de existir al menos un valor en área de construcción o en
+              área privada
+            </div>
             <div *ngIf="acm2.errors?.['min'] || acm2.errors?.['max']">
               La cantidad reportada debe de ser positiva y no mayor a 1.000.000
             </div>
@@ -84,6 +88,10 @@
             </div>
             <div *ngIf="apm2.errors?.['min'] || apm2.errors?.['max']">
               La cantidad reportada debe de ser positiva y no mayor a 1.000.000
+            </div>
+            <div *ngIf="formUserFis.controls['apm2'].hasError('areasVacias')">
+              Debe de existir al menos un valor en área de construcción o en
+              área privada
             </div>
           </div>
           <input
