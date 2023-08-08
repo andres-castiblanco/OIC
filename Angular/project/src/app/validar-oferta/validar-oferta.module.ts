@@ -6,9 +6,15 @@ import { ValOferComponent } from './pages/val-ofer/val-ofer.component';
 import { NavComponent } from './components/nav/nav.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { DatGenValComponent } from './pages/dat-gen-val/dat-gen-val.component';
+import { IdenPreValComponent } from './pages/iden-pre-val/iden-pre-val.component';
+import { InfEcoValComponent } from './pages/inf-eco-val/inf-eco-val.component';
+import { InfFisValComponent } from './pages/inf-fis-val/inf-fis-val.component';
+import { InfFueValComponent } from './pages/inf-fue-val/inf-fue-val.component';
+import { LocPreValComponent } from './pages/loc-pre-val/loc-pre-val.component';
 
 @NgModule({
-  declarations: [ValOferComponent, NavComponent, HeaderComponent, FooterComponent],
+  declarations: [ValOferComponent, NavComponent, HeaderComponent, FooterComponent, DatGenValComponent, IdenPreValComponent, InfEcoValComponent, InfFisValComponent, InfFueValComponent, LocPreValComponent],
   imports: [CommonModule, ValidarOfertaRoutingModule],
 })
 export class ValidarOfertaModule {}
