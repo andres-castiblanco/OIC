@@ -10,20 +10,21 @@
         <h2>Información Económica</h2>
 
         <label for="id_oferta">Id de la Oferta</label>
-        <div class="alerError" [hidden]="id_oferta.valid || id_oferta.pristine">
+        <div class="alerError" *ngIf="id_oferta.errors?.['required']">
           El id es obligatorio
         </div>
         <input type="number" formControlName="id_oferta" name="id_oferta" />
 
         <div *ngIf="controlEntrevariables.valControlTipoOfertaVenta">
           <label for="valofeini">Valor oferta inicial</label>
+          <div class="alerError" *ngIf="formUserEco.errors?.['required']">
+            El valor de la oferta inicial es obligatorio y debe de contener
+            digitos numéricos
+          </div>
           <div
             class="alerError"
             [hidden]="valofeini.valid || valofeini.pristine"
           >
-            <div *ngIf="valofeini.errors?.['required']">
-              El valor de la oferta inicial es obligatorio
-            </div>
             <div *ngIf="valofeini.errors?.['min'] || valofeini.errors?.['max']">
               La cantidad reportada debe de ser positiva, mayor a cero y no
               mayor a 10.000.000.000.000.000
@@ -37,10 +38,11 @@
           />
 
           <label for="porneg">Porcentaje de negociación (0-100 %)</label>
+          <div class="alerError" *ngIf="formUserEco.errors?.['required']">
+            El porcentaje de negociación es obligatorio y debe de contener
+            digitos numéricos
+          </div>
           <div class="alerError" [hidden]="porneg.valid || porneg.pristine">
-            <div *ngIf="porneg.errors?.['required']">
-              El valor de la oferta inicial es obligatorio
-            </div>
             <div *ngIf="porneg.errors?.['min'] || porneg.errors?.['max']">
               La cantidad reportada debe de ser positiva, mayor a cero y no
               mayor a 100
@@ -53,14 +55,15 @@
             placeholder="20 %"
           />
 
-          <label for="valofefin">Oferta final</label>
+          <label for="valofefin">Valor oferta final</label>
+          <div class="alerError" *ngIf="formUserEco.errors?.['required']">
+            El valor de la oferta final es obligatorio y debe de contener
+            digitos numéricos
+          </div>
           <div
             class="alerError"
             [hidden]="valofefin.valid || valofefin.pristine"
           >
-            <div *ngIf="valofefin.errors?.['required']">
-              El valor de la oferta final es obligatorio
-            </div>
             <div *ngIf="valofefin.errors?.['min'] || valofefin.errors?.['max']">
               La cantidad reportada debe de ser positiva, mayor a cero y no
               mayor a 10.000.000.000.000.000
@@ -82,12 +85,14 @@
         >
           <label for="valterr">Valor terreno</label>
           <div class="alerError" [hidden]="valterr.valid || valterr.pristine">
-            <div *ngIf="valterr.errors?.['required']">
-              El valor del terreno es obligatorio
-            </div>
-            <div *ngIf="valterr.errors?.['min'] || valterr.errors?.['max']">
-              La cantidad reportada debe de ser positiva, mayor a cero y no
-              mayor a 10.000.000.000.000.000
+            <div
+              *ngIf="
+                formUserEco.controls['valterr'].hasError('valoresAreasVacias')
+              "
+            >
+              Debe de existir al menos un valor en el valor monetario del área
+              de terreno o de construcción o del área privada y los valores
+              deben de ser mayores de cero
             </div>
           </div>
           <input
@@ -106,12 +111,14 @@
         >
           <label for="valcm2">Valor construcción m2</label>
           <div class="alerError" [hidden]="valcm2.valid || valcm2.pristine">
-            <div *ngIf="valcm2.errors?.['required']">
-              El valor de la construcción en m2 es obligatorio
-            </div>
-            <div *ngIf="valcm2.errors?.['min'] || valcm2.errors?.['max']">
-              La cantidad reportada debe de ser positiva, mayor a cero y no
-              mayor a 10.000.000.000.000.000
+            <div
+              *ngIf="
+                formUserEco.controls['valcm2'].hasError('valoresAreasVacias')
+              "
+            >
+              Debe de existir al menos un valor en el valor monetario del área
+              de terreno o de construcción o del área privada y los valores
+              deben de ser mayores de cero
             </div>
           </div>
           <input
@@ -123,12 +130,14 @@
 
           <label for="valap">Valor área privada</label>
           <div class="alerError" [hidden]="valap.valid || valap.pristine">
-            <div *ngIf="valap.errors?.['required']">
-              El valor del área privada es obligatorio
-            </div>
-            <div *ngIf="valap.errors?.['min'] || valap.errors?.['max']">
-              La cantidad reportada debe de ser positiva, mayor a cero y no
-              mayor a 10.000.000.000.000.000
+            <div
+              *ngIf="
+                formUserEco.controls['valap'].hasError('valoresAreasVacias')
+              "
+            >
+              Debe de existir al menos un valor en el valor monetario del área
+              de terreno o de construcción o del área privada y los valores
+              deben de ser mayores de cero
             </div>
           </div>
           <input
@@ -143,16 +152,16 @@
         <div *ngIf="controlEntrevariables.valControlTipoPredioFincaLote">
           <label for="valcul">Valor cultivo</label>
           <div class="alerError" [hidden]="valcul.valid || valcul.pristine">
-            <div *ngIf="valcul.errors?.['required']">
-              El valor del cultivo es obligatorio
+            <div *ngIf="valcul.errors?.['maxlength']">
+              La cantidad reportada supera el umbral de aceptación
             </div>
-            <div *ngIf="valcul.errors?.['min'] || valcul.errors?.['max']">
-              La cantidad reportada debe de ser positiva, mayor a cero y no
-              mayor a 10.000.000.000.000.000
+            <div *ngIf="formUserEco.controls['valcul'].hasError('hasNumber')">
+              La cantidad reportada debe de ser mayor a cero y no debe contener
+              caracteres
             </div>
           </div>
           <input
-            type="number"
+            type="text"
             formControlName="valcul"
             name="valcul"
             placeholder="3000000"
@@ -161,16 +170,16 @@
 
         <label for="valavacat">Valor avalúo catastral</label>
         <div class="alerError" [hidden]="valavacat.valid || valavacat.pristine">
-          <div *ngIf="valavacat.errors?.['required']">
-            El valor del avalúo catastral es obligatorio
+          <div *ngIf="valavacat.errors?.['maxlength']">
+            La cantidad reportada supera el umbral de aceptación
           </div>
-          <div *ngIf="valavacat.errors?.['min'] || valavacat.errors?.['max']">
-            La cantidad reportada debe de ser positiva, mayor a cero y no mayor
-            a 10.000.000.000.000.000
+          <div *ngIf="formUserEco.controls['valavacat'].hasError('hasNumber')">
+            La cantidad reportada debe de ser mayor a cero y no debe contener
+            caracteres
           </div>
         </div>
         <input
-          type="number"
+          type="text"
           formControlName="valavacat"
           name="valavacat"
           placeholder="150000000"
@@ -179,16 +188,16 @@
         <div *ngIf="controlEntrevariables.valControlTipoPredioPH">
           <label for="valadmin">Valor administración:</label>
           <div class="alerError" [hidden]="valadmin.valid || valadmin.pristine">
-            <div *ngIf="valadmin.errors?.['required']">
-              El valor de la administración es obligatorio
+            <div *ngIf="valadmin.errors?.['maxlength']">
+              La cantidad reportada supera el umbral de aceptación
             </div>
-            <div *ngIf="valadmin.errors?.['min'] || valadmin.errors?.['max']">
-              La cantidad reportada debe de ser positiva, mayor a cero y no
-              mayor a 10.000.000.000.000.000
+            <div *ngIf="formUserEco.controls['valadmin'].hasError('hasNumber')">
+              La cantidad reportada debe de ser mayor a cero y no debe contener
+              caracteres
             </div>
           </div>
           <input
-            type="number"
+            type="text"
             formControlName="valadmin"
             name="valadmin"
             placeholder="1000000"
@@ -196,14 +205,14 @@
         </div>
 
         <div *ngIf="controlEntrevariables.valControlTipoOfertaArriendo">
-          <label for="valarrini">Valor arriendo inicial</label>
+          <label for="valarrini">Valor arriendo inicial <br /> </label>
+          <div class="alerError" *ngIf="formUserEco.errors?.['required']">
+            El valor del arriendo inicial es obligatorio
+          </div>
           <div
             class="alerError"
             [hidden]="valarrini.valid || valarrini.pristine"
           >
-            <div *ngIf="valarrini.errors?.['required']">
-              El valor del arriendo inicial es obligatorio
-            </div>
             <div *ngIf="valarrini.errors?.['min'] || valarrini.errors?.['max']">
               La cantidad reportada debe de ser positiva, mayor a cero y no
               mayor a 10.000.000.000.000.000
@@ -217,13 +226,13 @@
           />
 
           <label for="valarrfin">Valor arriendo final</label>
+          <div class="alerError" *ngIf="formUserEco.errors?.['required']">
+            El valor del arriendo final es obligatorio
+          </div>
           <div
             class="alerError"
             [hidden]="valarrfin.valid || valarrfin.pristine"
           >
-            <div *ngIf="valarrfin.errors?.['required']">
-              El valor del arriendo final es obligatorio
-            </div>
             <div *ngIf="valarrfin.errors?.['min'] || valarrfin.errors?.['max']">
               La cantidad reportada debe de ser positiva, mayor a cero y no
               mayor a 10.000.000.000.000.000
@@ -245,16 +254,16 @@
         >
           <label for="valtbp">Valor terraza, balcón, patio</label>
           <div class="alerError" [hidden]="valtbp.valid || valtbp.pristine">
-            <div *ngIf="valtbp.errors?.['required']">
-              El valor del terraza, balcón, patio es obligatorio
+            <div *ngIf="valtbp.errors?.['maxlength']">
+              La cantidad reportada supera el umbral de aceptación
             </div>
-            <div *ngIf="valtbp.errors?.['min'] || valtbp.errors?.['max']">
-              La cantidad reportada debe de ser positiva, mayor a cero y no
-              mayor a 10.000.000.000.000.000
+            <div *ngIf="formUserEco.controls['valtbp'].hasError('hasNumber')">
+              La cantidad reportada debe de ser mayor a cero y no debe contener
+              caracteres
             </div>
           </div>
           <input
-            type="number"
+            type="text"
             formControlName="valtbp"
             name="valtbp"
             placeholder="200000"
@@ -264,16 +273,16 @@
         <div *ngIf="controlEntrevariables.valControlTipoOfertaVenta">
           <label for="valgar">Valor garajes</label>
           <div class="alerError" [hidden]="valgar.valid || valgar.pristine">
-            <div *ngIf="valgar.errors?.['required']">
-              El valor del garaje(s) es obligatorio
+            <div *ngIf="valgar.errors?.['maxlength']">
+              La cantidad reportada supera el umbral de aceptación
             </div>
-            <div *ngIf="valgar.errors?.['min'] || valgar.errors?.['max']">
-              La cantidad reportada debe de ser positiva, mayor a cero y no
-              mayor a 10.000.000.000.000.000
+            <div *ngIf="formUserEco.controls['valgar'].hasError('hasNumber')">
+              La cantidad reportada debe de ser mayor a cero y no debe contener
+              caracteres
             </div>
           </div>
           <input
-            type="number"
+            type="text"
             formControlName="valgar"
             name="valgar"
             placeholder="11000000"
@@ -281,16 +290,16 @@
 
           <label for="valdep">Valor depósito</label>
           <div class="alerError" [hidden]="valdep.valid || valdep.pristine">
-            <div *ngIf="valdep.errors?.['required']">
-              El valor del deposito es obligatorio
+            <div *ngIf="valdep.errors?.['maxlength']">
+              La cantidad reportada supera el umbral de aceptación
             </div>
-            <div *ngIf="valdep.errors?.['min'] || valdep.errors?.['max']">
-              La cantidad reportada debe de ser positiva, mayor a cero y no
-              mayor a 10.000.000.000.000.000
+            <div *ngIf="formUserEco.controls['valdep'].hasError('hasNumber')">
+              La cantidad reportada debe de ser mayor a cero y no debe contener
+              caracteres
             </div>
           </div>
           <input
-            type="number"
+            type="text"
             formControlName="valdep"
             name="valdep"
             placeholder="20000000"
@@ -298,16 +307,16 @@
 
           <label for="valanex">Valor anexidades</label>
           <div class="alerError" [hidden]="valanex.valid || valanex.pristine">
-            <div *ngIf="valanex.errors?.['required']">
-              El valor de las anexidades es obligatorio
+            <div *ngIf="valanex.errors?.['maxlength']">
+              La cantidad reportada supera el umbral de aceptación
             </div>
-            <div *ngIf="valanex.errors?.['min'] || valanex.errors?.['max']">
-              La cantidad reportada debe de ser positiva, mayor a cero y no
-              mayor a 10.000.000.000.000.000
+            <div *ngIf="formUserEco.controls['valanex'].hasError('hasNumber')">
+              La cantidad reportada debe de ser mayor a cero y no debe contener
+              caracteres
             </div>
           </div>
           <input
-            type="number"
+            type="text"
             formControlName="valanex"
             name="valanex"
             placeholder="20000000"

@@ -14,7 +14,18 @@ import { InfFueValComponent } from './pages/inf-fue-val/inf-fue-val.component';
 import { LocPreValComponent } from './pages/loc-pre-val/loc-pre-val.component';
 
 @NgModule({
-  declarations: [ValOferComponent, NavComponent, HeaderComponent, FooterComponent, DatGenValComponent, IdenPreValComponent, InfEcoValComponent, InfFisValComponent, InfFueValComponent, LocPreValComponent],
+  declarations: [
+    ValOferComponent,
+    NavComponent,
+    HeaderComponent,
+    FooterComponent,
+    DatGenValComponent,
+    IdenPreValComponent,
+    InfEcoValComponent,
+    InfFisValComponent,
+    InfFueValComponent,
+    LocPreValComponent,
+  ],
   imports: [CommonModule, ValidarOfertaRoutingModule],
 })
 export class ValidarOfertaModule {}

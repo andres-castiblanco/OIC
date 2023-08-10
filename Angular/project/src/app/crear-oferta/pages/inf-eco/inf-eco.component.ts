@@ -1,9 +1,13 @@
+import { idenPreI } from './../../../modelos/crear-oferta-iden-pre.interface';
 import { Component } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
   FormControl,
   Validators,
+  AbstractControl,
+  ValidationErrors,
+  ValidatorFn,
 } from '@angular/forms';
 import { disableDebugTools } from '@angular/platform-browser';
 
@@ -88,13 +92,68 @@ export class InfEcoComponent {
     return this.formUserEco.get('valanex') as FormControl;
   }
 
+  static patternValidator(regex: RegExp, error: ValidationErrors): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } => {
+      if (!control.value) {
+        return null!;
+      }
+      const valid = regex.test(control.value);
+      return valid ? null! : error;
+    };
+  }
+
+  static valoresAreasValidaciones(control: AbstractControl) {
+    const valorAreaTerreno: number = control.get('valterr')?.value;
+    const valorAreaConstruccion: number = control.get('valcm2')?.value;
+    const valorAreaPrivada: number = control.get('valap')?.value;
+    const valorArriendoIni: number = control.get('valarrini')?.value;
+    const valorArriendoFin: number = control.get('valarrfin')?.value;
+
+    if (
+      (valorAreaTerreno === undefined ||
+        valorAreaTerreno === null ||
+        Number.isNaN(valorAreaTerreno) ||
+        valorAreaTerreno <= 0 ||
+        valorAreaTerreno > 10000000000000000) &&
+      (valorAreaConstruccion === undefined ||
+        valorAreaConstruccion === null ||
+        Number.isNaN(valorAreaConstruccion) ||
+        valorAreaConstruccion <= 0 ||
+        valorAreaConstruccion > 10000000000000000) &&
+      (valorAreaPrivada === undefined ||
+        valorAreaPrivada === null ||
+        Number.isNaN(valorAreaPrivada) ||
+        valorAreaPrivada <= 0 ||
+        valorAreaPrivada > 10000000000000000) &&
+      (valorArriendoIni === undefined ||
+        valorArriendoIni === null ||
+        Number.isNaN(valorArriendoIni)) &&
+      (valorArriendoFin === undefined ||
+        valorArriendoFin === null ||
+        Number.isNaN(valorArriendoFin))
+    ) {
+      control.get('valterr')?.setErrors({ valoresAreasVacias: true });
+      control.get('valcm2')?.setErrors({ valoresAreasVacias: true });
+      control.get('valap')?.setErrors({ valoresAreasVacias: true });
+    } else {
+      control.get('valterr')?.setErrors(null);
+      control.get('valcm2')?.setErrors(null);
+      control.get('valap')?.setErrors(null);
+    }
+  }
+
   formUserEco = this.fb.group(
     {
-      id_oferta: [{ value: '123456789', disabled: true }, Validators.required],
+      id_oferta: [
+        {
+          value: this.valrelacionesService.idenPredio.id_oferta,
+          disabled: true,
+        },
+        Validators.required,
+      ],
       valofeini: [
         this.valrelacionesService.infoEnono.valor_oferta_final,
         [
-          Validators.required,
           Validators.max(10000000000000000),
           Validators.min(0.000000000000000000000000001),
         ],
@@ -110,46 +169,43 @@ export class InfEcoComponent {
           Validators.min(0.000000000000000000000000001),
         ],
       ],
-      valterr: [
-        this.valrelacionesService.infoEnono.valor_terreno,
-        [
-          Validators.max(10000000000000000),
-          Validators.min(0.000000000000000000000000001),
-        ],
-      ],
-      valcm2: [
-        this.valrelacionesService.infoEnono.valor_construccion_m2,
-        [
-          Validators.max(10000000000000000),
-          Validators.min(0.000000000000000000000000001),
-        ],
-      ],
-      valap: [
-        this.valrelacionesService.infoEnono.valor_area_privada,
-        [
-          Validators.max(10000000000000000),
-          Validators.min(0.000000000000000000000000001),
-        ],
-      ],
+      valterr: [this.valrelacionesService.infoEnono.valor_terreno, []],
+      valcm2: [this.valrelacionesService.infoEnono.valor_construccion_m2, []],
+      valap: [this.valrelacionesService.infoEnono.valor_area_privada, []],
       valcul: [
         this.valrelacionesService.infoEnono.valor_cultivo,
         [
-          Validators.max(10000000000000000),
-          Validators.min(0.000000000000000000000000001),
+          Validators.maxLength(20),
+          InfEcoComponent.patternValidator(
+            /^(?!(^0+(?:\.0+)?$))(^\d+(?:\.\d+)?$)/,
+            {
+              hasNumber: true,
+            }
+          ),
         ],
       ],
       valavacat: [
         this.valrelacionesService.infoEnono.avaluo_catastral,
         [
-          Validators.max(10000000000000000),
-          Validators.min(0.000000000000000000000000001),
+          Validators.maxLength(20),
+          InfEcoComponent.patternValidator(
+            /^(?!(^0+(?:\.0+)?$))(^\d+(?:\.\d+)?$)/,
+            {
+              hasNumber: true,
+            }
+          ),
         ],
       ],
       valadmin: [
         this.valrelacionesService.infoEnono.valor_administracion,
         [
-          Validators.max(10000000000000000),
-          Validators.min(0.000000000000000000000000001),
+          Validators.maxLength(20),
+          InfEcoComponent.patternValidator(
+            /^(?!(^0+(?:\.0+)?$))(^\d+(?:\.\d+)?$)/,
+            {
+              hasNumber: true,
+            }
+          ),
         ],
       ],
       valarrini: [
@@ -170,30 +226,50 @@ export class InfEcoComponent {
       valtbp: [
         this.valrelacionesService.infoEnono.valor_terraza_balcon_patio,
         [
-          Validators.max(10000000000000000),
-          Validators.min(0.000000000000000000000000001),
+          Validators.maxLength(20),
+          InfEcoComponent.patternValidator(
+            /^(?!(^0+(?:\.0+)?$))(^\d+(?:\.\d+)?$)/,
+            {
+              hasNumber: true,
+            }
+          ),
         ],
       ],
 
       valgar: [
         this.valrelacionesService.infoEnono.valor_garajes,
         [
-          Validators.max(10000000000000000),
-          Validators.min(0.000000000000000000000000001),
+          Validators.maxLength(20),
+          InfEcoComponent.patternValidator(
+            /^(?!(^0+(?:\.0+)?$))(^\d+(?:\.\d+)?$)/,
+            {
+              hasNumber: true,
+            }
+          ),
         ],
       ],
       valdep: [
         this.valrelacionesService.infoEnono.valor_depositos,
         [
-          Validators.max(10000000000000000),
-          Validators.min(0.000000000000000000000000001),
+          Validators.maxLength(20),
+          InfEcoComponent.patternValidator(
+            /^(?!(^0+(?:\.0+)?$))(^\d+(?:\.\d+)?$)/,
+            {
+              hasNumber: true,
+            }
+          ),
         ],
       ],
       valanex: [
         this.valrelacionesService.infoEnono.valor_anexidades,
         [
-          Validators.max(10000000000000000),
-          Validators.min(0.000000000000000000000000001),
+          Validators.maxLength(20),
+          InfEcoComponent.patternValidator(
+            /^(?!(^0+(?:\.0+)?$))(^\d+(?:\.\d+)?$)/,
+            {
+              hasNumber: true,
+            }
+          ),
         ],
       ],
     },
@@ -228,32 +304,6 @@ export class InfEcoComponent {
         },
         (group: any) => {
           if (
-            (this.valrelacionesService.datGen.tipo_inmueble?.valueOf() ===
-              'FINCA' ||
-              this.valrelacionesService.datGen.tipo_inmueble?.valueOf() ===
-                'LOTE') &&
-            this.valrelacionesService.idenPredio.tipo_oferta?.valueOf() ===
-              'VENTA'
-          ) {
-            return Validators.required(group.controls.valterr);
-          }
-          return null;
-        },
-        (group: any) => {
-          if (
-            this.valrelacionesService.datGen.tipo_inmueble?.valueOf() !==
-              'LOTE' &&
-            this.valrelacionesService.datGen.tipo_inmueble?.valueOf() !==
-              'FINCA' &&
-            this.valrelacionesService.idenPredio.tipo_oferta?.valueOf() ===
-              'VENTA'
-          ) {
-            return Validators.required(group.controls.valcm2);
-          }
-          return null;
-        },
-        (group: any) => {
-          if (
             this.valrelacionesService.idenPredio.tipo_oferta?.valueOf() ===
             'ARRIENDO'
           ) {
@@ -270,9 +320,25 @@ export class InfEcoComponent {
           }
           return null;
         },
+        InfEcoComponent.valoresAreasValidaciones,
       ],
     }
   );
+
+  // getFormValidationErrors() {
+  //   Object.keys(this.formUserEco.controls).forEach((key) => {
+  //     const controlErrors: ValidationErrors | undefined | null =
+  //       this.formUserEco.get(key)?.errors;
+  //     if (controlErrors != null) {
+  //       Object.keys(controlErrors).forEach((keyError) => {
+  //         console.log(
+  //           'Key control: ' + key + ', keyError: ' + keyError + ', err value: ',
+  //           controlErrors[keyError]
+  //         );
+  //       });
+  //     }
+  //   });
+  // }
 
   objDatEcono: infoEconoI = {
     id_oferta: undefined,
@@ -336,77 +402,207 @@ export class InfEcoComponent {
         : false,
   };
 
+  controlCamposInfoEco = {
+    validaValoresPosi: {
+      control: true,
+      funcionControl: (objDatEcono: infoEconoI) => {
+        if (
+          objDatEcono.porcentaje_negociacion?.valueOf()! < 0 ||
+          objDatEcono.avaluo_catastral?.valueOf()! < 0 ||
+          objDatEcono.valor_administracion?.valueOf()! < 0 ||
+          objDatEcono.valor_anexidades?.valueOf()! < 0 ||
+          objDatEcono.valor_area_privada?.valueOf()! < 0 ||
+          objDatEcono.valor_arriendo_final?.valueOf()! < 0 ||
+          objDatEcono.valor_arriendo_inicial?.valueOf()! < 0 ||
+          objDatEcono.valor_construccion_m2?.valueOf()! < 0 ||
+          objDatEcono.valor_cultivo?.valueOf()! < 0 ||
+          objDatEcono.valor_depositos?.valueOf()! < 0 ||
+          objDatEcono.valor_garajes?.valueOf()! < 0 ||
+          objDatEcono.valor_oferta_final?.valueOf()! < 0 ||
+          objDatEcono.valor_oferta_inicial?.valueOf()! < 0 ||
+          objDatEcono.valor_terraza_balcon_patio?.valueOf()! < 0 ||
+          objDatEcono.valor_terreno?.valueOf()! < 0
+        ) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      mensaje:
+        'Error, se está digitando un valor negativo en los valores. Por esto, no se realiza el envío de la información. Por favor revisar.',
+    },
+    validaValoresDifCero: {
+      control: true,
+      funcionControl: (objDatEcono: infoEconoI) => {
+        if (
+          objDatEcono.avaluo_catastral?.valueOf()! == 0 ||
+          objDatEcono.valor_administracion?.valueOf()! == 0 ||
+          objDatEcono.valor_anexidades?.valueOf()! == 0 ||
+          objDatEcono.valor_area_privada?.valueOf()! == 0 ||
+          objDatEcono.valor_arriendo_final?.valueOf()! == 0 ||
+          objDatEcono.valor_arriendo_inicial?.valueOf()! == 0 ||
+          objDatEcono.valor_construccion_m2?.valueOf()! == 0 ||
+          objDatEcono.valor_cultivo?.valueOf()! == 0 ||
+          objDatEcono.valor_depositos?.valueOf()! == 0 ||
+          objDatEcono.valor_garajes?.valueOf()! == 0 ||
+          objDatEcono.valor_oferta_final?.valueOf()! == 0 ||
+          objDatEcono.valor_oferta_inicial?.valueOf()! == 0 ||
+          objDatEcono.valor_terraza_balcon_patio?.valueOf()! == 0 ||
+          objDatEcono.valor_terreno?.valueOf()! == 0
+        ) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      mensaje:
+        'Error, se está digitando un valor igual a cero en los valores. Por esto, no se realiza el envío de la información. Por favor revisar.',
+    },
+  };
+
+  controlGeneralCamposInfoEco: Boolean = false;
+
+  validarCamposInfoEco(objDatEcono: infoEconoI) {
+    this.controlCamposInfoEco.validaValoresPosi.control =
+      this.controlCamposInfoEco.validaValoresPosi.funcionControl(objDatEcono);
+    this.controlCamposInfoEco.validaValoresDifCero.control =
+      this.controlCamposInfoEco.validaValoresDifCero.funcionControl(
+        objDatEcono
+      );
+    if (this.controlCamposInfoEco.validaValoresPosi.control) {
+      console.error(this.controlCamposInfoEco.validaValoresPosi.mensaje);
+    }
+    if (this.controlCamposInfoEco.validaValoresDifCero.control) {
+      console.error(this.controlCamposInfoEco.validaValoresDifCero.mensaje);
+    }
+    if (
+      this.controlCamposInfoEco.validaValoresPosi.control === false &&
+      this.controlCamposInfoEco.validaValoresDifCero.control === false
+    ) {
+      this.controlGeneralCamposInfoEco = true;
+    } else {
+      this.controlGeneralCamposInfoEco = false;
+    }
+  }
+
   procesar() {
     this.objDatEcono.id_oferta =
       this.valrelacionesService.idenPredio.id_oferta?.valueOf();
     this.objDatEcono.valor_oferta_inicial = this.controlEntrevariables
       .valControlTipoOfertaVenta
-      ? Number(this.formUserEco.value.valofeini?.valueOf())
+      ? Number.isNaN(Number(this.formUserEco.value.valofeini?.valueOf())) ||
+        this.formUserEco.value.valofeini == ''
+        ? undefined
+        : Number(this.formUserEco.value.valofeini?.valueOf())
       : undefined;
     this.objDatEcono.porcentaje_negociacion = this.controlEntrevariables
       .valControlTipoOfertaVenta
-      ? Number(this.formUserEco.value.porneg?.valueOf())
+      ? Number.isNaN(Number(this.formUserEco.value.porneg?.valueOf())) ||
+        this.formUserEco.value.porneg == ''
+        ? undefined
+        : Number(this.formUserEco.value.porneg?.valueOf())
       : undefined;
     this.objDatEcono.valor_oferta_final = this.controlEntrevariables
       .valControlTipoOfertaVenta
-      ? Number(this.formUserEco.value.valofefin?.valueOf())
+      ? Number.isNaN(Number(this.formUserEco.value.valofefin?.valueOf())) ||
+        this.formUserEco.value.valofefin == ''
+        ? undefined
+        : Number(this.formUserEco.value.valofefin?.valueOf())
       : undefined;
     this.objDatEcono.valor_terreno =
       this.controlEntrevariables.valControlTipoOfertaVenta &&
       this.controlEntrevariables.valControlTipoPredioFincaLote
-        ? Number(this.formUserEco.value.valterr?.valueOf())
+        ? Number.isNaN(Number(this.formUserEco.value.valterr?.valueOf())) ||
+          this.formUserEco.value.valterr == ''
+          ? undefined
+          : Number(this.formUserEco.value.valterr?.valueOf())
         : undefined;
     this.objDatEcono.valor_construccion_m2 =
       !this.controlEntrevariables.valControlTipoPredioLote &&
       this.controlEntrevariables.valControlTipoOfertaVenta
-        ? Number(this.formUserEco.value.valcm2?.valueOf())
+        ? Number.isNaN(Number(this.formUserEco.value.valcm2?.valueOf())) ||
+          this.formUserEco.value.valcm2 == ''
+          ? undefined
+          : Number(this.formUserEco.value.valcm2?.valueOf())
         : undefined;
     this.objDatEcono.valor_area_privada =
       !this.controlEntrevariables.valControlTipoPredioLote &&
       this.controlEntrevariables.valControlTipoOfertaVenta
-        ? Number(this.formUserEco.value.valap?.valueOf())
+        ? Number.isNaN(Number(this.formUserEco.value.valap?.valueOf())) ||
+          this.formUserEco.value.valap == ''
+          ? undefined
+          : Number(this.formUserEco.value.valap?.valueOf())
         : undefined;
     this.objDatEcono.valor_cultivo = this.controlEntrevariables
       .valControlTipoPredioFincaLote
-      ? Number(this.formUserEco.value.valcul?.valueOf())
+      ? Number.isNaN(Number(this.formUserEco.value.valcul?.valueOf())) ||
+        this.formUserEco.value.valcul == ''
+        ? undefined
+        : Number(this.formUserEco.value.valcul?.valueOf())
       : undefined;
-    this.objDatEcono.avaluo_catastral = Number(
-      this.formUserEco.value.valavacat?.valueOf()
-    );
+    this.objDatEcono.avaluo_catastral =
+      Number.isNaN(Number(this.formUserEco.value.valavacat?.valueOf())) ||
+      this.formUserEco.value.valavacat == ''
+        ? undefined
+        : Number(this.formUserEco.value.valavacat?.valueOf());
     this.objDatEcono.valor_administracion = this.controlEntrevariables
       .valControlTipoPredioPH
-      ? Number(this.formUserEco.value.valadmin?.valueOf())
+      ? Number.isNaN(Number(this.formUserEco.value.valadmin?.valueOf())) ||
+        this.formUserEco.value.valadmin == ''
+        ? undefined
+        : Number(this.formUserEco.value.valadmin?.valueOf())
       : undefined;
     this.objDatEcono.valor_arriendo_inicial = this.controlEntrevariables
       .valControlTipoOfertaArriendo
-      ? Number(this.formUserEco.value.valarrini?.valueOf())
+      ? Number.isNaN(Number(this.formUserEco.value.valarrini?.valueOf())) ||
+        this.formUserEco.value.valarrini == ''
+        ? undefined
+        : Number(this.formUserEco.value.valarrini?.valueOf())
       : undefined;
     this.objDatEcono.valor_arriendo_final = this.controlEntrevariables
       .valControlTipoOfertaArriendo
-      ? Number(this.formUserEco.value.valarrfin?.valueOf())
+      ? Number.isNaN(Number(this.formUserEco.value.valarrfin?.valueOf())) ||
+        this.formUserEco.value.valarrfin == ''
+        ? undefined
+        : Number(this.formUserEco.value.valarrfin?.valueOf())
       : undefined;
     this.objDatEcono.valor_terraza_balcon_patio =
       this.controlEntrevariables.valControlTipoOfertaVenta &&
       this.controlEntrevariables.valControlTipoPredioPH
-        ? Number(this.formUserEco.value.valtbp?.valueOf())
+        ? Number.isNaN(Number(this.formUserEco.value.valtbp?.valueOf())) ||
+          this.formUserEco.value.valtbp == ''
+          ? undefined
+          : Number(this.formUserEco.value.valtbp?.valueOf())
         : undefined;
     this.objDatEcono.valor_garajes = this.controlEntrevariables
       .valControlTipoOfertaVenta
-      ? Number(this.formUserEco.value.valgar?.valueOf())
+      ? Number.isNaN(Number(this.formUserEco.value.valgar?.valueOf())) ||
+        this.formUserEco.value.valgar == ''
+        ? undefined
+        : Number(this.formUserEco.value.valgar?.valueOf())
       : undefined;
     this.objDatEcono.valor_depositos = this.controlEntrevariables
       .valControlTipoOfertaVenta
-      ? Number(this.formUserEco.value.valdep?.valueOf())
+      ? Number.isNaN(Number(this.formUserEco.value.valdep?.valueOf())) ||
+        this.formUserEco.value.valdep == ''
+        ? undefined
+        : Number(this.formUserEco.value.valdep?.valueOf())
       : undefined;
     this.objDatEcono.valor_anexidades = this.controlEntrevariables
       .valControlTipoOfertaVenta
-      ? Number(this.formUserEco.value.valanex?.valueOf())
+      ? Number.isNaN(Number(this.formUserEco.value.valanex?.valueOf())) ||
+        this.formUserEco.value.valanex == ''
+        ? undefined
+        : Number(this.formUserEco.value.valanex?.valueOf())
       : undefined;
+
+    this.validarCamposInfoEco(this.objDatEcono);
 
     if (
       this.valrelacionesService.idenPredio.id_oferta !== undefined &&
-      JSON.stringify(this.valrelacionesService.infoFis) !==
-        JSON.stringify(this.objDatEcono)
+      JSON.stringify(this.valrelacionesService.infoEnono) !==
+        JSON.stringify(this.objDatEcono) &&
+      this.controlGeneralCamposInfoEco
     ) {
       this.api
         .capOferRestInfoEconoOferta(this.objDatEcono)
@@ -434,9 +630,11 @@ export class InfEcoComponent {
           }
         });
     } else {
-      console.warn(
-        `El valor de id_oferta ya fue asignado su valor es de: ${this.valrelacionesService.idenPredio.id_oferta}. No se evidencia actualizaciones en el formulario.`
-      );
+      if (this.controlGeneralCamposInfoEco) {
+        console.warn(
+          `El valor de id_oferta ya fue asignado su valor es de: ${this.valrelacionesService.idenPredio.id_oferta}. No se evidencia actualizaciones en el formulario.`
+        );
+      }
     }
 
     console.log(this.formUserEco.value);
