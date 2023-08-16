@@ -5,4 +5,5 @@ export interface interVistasOfertas {
   noVistaInfoFisi: Boolean;
   noVistaInfoEnoco: Boolean;
   noVistaInfoFuen: Boolean;
+  noEnvioTerminar: Boolean;
 }

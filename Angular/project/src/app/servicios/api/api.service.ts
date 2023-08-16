@@ -78,6 +78,11 @@ export class ApiService {
     return this.http.post<resCearOfer>(direccion, form);
   }
 
+  veriOfertaPersonaVerifica(correo: String): Observable<resLoginLoginI> {
+    let direccion = this.url + 'perso_veri';
+    return this.http.post<resLoginLoginI>(direccion, correo);
+  }
+
   capOferRestInfoAdminOferta(form: infoAdminI): Observable<resCearOfer> {
     let direccion = this.url + 'info_admin';
     return this.http.post<resCearOfer>(direccion, form);

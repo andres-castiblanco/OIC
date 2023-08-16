@@ -8,12 +8,11 @@
     <form [formGroup]="formUserFue" (ngSubmit)="procesar()">
       <h2>Información de la persona que publica la oferta</h2>
       <div class="container">
-
-        <label for="idoferta">Id de la Oferta</label>
-        <div class="alerError" [hidden]="idoferta.valid || idoferta.pristine">
+        <label for="id_oferta">Id de la Oferta</label>
+        <div class="alerError" [hidden]="id_oferta.valid || id_oferta.pristine">
           El id es obligatorio
         </div>
-        <input type="number" formControlName="idoferta" name="Id Oferta" />
+        <input type="number" formControlName="id_oferta" name="Id_Oferta" />
 
         <label for="nom">Nombre del Oferente</label>
         <div class="alerError" [hidden]="nom.valid || nom.pristine">
@@ -31,9 +30,9 @@
 
         <label for="tel">Número de contacto</label>
         <div class="alerError" [hidden]="tel.valid || tel.pristine">
-          <div *ngIf="tel.errors?.['required']">El telefono es obligatorio</div>
-          <div *ngIf="tel.errors?.['max']">
-            La cantidad de caracteres debe de ser menor a 15
+          <div *ngIf="formUserFue.controls['tel'].hasError('valoresVacios')">
+            Debe de existir al menos un valor de contacto o URL, favor ingresar
+            digitos
           </div>
         </div>
         <input
@@ -45,11 +44,9 @@
 
         <label for="url">Url</label>
         <div class="alerError" [hidden]="url.valid || url.pristine">
-          <div *ngIf="url.errors?.['required']">
-            La URL de la oferta es obligatoria
-          </div>
-          <div *ngIf="url.errors?.['maxlength']">
-            La cantidad de caracteres debe de ser menor a 500
+          <div *ngIf="formUserFue.controls['url'].hasError('valoresVacios')">
+            Debe de existir al menos un valor de contacto o URL, favor ingresar
+            una URL válida
           </div>
         </div>
         <input
@@ -66,16 +63,30 @@
               <input type="file" name="Fotos" title="Adjuntar Fotos" />
               <h2 class="col-12">
                 <!-- <input class="btn btn-outline-primary" type="file" name="Fotos" title="Adjuntar Fotos" /> -->
-                <a class="btn btn-primary " href="#" target="_blank" role="button">
+                <a
+                  class="btn btn-primary"
+                  href="#"
+                  target="_blank"
+                  role="button"
+                >
                   Adjuntar Fotos
                 </a>
               </h2>
             </div>
             <div class="col">
-              <input type="file" name="Documentos" title="Adjuntar Documentos" />
+              <input
+                type="file"
+                name="Documentos"
+                title="Adjuntar Documentos"
+              />
               <h2 class="col-12">
                 <!-- <input class="btn btn-outline-primary" type="file" name="Fotos" title="Adjuntar Documentos" /> -->
-                <a class="btn btn-primary" href="#" target="_blank" role="button">
+                <a
+                  class="btn btn-primary"
+                  href="#"
+                  target="_blank"
+                  role="button"
+                >
                   Adjuntar Documentos
                 </a>
               </h2>
@@ -83,7 +94,7 @@
           </div>
         </div>
 
-        <label for="obs1">Observaciones</label>
+        <label for="obs1">Observaciones de la oferta</label>
         <div class="alerError" [hidden]="obs1.valid || obs1.pristine">
           <div *ngIf="obs1.errors?.['required']">
             La observación de la oferta es obligatoria
@@ -99,61 +110,107 @@
           style="height: 200px"
         ></textarea>
       </div>
-      
+
       <h2>Información de la persona que captura la oferta</h2>
 
-      <div class="container">  
-
-        <label for="idoferta">Id de la Oferta</label>
-        <div class="alerError" [hidden]="idoferta.valid || idoferta.pristine">
+      <div class="container">
+        <label for="id_oferta">Id de la Oferta</label>
+        <div class="alerError" [hidden]="id_oferta.valid || id_oferta.pristine">
           El id es obligatorio
         </div>
-        <input type="number" formControlName="idoferta" name="Id Oferta" />
+        <input type="number" formControlName="id_oferta" name="Id_Oferta" />
 
-        <label for="tipercap">Tipo de Identificación de persona que captura</label>
-        <div class="alerError" [hidden]="tipercap.valid || tipercap.pristine">
-            Los Servicios publicos son un campo obligatorio
-        </div>
-        <select formControlName="tipercap" name="tipercap" placeholder="---">
-            <option value="CÉDULA DE CIUDADANÍA">CÉDULA DE CIUDADANÍA</option>
-            <option value="CÉDULA DE EXTRANJERÍA">CÉDULA DE EXTRANJERÍA</option>
-            <option value="TARJETA DE IDENTIDAD">TARJETA DE IDENTIDAD</option>
-            <option value="PERMISO ESPECIAL DE PERMANENCIA">PERMISO ESPECIAL DE PERMANENCIA</option>
-        </select>
-      
-        <label for="numidencap">Numero de Identificación de persona que captura</label>
-        <div class="alerError" [hidden]="numidencap.valid || numidencap.pristine">
-            <div *ngIf="numidencap.errors?.['required']">
-            El Numero de Identificación es obligatorio
-            </div>
-            <div *ngIf="numidencap.errors?.['min'] || numidencap.errors?.['max']">
-            El Numero de Identificación debe de ser positivo y estar de 1 a 1000000000
-            </div>
-        </div>
-        <input
-            type="number"
-            formControlName="numidencap"
-            name="numidencap"
-            placeholder="1016253461"
-        />
-
-        <label for="email">Email:</label>
-        <div class="alerError" [hidden]="email.valid || email.pristine">
-          <div *ngIf="email.errors?.['required']">
-            El correo del responsable de la oferta es obligatorio
+        <label for="nomcapofer"
+          >Nombres de la persona que captura la oferta</label
+        >
+        <div
+          class="alerError"
+          [hidden]="nomcapofer.valid || nomcapofer.pristine"
+        >
+          <div *ngIf="nomcapofer.errors?.['required']">
+            El(Los) nombre(s) de la persona es(son) obligatorio(s)
           </div>
-          <div *ngIf="email.errors?.['maxlength']">
+          <div *ngIf="nomcapofer.errors?.['maxlength']">
             La cantidad de caracteres debe de ser menor a 50
           </div>
         </div>
-        
-          <input
-            type="email"
-            formControlName="email"
-            name="email"
-            placeholder="juan.rodriguez@igac.gov.co"
-          />
-        
+        <input
+          type="text"
+          formControlName="nomcapofer"
+          name="nomcapofer"
+          placeholder="Jorge Luis"
+        />
+
+        <label for="apecapofer"
+          >Apellidos de la persona que captura la oferta</label
+        >
+        <div
+          class="alerError"
+          [hidden]="apecapofer.valid || apecapofer.pristine"
+        >
+          <div *ngIf="apecapofer.errors?.['required']">
+            El(Los) apellido(s) de la persona es(son) obligatorio(s)
+          </div>
+          <div *ngIf="apecapofer.errors?.['maxlength']">
+            La cantidad de caracteres debe de ser menor a 50
+          </div>
+        </div>
+        <input
+          type="text"
+          formControlName="apecapofer"
+          name="apecapofer"
+          placeholder="Rodriguez Parra"
+        />
+
+        <label for="tipercap"
+          >Tipo de Identificación de persona que captura la oferta</label
+        >
+        <div class="alerError" [hidden]="tipercap.valid || tipercap.pristine">
+          Los Servicios publicos son un campo obligatorio
+        </div>
+        <select formControlName="tipercap" name="tipercap" placeholder="---">
+          <option value="CEDULA_CIUDADANIA">CÉDULA DE CIUDADANÍA</option>
+          <option value="CEDULA_EXTRANJERIA">CÉDULA DE EXTRANJERÍA</option>
+        </select>
+
+        <label for="numidencap"
+          >Numero de Identificación de persona que captura</label
+        >
+        <div
+          class="alerError"
+          [hidden]="numidencap.valid || numidencap.pristine"
+        >
+          <div *ngIf="numidencap.errors?.['required']">
+            El Numero de Identificación es obligatorio
+          </div>
+          <div *ngIf="numidencap.errors?.['min'] || numidencap.errors?.['max']">
+            El Numero de Identificación debe de ser positivo y estar de 1 a
+            1000000000
+          </div>
+        </div>
+        <input
+          type="number"
+          formControlName="numidencap"
+          name="numidencap"
+          placeholder="1016253461"
+        />
+
+        <label for="emailcap">Email de la persona que captura la oferta:</label>
+        <div class="alerError" [hidden]="emailcap.valid || emailcap.pristine">
+          <div *ngIf="emailcap.errors?.['required']">
+            El correo del responsable de la oferta es obligatorio
+          </div>
+          <div *ngIf="emailcap.errors?.['maxlength']">
+            La cantidad de caracteres debe de ser menor a 50
+          </div>
+        </div>
+
+        <input
+          type="email"
+          formControlName="emailcap"
+          name="emailcap"
+          placeholder="juan.rodriguez@igac.gov.co"
+        />
 
         <label for="areresofer">Área responsable de la oferta</label>
         <div
@@ -174,7 +231,9 @@
           placeholder="OIC"
         />
 
-        <label for="obs2">Observaciones</label>
+        <!-- <label for="obs2"
+          >Observaciones de la persona que captura la oferta</label
+        >
         <div class="alerError" [hidden]="obs2.valid || obs2.pristine">
           <div *ngIf="obs2.errors?.['required']">
             Incluir una observación es obligatorio
@@ -188,170 +247,126 @@
           name="obs2"
           placeholder="Escribir Observación (Menor a 4000 Carácteres)"
           style="height: 200px"
-        ></textarea>
+        ></textarea> -->
       </div>
 
       <h2>Información de la persona que verifica la oferta</h2>
 
       <div class="container">
-
-        <label for="idoferta">Id de la Oferta</label>
-        <div class="alerError" [hidden]="idoferta.valid || idoferta.pristine">
+        <label for="id_oferta">Id de la Oferta</label>
+        <div class="alerError" [hidden]="id_oferta.valid || id_oferta.pristine">
           El id es obligatorio
         </div>
-        <input type="number" formControlName="idoferta" name="Id Oferta" />
+        <input type="number" formControlName="id_oferta" name="id_oferta" />
 
-        <label for="tipercap">Tipo de Identificación de persona que verifica</label>
-        <div class="alerError" [hidden]="tipercap.valid || tipercap.pristine">
-            Los Servicios publicos son un campo obligatorio
-        </div>
-        <select formControlName="tipercap" name="tipercap" placeholder="---">
-            <option value="CÉDULA DE CIUDADANÍA">CÉDULA DE CIUDADANÍA</option>
-            <option value="CÉDULA DE EXTRANJERÍA">CÉDULA DE EXTRANJERÍA</option>
-            <option value="TARJETA DE IDENTIDAD">TARJETA DE IDENTIDAD</option>
-            <option value="PERMISO ESPECIAL DE PERMANENCIA">PERMISO ESPECIAL DE PERMANENCIA</option>
-        </select>
-      
-        <label for="numidencap">Numero de Identificación de persona que verifica</label>
-        <div class="alerError" [hidden]="numidencap.valid || numidencap.pristine">
-            <div *ngIf="numidencap.errors?.['required']">
-            El Numero de Identificación es obligatorio
-            </div>
-            <div *ngIf="numidencap.errors?.['min'] || numidencap.errors?.['max']">
-            El Numero de Identificación debe de ser positivo y estar de 1 a 1000000000
-            </div>
-        </div>
-        <input
-            type="number"
-            formControlName="numidencap"
-            name="numidencap"
-            placeholder="1738263"
-        />
-
-        <label for="email">Email:</label>
-        <div class="alerError" [hidden]="email.valid || email.pristine">
-          <div *ngIf="email.errors?.['required']">
-            El correo del responsable de la oferta es obligatorio
+        <label for="nomveriofer"
+          >Nombres de la persona que verifica la oferta</label
+        >
+        <div
+          class="alerError"
+          [hidden]="nomveriofer.valid || nomveriofer.pristine"
+        >
+          <div *ngIf="nomveriofer.errors?.['required']">
+            El(Los) nombre(s) de la persona es(son) obligatorio(s)
           </div>
-          <div *ngIf="email.errors?.['maxlength']">
+          <div *ngIf="nomveriofer.errors?.['maxlength']">
             La cantidad de caracteres debe de ser menor a 50
           </div>
         </div>
-        
-          <input
-            type="email"
-            formControlName="email"
-            name="email"
-            placeholder="jespinosa@igac.gov.co"
-          />
-        
+        <input
+          type="text"
+          formControlName="nomveriofer"
+          name="nomveriofer"
+          placeholder="Jorge Luis"
+        />
 
-        <label for="areresofer">Área responsable de la oferta</label>
+        <label for="apeveriofer"
+          >Apellidos de la persona que verifica la oferta</label
+        >
         <div
           class="alerError"
-          [hidden]="areresofer.valid || areresofer.pristine"
+          [hidden]="apeveriofer.valid || apeveriofer.pristine"
         >
-          <div *ngIf="areresofer.errors?.['required']">
-            El área responsable de la oferta es obligatoria
+          <div *ngIf="apeveriofer.errors?.['required']">
+            El(Los) apellido(s) de la persona es(son) obligatorio(s)
           </div>
-          <div *ngIf="areresofer.errors?.['maxlength']">
+          <div *ngIf="apeveriofer.errors?.['maxlength']">
+            La cantidad de caracteres debe de ser menor a 50
+          </div>
+        </div>
+        <input
+          type="text"
+          formControlName="apeveriofer"
+          name="apeveriofer"
+          placeholder="Rodriguez Parra"
+        />
+
+        <label for="tiperver"
+          >Tipo de Identificación de persona que verifica</label
+        >
+        <div class="alerError" [hidden]="tiperver.valid || tiperver.pristine">
+          Los Servicios publicos son un campo obligatorio
+        </div>
+        <select formControlName="tiperver" name="tiperver" placeholder="---">
+          <option value="CEDULA_CIUDADANIA">CÉDULA DE CIUDADANÍA</option>
+          <option value="CEDULA_EXTRANJERIA">CÉDULA DE EXTRANJERÍA</option>
+        </select>
+
+        <label for="numperver"
+          >Numero de Identificación de persona que verifica</label
+        >
+        <div class="alerError" [hidden]="numperver.valid || numperver.pristine">
+          <div *ngIf="numperver.errors?.['required']">
+            El Numero de Identificación es obligatorio
+          </div>
+          <div *ngIf="numperver.errors?.['min'] || numperver.errors?.['max']">
+            El Numero de Identificación debe de ser positivo y estar de 1 a
+            100000000000
+          </div>
+        </div>
+        <input
+          type="number"
+          formControlName="numperver"
+          name="numperver"
+          placeholder="1738263"
+        />
+
+        <label for="emailveri">Email de la persona que verifica:</label>
+        <div class="alerError" [hidden]="emailveri.valid || emailveri.pristine">
+          <div *ngIf="emailveri.errors?.['required']">
+            El correo de la persona que verifica la oferta es obligatorio
+          </div>
+          <div *ngIf="emailveri.errors?.['maxlength']">
+            La cantidad de caracteres debe de ser menor a 50
+          </div>
+        </div>
+
+        <input
+          type="email"
+          formControlName="emailveri"
+          name="emailveri"
+          placeholder="jespinosa@igac.gov.co"
+        />
+
+        <label for="areverofer">Área de la verificación de la oferta</label>
+        <div
+          class="alerError"
+          [hidden]="areverofer.valid || areverofer.pristine"
+        >
+          <div *ngIf="areverofer.errors?.['required']">
+            El área de la verificación de la oferta es obligatoria
+          </div>
+          <div *ngIf="areverofer.errors?.['maxlength']">
             La cantidad de caracteres debe de ser menor a 100
           </div>
         </div>
         <input
           type="text"
-          formControlName="areresofer"
-          name="areresofer"
+          formControlName="areverofer"
+          name="areverofer"
           placeholder="OIC"
         />
-
-        <label for="obs2">Observaciones</label>
-        <div class="alerError" [hidden]="obs2.valid || obs2.pristine">
-          <div *ngIf="obs2.errors?.['required']">
-            Incluir una observación es obligatorio
-          </div>
-          <div *ngIf="obs2.errors?.['maxlength']">
-            La cantidad de caracteres debe de ser menor a 1000
-          </div>
-        </div>
-        <textarea
-          formControlName="obs2"
-          name="obs2"
-          placeholder="Escribir Observación (Menor a 4000 Carácteres)"
-          style="height: 200px"
-        ></textarea>
-      </div>
-
-<!--    <label for="revperres">Revision persona responsable</label>
-        <div
-          class="alerError"
-          [hidden]="revperres.valid || revperres.pristine"
-        >
-          <div *ngIf="revperres.errors?.['required']">
-            La Revision persona responsable de la oferta es obligatoria
-          </div>
-          <div *ngIf="revperres.errors?.['maxlength']">
-            La Revision persona responsable debe de ser menor a 50
-          </div>
-        </div>
-        <input
-          type="text"
-          formControlName="revperres"
-          name="revperres"
-          placeholder="Ofelio Lizarazo"
-        />
-
-        <label for="revareres">Revision area responsable</label>
-        <div
-          class="alerError"
-          [hidden]="revareres.valid || revareres.pristine"
-        >
-          <div *ngIf="revareres.errors?.['required']">
-            La Revision area responsable de la oferta es obligatoria
-          </div>
-          <div *ngIf="revareres.errors?.['maxlength']">
-            La Revision area responsable debe de ser menor a 50
-          </div>
-        </div>
-        <input
-          type="text"
-          formControlName="revareres"
-          name="revareres"
-          placeholder="GIT Avaluos"
-        />
-
-        
-
-        <h4>Información Persona Responsable Verificacion</h4>
-
-        <label for="tiperver">Tipo de Identificación persona verifica</label>
-        <div class="alerError" [hidden]="tiperver.valid || tiperver.pristine">
-            Los Servicios publicos son un campo obligatorio
-        </div>
-        <select formControlName="tiperver" name="tiperver" placeholder="---">
-            <option value="CÉDULA DE CIUDADANÍA">CÉDULA DE CIUDADANÍA</option>
-            <option value="CÉDULA DE EXTRANJERÍA">CÉDULA DE EXTRANJERÍA</option>
-            <option value="TARJETA DE IDENTIDAD">TARJETA DE IDENTIDAD</option>
-            <option value="PERMISO ESPECIAL DE PERMANENCIA">PERMISO ESPECIAL DE PERMANENCIA</option>
-        </select>
-      
-        <label for="numidenver">Numero de Identificación persona verifica</label>
-        <div class="alerError" [hidden]="numidenver.valid || numidenver.pristine">
-            <div *ngIf="numidenver.errors?.['required']">
-            El Numero de Identificación es obligatorio
-            </div>
-            <div *ngIf="numidenver.errors?.['min'] || numidenver.errors?.['max']">
-            El Numero de Identificación debe de ser positivo y estar de 1 a 1000000000
-            </div>
-        </div>
-        <input
-            type="number"
-            formControlName="numidenver"
-            name="numidenver"
-            placeholder="1011461253"
-        />
-
-        <label for="obs3">Observaciones</label>
+        <label for="obs3">Observaciones de verificación</label>
         <div class="alerError" [hidden]="obs3.valid || obs3.pristine">
           <div *ngIf="obs3.errors?.['required']">
             Incluir una observación es obligatorio
@@ -363,22 +378,24 @@
         <textarea
           formControlName="obs3"
           name="obs3"
-          placeholder="Escribir Observación (Menor a 1000 Caracteres)"
+          placeholder="Escribir Observación (Menor a 4000 Carácteres)"
           style="height: 200px"
-        ></textarea> 
-      
-      </div>-->
-
+        ></textarea>
+      </div>
 
       <div class="row">
         <h2 class="col-4">
-            <button class="buttonEnviar">Anterior</button>
+          <button class="buttonEnviar" routerLink="../InfEco">Anterior</button>
         </h2>
         <h2 class="col-4">
-            <button class="buttonEnviar" [disabled]="formUserFue.invalid">Guardar</button>
+          <button class="buttonEnviar" [disabled]="formUserFue.invalid">
+            Guardar
+          </button>
         </h2>
         <h2 class="col-4">
-            <button class="buttonEnviar" [disabled]="true">Enviar y terminar</button>
+          <button class="buttonEnviar" [disabled]="true">
+            Enviar y terminar
+          </button>
         </h2>
       </div>
     </form>

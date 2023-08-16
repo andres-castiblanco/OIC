@@ -136,8 +136,19 @@ export class ValrelacionesService {
     rol: undefined,
   };
 
+  infoPerVeri: infoPerI = {
+    ti_persona: undefined,
+    ni_persona: undefined,
+    nombres: undefined,
+    apellidos: undefined,
+    email: undefined,
+    telefono: undefined,
+    area: undefined,
+    rol: undefined,
+  };
+
   infoAdmin: infoAdminI = {
-    id_oferta: undefined,
+    id_oferta: this.idenPredio.id_oferta,
     ti_persona_captura: undefined,
     ni_persona_captura: undefined,
     email_persona_captura: undefined,
@@ -155,6 +166,7 @@ export class ValrelacionesService {
     noVistaInfoFisi: false,
     noVistaInfoEnoco: false,
     noVistaInfoFuen: false,
+    noEnvioTerminar: false,
   };
 
   set setIdenPredio(idenPredioCom: idenPreI) {
@@ -187,6 +199,10 @@ export class ValrelacionesService {
 
   set setInfoPersona(InfoPersona: infoPerI) {
     this.infoPer = { ...InfoPersona };
+  }
+
+  set setInfoPersonaVeri(infoPersonaVeri: infoPerI) {
+    this.infoPerVeri = { ...infoPersonaVeri };
   }
 
   set setInfoAdminePredio(InfoAdminPredio: infoAdminI) {

@@ -3,7 +3,7 @@ export interface infoFuenteI {
   nombre_oferente: String | null | undefined;
   numero_contacto: Number | null | undefined;
   url: String | null | undefined;
-  enlace_interno_foto_predio: String | null | undefined;
-  enlace_documentos: String | null | undefined;
-  observaciones: Text | null | undefined;
+  enlace_interno_foto_predio: Boolean | null | undefined;
+  enlace_documentos: Boolean | null | undefined;
+  observaciones: String | null | undefined;
 }
