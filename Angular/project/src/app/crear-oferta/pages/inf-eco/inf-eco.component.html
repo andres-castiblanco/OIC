@@ -78,22 +78,22 @@
         </div>
 
         <div
+          class="alerError"
           *ngIf="
             controlEntrevariables.valControlTipoOfertaVenta &&
             controlEntrevariables.valControlTipoPredioFincaLote
           "
         >
           <label for="valterr">Valor terreno</label>
-          <div class="alerError" [hidden]="valterr.valid || valterr.pristine">
-            <div
-              *ngIf="
-                formUserEco.controls['valterr'].hasError('valoresAreasVacias')
-              "
-            >
-              Debe de existir al menos un valor en el valor monetario del área
-              de terreno o de construcción o del área privada y los valores
-              deben de ser mayores de cero
-            </div>
+          <div
+            class="alerError"
+            *ngIf="
+              formUserEco.controls['valterr'].hasError('valoresAreasVacias')
+            "
+          >
+            Debe de existir al menos un valor en el valor monetario del área de
+            terreno o de construcción o del área privada y los valores deben de
+            ser mayores de cero
           </div>
           <input
             type="number"
@@ -110,16 +110,15 @@
           "
         >
           <label for="valcm2">Valor construcción m2</label>
-          <div class="alerError" [hidden]="valcm2.valid || valcm2.pristine">
-            <div
-              *ngIf="
-                formUserEco.controls['valcm2'].hasError('valoresAreasVacias')
-              "
-            >
-              Debe de existir al menos un valor en el valor monetario del área
-              de terreno o de construcción o del área privada y los valores
-              deben de ser mayores de cero
-            </div>
+          <div
+            class="alerError"
+            *ngIf="
+              formUserEco.controls['valcm2'].hasError('valoresAreasVacias')
+            "
+          >
+            Debe de existir al menos un valor en el valor monetario del área de
+            terreno o de construcción o del área privada y los valores deben de
+            ser mayores de cero
           </div>
           <input
             type="number"
@@ -129,16 +128,12 @@
           />
 
           <label for="valap">Valor área privada</label>
-          <div class="alerError" [hidden]="valap.valid || valap.pristine">
-            <div
-              *ngIf="
-                formUserEco.controls['valap'].hasError('valoresAreasVacias')
-              "
-            >
-              Debe de existir al menos un valor en el valor monetario del área
-              de terreno o de construcción o del área privada y los valores
-              deben de ser mayores de cero
-            </div>
+          <div
+            *ngIf="formUserEco.controls['valap'].hasError('valoresAreasVacias')"
+          >
+            Debe de existir al menos un valor en el valor monetario del área de
+            terreno o de construcción o del área privada y los valores deben de
+            ser mayores de cero
           </div>
           <input
             type="number"

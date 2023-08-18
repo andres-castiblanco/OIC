@@ -18,15 +18,12 @@
         <div *ngIf="controlEntrevariables.val_area_terreno">
           <div *ngIf="!controlEntrevariables.val_tipo_rural">
             <label for="atm2">Área terreno (m2)</label>
-            <div class="alerError" [hidden]="atm2.valid || atm2.pristine">
-              <div *ngIf="formUserFis.controls['atm2'].hasError('areasVacias')">
-                Debe de existir al menos un valor en área de terreno o de
-                construcción
-              </div>
-              <div *ngIf="atm2.errors?.['min'] || atm2.errors?.['max']">
-                La cantidad reportada debe de ser positiva, mayor a cero y no
-                mayor a 1.000.000
-              </div>
+            <div
+              class="alerError"
+              *ngIf="formUserFis.controls['atm2'].hasError('areasVacias')"
+            >
+              Debe de existir al menos un valor en área de terreno o de
+              construcción y deben de ser mayor de cero
             </div>
             <input
               type="number"
@@ -38,15 +35,12 @@
 
           <div *ngIf="controlEntrevariables.val_tipo_rural">
             <label for="atha">Área terreno (ha)</label>
-            <div class="alerError" [hidden]="atha.valid || atha.pristine">
-              <div *ngIf="formUserFis.controls['atha'].hasError('areasVacias')">
-                Debe de existir al menos un valor en área de terreno o de
-                construcción
-              </div>
-              <div *ngIf="atha.errors?.['min'] || atha.errors?.['max']">
-                La cantidad reportada debe de ser positiva, mayor a cero y no
-                mayor a 1.000.000
-              </div>
+            <div
+              class="alerError"
+              *ngIf="formUserFis.controls['atha'].hasError('areasVacias')"
+            >
+              Debe de existir al menos un valor en área de terreno o de
+              construcción y deben de ser mayor de cero
             </div>
             <input
               type="number"
@@ -59,18 +53,12 @@
 
         <div *ngIf="controlEntrevariables.val_n_lote">
           <label for="acm2">Área construcción (m2)</label>
-          <div class="alerError" [hidden]="acm2.valid || acm2.pristine">
-            <div *ngIf="formUserFis.controls['acm2'].hasError('areasVacias')">
-              Debe de existir al menos un valor en área de terreno o de
-              construcción
-            </div>
-            <div *ngIf="formUserFis.controls['acm2'].hasError('areasVacias')">
-              Debe de existir al menos un valor en área de construcción o en
-              área privada
-            </div>
-            <div *ngIf="acm2.errors?.['min'] || acm2.errors?.['max']">
-              La cantidad reportada debe de ser positiva y no mayor a 1.000.000
-            </div>
+          <div
+            class="alerError"
+            *ngIf="formUserFis.controls['acm2'].hasError('areasVacias')"
+          >
+            Debe de existir al menos un valor en área de terreno o de
+            construcción y deben de ser mayor de cero
           </div>
           <input
             type="number"
@@ -82,17 +70,12 @@
 
         <div *ngIf="controlEntrevariables.val_area_privada">
           <label for="apm2">Área privada (m2)</label>
-          <div class="alerError" [hidden]="apm2.valid || apm2.pristine">
-            <div *ngIf="apm2.errors?.['required']">
-              El área privada en metros cuadrados es obligatoria
-            </div>
-            <div *ngIf="apm2.errors?.['min'] || apm2.errors?.['max']">
-              La cantidad reportada debe de ser positiva y no mayor a 1.000.000
-            </div>
-            <div *ngIf="formUserFis.controls['apm2'].hasError('areasVacias')">
-              Debe de existir al menos un valor en área de construcción o en
-              área privada
-            </div>
+          <div
+            class="alerError"
+            *ngIf="formUserFis.controls['apm2'].hasError('areasVacias')"
+          >
+            Debe de existir al menos un valor en área de construcción o en área
+            privada y deben de ser mayor de cero
           </div>
           <input
             type="number"
@@ -105,12 +88,16 @@
         <div *ngIf="controlEntrevariables.val_n_lote_finca">
           <label for="apha">Área cultivo (ha)</label>
           <div class="alerError" [hidden]="apha.valid || apha.pristine">
-            <div *ngIf="apha.errors?.['min'] || apha.errors?.['max']">
-              La cantidad reportada debe de ser positiva y no mayor a 1.000.000
+            <div *ngIf="apha.errors?.['maxlength']">
+              La cantidad reportada supera el umbral de aceptación
+            </div>
+            <div *ngIf="formUserFis.controls['apha'].hasError('hasNumber')">
+              La cantidad reportada debe de ser mayor a cero y no debe contener
+              caracteres
             </div>
           </div>
           <input
-            type="number"
+            type="text"
             formControlName="apha"
             name="apha"
             placeholder="25"
@@ -120,13 +107,16 @@
         <div *ngIf="controlEntrevariables.val_n_lote">
           <label for="ac">Año de construcción</label>
           <div class="alerError" [hidden]="ac.valid || ac.pristine">
-            <div *ngIf="ac.errors?.['min'] || ac.errors?.['max']">
-              La cantidad de años de la construcción debe de ser positiva y
-              estar entre 1400 a 2100
+            <div *ngIf="ac.errors?.['maxlength']">
+              La cantidad reportada supera el umbral de aceptación
+            </div>
+            <div *ngIf="formUserFis.controls['ac'].hasError('hasNumber')">
+              La cantidad reportada debe de ser mayor a cero y no debe contener
+              caracteres
             </div>
           </div>
           <input
-            type="number"
+            type="text"
             formControlName="ac"
             name="ac"
             placeholder="1993"
@@ -142,8 +132,8 @@
         </div>
 
         <label for="desecon">Destinación económica</label>
-        <div class="alerError" [hidden]="desecon.valid || desecon.pristine">
-          La destinación económica es un campo obligatorio
+        <div class="alerError" *ngIf="desecon.errors?.['required']">
+          La destinación económica del predio es obligatoria
         </div>
         <select formControlName="desecon" name="desecon" placeholder="---">
           <option value="ACUICOLA">ACUICOLA</option>
@@ -197,12 +187,16 @@
 
           <label for="numpis">Número de pisos</label>
           <div class="alerError" [hidden]="numpis.valid || numpis.pristine">
-            <div *ngIf="numpis.errors?.['min'] || numpis.errors?.['max']">
-              La cantidad de pisos debe de ser positiva y estar de 1 a 1000
+            <div *ngIf="numpis.errors?.['maxlength']">
+              La cantidad reportada supera el umbral de aceptación
+            </div>
+            <div *ngIf="formUserFis.controls['numpis'].hasError('hasNumber')">
+              La cantidad reportada debe de ser mayor a cero y no debe contener
+              caracteres
             </div>
           </div>
           <input
-            type="number"
+            type="text"
             formControlName="numpis"
             name="numpis"
             placeholder="3"
@@ -220,8 +214,8 @@
         </div>
 
         <label for="tiptipo">Tipologia Tipo</label>
-        <div class="alerError" [hidden]="tiptipo.valid || tiptipo.pristine">
-          La Tipologia tipo es un campo obligatorio
+        <div class="alerError" *ngIf="formUserFis.errors?.['required']">
+          La tipología del predio es obligatoria
         </div>
         <select formControlName="tiptipo" name="tiptipo" placeholder="---">
           <option value="RESIDENCIAL_TIPO_1A">RESIDENCIAL TIPO 1A</option>
@@ -258,12 +252,16 @@
         <div *ngIf="controlEntrevariables.val_n_lote_finca">
           <label for="edcul">Edad cultivo (Años)</label>
           <div class="alerError" [hidden]="edcul.valid || edcul.pristine">
-            <div *ngIf="edcul.errors?.['min'] || edcul.errors?.['max']">
-              La edad del cultivo debe de ser positiva y estar de 1 a 1000
+            <div *ngIf="edcul.errors?.['maxlength']">
+              La cantidad reportada supera el umbral de aceptación
+            </div>
+            <div *ngIf="formUserFis.controls['edcul'].hasError('hasNumber')">
+              La cantidad reportada debe de ser mayor a cero y no debe contener
+              caracteres
             </div>
           </div>
           <input
-            type="number"
+            type="text"
             formControlName="edcul"
             name="edcul"
             placeholder="5"
@@ -281,12 +279,16 @@
         <div *ngIf="controlEntrevariables.val_area_privada">
           <label for="coef">Coeficiente</label>
           <div class="alerError" [hidden]="coef.valid || coef.pristine">
-            <div *ngIf="coef.errors?.['min'] || coef.errors?.['max']">
-              El Coeficiente debe de ser positivo y estar de 1 a 1000
+            <div *ngIf="coef.errors?.['maxlength']">
+              La cantidad reportada supera el umbral de aceptación
+            </div>
+            <div *ngIf="formUserFis.controls['coef'].hasError('hasNumber')">
+              La cantidad reportada debe de ser mayor a cero y no debe contener
+              caracteres
             </div>
           </div>
           <input
-            type="number"
+            type="text"
             formControlName="coef"
             name="coef"
             placeholder="4"
@@ -294,7 +296,7 @@
         </div>
 
         <label for="serpubl">Servicios publicos</label>
-        <div class="alerError" [hidden]="serpubl.valid || serpubl.pristine">
+        <div class="alerError" *ngIf="serpubl.errors?.['required']">
           Los Servicios publicos son un campo obligatorio
         </div>
         <select formControlName="serpubl" name="serpubl" placeholder="---">
@@ -308,12 +310,16 @@
 
         <label for="estra">Estrato</label>
         <div class="alerError" [hidden]="estra.valid || estra.pristine">
-          <div *ngIf="estra.errors?.['min'] || estra.errors?.['max']">
-            El Estrato debe de ser positivo y estar de 1 a 6
+          <div *ngIf="estra.errors?.['maxlength']">
+            La cantidad reportada supera el umbral de aceptación
+          </div>
+          <div *ngIf="formUserFis.controls['estra'].hasError('hasNumber')">
+            La cantidad reportada debe de ser mayor a cero y no debe contener
+            caracteres
           </div>
         </div>
         <input
-          type="number"
+          type="text"
           formControlName="estra"
           name="estra"
           placeholder="3"
@@ -321,12 +327,16 @@
 
         <label for="garaje">Garajes</label>
         <div class="alerError" [hidden]="garaje.valid || garaje.pristine">
-          <div *ngIf="garaje.errors?.['min'] || garaje.errors?.['max']">
-            El Garaje debe de ser positivo y estar de 1 a 50
+          <div *ngIf="garaje.errors?.['maxlength']">
+            La cantidad reportada supera el umbral de aceptación
+          </div>
+          <div *ngIf="formUserFis.controls['garaje'].hasError('hasNumber')">
+            La cantidad reportada debe de ser mayor a cero y no debe contener
+            caracteres
           </div>
         </div>
         <input
-          type="number"
+          type="text"
           formControlName="garaje"
           name="garaje"
           placeholder="2"
@@ -335,12 +345,16 @@
         <div *ngIf="controlEntrevariables.val_n_lote">
           <label for="banos">Numero de baños</label>
           <div class="alerError" [hidden]="banos.valid || banos.pristine">
-            <div *ngIf="banos.errors?.['min'] || banos.errors?.['max']">
-              El Numero de baños debe de ser positivo y estar de 1 a 50
+            <div *ngIf="banos.errors?.['maxlength']">
+              La cantidad reportada supera el umbral de aceptación
+            </div>
+            <div *ngIf="formUserFis.controls['banos'].hasError('hasNumber')">
+              La cantidad reportada debe de ser mayor a cero y no debe contener
+              caracteres
             </div>
           </div>
           <input
-            type="number"
+            type="text"
             formControlName="banos"
             name="banos"
             placeholder="1"
@@ -348,12 +362,16 @@
 
           <label for="numhabi">Numero de habitaciones</label>
           <div class="alerError" [hidden]="numhabi.valid || numhabi.pristine">
-            <div *ngIf="numhabi.errors?.['min'] || numhabi.errors?.['max']">
-              El Numero de habitaciones debe de ser positivo y estar de 1 a 50
+            <div *ngIf="numhabi.errors?.['maxlength']">
+              La cantidad reportada supera el umbral de aceptación
+            </div>
+            <div *ngIf="formUserFis.controls['numhabi'].hasError('hasNumber')">
+              La cantidad reportada debe de ser mayor a cero y no debe contener
+              caracteres
             </div>
           </div>
           <input
-            type="number"
+            type="text"
             formControlName="numhabi"
             name="numhabi"
             placeholder="5"
@@ -361,12 +379,16 @@
 
           <label for="numdep">Numero de depositos</label>
           <div class="alerError" [hidden]="numdep.valid || numdep.pristine">
-            <div *ngIf="numdep.errors?.['min'] || numdep.errors?.['max']">
-              El Numero de depositos debe de ser positivo y estar de 1 a 50
+            <div *ngIf="numdep.errors?.['maxlength']">
+              La cantidad reportada supera el umbral de aceptación
+            </div>
+            <div *ngIf="formUserFis.controls['numdep'].hasError('hasNumber')">
+              La cantidad reportada debe de ser mayor a cero y no debe contener
+              caracteres
             </div>
           </div>
           <input
-            type="number"
+            type="text"
             formControlName="numdep"
             name="numdep"
             placeholder="2"

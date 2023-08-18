@@ -16,8 +16,8 @@
         <input type="number" formControlName="idoferta" name="Id Oferta" />
 
         <label for="dep">Departamento</label>
-        <div class="alerError" [hidden]="dep.valid || dep.pristine">
-          El departamento es un campo obligatorio
+        <div class="alerError" *ngIf="dep.errors?.['required']">
+          El tipo de predio es obligatorio
         </div>
         <select
           formControlName="dep"
@@ -30,7 +30,7 @@
         </select>
 
         <label for="mun">Municipio</label>
-        <div class="alerError" [hidden]="mun.valid || mun.pristine">
+        <div class="alerError" *ngIf="mun.errors?.['required']">
           El municipio es un campo obligatorio
         </div>
         <select formControlName="mun" name="mun">
@@ -70,8 +70,10 @@
         <app-mapa></app-mapa>
 
         <label for="lat">Latitud</label>
+        <div class="alerError" *ngIf="lat.errors?.['required']">
+          La latitud es obligatoria y solo se permiten digitos (0-9)
+        </div>
         <div class="alerError" [hidden]="lat.valid || lat.pristine">
-          <div *ngIf="lat.errors?.['required']">La latitud es obligatoria</div>
           <div *ngIf="lat.errors?.['max']">
             La latitud no puede ser mayor de 15
           </div>
@@ -91,8 +93,10 @@
         />
 
         <label for="lon">Longitud</label>
+        <div class="alerError" *ngIf="lon.errors?.['required']">
+          La longitud es obligatoria y solo se permiten digitos (0-9)
+        </div>
         <div class="alerError" [hidden]="lon.valid || lon.pristine">
-          <div *ngIf="lon.errors?.['required']">La longitud es obligatoria</div>
           <div *ngIf="lon.errors?.['max']">
             La longitud no puede ser mayor de -65
           </div>
@@ -264,11 +268,18 @@
           <button class="buttonEnviar" routerLink="../IdenPre">Anterior</button>
         </h2>
         <h2 class="col-4">
-          <button class="buttonEnviar" [disabled]="formUserLoca.invalid">Guardar</button>
+          <button class="buttonEnviar" [disabled]="formUserLoca.invalid">
+            Guardar
+          </button>
         </h2>
         <h2 class="col-4">
           <button
-            class="buttonEnviar" [disabled]="!valrelacionesService.vistasHabilitar.noVistaDatGen" routerLink="../DatGen">Siguiente</button>
+            class="buttonEnviar"
+            [disabled]="!valrelacionesService.vistasHabilitar.noVistaDatGen"
+            routerLink="../DatGen"
+          >
+            Siguiente
+          </button>
         </h2>
       </div>
     </form>

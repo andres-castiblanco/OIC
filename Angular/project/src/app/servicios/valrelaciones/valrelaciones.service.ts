@@ -29,7 +29,8 @@ export class ValrelacionesService {
     tipo_predio: undefined,
     oferta_origen: undefined,
     estado_oferta: 1,
-    obs_verifica: 'Sin comentarios' as unknown | Text,
+    // obs_verifica: 'Sin comentarios' as unknown | Text,
+    obs_verifica: 'Sin comentarios',
   };
 
   locPre: locPreI = {
@@ -212,5 +213,663 @@ export class ValrelacionesService {
   habilitarVista(vista: keyof interVistasOfertas, controlVista: boolean) {
     this.vistasHabilitar[vista] =
       this.idenPredio.id_oferta === undefined || controlVista ? false : true;
+  }
+
+  controles = {
+    idenPredio: {
+      id_oferta: false,
+      npn: true,
+      npa: true,
+      codigo_homologado: true,
+      matricula: true,
+      condicion_juridica: false,
+      tipo_oferta: false,
+      tipo_predio: false,
+      oferta_origen: false,
+      estado_oferta: true,
+      obs_verifica: true,
+    },
+    locPre: {
+      id_oferta: false,
+      departamento: false,
+      municipio: false,
+      barrio: true,
+      vereda: true,
+      latitud: false,
+      longitud: false,
+      direccion: true,
+    },
+    datGen: {
+      id_oferta: false,
+      derecho_tipo: false,
+      tipo_inmueble: false,
+      si_valor_incluye_anexidades: false,
+      fecha: false,
+      tiempo_oferta_mercado: true,
+      proyecto_inmobiliario: false,
+      proyecto_descripcion: false,
+    },
+    infoFis: {
+      id_oferta: false,
+      area_terreno: false,
+      area_construccion: false,
+      ano_construccion: true,
+      conservacion: true,
+      area_privada: false,
+      destinacion_economica: false,
+      altura_edificio: true,
+      numero_piso: true,
+      area_cultivo: true,
+      tipo_inmueble_rural: true,
+      tipologia_tipo: false,
+      edad_cultivo: true,
+      tipo_cultivo: true,
+      coeficiente: true,
+      servicios_publicos: false,
+      estrato: true,
+      garajes: true,
+      numero_banos: true,
+      numero_habitaciones: true,
+      numero_depositos: true,
+      construcciones_anexas: true,
+    },
+    infoEnono: {
+      id_oferta: false,
+      valor_oferta_inicial: false,
+      porcentaje_negociacion: false,
+      valor_oferta_final: false,
+      valor_terreno: false,
+      valor_construccion_m2: false,
+      valor_area_privada: false,
+      valor_cultivo: true,
+      avaluo_catastral: true,
+      valor_administracion: true,
+      valor_arriendo_inicial: false,
+      valor_arriendo_final: false,
+      valor_terraza_balcon_patio: true,
+      valor_garajes: true,
+      valor_depositos: true,
+      valor_anexidades: true,
+    },
+    infoFuente: {
+      id_oferta: false,
+      nombre_oferente: false,
+      numero_contacto: false,
+      url: false,
+      enlace_interno_foto_predio: false,
+      enlace_documentos: true,
+      observaciones: false,
+    },
+    infoAdmin: {
+      id_oferta: false,
+      ti_persona_captura: false,
+      ni_persona_captura: false,
+      email_persona_captura: false,
+      area_persona_captura: false,
+      ti_persona_verifica: true,
+      ni_persona_verifica: true,
+      email_persona_verifica: true,
+      area_persona_verifica: true,
+    },
+  };
+
+  controlesGeneralesVistasMensaje() {
+    let mensaje = ``;
+    if (
+      this.idenPredio.id_oferta === undefined ||
+      this.idenPredio.id_oferta === null ||
+      Number.isNaN(this.idenPredio.id_oferta) ||
+      this.locPre.id_oferta === undefined ||
+      this.locPre.id_oferta === null ||
+      Number.isNaN(this.locPre.id_oferta) ||
+      this.datGen.id_oferta === undefined ||
+      this.datGen.id_oferta === null ||
+      Number.isNaN(this.datGen.id_oferta) ||
+      this.infoFis.id_oferta === undefined ||
+      this.infoFis.id_oferta === null ||
+      Number.isNaN(this.infoFis.id_oferta) ||
+      this.infoEnono.id_oferta === undefined ||
+      this.infoEnono.id_oferta === null ||
+      Number.isNaN(this.infoEnono.id_oferta) ||
+      this.infoFuente.id_oferta === undefined ||
+      this.infoFuente.id_oferta === null ||
+      Number.isNaN(this.infoFuente.id_oferta) ||
+      this.infoAdmin.id_oferta === undefined ||
+      this.infoAdmin.id_oferta === null ||
+      Number.isNaN(this.infoAdmin.id_oferta)
+    ) {
+      mensaje = `${mensaje}- El id de la oferta no ha sido asignado, favor revisar pestaña de identificación predio`;
+    } else {
+      if (
+        this.idenPredio.id_oferta === this.locPre.id_oferta &&
+        this.locPre.id_oferta === this.datGen.id_oferta &&
+        this.datGen.id_oferta === this.infoFis.id_oferta &&
+        this.infoFis.id_oferta === this.infoEnono.id_oferta &&
+        this.infoEnono.id_oferta === this.infoFuente.id_oferta &&
+        this.infoFuente.id_oferta === this.infoAdmin.id_oferta
+      ) {
+        this.controles.idenPredio.id_oferta = true;
+        this.controles.locPre.id_oferta = true;
+        this.controles.datGen.id_oferta = true;
+        this.controles.infoFis.id_oferta = true;
+        this.controles.infoEnono.id_oferta = true;
+        this.controles.infoFuente.id_oferta = true;
+        this.controles.infoAdmin.id_oferta = true;
+      } else {
+        mensaje = `${mensaje}- El id de la oferta es diferente al asignado, todos deben de coincidir, por favor repita la pestaña de identificación predio`;
+      }
+    }
+    if (
+      this.idenPredio.condicion_juridica == undefined ||
+      this.idenPredio.condicion_juridica == null ||
+      this.idenPredio.condicion_juridica == ''
+    ) {
+      mensaje = `${mensaje}- El campo de condición jurídica de la pestaña de identificación del predio es obligatorio`;
+    } else {
+      this.controles.idenPredio.condicion_juridica = true;
+    }
+    if (
+      this.idenPredio.tipo_oferta == undefined ||
+      this.idenPredio.tipo_oferta == null ||
+      this.idenPredio.tipo_oferta == ''
+    ) {
+      mensaje = `${mensaje}- El campo de tipo oferta de la pestaña de identificación del predio es obligatorio`;
+    } else {
+      this.controles.idenPredio.tipo_oferta = true;
+    }
+    if (
+      this.idenPredio.tipo_predio == undefined ||
+      this.idenPredio.tipo_predio == null ||
+      this.idenPredio.tipo_predio == ''
+    ) {
+      mensaje = `${mensaje}- El campo de tipo predio de la pestaña de identificación del predio es obligatorio`;
+    } else {
+      this.controles.idenPredio.tipo_predio = true;
+    }
+    if (
+      this.idenPredio.oferta_origen == undefined ||
+      this.idenPredio.oferta_origen == null ||
+      this.idenPredio.oferta_origen == ''
+    ) {
+      mensaje = `${mensaje}- El campo del origen de la oferta de la pestaña de identificación del predio es obligatorio`;
+    } else {
+      this.controles.idenPredio.oferta_origen = true;
+    }
+    if (
+      this.locPre.departamento == undefined ||
+      this.locPre.departamento == null ||
+      this.locPre.departamento == ''
+    ) {
+      mensaje = `${mensaje}- El departamento donde se situa la oferta de la pestaña de localización del predio es obligatorio`;
+    } else {
+      this.controles.locPre.departamento = true;
+    }
+    if (
+      this.locPre.municipio == undefined ||
+      this.locPre.municipio == null ||
+      this.locPre.municipio == ''
+    ) {
+      mensaje = `${mensaje}- El municipio donde se situa la oferta de la pestaña de localización del predio es obligatorio`;
+    } else {
+      this.controles.locPre.municipio = true;
+    }
+    if (
+      this.locPre.latitud == undefined ||
+      this.locPre.latitud == null ||
+      Number.isNaN(this.locPre.latitud)
+    ) {
+      mensaje = `${mensaje}- La latitud donde se situa la oferta de la pestaña de localización del predio es obligatoria`;
+    } else {
+      this.controles.locPre.latitud = true;
+    }
+    if (
+      this.locPre.longitud == undefined ||
+      this.locPre.longitud == null ||
+      Number.isNaN(this.locPre.longitud)
+    ) {
+      mensaje = `${mensaje}- La longitud donde se situa la oferta de la pestaña de localización del predio es obligatoria`;
+    } else {
+      this.controles.locPre.longitud = true;
+    }
+    if (
+      this.datGen.fecha == undefined ||
+      this.datGen.fecha == null ||
+      this.datGen.fecha == ''
+    ) {
+      mensaje = `${mensaje}- La fecha de captura de la oferta de la pestaña de datos generales es obligatoria`;
+    } else {
+      this.controles.datGen.fecha = true;
+    }
+    if (
+      this.datGen.tipo_inmueble == undefined ||
+      this.datGen.tipo_inmueble == null ||
+      this.datGen.tipo_inmueble == ''
+    ) {
+      mensaje = `${mensaje}- El tipo de inmueble de la oferta de la pestaña de datos generales es obligatoria`;
+    } else {
+      this.controles.datGen.tipo_inmueble = true;
+    }
+    if (
+      this.datGen.derecho_tipo == undefined ||
+      this.datGen.derecho_tipo == null ||
+      this.datGen.derecho_tipo == ''
+    ) {
+      mensaje = `${mensaje}- El tipo de derecho de la oferta de la pestaña de datos generales es obligatorio`;
+    } else {
+      this.controles.datGen.derecho_tipo = true;
+    }
+    if (
+      (this.datGen.si_valor_incluye_anexidades == undefined ||
+        this.datGen.si_valor_incluye_anexidades == null ||
+        this.datGen.si_valor_incluye_anexidades == '') &&
+      this.datGen.tipo_inmueble === 'LOTE'
+    ) {
+      mensaje = `${mensaje}- La especificación de anexidades de la oferta de la pestaña de datos generales es obligatoria`;
+    } else {
+      this.controles.datGen.si_valor_incluye_anexidades = true;
+    }
+    if (
+      (this.datGen.proyecto_inmobiliario == undefined ||
+        this.datGen.proyecto_inmobiliario == null ||
+        this.datGen.proyecto_inmobiliario == '') &&
+      (this.idenPredio.condicion_juridica?.valueOf() === 'PH' ||
+        this.idenPredio.condicion_juridica?.valueOf() === 'PH_MATRIZ' ||
+        this.idenPredio.condicion_juridica?.valueOf() === 'PH_UNIDAD_PREDIAL' ||
+        this.idenPredio.condicion_juridica?.valueOf() === 'CONDOMINIO' ||
+        this.idenPredio.condicion_juridica?.valueOf() === 'CONDOMINIO_MATRIZ' ||
+        this.idenPredio.condicion_juridica?.valueOf() ===
+          'CONDOMINIO_UNIDAD_PREDIAL')
+    ) {
+      mensaje = `${mensaje}- La especificación del proyecto inmobiliario de la oferta de la pestaña de datos generales es obligatoria`;
+    } else {
+      this.controles.datGen.proyecto_inmobiliario = true;
+    }
+    if (
+      (this.datGen.proyecto_descripcion == undefined ||
+        this.datGen.proyecto_descripcion == null ||
+        this.datGen.proyecto_descripcion == '') &&
+      this.datGen.proyecto_inmobiliario === 'SI'
+    ) {
+      mensaje = `${mensaje}- Las observaciones del proyecto inmobiliario de la oferta de la pestaña de datos generales son obligatorias`;
+    } else {
+      this.controles.datGen.proyecto_descripcion = true;
+    }
+    if (
+      Number(this.infoFis.area_terreno) <= 0 ||
+      Number(this.infoFis.area_construccion) <= 0 ||
+      Number(this.infoFis.area_privada) <= 0 ||
+      Number(this.infoFis.area_cultivo) <= 0
+    ) {
+      mensaje = `${mensaje}- Las áreas deben de ser valores mayores de 0 en la pestaña de información física`;
+    } else {
+      this.controles.infoFis.area_terreno = true;
+      this.controles.infoFis.area_construccion = true;
+      this.controles.infoFis.area_privada = true;
+      this.controles.infoFis.area_cultivo = true;
+    }
+
+    if (
+      (this.infoFis.area_terreno == undefined ||
+        this.infoFis.area_terreno == null ||
+        Number.isNaN(this.infoFis.area_terreno)) &&
+      (this.infoFis.area_construccion == undefined ||
+        this.infoFis.area_construccion == null ||
+        Number.isNaN(this.infoFis.area_construccion))
+    ) {
+      mensaje = `${mensaje}- Debe de tener al menos un valor asigando en el área de terreno o área de construcción en la pestaña de información física`;
+    } else {
+      this.controles.infoFis.area_terreno = true;
+    }
+
+    if (
+      (this.infoFis.area_privada == undefined ||
+        this.infoFis.area_privada == null ||
+        Number.isNaN(this.infoFis.area_privada)) &&
+      (this.infoFis.area_construccion == undefined ||
+        this.infoFis.area_construccion == null ||
+        Number.isNaN(this.infoFis.area_construccion))
+    ) {
+      mensaje = `${mensaje}- Debe de tener al menos un valor asigando en el área privada o área de construcción en la pestaña de información física`;
+    } else {
+      this.controles.infoFis.area_privada = true;
+      this.controles.infoFis.area_construccion = true;
+    }
+
+    if (
+      this.infoFis.destinacion_economica == undefined ||
+      this.infoFis.destinacion_economica == null ||
+      this.infoFis.destinacion_economica == ''
+    ) {
+      mensaje = `${mensaje}- La destinación económica en la pestaña de información física es obligatoria`;
+    } else {
+      this.controles.infoFis.destinacion_economica = true;
+    }
+
+    if (
+      this.infoFis.servicios_publicos == undefined ||
+      this.infoFis.servicios_publicos == null ||
+      this.infoFis.servicios_publicos == ''
+    ) {
+      mensaje = `${mensaje}- Los servicios públicos en la pestaña de información física son obligatorios`;
+    } else {
+      this.controles.infoFis.servicios_publicos = true;
+    }
+
+    if (
+      (this.infoFis.tipologia_tipo == undefined ||
+        this.infoFis.tipologia_tipo == null ||
+        this.infoFis.tipologia_tipo == '') &&
+      this.idenPredio.tipo_predio == 'URBANO'
+    ) {
+      mensaje = `${mensaje}- La tipología del predio en la pestaña de información física es obligatoria`;
+    } else {
+      this.controles.infoFis.tipologia_tipo = true;
+    }
+    if (
+      (this.infoEnono.valor_oferta_inicial == undefined ||
+        this.infoEnono.valor_oferta_inicial == null ||
+        Number.isNaN(this.infoEnono.valor_oferta_inicial)) &&
+      (this.infoEnono.porcentaje_negociacion == undefined ||
+        this.infoEnono.porcentaje_negociacion == null ||
+        Number.isNaN(this.infoEnono.porcentaje_negociacion)) &&
+      (this.infoEnono.valor_oferta_final == undefined ||
+        this.infoEnono.valor_oferta_final == null ||
+        Number.isNaN(this.infoEnono.valor_oferta_final)) &&
+      this.idenPredio.tipo_oferta === 'VENTA'
+    ) {
+      mensaje = `${mensaje}- El valor de oferta inicial, final y el procentaje de negociación de la pestaña información económica son obligatorios`;
+    } else {
+      this.controles.infoEnono.valor_oferta_inicial = true;
+      this.controles.infoEnono.porcentaje_negociacion = true;
+      this.controles.infoEnono.valor_oferta_final = true;
+    }
+    if (
+      (this.infoEnono.valor_terreno == undefined ||
+        this.infoEnono.valor_terreno == null ||
+        Number.isNaN(this.infoEnono.valor_terreno)) &&
+      (this.infoEnono.valor_construccion_m2 == undefined ||
+        this.infoEnono.valor_construccion_m2 == null ||
+        Number.isNaN(this.infoEnono.valor_construccion_m2)) &&
+      (this.infoEnono.valor_area_privada == undefined ||
+        this.infoEnono.valor_area_privada == null ||
+        Number.isNaN(this.infoEnono.valor_area_privada))
+    ) {
+      mensaje = `${mensaje}- Al menos un valor del terreno, construcción o área privada de la pestaña información económica es obligatorio`;
+    } else {
+      this.controles.infoEnono.valor_terreno = true;
+      this.controles.infoEnono.valor_construccion_m2 = true;
+      this.controles.infoEnono.valor_area_privada = true;
+    }
+
+    if (
+      Number(this.infoEnono.valor_oferta_inicial) <= 0 ||
+      Number(this.infoEnono.porcentaje_negociacion) <= 0 ||
+      Number(this.infoEnono.valor_oferta_final) <= 0 ||
+      Number(this.infoEnono.valor_terreno) <= 0 ||
+      Number(this.infoEnono.valor_construccion_m2) <= 0 ||
+      Number(this.infoEnono.valor_area_privada) <= 0
+    ) {
+      mensaje = `${mensaje}- Los valores económicos deben de ser positivos en la pestaña información económica`;
+    } else {
+      this.controles.infoEnono.valor_oferta_inicial = true;
+      this.controles.infoEnono.porcentaje_negociacion = true;
+      this.controles.infoEnono.valor_oferta_final = true;
+      this.controles.infoEnono.valor_terreno = true;
+      this.controles.infoEnono.valor_construccion_m2 = true;
+      this.controles.infoEnono.valor_area_privada = true;
+    }
+    if (
+      Number(this.infoEnono.valor_cultivo) <= 0 ||
+      Number(this.infoEnono.avaluo_catastral) <= 0 ||
+      Number(this.infoEnono.valor_administracion) <= 0 ||
+      Number(this.infoEnono.valor_terraza_balcon_patio) <= 0 ||
+      Number(this.infoEnono.valor_garajes) <= 0 ||
+      Number(this.infoEnono.valor_depositos) <= 0 ||
+      Number(this.infoEnono.valor_anexidades) <= 0
+    ) {
+      mensaje = `${mensaje}- Los valores económicos deben de ser positivos en la pestaña información económica`;
+    } else {
+      this.controles.infoEnono.valor_cultivo = true;
+      this.controles.infoEnono.avaluo_catastral = true;
+      this.controles.infoEnono.valor_administracion = true;
+      this.controles.infoEnono.valor_terraza_balcon_patio = true;
+      this.controles.infoEnono.valor_garajes = true;
+      this.controles.infoEnono.valor_depositos = true;
+      this.controles.infoEnono.valor_anexidades = true;
+    }
+    if (
+      (this.infoEnono.valor_arriendo_inicial == undefined ||
+        this.infoEnono.valor_arriendo_inicial == null ||
+        Number.isNaN(this.infoEnono.valor_arriendo_inicial)) &&
+      (this.infoEnono.valor_arriendo_final == undefined ||
+        this.infoEnono.valor_arriendo_final == null ||
+        Number.isNaN(this.infoEnono.valor_arriendo_final)) &&
+      this.idenPredio.tipo_oferta === 'ARRIENDO'
+    ) {
+      mensaje = `${mensaje}- El valor del arriendo inciail y final de la pestaña información económica son obligatorios`;
+    } else {
+      this.controles.infoEnono.valor_arriendo_inicial = true;
+      this.controles.infoEnono.valor_arriendo_final = true;
+    }
+    if (
+      Number(this.infoEnono.valor_arriendo_inicial) <= 0 ||
+      Number(this.infoEnono.valor_arriendo_final) <= 0
+    ) {
+      mensaje = `${mensaje}- Los valores económicos deben de ser positivos en la pestaña información económica`;
+    } else {
+      this.controles.infoEnono.valor_arriendo_inicial = true;
+      this.controles.infoEnono.valor_arriendo_final = true;
+    }
+    if (
+      this.infoFuente.nombre_oferente == undefined ||
+      this.infoFuente.nombre_oferente == null ||
+      this.infoFuente.nombre_oferente == ''
+    ) {
+      mensaje = `${mensaje}- El nombre del oferente en la pestaña de información fuente es obligatorio`;
+    } else {
+      this.controles.infoFuente.nombre_oferente = true;
+    }
+    if (
+      (this.infoFuente.numero_contacto == undefined ||
+        this.infoFuente.numero_contacto == null ||
+        Number.isNaN(this.infoFuente.numero_contacto)) &&
+      (this.infoFuente.url == undefined ||
+        this.infoFuente.url == null ||
+        this.infoFuente.url == '')
+    ) {
+      mensaje = `${mensaje}- El número de contacto o la URL de la oferta en la pestaña de información fuente es obligatorio`;
+    } else {
+      this.controles.infoFuente.numero_contacto = true;
+      this.controles.infoFuente.url = true;
+    }
+    if (
+      this.infoFuente.enlace_interno_foto_predio == undefined ||
+      this.infoFuente.enlace_interno_foto_predio == null ||
+      this.infoFuente.enlace_interno_foto_predio == false
+    ) {
+      mensaje = `${mensaje}- El adjuntar una foto en la pestaña de información fuente es obligatorio`;
+    } else {
+      this.controles.infoFuente.enlace_interno_foto_predio = true;
+    }
+    if (
+      this.infoFuente.observaciones == undefined ||
+      this.infoFuente.observaciones == null ||
+      this.infoFuente.observaciones == ''
+    ) {
+      mensaje = `${mensaje}- Las observaciones de la oferta en la pestaña de información fuente son obligatorias`;
+    } else {
+      this.controles.infoFuente.observaciones = true;
+    }
+    if (
+      this.infoAdmin.ni_persona_captura == undefined ||
+      this.infoAdmin.ni_persona_captura == null ||
+      Number.isNaN(this.infoAdmin.ni_persona_captura)
+    ) {
+      mensaje = `${mensaje}- Revisar el login y los datos de la persona que está intentando relaizar el cargue de la oferta`;
+    } else {
+      this.controles.infoAdmin.ni_persona_captura = true;
+    }
+    if (
+      this.infoAdmin.ti_persona_captura == undefined ||
+      this.infoAdmin.ti_persona_captura == null ||
+      Number.isNaN(this.infoAdmin.ti_persona_captura)
+    ) {
+      mensaje = `${mensaje}- Revisar el login y los datos de la persona que está intentando relaizar el cargue de la oferta`;
+    } else {
+      this.controles.infoAdmin.ti_persona_captura = true;
+    }
+    if (
+      this.infoAdmin.email_persona_captura == undefined ||
+      this.infoAdmin.email_persona_captura == null ||
+      Number.isNaN(this.infoAdmin.email_persona_captura)
+    ) {
+      mensaje = `${mensaje}- Revisar el login y los datos de la persona que está intentando relaizar el cargue de la oferta`;
+    } else {
+      this.controles.infoAdmin.email_persona_captura = true;
+    }
+    if (
+      this.infoAdmin.area_persona_captura == undefined ||
+      this.infoAdmin.area_persona_captura == null ||
+      Number.isNaN(this.infoAdmin.area_persona_captura)
+    ) {
+      mensaje = `${mensaje}- Revisar el login y los datos de la persona que está intentando relaizar el cargue de la oferta`;
+    } else {
+      this.controles.infoAdmin.area_persona_captura = true;
+    }
+
+    return mensaje;
+  }
+
+  controlesGeneralesVistasBolean() {
+    let controlIdenPre = false,
+      controlIdenLoca = false,
+      controlDatGen = false,
+      controlInfoFisi = false,
+      controlInfoEconomic = false,
+      controlInfoFuente = false,
+      controlInfoAdmin = false,
+      controlTotal = false;
+
+    controlIdenPre =
+      this.controles.idenPredio.codigo_homologado &&
+      this.controles.idenPredio.condicion_juridica &&
+      this.controles.idenPredio.estado_oferta &&
+      this.controles.idenPredio.id_oferta &&
+      this.controles.idenPredio.matricula &&
+      this.controles.idenPredio.npa &&
+      this.controles.idenPredio.npn &&
+      this.controles.idenPredio.obs_verifica &&
+      this.controles.idenPredio.oferta_origen &&
+      this.controles.idenPredio.tipo_oferta &&
+      this.controles.idenPredio.tipo_predio
+        ? true
+        : false;
+
+    controlIdenLoca =
+      this.controles.locPre.barrio &&
+      this.controles.locPre.departamento &&
+      this.controles.locPre.direccion &&
+      this.controles.locPre.id_oferta &&
+      this.controles.locPre.latitud &&
+      this.controles.locPre.longitud &&
+      this.controles.locPre.municipio &&
+      this.controles.locPre.vereda
+        ? true
+        : false;
+
+    controlDatGen =
+      this.controles.datGen.derecho_tipo &&
+      this.controles.datGen.fecha &&
+      this.controles.datGen.id_oferta &&
+      this.controles.datGen.proyecto_descripcion &&
+      this.controles.datGen.proyecto_inmobiliario &&
+      this.controles.datGen.si_valor_incluye_anexidades &&
+      this.controles.datGen.tiempo_oferta_mercado &&
+      this.controles.datGen.tipo_inmueble
+        ? true
+        : false;
+
+    controlInfoFisi =
+      this.controles.infoFis.altura_edificio &&
+      this.controles.infoFis.ano_construccion &&
+      this.controles.infoFis.area_construccion &&
+      this.controles.infoFis.area_cultivo &&
+      this.controles.infoFis.area_privada &&
+      this.controles.infoFis.area_terreno &&
+      this.controles.infoFis.coeficiente &&
+      this.controles.infoFis.conservacion &&
+      this.controles.infoFis.construcciones_anexas &&
+      this.controles.infoFis.destinacion_economica &&
+      this.controles.infoFis.edad_cultivo &&
+      this.controles.infoFis.estrato &&
+      this.controles.infoFis.garajes &&
+      this.controles.infoFis.id_oferta &&
+      this.controles.infoFis.numero_banos &&
+      this.controles.infoFis.numero_depositos &&
+      this.controles.infoFis.numero_habitaciones &&
+      this.controles.infoFis.numero_piso &&
+      this.controles.infoFis.servicios_publicos &&
+      this.controles.infoFis.tipo_cultivo &&
+      this.controles.infoFis.tipo_inmueble_rural &&
+      this.controles.infoFis.tipologia_tipo
+        ? true
+        : false;
+
+    controlInfoEconomic =
+      this.controles.infoEnono.avaluo_catastral &&
+      this.controles.infoEnono.id_oferta &&
+      this.controles.infoEnono.porcentaje_negociacion &&
+      this.controles.infoEnono.valor_administracion &&
+      this.controles.infoEnono.valor_anexidades &&
+      this.controles.infoEnono.valor_area_privada &&
+      this.controles.infoEnono.valor_arriendo_final &&
+      this.controles.infoEnono.valor_arriendo_inicial &&
+      this.controles.infoEnono.valor_construccion_m2 &&
+      this.controles.infoEnono.valor_cultivo &&
+      this.controles.infoEnono.valor_depositos &&
+      this.controles.infoEnono.valor_garajes &&
+      this.controles.infoEnono.valor_oferta_final &&
+      this.controles.infoEnono.valor_oferta_inicial &&
+      this.controles.infoEnono.valor_terraza_balcon_patio &&
+      this.controles.infoEnono.valor_terreno
+        ? true
+        : false;
+
+    controlInfoFuente =
+      this.controles.infoFuente.enlace_documentos &&
+      this.controles.infoFuente.enlace_interno_foto_predio &&
+      this.controles.infoFuente.id_oferta &&
+      this.controles.infoFuente.nombre_oferente &&
+      this.controles.infoFuente.numero_contacto &&
+      this.controles.infoFuente.observaciones &&
+      this.controles.infoFuente.url
+        ? true
+        : false;
+
+    controlInfoAdmin =
+      this.controles.infoAdmin.area_persona_captura &&
+      this.controles.infoAdmin.area_persona_verifica &&
+      this.controles.infoAdmin.email_persona_captura &&
+      this.controles.infoAdmin.email_persona_verifica &&
+      this.controles.infoAdmin.id_oferta &&
+      this.controles.infoAdmin.ni_persona_captura &&
+      this.controles.infoAdmin.ni_persona_verifica &&
+      this.controles.infoAdmin.ti_persona_captura &&
+      this.controles.infoAdmin.ti_persona_verifica
+        ? true
+        : false;
+
+    controlTotal =
+      controlIdenPre &&
+      controlIdenLoca &&
+      controlDatGen &&
+      controlInfoFisi &&
+      controlInfoEconomic &&
+      controlInfoFuente &&
+      controlInfoAdmin
+        ? true
+        : false;
+
+    return controlTotal;
   }
 }

@@ -15,46 +15,35 @@
         <input type="number" formControlName="id_oferta" name="Id_Oferta" />
 
         <label for="nom">Nombre del Oferente</label>
-        <div class="alerError" [hidden]="nom.valid || nom.pristine">
-          <div *ngIf="nom.errors?.['required']">El nombre es obligatorio</div>
+        <div class="alerError" *ngIf="nom.errors?.['required']">
+          El nombre es obligatorio
+        </div>
+        <div [hidden]="nom.valid || nom.pristine">
           <div *ngIf="nom.errors?.['maxlength']">
             La cantidad de caracteres debe de ser menor a 50
           </div>
         </div>
-        <input
-          type="text"
-          formControlName="nom"
-          name="nom"
-          placeholder="Tulio Manrique"
-        />
+        <input type="text" formControlName="nom" name="nom" placeholder="" />
 
         <label for="tel">Número de contacto</label>
-        <div class="alerError" [hidden]="tel.valid || tel.pristine">
-          <div *ngIf="formUserFue.controls['tel'].hasError('valoresVacios')">
-            Debe de existir al menos un valor de contacto o URL, favor ingresar
-            digitos
-          </div>
+        <div
+          class="alerError"
+          *ngIf="formUserFue.controls['tel'].hasError('valoresVacios')"
+        >
+          Debe de existir al menos un valor de contacto o URL, favor ingresar
+          digitos
         </div>
-        <input
-          type="tel"
-          formControlName="tel"
-          name="tel"
-          placeholder="3102352067"
-        />
+        <input type="number" formControlName="tel" name="tel" placeholder="" />
 
         <label for="url">Url</label>
-        <div class="alerError" [hidden]="url.valid || url.pristine">
-          <div *ngIf="formUserFue.controls['url'].hasError('valoresVacios')">
-            Debe de existir al menos un valor de contacto o URL, favor ingresar
-            una URL válida
-          </div>
+        <div
+          class="alerError"
+          *ngIf="formUserFue.controls['url'].hasError('valoresVacios')"
+        >
+          Debe de existir al menos un valor de contacto o URL, favor ingresar
+          una URL válida
         </div>
-        <input
-          type="url"
-          formControlName="url"
-          name="url"
-          placeholder="https://www.fincaraiz.com.co/inmueble/....."
-        />
+        <input type="text" formControlName="url" name="url" placeholder="" />
 
         Anexar información
         <div class="container text-center">
@@ -95,10 +84,10 @@
         </div>
 
         <label for="obs1">Observaciones de la oferta</label>
-        <div class="alerError" [hidden]="obs1.valid || obs1.pristine">
-          <div *ngIf="obs1.errors?.['required']">
-            La observación de la oferta es obligatoria
-          </div>
+        <div class="alerError" *ngIf="obs1.errors?.['required']">
+          La observación de la oferta es obligatoria
+        </div>
+        <div [hidden]="obs1.valid || obs1.pristine">
           <div *ngIf="obs1.errors?.['maxlength']">
             La cantidad de caracteres debe de ser menor a 4000
           </div>
@@ -138,7 +127,7 @@
           type="text"
           formControlName="nomcapofer"
           name="nomcapofer"
-          placeholder="Jorge Luis"
+          placeholder=""
         />
 
         <label for="apecapofer"
@@ -159,7 +148,7 @@
           type="text"
           formControlName="apecapofer"
           name="apecapofer"
-          placeholder="Rodriguez Parra"
+          placeholder=""
         />
 
         <label for="tipercap"
@@ -192,7 +181,7 @@
           type="number"
           formControlName="numidencap"
           name="numidencap"
-          placeholder="1016253461"
+          placeholder=""
         />
 
         <label for="emailcap">Email de la persona que captura la oferta:</label>
@@ -209,7 +198,7 @@
           type="email"
           formControlName="emailcap"
           name="emailcap"
-          placeholder="juan.rodriguez@igac.gov.co"
+          placeholder=""
         />
 
         <label for="areresofer">Área responsable de la oferta</label>
@@ -228,7 +217,7 @@
           type="text"
           formControlName="areresofer"
           name="areresofer"
-          placeholder="OIC"
+          placeholder=""
         />
 
         <!-- <label for="obs2"
@@ -277,7 +266,7 @@
           type="text"
           formControlName="nomveriofer"
           name="nomveriofer"
-          placeholder="Jorge Luis"
+          placeholder=""
         />
 
         <label for="apeveriofer"
@@ -298,7 +287,7 @@
           type="text"
           formControlName="apeveriofer"
           name="apeveriofer"
-          placeholder="Rodriguez Parra"
+          placeholder=""
         />
 
         <label for="tiperver"
@@ -328,7 +317,7 @@
           type="number"
           formControlName="numperver"
           name="numperver"
-          placeholder="1738263"
+          placeholder=""
         />
 
         <label for="emailveri">Email de la persona que verifica:</label>
@@ -345,7 +334,7 @@
           type="email"
           formControlName="emailveri"
           name="emailveri"
-          placeholder="jespinosa@igac.gov.co"
+          placeholder=""
         />
 
         <label for="areverofer">Área de la verificación de la oferta</label>
@@ -364,7 +353,7 @@
           type="text"
           formControlName="areverofer"
           name="areverofer"
-          placeholder="OIC"
+          placeholder=""
         />
         <label for="obs3">Observaciones de verificación</label>
         <div class="alerError" [hidden]="obs3.valid || obs3.pristine">
@@ -378,7 +367,7 @@
         <textarea
           formControlName="obs3"
           name="obs3"
-          placeholder="Escribir Observación (Menor a 4000 Carácteres)"
+          placeholder=""
           style="height: 200px"
         ></textarea>
       </div>
@@ -393,7 +382,11 @@
           </button>
         </h2>
         <h2 class="col-4">
-          <button class="buttonEnviar" [disabled]="true">
+          <button
+            class="buttonEnviar"
+            [disabled]="!valrelacionesService.vistasHabilitar.noEnvioTerminar"
+            (click)="enviarTerminar()"
+          >
             Enviar y terminar
           </button>
         </h2>

@@ -26,6 +26,12 @@
         </div>
 
         <label for="numprenue">Número Predial Nuevo</label>
+        <div
+          class="alerError"
+          *ngIf="formUser.controls['numprenue'].hasError('hasNumber')"
+        >
+          Los valores ingresados deben de ser digitos 0-9
+        </div>
         <div class="alerError" [hidden]="numprenue.valid || numprenue.pristine">
           <div
             *ngIf="numprenue.errors?.['minlength'] || numprenue.errors?.['maxlength']"
@@ -42,6 +48,12 @@
         />
 
         <label for="numpreant">Número Predial Antiguo</label>
+        <div
+          class="alerError"
+          *ngIf="formUser.controls['numpreant'].hasError('hasNumber')"
+        >
+          Los valores ingresados deben de ser digitos 0-9
+        </div>
         <div class="alerError" [hidden]="numpreant.valid || numpreant.pristine">
           <div
             *ngIf="numpreant.errors?.['minlength'] || numpreant.errors?.['maxlength']"
@@ -84,6 +96,9 @@
         />
 
         <label for="conjur">Condición Juridica</label>
+        <div class="alerError" *ngIf="conjur.errors?.['required']">
+          La condición jurídica es obligatoria
+        </div>
         <select id="conjur" formControlName="conjur" name="conjur">
           <option value="NPH">NPH</option>
           <option value="PH">PH</option>
@@ -106,7 +121,7 @@
         </select>
 
         <label for="tipofer">Tipo Oferta</label>
-        <div class="alerError" [hidden]="tipofer.valid || tipofer.pristine">
+        <div class="alerError" *ngIf="tipofer.errors?.['required']">
           El tipo de oferta es obligatorio
         </div>
         <select id="tipofer" formControlName="tipofer" name="tipofer">
@@ -115,7 +130,7 @@
         </select>
 
         <label for="tippre">Tipo Predio</label>
-        <div class="alerError" [hidden]="tippre.valid || tippre.pristine">
+        <div class="alerError" *ngIf="tippre.errors?.['required']">
           El tipo de predio es obligatorio
         </div>
         <select id="tippre" formControlName="tippre" name="tippre">
@@ -127,7 +142,7 @@
         </select>
 
         <label for="oriofer">Origen de la Oferta</label>
-        <div class="alerError" [hidden]="oriofer.valid || oriofer.pristine">
+        <div class="alerError" *ngIf="oriofer.errors?.['required']">
           El origen de la oferta es obligatorio
         </div>
         <select id="oriofer" formControlName="oriofer" name="oriofer">
@@ -142,61 +157,15 @@
       <div class="row">
         <h2 class="col-4"></h2>
         <h2 class="col-4">
-          <button
-            class="buttonEnviar"
-            data-bs-toggle="modal"
-            data-bs-target="#staticBackdrop"
-            [disabled]="formUser.invalid"
-          >
+          <button class="buttonEnviar" [disabled]="formUser.invalid">
             Guardar
           </button>
         </h2>
 
-        <!-- Modal -->
-        <div
-          class="modal fade"
-          id="staticBackdrop"
-          data-bs-backdrop="static"
-          data-bs-keyboard="false"
-          tabindex="-1"
-          aria-labelledby="staticBackdropLabel"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                  Mensaje
-                </h1>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div class="modal-body">
-                El valor de id_oferta se inicializó y fue asignado su valor es
-                de: {{ valrelacionesService.idenPredio.id_oferta }}. Se
-                evidencia actualizaciones por lo tanto se actualizan los datos.
-              </div>
-              <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-success"
-                  data-bs-dismiss="modal"
-                >
-                  Continuar
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <h2 class="col-4">
           <button
             class="buttonEnviar"
-            [disabled]="noVistaSiguiente"
+            [disabled]="!valrelacionesService.vistasHabilitar.noVistaLocOfer"
             routerLink="../LocPre"
           >
             Siguiente
@@ -204,12 +173,6 @@
         </h2>
       </div>
     </form>
-
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-      crossorigin="anonymous"
-    ></script>
 
     <app-footer></app-footer>
   </body>

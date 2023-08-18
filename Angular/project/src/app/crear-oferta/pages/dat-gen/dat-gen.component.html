@@ -16,7 +16,7 @@
         <input type="number" formControlName="idoferta" name="Id Oferta" />
 
         <label for="dertip">Derecho Tipo</label>
-        <div class="alerError" [hidden]="dertip.valid || dertip.pristine">
+        <div class="alerError" *ngIf="dertip.errors?.['required']">
           El derecho tipo es un campo obligatorio
         </div>
         <select formControlName="dertip" name="dertip">
@@ -28,7 +28,7 @@
         </select>
 
         <label for="tipinmb">Tipo de Inmueble</label>
-        <div class="alerError" [hidden]="tipinmb.valid || tipinmb.pristine">
+        <div class="alerError" *ngIf="tipinmb.errors?.['required']">
           El tipo de inmueble es un campo obligatorio
         </div>
         <select formControlName="tipinmb" name="tipinmb">
@@ -51,7 +51,7 @@
 
         <div *ngIf="formUserGen.value.tipinmb?.valueOf() !== 'LOTE'">
           <label for="valanex">Valor Incluye Anexidades</label>
-          <div class="alerError" [hidden]="valanex.valid || valanex.pristine">
+          <div class="alerError" *ngIf="formUserGen.errors?.['required']">
             El especificar si incluye anexidades es obligatorio
           </div>
           <select formControlName="valanex" name="valanex">
@@ -61,10 +61,7 @@
         </div>
 
         <label for="feccapofer">Fecha de Captura Oferta</label>
-        <div
-          class="alerError"
-          [hidden]="feccapofer.valid || feccapofer.pristine"
-        >
+        <div class="alerError" *ngIf="feccapofer.errors?.['required']">
           La fecha de captura de la oferta es obligatoria
         </div>
         <div>
@@ -79,12 +76,7 @@
         </div>
 
         <label for="tiemofemer">Tiempo Oferta en el Mercado (en meses)</label>
-        <div
-          class="alerError"
-          [hidden]="tiemofemer.valid || tiemofemer.pristine"
-        >
-          El tiempo de oferta en el mercado de la oferta es obligatorio
-        </div>
+
         <input
           type="number"
           formControlName="tiemofemer"
@@ -95,7 +87,7 @@
 
         <div *ngIf="controlEntrevariables.val_proyecto_inmobiliario">
           <label for="proinmb">Proyectos Inmobiliario</label>
-          <div class="alerError" [hidden]="proinmb.valid || proinmb.pristine">
+          <div class="alerError" *ngIf="formUserGen.errors?.['required']">
             El especificar si es proyecto inmobiliario es obligatorio
           </div>
           <select formControlName="proinmb" name="proinmb">
@@ -105,7 +97,7 @@
 
           <div *ngIf="this.formUserGen.value.proinmb?.valueOf() === 'SI'">
             <label for="desproy">Descripción del Proyecto</label>
-            <div class="alerError" [hidden]="desproy.valid || desproy.pristine">
+            <div class="alerError" *ngIf="formUserGen.errors?.['required']">
               La descripción del proyecto inmobiliario es obligatorio
             </div>
             <textarea

@@ -9,5 +9,5 @@ export interface idenPreI {
   tipo_predio: String | null | undefined;
   oferta_origen: String | null | undefined;
   estado_oferta: Number;
-  obs_verifica: Text | unknown;
+  obs_verifica: String | unknown;
 }

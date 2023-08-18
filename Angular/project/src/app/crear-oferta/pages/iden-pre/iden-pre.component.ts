@@ -4,6 +4,9 @@ import {
   FormGroup,
   FormControl,
   Validators,
+  AbstractControl,
+  ValidationErrors,
+  ValidatorFn,
 } from '@angular/forms';
 import { disableDebugTools } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -62,6 +65,16 @@ export class IdenPreComponent {
     return this.formUser.get('oriofer') as FormControl;
   }
 
+  static patternValidator(regex: RegExp, error: ValidationErrors): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } => {
+      if (!control.value) {
+        return null!;
+      }
+      const valid = regex.test(control.value);
+      return valid ? null! : error;
+    };
+  }
+
   formUser = this.fb.group({
     idoferta: [
       {
@@ -72,11 +85,23 @@ export class IdenPreComponent {
     ],
     numprenue: [
       this.valrelacionesService.idenPredio.npn,
-      [Validators.minLength(20), Validators.maxLength(30)],
+      [
+        Validators.minLength(20),
+        Validators.maxLength(30),
+        IdenPreComponent.patternValidator(/^\d+$/, {
+          hasNumber: true,
+        }),
+      ],
     ],
     numpreant: [
       this.valrelacionesService.idenPredio.npa,
-      [Validators.minLength(10), Validators.maxLength(20)],
+      [
+        Validators.minLength(10),
+        Validators.maxLength(20),
+        IdenPreComponent.patternValidator(/^\d+$/, {
+          hasNumber: true,
+        }),
+      ],
     ],
     codhom: [
       this.valrelacionesService.idenPredio.codigo_homologado,
@@ -86,7 +111,10 @@ export class IdenPreComponent {
       this.valrelacionesService.idenPredio.matricula,
       [Validators.maxLength(20)],
     ],
-    conjur: [this.valrelacionesService.idenPredio.condicion_juridica],
+    conjur: [
+      this.valrelacionesService.idenPredio.condicion_juridica,
+      Validators.required,
+    ],
     tipofer: [
       this.valrelacionesService.idenPredio.tipo_oferta,
       Validators.required,
@@ -112,7 +140,7 @@ export class IdenPreComponent {
     tipo_predio: undefined,
     oferta_origen: undefined,
     estado_oferta: 1,
-    obs_verifica: 'Sin comentarios' as unknown | Text,
+    obs_verifica: 'Sin comentarios',
   };
 
   noVistaOfer: boolean =

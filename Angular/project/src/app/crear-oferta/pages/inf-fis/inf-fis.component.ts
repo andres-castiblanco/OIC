@@ -5,6 +5,8 @@ import {
   FormControl,
   Validators,
   AbstractControl,
+  ValidationErrors,
+  ValidatorFn,
 } from '@angular/forms';
 import { disableDebugTools } from '@angular/platform-browser';
 
@@ -119,15 +121,31 @@ export class InfFisComponent {
   }
 
   static areasValidaciones(control: AbstractControl) {
-    const areaTerrenom2: string = control.get('atm2')?.value;
-    const areaTerrenoha: string = control.get('atha')?.value;
-    const areaConstruccionm2: string = control.get('acm2')?.value;
-    const areaPrivadanm2: string = control.get('apm2')?.value;
+    const areaTerrenom2: Number = control.get('atm2')?.value;
+    const areaTerrenoha: Number = control.get('atha')?.value;
+    const areaConstruccionm2: Number = control.get('acm2')?.value;
+    const areaPrivadanm2: Number = control.get('apm2')?.value;
     if (
-      (areaTerrenom2 === undefined || areaTerrenom2 === null) &&
-      (areaTerrenoha === undefined || areaTerrenoha === null) &&
-      (areaConstruccionm2 === undefined || areaConstruccionm2 === null) &&
-      (areaPrivadanm2 === undefined || areaPrivadanm2 === null)
+      (areaTerrenom2 === undefined ||
+        areaTerrenom2 === null ||
+        Number.isNaN(areaTerrenom2) ||
+        Number(areaTerrenom2) <= 0 ||
+        Number(areaTerrenom2) > 10000000000000000) &&
+      (areaTerrenoha === undefined ||
+        areaTerrenoha === null ||
+        Number.isNaN(areaTerrenoha) ||
+        Number(areaTerrenoha) <= 0 ||
+        Number(areaTerrenoha) > 10000000000000000) &&
+      (areaConstruccionm2 === undefined ||
+        areaConstruccionm2 === null ||
+        Number.isNaN(areaConstruccionm2) ||
+        Number(areaConstruccionm2) <= 0 ||
+        Number(areaConstruccionm2) > 10000000000000000) &&
+      (areaPrivadanm2 === undefined ||
+        areaPrivadanm2 === null ||
+        Number.isNaN(areaPrivadanm2) ||
+        Number(areaPrivadanm2) <= 0 ||
+        Number(areaPrivadanm2) > 10000000000000000)
     ) {
       control.get('atm2')?.setErrors({ areasVacias: true });
       control.get('atha')?.setErrors({ areasVacias: true });
@@ -141,6 +159,16 @@ export class InfFisComponent {
     }
   }
 
+  static patternValidator(regex: RegExp, error: ValidationErrors): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } => {
+      if (!control.value) {
+        return null!;
+      }
+      const valid = regex.test(control.value);
+      return valid ? null! : error;
+    };
+  }
+
   formUserFis = this.fb.group(
     {
       idoferta: [
@@ -150,35 +178,27 @@ export class InfFisComponent {
         },
         Validators.required,
       ],
-      atm2: [
-        this.valrelacionesService.infoFis.area_terreno,
-        [
-          Validators.max(1000000),
-          Validators.min(0.000000000000000000000000001),
-        ],
-      ],
-      atha: [
-        this.valrelacionesService.infoFis.area_terreno,
-        [
-          Validators.max(1000000),
-          Validators.min(0.000000000000000000000000001),
-        ],
-      ],
-      acm2: [
-        this.valrelacionesService.infoFis.area_construccion,
-        [Validators.max(1000000), Validators.min(0)],
-      ],
-      apm2: [
-        this.valrelacionesService.infoFis.area_privada,
-        [Validators.max(1000000), Validators.min(0)],
-      ],
+      atm2: [this.valrelacionesService.infoFis.area_terreno, []],
+      atha: [this.valrelacionesService.infoFis.area_terreno, []],
+      acm2: [this.valrelacionesService.infoFis.area_construccion, []],
+      apm2: [this.valrelacionesService.infoFis.area_privada, []],
       apha: [
         this.valrelacionesService.infoFis.area_cultivo,
-        [Validators.max(1000000), Validators.min(0)],
+        [
+          Validators.maxLength(7),
+          InfFisComponent.patternValidator(/^\d+$/, {
+            hasNumber: true,
+          }),
+        ],
       ],
       ac: [
         this.valrelacionesService.infoFis.ano_construccion,
-        [Validators.max(2100), Validators.min(1400)],
+        [
+          Validators.maxLength(4),
+          InfFisComponent.patternValidator(/^\d+$/, {
+            hasNumber: true,
+          }),
+        ],
       ],
       conser: [this.valrelacionesService.infoFis.conservacion],
       desecon: [
@@ -188,18 +208,33 @@ export class InfFisComponent {
       altedif: [this.valrelacionesService.infoFis.altura_edificio],
       numpis: [
         this.valrelacionesService.infoFis.numero_piso,
-        [Validators.max(1000), Validators.min(1)],
+        [
+          Validators.maxLength(3),
+          InfFisComponent.patternValidator(/^\d+$/, {
+            hasNumber: true,
+          }),
+        ],
       ],
       tir: [this.valrelacionesService.infoFis.tipo_inmueble_rural],
       tiptipo: [this.valrelacionesService.infoFis.tipologia_tipo],
       edcul: [
         this.valrelacionesService.infoFis.edad_cultivo,
-        [Validators.max(1000), Validators.min(1)],
+        [
+          Validators.maxLength(4),
+          InfFisComponent.patternValidator(/^\d+$/, {
+            hasNumber: true,
+          }),
+        ],
       ],
       tipcul: [this.valrelacionesService.infoFis.tipo_cultivo],
       coef: [
         this.valrelacionesService.infoFis.coeficiente,
-        [Validators.max(1000), Validators.min(1)],
+        [
+          Validators.maxLength(3),
+          InfFisComponent.patternValidator(/^\d+$/, {
+            hasNumber: true,
+          }),
+        ],
       ],
       serpubl: [
         this.valrelacionesService.infoFis.servicios_publicos,
@@ -207,23 +242,48 @@ export class InfFisComponent {
       ],
       estra: [
         this.valrelacionesService.infoFis.estrato,
-        [Validators.max(6), Validators.min(1)],
+        [
+          Validators.maxLength(2),
+          InfFisComponent.patternValidator(/^\d+$/, {
+            hasNumber: true,
+          }),
+        ],
       ],
       garaje: [
         this.valrelacionesService.infoFis.garajes,
-        [Validators.max(50), Validators.min(1)],
+        [
+          Validators.maxLength(2),
+          InfFisComponent.patternValidator(/^\d+$/, {
+            hasNumber: true,
+          }),
+        ],
       ],
       banos: [
         this.valrelacionesService.infoFis.numero_banos,
-        [Validators.max(50), Validators.min(1)],
+        [
+          Validators.maxLength(2),
+          InfFisComponent.patternValidator(/^\d+$/, {
+            hasNumber: true,
+          }),
+        ],
       ],
       numhabi: [
         this.valrelacionesService.infoFis.numero_habitaciones,
-        [Validators.max(50), Validators.min(1)],
+        [
+          Validators.maxLength(2),
+          InfFisComponent.patternValidator(/^\d+$/, {
+            hasNumber: true,
+          }),
+        ],
       ],
       numdep: [
         this.valrelacionesService.infoFis.numero_depositos,
-        [Validators.max(50), Validators.min(1)],
+        [
+          Validators.maxLength(2),
+          InfFisComponent.patternValidator(/^\d+$/, {
+            hasNumber: true,
+          }),
+        ],
       ],
       conanex: [
         this.valrelacionesService.infoFis.construcciones_anexas,
@@ -325,6 +385,66 @@ export class InfFisComponent {
         : false,
   };
 
+  controlCamposInfoFisi = {
+    validaAreasPosi: {
+      control: true,
+      funcionControl: (objDatFisi: infoFisiI) => {
+        if (
+          objDatFisi.area_terreno?.valueOf()! < 0 ||
+          objDatFisi.area_construccion?.valueOf()! < 0 ||
+          objDatFisi.area_privada?.valueOf()! < 0 ||
+          objDatFisi.area_cultivo?.valueOf()! < 0
+        ) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      mensaje:
+        'Error, se está digitando un valor negativo en los valores de área. Por esto, no se realiza el envío de la información. Por favor revisar.',
+    },
+    validaAreasDifCero: {
+      control: true,
+      funcionControl: (objDatFisi: infoFisiI) => {
+        if (
+          objDatFisi.area_terreno?.valueOf()! == 0 ||
+          objDatFisi.area_construccion?.valueOf()! == 0 ||
+          objDatFisi.area_privada?.valueOf()! == 0 ||
+          objDatFisi.area_cultivo?.valueOf()! == 0
+        ) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      mensaje:
+        'Error, se está digitando un valor igual a cero en los valores de área. Por esto, no se realiza el envío de la información. Por favor revisar.',
+    },
+  };
+
+  controlGeneralCamposInfoFisi: Boolean = false;
+
+  validarCamposInfoFisi(objDatFisi: infoFisiI) {
+    this.controlCamposInfoFisi.validaAreasPosi.control =
+      this.controlCamposInfoFisi.validaAreasPosi.funcionControl(objDatFisi);
+    this.controlCamposInfoFisi.validaAreasDifCero.control =
+      this.controlCamposInfoFisi.validaAreasDifCero.funcionControl(objDatFisi);
+    if (this.controlCamposInfoFisi.validaAreasPosi.control) {
+      console.error(this.controlCamposInfoFisi.validaAreasPosi.mensaje);
+    }
+    if (this.controlCamposInfoFisi.validaAreasDifCero.control) {
+      console.error(this.controlCamposInfoFisi.validaAreasDifCero.mensaje);
+    }
+    if (
+      this.controlCamposInfoFisi.validaAreasPosi.control === false &&
+      this.controlCamposInfoFisi.validaAreasDifCero.control === false
+    ) {
+      this.controlGeneralCamposInfoFisi = true;
+    } else {
+      this.controlGeneralCamposInfoFisi = false;
+    }
+  }
+
   procesar() {
     this.objDatFis.id_oferta =
       this.valrelacionesService.idenPredio.id_oferta?.valueOf();
@@ -332,54 +452,84 @@ export class InfFisComponent {
       this.valrelacionesService.idenPredio.tipo_predio === 'RURAL'
         ? Number(this.formUserFis.value.atha?.valueOf())
         : Number(this.formUserFis.value.atm2?.valueOf());
-
     this.objDatFis.area_construccion = Number(
       this.formUserFis.value.acm2?.valueOf()
-    );
-
-    this.objDatFis.ano_construccion = Number(
-      this.formUserFis.value.ac?.valueOf()
     );
     this.objDatFis.conservacion = this.formUserFis.value.conser?.valueOf();
     this.objDatFis.area_privada = Number(
       this.formUserFis.value.apm2?.valueOf()
     );
+
+    this.objDatFis.ano_construccion =
+      Number.isNaN(Number(this.formUserFis.value.ac?.valueOf())) ||
+      this.formUserFis.value.ac == ''
+        ? undefined
+        : Number(this.formUserFis.value.ac?.valueOf());
     this.objDatFis.destinacion_economica =
       this.formUserFis.value.desecon?.valueOf();
     this.objDatFis.altura_edificio = this.formUserFis.value.altedif?.valueOf();
-    this.objDatFis.numero_piso = Number(
-      this.formUserFis.value.numpis?.valueOf()
-    );
-    this.objDatFis.area_cultivo = Number(
-      this.formUserFis.value.apha?.valueOf()
-    );
+    this.objDatFis.numero_piso =
+      Number.isNaN(Number(this.formUserFis.value.numpis?.valueOf())) ||
+      this.formUserFis.value.numpis == ''
+        ? undefined
+        : Number(this.formUserFis.value.numpis?.valueOf());
+    this.objDatFis.area_cultivo =
+      Number.isNaN(Number(this.formUserFis.value.apha?.valueOf())) ||
+      this.formUserFis.value.apha == ''
+        ? undefined
+        : Number(this.formUserFis.value.apha?.valueOf());
     this.objDatFis.tipo_inmueble_rural = this.formUserFis.value.tir?.valueOf();
     this.objDatFis.tipologia_tipo = this.formUserFis.value.tiptipo?.valueOf();
-    this.objDatFis.edad_cultivo = Number(
-      this.formUserFis.value.edcul?.valueOf()
-    );
+    this.objDatFis.edad_cultivo =
+      Number.isNaN(Number(this.formUserFis.value.edcul?.valueOf())) ||
+      this.formUserFis.value.edcul == ''
+        ? undefined
+        : Number(this.formUserFis.value.edcul?.valueOf());
     this.objDatFis.tipo_cultivo = this.formUserFis.value.tipcul?.valueOf();
-    this.objDatFis.coeficiente = Number(this.formUserFis.value.coef?.valueOf());
+    this.objDatFis.coeficiente =
+      Number.isNaN(Number(this.formUserFis.value.coef?.valueOf())) ||
+      this.formUserFis.value.coef == ''
+        ? undefined
+        : Number(this.formUserFis.value.coef?.valueOf());
     this.objDatFis.servicios_publicos =
       this.formUserFis.value.serpubl?.valueOf();
-    this.objDatFis.estrato = Number(this.formUserFis.value.estra?.valueOf());
-    this.objDatFis.garajes = Number(this.formUserFis.value.garaje?.valueOf());
-    this.objDatFis.numero_banos = Number(
-      this.formUserFis.value.banos?.valueOf()
-    );
-    this.objDatFis.numero_habitaciones = Number(
-      this.formUserFis.value.numhabi?.valueOf()
-    );
-    this.objDatFis.numero_depositos = Number(
-      this.formUserFis.value.numdep?.valueOf()
-    );
+    this.objDatFis.estrato =
+      Number.isNaN(Number(this.formUserFis.value.estra?.valueOf())) ||
+      this.formUserFis.value.estra == ''
+        ? undefined
+        : Number(this.formUserFis.value.estra?.valueOf());
+    this.objDatFis.garajes =
+      Number.isNaN(Number(this.formUserFis.value.garaje?.valueOf())) ||
+      this.formUserFis.value.garaje == ''
+        ? undefined
+        : Number(this.formUserFis.value.garaje?.valueOf());
+    this.objDatFis.numero_banos =
+      Number.isNaN(Number(this.formUserFis.value.banos?.valueOf())) ||
+      this.formUserFis.value.banos == ''
+        ? undefined
+        : Number(this.formUserFis.value.banos?.valueOf());
+    this.objDatFis.numero_habitaciones =
+      Number.isNaN(Number(this.formUserFis.value.numhabi?.valueOf())) ||
+      this.formUserFis.value.numhabi == ''
+        ? undefined
+        : Number(this.formUserFis.value.numhabi?.valueOf());
+
+    this.objDatFis.numero_depositos =
+      Number.isNaN(Number(this.formUserFis.value.numdep?.valueOf())) ||
+      this.formUserFis.value.numdep == ''
+        ? undefined
+        : Number(this.formUserFis.value.numdep?.valueOf());
+
     this.objDatFis.construcciones_anexas =
       this.formUserFis.value.conanex?.valueOf();
+
+    this.validarCamposInfoFisi(this.objDatFis);
 
     if (
       this.valrelacionesService.idenPredio.id_oferta !== undefined &&
       JSON.stringify(this.valrelacionesService.infoFis) !==
-        JSON.stringify(this.objDatFis)
+        JSON.stringify(this.objDatFis) &&
+      this.controlGeneralCamposInfoFisi
     ) {
       this.api
         .capOferRestInfoFisOferta(this.objDatFis)

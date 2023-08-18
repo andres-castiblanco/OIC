@@ -33,9 +33,9 @@
               <div class="form-group mb-3">
                 <label class="label" for="email">Correo Electrónico</label>
                 <div class="alerError" [hidden]="email.valid || email.pristine">
-                  <div *ngIf="email.errors?.['required']">
+                  <!-- <div *ngIf="email.errors?.['required']">
                     El correo del responsable de la oferta es obligatorio
-                  </div>
+                  </div> -->
                   <div *ngIf="email.errors?.['maxlength']">
                     La cantidad de caracteres debe de ser menor a 50
                   </div>
@@ -59,9 +59,9 @@
                   class="alerError"
                   [hidden]="contrasena.valid || contrasena.pristine"
                 >
-                  <div *ngIf="contrasena.errors?.['required']">
+                  <!-- <div *ngIf="contrasena.errors?.['required']">
                     La contraseña del responsable de la oferta es obligatorio
-                  </div>
+                  </div> -->
                   <div *ngIf="contrasena.errors?.['maxlength']">
                     La cantidad de caracteres debe de ser menor a 50
                   </div>

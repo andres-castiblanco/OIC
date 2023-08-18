@@ -109,7 +109,6 @@ export class InfFueComponent {
     const telefono: number = control.get('tel')?.value;
     const url: string = control.get('url')?.value;
     const regexp = new RegExp('^https?://[w-]+(.[w-]+)+[/#?]?.*$');
-    const test = regexp.test(url);
 
     if (
       (telefono === undefined ||
@@ -117,8 +116,7 @@ export class InfFueComponent {
         Number.isNaN(telefono) ||
         telefono <= 0 ||
         telefono > 1000000000000) &&
-      (url === undefined || url === null) &&
-      !test
+      (url === undefined || url === null || url === '' || !regexp.test(url))
     ) {
       control.get('tel')?.setErrors({ valoresVacios: true });
       control.get('url')?.setErrors({ valoresVacios: true });
@@ -229,7 +227,7 @@ export class InfFueComponent {
       ],
       emailveri: [
         this.valrelacionesService.infoAdmin.email_persona_verifica,
-        [Validators.required, Validators.maxLength(50)],
+        [Validators.maxLength(50)],
       ],
       areverofer: [
         {
@@ -315,7 +313,10 @@ export class InfFueComponent {
       String(this.formUserFue.value.tel) == ''
         ? undefined
         : Number(this.formUserFue.value.tel?.valueOf());
-    this.objInfoFuente.url = this.formUserFue.value.url?.valueOf();
+    this.objInfoFuente.url =
+      this.formUserFue.value.url == ''
+        ? undefined
+        : this.formUserFue.value.url?.valueOf();
     this.objInfoFuente.enlace_interno_foto_predio = false;
     this.objInfoFuente.enlace_documentos = false;
     this.objInfoFuente.observaciones = this.formUserFue.value.obs1?.valueOf();
@@ -338,63 +339,63 @@ export class InfFueComponent {
       (JSON.stringify(this.valrelacionesService.infoFuente) !==
         JSON.stringify(this.objInfoFuente) ||
         JSON.stringify(this.valrelacionesService.infoAdmin) !==
-          JSON.stringify(this.objInfoAdmin))
+          JSON.stringify(this.objInfoAdmin)) &&
+      (this.objPerVeri.email === undefined ||
+        this.objPerVeri.email === null ||
+        this.objPerVeri.email === '')
     ) {
       this.api
         .capOferRestInfoFuenteOferta(this.objInfoFuente)
         .subscribe((resInfoFuente) => {
           if (resInfoFuente.status === '200 OK') {
             this.valrelacionesService.setInfoFuentePredio = this.objInfoFuente;
-            controles.controlEnvioInfoFuente = true;
             console.log(this.valrelacionesService.infoFuente);
             console.warn(
-              `El valor de id_oferta  se inicializó y fue asignado su valor es de: ${this.valrelacionesService.idenPredio.id_oferta}. Se evidencia actualizaciones por lo tanto se actualizan los datos.`
+              `El valor de id_oferta  se inicializó y fue asignado su valor es de: ${this.valrelacionesService.idenPredio.id_oferta}. Se evidencia actualizaciones por lo tanto se actualizan los datos. InfoFuente`
             );
+
+            this.api
+              .capOferRestInfoAdminOferta(this.objInfoAdmin)
+              .subscribe((resInfoAdmin) => {
+                if (resInfoAdmin.status === '200 OK') {
+                  this.valrelacionesService.setInfoAdminePredio =
+                    this.objInfoAdmin;
+                  this.envioFormVistaBack = true;
+                  this.noVistaSiguienteBoton =
+                    this.valrelacionesService.idenPredio.id_oferta !==
+                      undefined && this.envioFormVistaBack
+                      ? false
+                      : true;
+                  this.valrelacionesService.habilitarVista(
+                    'noEnvioTerminar',
+                    this.noVistaSiguienteBoton
+                  );
+                  console.log(`Se habilita el botón finalizar y terminar...`);
+                  console.log(this.valrelacionesService.infoAdmin);
+                  console.warn(
+                    `Se asignaron los valores administrativos de la persona que captura la oferta ${this.valrelacionesService.idenPredio.id_oferta}.`
+                  );
+                } else {
+                  console.warn(
+                    `Error no status '200 OK' para la información administrativa de la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se actualizan los datos.`
+                  );
+                }
+              });
           } else {
             console.warn(
-              `Error no status '200 OK' para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se actualizan los datos.`
+              `Error no status '200 OK' para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se actualizan los datos. InfoFuente`
             );
           }
         });
-
-      this.api
-        .capOferRestInfoAdminOferta(this.objInfoAdmin)
-        .subscribe((resInfoAdmin) => {
-          if (resInfoAdmin.status === '200 OK') {
-            this.valrelacionesService.setInfoAdminePredio = this.objInfoAdmin;
-            controles.controlEnvioInfoAdmin = true;
-            console.log(this.valrelacionesService.infoAdmin);
-            console.warn(
-              `Se asignaron los valores administrativos de la persona que captura la oferta ${this.valrelacionesService.idenPredio.id_oferta}.`
-            );
-          } else {
-            console.warn(
-              `Error no status '200 OK' para la información administrativa de la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se actualizan los datos.`
-            );
-          }
-        });
-
-      if (controles.controlEnvioInfoFuente && controles.controlEnvioInfoAdmin) {
-        this.envioFormVistaBack = true;
-        this.noVistaSiguienteBoton =
-          this.valrelacionesService.idenPredio.id_oferta !== undefined &&
-          this.envioFormVistaBack
-            ? false
-            : true;
-        this.valrelacionesService.habilitarVista(
-          'noEnvioTerminar',
-          this.noVistaSiguienteBoton
-        );
-      }
-    } else {
-      console.warn(
-        `El valor de id_oferta ya fue asignado su valor es de: ${this.valrelacionesService.idenPredio.id_oferta}. No se evidencia actualizaciones en el formulario.`
-      );
-    }
-
-    if (
+    } else if (
       this.valrelacionesService.idenPredio.id_oferta !== undefined &&
-      (this.objPerVeri.email != undefined || this.objPerVeri.email != null)
+      (JSON.stringify(this.valrelacionesService.infoFuente) !==
+        JSON.stringify(this.objInfoFuente) ||
+        JSON.stringify(this.valrelacionesService.infoAdmin) !==
+          JSON.stringify(this.objInfoAdmin)) &&
+      this.objPerVeri.email !== undefined &&
+      this.objPerVeri.email !== null &&
+      this.objPerVeri.email !== ''
     ) {
       this.api
         .veriOfertaPersonaVerifica(this.objPerVeri.email)
@@ -418,39 +419,103 @@ export class InfFueComponent {
 
               this.valrelacionesService.setInfoAdminePredio = this.objInfoAdmin;
 
-              controles.controlTomaInfoAdmin = true;
+              this.formUserFue.controls['nomveriofer'].setValue(
+                String(this.valrelacionesService.infoPerVeri.nombres)
+              );
+              this.formUserFue.controls['apeveriofer'].setValue(
+                String(this.valrelacionesService.infoPerVeri.apellidos)
+              );
+              this.formUserFue.controls['numperver'].setValue(
+                String(this.objInfoAdmin.ni_persona_verifica)
+              );
+              this.formUserFue.controls['tiperver'].setValue(
+                String(this.objInfoAdmin.ti_persona_verifica)
+              );
+              this.formUserFue.controls['emailveri'].setValue(
+                String(this.objInfoAdmin.email_persona_verifica)
+              );
+              this.formUserFue.controls['areverofer'].setValue(
+                String(this.objInfoAdmin.area_persona_verifica)
+              );
+
+              this.api
+                .capOferRestInfoFuenteOferta(this.objInfoFuente)
+                .subscribe((resInfoFuente) => {
+                  if (resInfoFuente.status === '200 OK') {
+                    this.valrelacionesService.setInfoFuentePredio =
+                      this.objInfoFuente;
+                    console.log(this.valrelacionesService.infoFuente);
+                    console.warn(
+                      `El valor de id_oferta se inicializó y fue asignado su valor es de: ${this.valrelacionesService.idenPredio.id_oferta}. Se evidencia actualizaciones por lo tanto se actualizan los datos. InfoFuente`
+                    );
+
+                    this.api
+                      .capOferRestInfoAdminOferta(this.objInfoAdmin)
+                      .subscribe((resInfoAdmin) => {
+                        if (resInfoAdmin.status === '200 OK') {
+                          this.valrelacionesService.setInfoAdminePredio =
+                            this.objInfoAdmin;
+                          this.envioFormVistaBack = true;
+                          this.noVistaSiguienteBoton =
+                            this.valrelacionesService.idenPredio.id_oferta !==
+                              undefined && this.envioFormVistaBack
+                              ? false
+                              : true;
+                          this.valrelacionesService.habilitarVista(
+                            'noEnvioTerminar',
+                            this.noVistaSiguienteBoton
+                          );
+                          console.log(
+                            `Se habilita el botón finalizar y terminar...`
+                          );
+                          console.log(this.valrelacionesService.infoAdmin);
+                          console.warn(
+                            `Se asignaron los valores administrativos de la persona que captura la oferta ${this.valrelacionesService.idenPredio.id_oferta}.`
+                          );
+                        } else {
+                          console.warn(
+                            `Error no status '200 OK' para la información administrativa de la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se actualizan los datos.`
+                          );
+                        }
+                      });
+                  } else {
+                    console.warn(
+                      `Error no status '200 OK' para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se actualizan los datos. InfoFuente`
+                    );
+                  }
+                });
+              console.log(
+                `Se asignan los valores de la persona que verifica...`
+              );
             } else {
               console.warn(
-                `Error: La persona ingresada no presenta el rol de perito interno del IGAC '2' o administrador '1', por lo tanto no se asignó la oferta satisfactoriamente para verificación.`
+                `Error: La persona ingresada no presenta el rol de perito interno del IGAC '2' o administrador '1', por lo tanto no se enviaron los datos de la información fuente y tampoco se asignó la oferta satisfactoriamente para verificación.`
               );
             }
           } else {
             console.warn(
-              `Error no status '200 OK' para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se obtuvieron los datos de la persona que verifica (correo suministrado).`
-            );
-          }
-        });
-    }
-
-    if (controles.controlTomaInfoAdmin) {
-      this.api
-        .capOferRestInfoAdminOferta(this.objInfoAdmin)
-        .subscribe((resInfoAdminEmail) => {
-          if (resInfoAdminEmail.status === '200 OK') {
-            this.valrelacionesService.setInfoAdminePredio = this.objInfoAdmin;
-            console.log(this.valrelacionesService.infoAdmin);
-            console.warn(
-              `Los datos de la persona que verifica la oferta ${this.valrelacionesService.idenPredio.id_oferta} fueron cargados satisfactoriamente y la oferta fue asignada sin problemas.`
+              `Error no status '200 OK' para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se obtuvieron los datos de la persona que verifica (correo suministrado), no se enviaron los datos del formulario.`
             );
           }
         });
     } else {
       console.warn(
-        `La oferta ${this.valrelacionesService.idenPredio.id_oferta} se guardó pero no tiene responsable para su verificación. Para asignar uno por favor ingrese el correo electrónico de la persona a quien se le asignará su revisión.`
+        `Para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se evidencian actualizaciones, por lo tanto no se envia el formualrio.`
       );
     }
 
     console.log(this.formUserFue.value);
     console.log(this.valrelacionesService.infoFuente);
+  }
+
+  enviarTerminar() {
+    let mensaje = this.valrelacionesService.controlesGeneralesVistasMensaje();
+    let controlTotal =
+      this.valrelacionesService.controlesGeneralesVistasBolean();
+    if (mensaje === `` && controlTotal) {
+      console.log(`NO SE PRESENTÓ NINGÚN ERROR... :)`);
+    } else {
+      console.log(`Error(es):${mensaje}`);
+    }
   }
 }
