@@ -16,6 +16,7 @@ import { resCearOfer } from '../../../modelos/res-crear-ofer.interface';
 import { infoAdminI } from 'src/app/modelos/crear-oferta-inf-admin.interface';
 import { infoPerI } from 'src/app/modelos/crear-oferta-personas.interface';
 import { resLoginLoginI } from 'src/app/modelos/res-login-login.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-inf-fue',
@@ -26,7 +27,8 @@ export class InfFueComponent {
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
-    public valrelacionesService: ValrelacionesService
+    public valrelacionesService: ValrelacionesService,
+    private router: Router
   ) {}
 
   get id_oferta() {
@@ -299,12 +301,6 @@ export class InfFueComponent {
   noVistaSiguienteBoton: boolean = true;
 
   procesar() {
-    let controles = {
-      controlEnvioInfoFuente: false,
-      controlEnvioInfoAdmin: false,
-      controlTomaInfoAdmin: false,
-    };
-
     this.objInfoFuente.id_oferta =
       this.valrelacionesService.idenPredio.id_oferta?.valueOf();
     this.objInfoFuente.nombre_oferente = this.formUserFue.value.nom?.valueOf();
@@ -317,8 +313,8 @@ export class InfFueComponent {
       this.formUserFue.value.url == ''
         ? undefined
         : this.formUserFue.value.url?.valueOf();
-    this.objInfoFuente.enlace_interno_foto_predio = false;
-    this.objInfoFuente.enlace_documentos = false;
+    this.objInfoFuente.enlace_interno_foto_predio = true;
+    this.objInfoFuente.enlace_documentos = true;
     this.objInfoFuente.observaciones = this.formUserFue.value.obs1?.valueOf();
 
     this.objInfoAdmin.id_oferta =
@@ -349,7 +345,7 @@ export class InfFueComponent {
         .subscribe((resInfoFuente) => {
           if (resInfoFuente.status === '200 OK') {
             this.valrelacionesService.setInfoFuentePredio = this.objInfoFuente;
-            console.log(this.valrelacionesService.infoFuente);
+            // console.log(this.valrelacionesService.infoFuente);
             console.warn(
               `El valor de id_oferta  se inicializó y fue asignado su valor es de: ${this.valrelacionesService.idenPredio.id_oferta}. Se evidencia actualizaciones por lo tanto se actualizan los datos. InfoFuente`
             );
@@ -370,8 +366,8 @@ export class InfFueComponent {
                     'noEnvioTerminar',
                     this.noVistaSiguienteBoton
                   );
-                  console.log(`Se habilita el botón finalizar y terminar...`);
-                  console.log(this.valrelacionesService.infoAdmin);
+                  // console.log(`Se habilita el botón finalizar y terminar...`);
+                  // console.log(this.valrelacionesService.infoAdmin);
                   console.warn(
                     `Se asignaron los valores administrativos de la persona que captura la oferta ${this.valrelacionesService.idenPredio.id_oferta}.`
                   );
@@ -444,7 +440,7 @@ export class InfFueComponent {
                   if (resInfoFuente.status === '200 OK') {
                     this.valrelacionesService.setInfoFuentePredio =
                       this.objInfoFuente;
-                    console.log(this.valrelacionesService.infoFuente);
+                    // console.log(this.valrelacionesService.infoFuente);
                     console.warn(
                       `El valor de id_oferta se inicializó y fue asignado su valor es de: ${this.valrelacionesService.idenPredio.id_oferta}. Se evidencia actualizaciones por lo tanto se actualizan los datos. InfoFuente`
                     );
@@ -465,10 +461,10 @@ export class InfFueComponent {
                             'noEnvioTerminar',
                             this.noVistaSiguienteBoton
                           );
-                          console.log(
-                            `Se habilita el botón finalizar y terminar...`
-                          );
-                          console.log(this.valrelacionesService.infoAdmin);
+                          // console.log(
+                          //   `Se habilita el botón finalizar y terminar...`
+                          // );
+                          // console.log(this.valrelacionesService.infoAdmin);
                           console.warn(
                             `Se asignaron los valores administrativos de la persona que captura la oferta ${this.valrelacionesService.idenPredio.id_oferta}.`
                           );
@@ -504,8 +500,8 @@ export class InfFueComponent {
       );
     }
 
-    console.log(this.formUserFue.value);
-    console.log(this.valrelacionesService.infoFuente);
+    // console.log(this.formUserFue.value);
+    // console.log(this.valrelacionesService.infoFuente);
   }
 
   enviarTerminar() {
@@ -514,8 +510,117 @@ export class InfFueComponent {
       this.valrelacionesService.controlesGeneralesVistasBolean();
     if (mensaje === `` && controlTotal) {
       console.log(`NO SE PRESENTÓ NINGÚN ERROR... :)`);
+      console.log(`Se procede al envío de los datos por vista: `);
+      this.api
+        .capOferRestIDOferta(this.valrelacionesService.idenPredio)
+        .subscribe((resIdenpre) => {
+          if (resIdenpre.status === '200 OK') {
+            console.warn(
+              `La vista de crear oferta de la oferta: ${this.valrelacionesService.idenPredio.id_oferta} fue enviada y almacenada.`
+            );
+            this.api
+              .capOferRestLocOferta(this.valrelacionesService.locPre)
+              .subscribe((resLocpre) => {
+                if (resLocpre.status === '200 OK') {
+                  console.warn(
+                    `La vista de localización oferta de la oferta:${this.valrelacionesService.idenPredio.id_oferta} fue enviada y almacenada.`
+                  );
+                  this.api
+                    .capOferRestDatGenOferta(this.valrelacionesService.datGen)
+                    .subscribe((resDatGene) => {
+                      if (resDatGene.status === '200 OK') {
+                        console.warn(
+                          `La vista de datos generales de la oferta: ${this.valrelacionesService.idenPredio.id_oferta} fue enviada y almacenada.`
+                        );
+                        this.api
+                          .capOferRestInfoFisOferta(
+                            this.valrelacionesService.infoFis
+                          )
+                          .subscribe((resDatFis) => {
+                            if (resDatFis.status === '200 OK') {
+                              console.warn(
+                                `La vista de información física de la oferta: ${this.valrelacionesService.idenPredio.id_oferta} fue enviada y almacenada.`
+                              );
+                              this.api
+                                .capOferRestInfoEconoOferta(
+                                  this.valrelacionesService.infoEnono
+                                )
+                                .subscribe((resDatEcono) => {
+                                  if (resDatEcono.status === '200 OK') {
+                                    console.warn(
+                                      `La vista de información económica de la oferta: ${this.valrelacionesService.idenPredio.id_oferta} fue enviada y almacenada.`
+                                    );
+                                    this.api
+                                      .capOferRestInfoFuenteOferta(
+                                        this.valrelacionesService.infoFuente
+                                      )
+                                      .subscribe((resInfoFuente) => {
+                                        if (resInfoFuente.status === '200 OK') {
+                                          console.warn(
+                                            `La vista de información fuente de la oferta:  ${this.valrelacionesService.idenPredio.id_oferta} fue enviada y almacenada.`
+                                          );
+
+                                          this.api
+                                            .capOferRestInfoAdminOferta(
+                                              this.valrelacionesService
+                                                .infoAdmin
+                                            )
+                                            .subscribe((resInfoAdmin) => {
+                                              if (
+                                                resInfoAdmin.status === '200 OK'
+                                              ) {
+                                                console.warn(
+                                                  `La vista de información administrativa de la oferta: ${this.valrelacionesService.idenPredio.id_oferta} fue enviada y almacenada.`
+                                                );
+                                                console.warn(
+                                                  `Los datos de la oferta: ${this.valrelacionesService.idenPredio.id_oferta} fueron enviados y almacenados SATISFACTORIAMENTE, se procede a limpiar las variables`
+                                                );
+                                                this.valrelacionesService.limpiarVariablesControles();
+                                                this.router.navigate([
+                                                  'HomeOfertas',
+                                                ]);
+                                              } else {
+                                                console.warn(
+                                                  `Error no status '200 OK' para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se enviaron los datos para la vista de información administrativa de la oferta.`
+                                                );
+                                              }
+                                            });
+                                        } else {
+                                          console.warn(
+                                            `Error no status '200 OK' para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se enviaron los datos para la vista de información fuente de la oferta.`
+                                          );
+                                        }
+                                      });
+                                  } else {
+                                    console.warn(
+                                      `Error no status '200 OK' para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se enviaron los datos para la vista de información económica de la oferta.`
+                                    );
+                                  }
+                                });
+                            } else {
+                              console.warn(
+                                `Error no status '200 OK' para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se enviaron los datos para la vista de información física de la oferta.`
+                              );
+                            }
+                          });
+                      } else {
+                        console.warn(
+                          `Error no status '200 OK' para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se enviaron los datos para la vista de datos generales de la oferta.`
+                        );
+                      }
+                    });
+                } else {
+                  console.warn(
+                    `Error no status '200 OK' para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se enviaron los datos para la vista de localización oferta.`
+                  );
+                }
+              });
+          } else {
+            `Error no status '200 OK' para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se enviaron los datos para la vista de crear oferta.`;
+          }
+        });
     } else {
-      console.log(`Error(es):${mensaje}`);
+      console.warn(`Errores: ${mensaje}`);
     }
   }
 }

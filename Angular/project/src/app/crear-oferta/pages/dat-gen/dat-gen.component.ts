@@ -169,6 +169,47 @@ export class DatGenComponent {
       ? (this.objDatGen.si_valor_incluye_anexidades = undefined)
       : (this.objDatGen.si_valor_incluye_anexidades =
           this.formUserGen.value.valanex?.valueOf());
+
+    if (
+      this.objDatGen.tipo_inmueble !== 'FINCA' &&
+      this.objDatGen.tipo_inmueble !== 'LOTE' &&
+      this.objDatGen.tipo_inmueble !== 'CASA' &&
+      this.objDatGen.tipo_inmueble !== 'BODEGA' &&
+      this.objDatGen.tipo_inmueble !== 'CASA_CAMPESTRE' &&
+      this.objDatGen.tipo_inmueble !== 'CABAÑA' &&
+      this.objDatGen.tipo_inmueble !== 'CASA_LOTE' &&
+      this.objDatGen.tipo_inmueble !== 'OTRO'
+    ) {
+      this.valrelacionesService.infoFis.area_terreno = undefined;
+    }
+
+    if (this.objDatGen.tipo_inmueble === 'LOTE') {
+      this.valrelacionesService.infoFis.ano_construccion = undefined;
+      this.valrelacionesService.infoFis.area_construccion = undefined;
+      this.valrelacionesService.infoFis.conservacion = undefined;
+      this.valrelacionesService.infoFis.altura_edificio = undefined;
+      this.valrelacionesService.infoFis.numero_piso = undefined;
+      this.valrelacionesService.infoFis.numero_banos = undefined;
+      this.valrelacionesService.infoFis.numero_habitaciones = undefined;
+      this.valrelacionesService.infoFis.numero_depositos = undefined;
+      this.valrelacionesService.infoFis.construcciones_anexas = undefined;
+      this.valrelacionesService.infoEnono.valor_construccion_m2 = undefined;
+      this.valrelacionesService.infoEnono.valor_area_privada = undefined;
+      this.valrelacionesService.infoEnono.valor_administracion = undefined;
+      this.valrelacionesService.datGen.si_valor_incluye_anexidades = undefined;
+    }
+
+    if (
+      this.objDatGen.tipo_inmueble !== 'LOTE' &&
+      this.objDatGen.tipo_inmueble !== 'FINCA'
+    ) {
+      this.valrelacionesService.infoFis.area_cultivo = undefined;
+      this.valrelacionesService.infoFis.edad_cultivo = undefined;
+      this.valrelacionesService.infoFis.tipo_cultivo = undefined;
+      this.valrelacionesService.infoEnono.valor_terreno = undefined;
+      this.valrelacionesService.infoEnono.valor_cultivo = undefined;
+    }
+
     this.objDatGen.fecha = this.formUserGen.value.feccapofer?.valueOf();
     this.objDatGen.tiempo_oferta_mercado = Number(
       this.formUserGen.value.tiemofemer?.valueOf()

@@ -609,7 +609,7 @@ export class InfEcoComponent {
         .subscribe((resDatEcono) => {
           if (resDatEcono.status === '200 OK') {
             this.valrelacionesService.setInfoEconoPredio = this.objDatEcono;
-            console.log(this.valrelacionesService.infoEnono);
+            // console.log(this.valrelacionesService.infoEnono);
             this.envioFormVistaBack = true;
             this.noVistaSiguienteBoton =
               this.valrelacionesService.idenPredio.id_oferta !== undefined &&
@@ -637,7 +637,7 @@ export class InfEcoComponent {
       }
     }
 
-    console.log(this.formUserEco.value);
-    console.log(this.valrelacionesService.infoEnono);
+    // console.log(this.formUserEco.value);
+    // console.log(this.valrelacionesService.infoEnono);
   }
 }

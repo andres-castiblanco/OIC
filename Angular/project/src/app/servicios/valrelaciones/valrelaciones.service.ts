@@ -296,7 +296,7 @@ export class ValrelacionesService {
       nombre_oferente: false,
       numero_contacto: false,
       url: false,
-      enlace_interno_foto_predio: false,
+      enlace_interno_foto_predio: true,
       enlace_documentos: true,
       observaciones: false,
     },
@@ -592,7 +592,8 @@ export class ValrelacionesService {
         Number.isNaN(this.infoEnono.valor_construccion_m2)) &&
       (this.infoEnono.valor_area_privada == undefined ||
         this.infoEnono.valor_area_privada == null ||
-        Number.isNaN(this.infoEnono.valor_area_privada))
+        Number.isNaN(this.infoEnono.valor_area_privada)) &&
+      this.idenPredio.tipo_oferta === 'VENTA'
     ) {
       mensaje = `${mensaje}- Al menos un valor del terreno, construcción o área privada de la pestaña información económica es obligatorio`;
     } else {
@@ -685,7 +686,7 @@ export class ValrelacionesService {
     if (
       this.infoFuente.enlace_interno_foto_predio == undefined ||
       this.infoFuente.enlace_interno_foto_predio == null ||
-      this.infoFuente.enlace_interno_foto_predio == false
+      !this.infoFuente.enlace_interno_foto_predio
     ) {
       mensaje = `${mensaje}- El adjuntar una foto en la pestaña de información fuente es obligatorio`;
     } else {
@@ -871,5 +872,215 @@ export class ValrelacionesService {
         : false;
 
     return controlTotal;
+  }
+
+  limpiarVariablesControles() {
+    this.idenPredio.id_oferta = undefined;
+    this.idenPredio.npn = undefined;
+    this.idenPredio.npa = undefined;
+    this.idenPredio.codigo_homologado = undefined;
+    this.idenPredio.matricula = undefined;
+    this.idenPredio.condicion_juridica = undefined;
+    this.idenPredio.tipo_oferta = undefined;
+    this.idenPredio.tipo_predio = undefined;
+    this.idenPredio.oferta_origen = undefined;
+    this.idenPredio.estado_oferta = 1;
+    this.idenPredio.obs_verifica = 'Sin comentarios';
+
+    this.locPre.id_oferta = this.idenPredio.id_oferta;
+    this.locPre.departamento = undefined;
+    this.locPre.municipio = undefined;
+    this.locPre.barrio = undefined;
+    this.locPre.vereda = undefined;
+    this.locPre.latitud = undefined;
+    this.locPre.longitud = undefined;
+    this.locPre.direccion = undefined;
+
+    this.locPreDir.id_oferta = this.idenPredio.id_oferta;
+    this.locPreDir.dir01 = undefined;
+    this.locPreDir.dir02 = undefined;
+    this.locPreDir.dir03 = undefined;
+    this.locPreDir.dir04 = undefined;
+    this.locPreDir.dir05 = undefined;
+    this.locPreDir.dir06 = undefined;
+    this.locPreDir.dir07 = undefined;
+    this.locPreDir.dir08 = undefined;
+    this.locPreDir.dirParte1 = undefined;
+    this.locPreDir.dirParte2 = undefined;
+    this.locPreDir.dirParte3 = undefined;
+    this.locPreDir.dirCompleta = undefined;
+    this.locPreDir.dirrur = undefined;
+
+    this.datGen.id_oferta = this.idenPredio.id_oferta;
+    this.datGen.derecho_tipo = undefined;
+    this.datGen.tipo_inmueble = undefined;
+    this.datGen.si_valor_incluye_anexidades = undefined;
+    this.datGen.fecha = undefined;
+    this.datGen.tiempo_oferta_mercado = undefined;
+    this.datGen.proyecto_inmobiliario = undefined;
+    this.datGen.proyecto_descripcion = undefined;
+
+    this.infoFis.id_oferta = this.idenPredio.id_oferta;
+    this.infoFis.area_terreno = undefined;
+    this.infoFis.area_construccion = undefined;
+    this.infoFis.ano_construccion = undefined;
+    this.infoFis.conservacion = undefined;
+    this.infoFis.area_privada = undefined;
+    this.infoFis.destinacion_economica = undefined;
+    this.infoFis.altura_edificio = undefined;
+    this.infoFis.numero_piso = undefined;
+    this.infoFis.area_cultivo = undefined;
+    this.infoFis.tipo_inmueble_rural = undefined;
+    this.infoFis.tipologia_tipo = undefined;
+    this.infoFis.edad_cultivo = undefined;
+    this.infoFis.tipo_cultivo = undefined;
+    this.infoFis.coeficiente = undefined;
+    this.infoFis.servicios_publicos = undefined;
+    this.infoFis.estrato = undefined;
+    this.infoFis.garajes = undefined;
+    this.infoFis.numero_banos = undefined;
+    this.infoFis.numero_habitaciones = undefined;
+    this.infoFis.numero_depositos = undefined;
+    this.infoFis.construcciones_anexas = undefined;
+
+    this.infoEnono.id_oferta = this.idenPredio.id_oferta;
+    this.infoEnono.valor_oferta_inicial = undefined;
+    this.infoEnono.porcentaje_negociacion = undefined;
+    this.infoEnono.valor_oferta_final = undefined;
+    this.infoEnono.valor_terreno = undefined;
+    this.infoEnono.valor_construccion_m2 = undefined;
+    this.infoEnono.valor_area_privada = undefined;
+    this.infoEnono.valor_cultivo = undefined;
+    this.infoEnono.avaluo_catastral = undefined;
+    this.infoEnono.valor_administracion = undefined;
+    this.infoEnono.valor_arriendo_inicial = undefined;
+    this.infoEnono.valor_arriendo_final = undefined;
+    this.infoEnono.valor_terraza_balcon_patio = undefined;
+    this.infoEnono.valor_garajes = undefined;
+    this.infoEnono.valor_depositos = undefined;
+    this.infoEnono.valor_anexidades = undefined;
+
+    this.infoFuente.id_oferta = this.idenPredio.id_oferta;
+    this.infoFuente.nombre_oferente = undefined;
+    this.infoFuente.numero_contacto = undefined;
+    this.infoFuente.url = undefined;
+    this.infoFuente.enlace_interno_foto_predio = undefined;
+    this.infoFuente.enlace_documentos = undefined;
+    this.infoFuente.observaciones = undefined;
+
+    this.infoPerVeri.ti_persona = undefined;
+    this.infoPerVeri.ni_persona = undefined;
+    this.infoPerVeri.nombres = undefined;
+    this.infoPerVeri.apellidos = undefined;
+    this.infoPerVeri.email = undefined;
+    this.infoPerVeri.telefono = undefined;
+    this.infoPerVeri.area = undefined;
+    this.infoPerVeri.rol = undefined;
+
+    this.infoAdmin.id_oferta = this.idenPredio.id_oferta;
+    this.infoAdmin.ti_persona_captura = undefined;
+    this.infoAdmin.ni_persona_captura = undefined;
+    this.infoAdmin.email_persona_captura = undefined;
+    this.infoAdmin.area_persona_captura = undefined;
+    this.infoAdmin.ti_persona_verifica = undefined;
+    this.infoAdmin.ni_persona_verifica = undefined;
+    this.infoAdmin.email_persona_verifica = undefined;
+    this.infoAdmin.area_persona_verifica = undefined;
+
+    this.vistasHabilitar.noVistaIdenPreOfer = true;
+    this.vistasHabilitar.noVistaLocOfer = false;
+    this.vistasHabilitar.noVistaDatGen = false;
+    this.vistasHabilitar.noVistaInfoFisi = false;
+    this.vistasHabilitar.noVistaInfoEnoco = false;
+    this.vistasHabilitar.noVistaInfoFuen = false;
+    this.vistasHabilitar.noEnvioTerminar = false;
+
+    this.controles.idenPredio.id_oferta = false;
+    this.controles.idenPredio.npn = true;
+    this.controles.idenPredio.npa = true;
+    this.controles.idenPredio.codigo_homologado = true;
+    this.controles.idenPredio.matricula = true;
+    this.controles.idenPredio.condicion_juridica = false;
+    this.controles.idenPredio.tipo_oferta = false;
+    this.controles.idenPredio.tipo_predio = false;
+    this.controles.idenPredio.oferta_origen = false;
+    this.controles.idenPredio.estado_oferta = true;
+    this.controles.idenPredio.obs_verifica = true;
+
+    this.controles.locPre.id_oferta = false;
+    this.controles.locPre.departamento = false;
+    this.controles.locPre.municipio = false;
+    this.controles.locPre.barrio = true;
+    this.controles.locPre.vereda = true;
+    this.controles.locPre.latitud = false;
+    this.controles.locPre.longitud = false;
+    this.controles.locPre.direccion = true;
+
+    this.controles.datGen.id_oferta = false;
+    this.controles.datGen.derecho_tipo = false;
+    this.controles.datGen.tipo_inmueble = false;
+    this.controles.datGen.si_valor_incluye_anexidades = false;
+    this.controles.datGen.fecha = false;
+    this.controles.datGen.tiempo_oferta_mercado = true;
+    this.controles.datGen.proyecto_inmobiliario = false;
+    this.controles.datGen.proyecto_descripcion = false;
+
+    this.controles.infoFis.id_oferta = false;
+    this.controles.infoFis.area_terreno = false;
+    this.controles.infoFis.area_construccion = false;
+    this.controles.infoFis.ano_construccion = true;
+    this.controles.infoFis.conservacion = true;
+    this.controles.infoFis.area_privada = false;
+    this.controles.infoFis.destinacion_economica = false;
+    this.controles.infoFis.altura_edificio = true;
+    this.controles.infoFis.numero_piso = true;
+    this.controles.infoFis.area_cultivo = true;
+    this.controles.infoFis.tipo_inmueble_rural = true;
+    this.controles.infoFis.tipologia_tipo = false;
+    this.controles.infoFis.edad_cultivo = true;
+    this.controles.infoFis.tipo_cultivo = true;
+    this.controles.infoFis.coeficiente = true;
+    this.controles.infoFis.servicios_publicos = false;
+    this.controles.infoFis.estrato = true;
+    this.controles.infoFis.garajes = true;
+    this.controles.infoFis.numero_banos = true;
+    this.controles.infoFis.numero_habitaciones = true;
+    this.controles.infoFis.numero_depositos = true;
+    this.controles.infoFis.construcciones_anexas = true;
+
+    this.controles.infoEnono.id_oferta = false;
+    this.controles.infoEnono.valor_oferta_inicial = false;
+    this.controles.infoEnono.porcentaje_negociacion = false;
+    this.controles.infoEnono.valor_oferta_final = false;
+    this.controles.infoEnono.valor_terreno = false;
+    this.controles.infoEnono.valor_construccion_m2 = false;
+    this.controles.infoEnono.valor_area_privada = false;
+    this.controles.infoEnono.valor_cultivo = true;
+    this.controles.infoEnono.avaluo_catastral = true;
+    this.controles.infoEnono.valor_administracion = true;
+    this.controles.infoEnono.valor_arriendo_inicial = false;
+    this.controles.infoEnono.valor_arriendo_final = false;
+    this.controles.infoEnono.valor_terraza_balcon_patio = true;
+    this.controles.infoEnono.valor_garajes = true;
+    this.controles.infoEnono.valor_depositos = true;
+    this.controles.infoEnono.valor_anexidades = true;
+
+    this.controles.infoFuente.id_oferta = false;
+    this.controles.infoFuente.nombre_oferente = false;
+    this.controles.infoFuente.numero_contacto = false;
+    this.controles.infoFuente.url = false;
+    this.controles.infoFuente.enlace_interno_foto_predio = true;
+    this.controles.infoFuente.enlace_documentos = true;
+    this.controles.infoFuente.observaciones = false;
+
+    this.controles.infoAdmin.id_oferta = false;
+    this.controles.infoAdmin.ti_persona_captura = false;
+    this.controles.infoAdmin.ni_persona_captura = false;
+    this.controles.infoAdmin.email_persona_captura = false;
+    this.controles.infoAdmin.area_persona_captura = false;
+    this.controles.infoAdmin.ti_persona_verifica = true;
+    this.controles.infoAdmin.ni_persona_verifica = true;
+    this.controles.infoAdmin.email_persona_verifica = true;
+    this.controles.infoAdmin.area_persona_verifica = true;
   }
 }

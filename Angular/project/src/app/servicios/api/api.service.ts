@@ -48,9 +48,9 @@ export class ApiService {
     return this.http.post<resLoginContraI>(direccion, form);
   }
 
-  capOferRestIDOferta(form: idenPreI): Observable<resIdenPreI> {
+  capOferRestIDOferta(form: idenPreI): Observable<resCearOfer> {
     let direccion = this.url + 'pre_iden';
-    return this.http.post<resIdenPreI>(direccion, form);
+    return this.http.post<resCearOfer>(direccion, form);
   }
 
   capOferRestLocOferta(form: locPreI): Observable<resCearOfer> {

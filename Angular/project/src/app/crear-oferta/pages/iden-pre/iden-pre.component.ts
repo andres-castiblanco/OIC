@@ -16,6 +16,7 @@ import { idenPreI } from '../../../modelos/crear-oferta-iden-pre.interface';
 import { resIdenPreI } from '../../../modelos/res-iden-pre.interface';
 
 import { ValrelacionesService } from '../../../servicios/valrelaciones/valrelaciones.service';
+import { resCearOfer } from 'src/app/modelos/res-crear-ofer.interface';
 
 @Component({
   selector: 'app-iden-pre',
@@ -148,14 +149,60 @@ export class IdenPreComponent {
   noVistaSiguiente: boolean =
     this.valrelacionesService.idenPredio.id_oferta === undefined ? true : false;
 
+  resIdenpre: resCearOfer = {
+    id_oferta: null,
+    status: null,
+  };
+
   procesar() {
     this.objIdenPre.npa = this.formUser.value.numpreant?.valueOf();
     this.objIdenPre.codigo_homologado = this.formUser.value.codhom?.valueOf();
     this.objIdenPre.matricula = this.formUser.value.matrinmb?.valueOf();
     this.objIdenPre.condicion_juridica = this.formUser.value.conjur?.valueOf();
+
+    if (
+      this.objIdenPre.condicion_juridica === 'NPH' ||
+      this.objIdenPre.condicion_juridica === 'PARQUE_CEMENTERIO_MATRIZ' ||
+      this.objIdenPre.condicion_juridica ===
+        'PARQUE_CEMENTERIO_UNIDAD_PREDIAL' ||
+      this.objIdenPre.condicion_juridica === 'VIA' ||
+      this.objIdenPre.condicion_juridica === 'INFORMAL' ||
+      this.objIdenPre.condicion_juridica === 'BIEN_USO_PUBLICO'
+    ) {
+      this.valrelacionesService.infoFis.area_privada = undefined;
+      this.valrelacionesService.infoFis.coeficiente = undefined;
+      this.valrelacionesService.infoEnono.valor_terraza_balcon_patio =
+        undefined;
+      this.valrelacionesService.datGen.proyecto_inmobiliario = undefined;
+      this.valrelacionesService.datGen.proyecto_descripcion = undefined;
+    }
+
     this.objIdenPre.npn = this.formUser.value.numprenue?.valueOf();
     this.objIdenPre.tipo_oferta = this.formUser.value.tipofer?.valueOf();
+
+    if (this.objIdenPre.tipo_oferta === 'ARRIENDO') {
+      this.valrelacionesService.infoEnono.valor_oferta_inicial = undefined;
+      this.valrelacionesService.infoEnono.valor_oferta_final = undefined;
+      this.valrelacionesService.infoEnono.porcentaje_negociacion = undefined;
+      this.valrelacionesService.infoEnono.valor_terreno = undefined;
+      this.valrelacionesService.infoEnono.valor_construccion_m2 = undefined;
+      this.valrelacionesService.infoEnono.valor_area_privada = undefined;
+      this.valrelacionesService.infoEnono.valor_garajes = undefined;
+      this.valrelacionesService.infoEnono.valor_depositos = undefined;
+      this.valrelacionesService.infoEnono.valor_anexidades = undefined;
+    } else {
+      this.valrelacionesService.infoEnono.valor_arriendo_inicial = undefined;
+      this.valrelacionesService.infoEnono.valor_arriendo_final = undefined;
+      this.valrelacionesService.infoEnono.valor_terraza_balcon_patio =
+        undefined;
+    }
+
     this.objIdenPre.tipo_predio = this.formUser.value.tippre?.valueOf();
+    if (this.objIdenPre.tipo_predio === 'RURAL') {
+      this.valrelacionesService.locPre.barrio = undefined;
+    } else {
+      this.valrelacionesService.infoFis.tipo_inmueble_rural = undefined;
+    }
     this.objIdenPre.oferta_origen = this.formUser.value.oriofer?.valueOf();
 
     if (
@@ -163,22 +210,28 @@ export class IdenPreComponent {
       JSON.stringify(this.valrelacionesService.idenPredio) !==
         JSON.stringify(this.objIdenPre)
     ) {
-      this.api.capOferRestIDOferta(this.objIdenPre).subscribe((data) => {
-        this.objIdenPre.id_oferta = Number(data);
-        this.valrelacionesService.idenPredio.id_oferta = Number(data);
-        this.valrelacionesService.setIdenPredio = this.objIdenPre;
-        this.noVistaOfer = true;
-        this.noVistaSiguiente = false;
-        this.formUser.controls['idoferta'].setValue(
-          String(this.valrelacionesService.idenPredio.id_oferta)
-        );
-        this.valrelacionesService.habilitarVista(
-          'noVistaLocOfer',
-          this.noVistaSiguiente
-        );
-        console.warn(
-          `El valor de id_oferta se inicializó y fue asignado su valor es de: ${this.valrelacionesService.idenPredio.id_oferta}. Se evidencia actualizaciones por lo tanto se actualizan los datos.`
-        );
+      this.api.capOferRestIDOferta(this.objIdenPre).subscribe((resIdenpre) => {
+        if (resIdenpre.status === '200 OK') {
+          this.objIdenPre.id_oferta = Number(resIdenpre.id_oferta);
+          this.valrelacionesService.idenPredio.id_oferta = Number(
+            resIdenpre.id_oferta
+          );
+          this.valrelacionesService.setIdenPredio = this.objIdenPre;
+          this.noVistaOfer = true;
+          this.noVistaSiguiente = false;
+          this.formUser.controls['idoferta'].setValue(
+            String(this.valrelacionesService.idenPredio.id_oferta)
+          );
+          this.valrelacionesService.habilitarVista(
+            'noVistaLocOfer',
+            this.noVistaSiguiente
+          );
+          console.warn(
+            `El valor de id_oferta se inicializó y fue asignado su valor es de: ${this.valrelacionesService.idenPredio.id_oferta}. Se evidencia actualizaciones por lo tanto se actualizan los datos.`
+          );
+        } else {
+          `Error no status '200 OK' para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se actualizan los datos.`;
+        }
       });
     } else {
       console.warn(
