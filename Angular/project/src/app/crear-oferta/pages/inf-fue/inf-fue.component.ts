@@ -18,6 +18,9 @@ import { infoPerI } from 'src/app/modelos/crear-oferta-personas.interface';
 import { resLoginLoginI } from 'src/app/modelos/res-login-login.interface';
 import { Router } from '@angular/router';
 
+import { MatDialog } from '@angular/material/dialog';
+import { DialogsComponent } from '../../components/dialogs/dialogs.component';
+
 @Component({
   selector: 'app-inf-fue',
   templateUrl: './inf-fue.component.html',
@@ -28,7 +31,8 @@ export class InfFueComponent {
     private fb: FormBuilder,
     private api: ApiService,
     public valrelacionesService: ValrelacionesService,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) {}
 
   get id_oferta() {
@@ -196,7 +200,6 @@ export class InfFueComponent {
         },
         [Validators.required, Validators.maxLength(100)],
       ],
-      // obs2: ['', [Validators.required, Validators.maxLength(1000)]],
 
       nomveriofer: [
         {
@@ -290,13 +293,6 @@ export class InfFueComponent {
     status: null,
   };
 
-  // resPerVerifica: resLoginLoginI = {
-  //   status: undefined,
-  //   token: '',
-  //   msj: '',
-  //   dat_usua: undefined,
-  // };
-
   envioFormVistaBack: boolean = false;
   noVistaSiguienteBoton: boolean = true;
 
@@ -345,10 +341,19 @@ export class InfFueComponent {
         .subscribe((resInfoFuente) => {
           if (resInfoFuente.status === '200 OK') {
             this.valrelacionesService.setInfoFuentePredio = this.objInfoFuente;
-            // console.log(this.valrelacionesService.infoFuente);
-            console.warn(
-              `El valor de id_oferta  se inicializó y fue asignado su valor es de: ${this.valrelacionesService.idenPredio.id_oferta}. Se evidencia actualizaciones por lo tanto se actualizan los datos. InfoFuente`
-            );
+
+            let dialogRef = this.dialog.open(DialogsComponent, {
+              width: '350px',
+              data: `El valor del id oferta se inicializó y fue asignado como: ${this.valrelacionesService.idenPredio.id_oferta}.
+              Se evidencia actualizaciones por lo tanto se actualizan los datos de información fuente de la oferta.`,
+            });
+            dialogRef.afterClosed().subscribe((res) => {
+              if (res) {
+                console.warn(
+                  `El valor de id_oferta  se inicializó y fue asignado su valor es de: ${this.valrelacionesService.idenPredio.id_oferta}. Se evidencia actualizaciones por lo tanto se actualizan los datos.`
+                );
+              }
+            });
 
             this.api
               .capOferRestInfoAdminOferta(this.objInfoAdmin)
@@ -366,21 +371,45 @@ export class InfFueComponent {
                     'noEnvioTerminar',
                     this.noVistaSiguienteBoton
                   );
-                  // console.log(`Se habilita el botón finalizar y terminar...`);
-                  // console.log(this.valrelacionesService.infoAdmin);
-                  console.warn(
-                    `Se asignaron los valores administrativos de la persona que captura la oferta ${this.valrelacionesService.idenPredio.id_oferta}.`
-                  );
+
+                  let dialogRef = this.dialog.open(DialogsComponent, {
+                    width: '350px',
+                    data: `El valor del id oferta se inicializó y fue asignado como: ${this.valrelacionesService.idenPredio.id_oferta}.
+                    Se evidencia actualizaciones por lo tanto se actualizan los datos de información administrativa.`,
+                  });
+                  dialogRef.afterClosed().subscribe((res) => {
+                    if (res) {
+                      console.warn(
+                        `Se asignaron los valores administrativos de la persona que captura la oferta ${this.valrelacionesService.idenPredio.id_oferta}.`
+                      );
+                    }
+                  });
                 } else {
-                  console.warn(
-                    `Error no status '200 OK' para la información administrativa de la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se actualizan los datos.`
-                  );
+                  let dialogRef = this.dialog.open(DialogsComponent, {
+                    width: '350px',
+                    data: `Error para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se guardaron los cambios a los datos.`,
+                  });
+                  dialogRef.afterClosed().subscribe((res) => {
+                    if (res) {
+                      console.warn(
+                        `Error no status '200 OK' para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se actualizan los datos para la información administrativa de la oferta.`
+                      );
+                    }
+                  });
                 }
               });
           } else {
-            console.warn(
-              `Error no status '200 OK' para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se actualizan los datos. InfoFuente`
-            );
+            let dialogRef = this.dialog.open(DialogsComponent, {
+              width: '350px',
+              data: `Error para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se guardaron los cambios a los datos.`,
+            });
+            dialogRef.afterClosed().subscribe((res) => {
+              if (res) {
+                console.warn(
+                  `Error no status '200 OK' para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se actualizan los datos para la información fuente de la oferta.`
+                );
+              }
+            });
           }
         });
     } else if (
@@ -440,10 +469,19 @@ export class InfFueComponent {
                   if (resInfoFuente.status === '200 OK') {
                     this.valrelacionesService.setInfoFuentePredio =
                       this.objInfoFuente;
-                    // console.log(this.valrelacionesService.infoFuente);
-                    console.warn(
-                      `El valor de id_oferta se inicializó y fue asignado su valor es de: ${this.valrelacionesService.idenPredio.id_oferta}. Se evidencia actualizaciones por lo tanto se actualizan los datos. InfoFuente`
-                    );
+
+                    let dialogRef = this.dialog.open(DialogsComponent, {
+                      width: '350px',
+                      data: `El valor del id oferta se inicializó y fue asignado como: ${this.valrelacionesService.idenPredio.id_oferta}.
+                        Se evidencia actualizaciones por lo tanto se actualizan los datos de información fuente de la oferta.`,
+                    });
+                    dialogRef.afterClosed().subscribe((res) => {
+                      if (res) {
+                        console.warn(
+                          `El valor de id_oferta  se inicializó y fue asignado su valor es de: ${this.valrelacionesService.idenPredio.id_oferta}. Se evidencia actualizaciones por lo tanto se actualizan los datos.`
+                        );
+                      }
+                    });
 
                     this.api
                       .capOferRestInfoAdminOferta(this.objInfoAdmin)
@@ -461,47 +499,86 @@ export class InfFueComponent {
                             'noEnvioTerminar',
                             this.noVistaSiguienteBoton
                           );
-                          // console.log(
-                          //   `Se habilita el botón finalizar y terminar...`
-                          // );
-                          // console.log(this.valrelacionesService.infoAdmin);
-                          console.warn(
-                            `Se asignaron los valores administrativos de la persona que captura la oferta ${this.valrelacionesService.idenPredio.id_oferta}.`
-                          );
+
+                          let dialogRef = this.dialog.open(DialogsComponent, {
+                            width: '350px',
+                            data: `Se asignaron los valores administrativos de la persona que captura la oferta ${this.valrelacionesService.idenPredio.id_oferta}.`,
+                          });
+                          dialogRef.afterClosed().subscribe((res) => {
+                            if (res) {
+                              console.warn(
+                                `Se asignaron los valores administrativos de la persona que captura la oferta ${this.valrelacionesService.idenPredio.id_oferta}.`
+                              );
+                            }
+                          });
                         } else {
-                          console.warn(
-                            `Error no status '200 OK' para la información administrativa de la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se actualizan los datos.`
-                          );
+                          let dialogRef = this.dialog.open(DialogsComponent, {
+                            width: '350px',
+                            data: `Error para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se guardaron los cambios a los datos para la información administrativa de la oferta.`,
+                          });
+                          dialogRef.afterClosed().subscribe((res) => {
+                            if (res) {
+                              console.warn(
+                                `Error no status '200 OK' para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se actualizan los datos para la información administrativa de la oferta.`
+                              );
+                            }
+                          });
                         }
                       });
                   } else {
-                    console.warn(
-                      `Error no status '200 OK' para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se actualizan los datos. InfoFuente`
-                    );
+                    let dialogRef = this.dialog.open(DialogsComponent, {
+                      width: '350px',
+                      data: `Error para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se guardaron los cambios a los datos para la información fuente de la oferta.`,
+                    });
+                    dialogRef.afterClosed().subscribe((res) => {
+                      if (res) {
+                        console.warn(
+                          `Error no status '200 OK' para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se actualizan los datos para la información fuente de la oferta.`
+                        );
+                      }
+                    });
                   }
                 });
-              console.log(
-                `Se asignan los valores de la persona que verifica...`
-              );
             } else {
-              console.warn(
-                `Error: La persona ingresada no presenta el rol de perito interno del IGAC '2' o administrador '1', por lo tanto no se enviaron los datos de la información fuente y tampoco se asignó la oferta satisfactoriamente para verificación.`
-              );
+              let dialogRef = this.dialog.open(DialogsComponent, {
+                width: '350px',
+                data: `Error: La persona ingresada no presenta el rol de perito interno del IGAC '2' o administrador '1', por lo tanto no se enviaron los datos de la información fuente y tampoco se asignó la oferta satisfactoriamente para verificación.`,
+              });
+              dialogRef.afterClosed().subscribe((res) => {
+                if (res) {
+                  console.warn(
+                    `Error: La persona ingresada no presenta el rol de perito interno del IGAC '2' o administrador '1', por lo tanto no se enviaron los datos de la información fuente y tampoco se asignó la oferta satisfactoriamente para verificación.`
+                  );
+                }
+              });
             }
           } else {
-            console.warn(
-              `Error no status '200 OK' para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se obtuvieron los datos de la persona que verifica (correo suministrado), no se enviaron los datos del formulario.`
-            );
+            let dialogRef = this.dialog.open(DialogsComponent, {
+              width: '350px',
+              data: `Error para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se obtuvieron los datos de la persona que verifica (correo suministrado), no se enviaron los datos del formulario.`,
+            });
+            dialogRef.afterClosed().subscribe((res) => {
+              if (res) {
+                console.warn(
+                  `Error no status '200 OK' para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se obtuvieron los datos de la persona que verifica (correo suministrado), no se enviaron los datos del formulario.`
+                );
+              }
+            });
           }
         });
     } else {
-      console.warn(
-        `Para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se evidencian actualizaciones, por lo tanto no se envia el formualrio.`
-      );
+      let dialogRef = this.dialog.open(DialogsComponent, {
+        width: '350px',
+        data: `Error para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se evidencian actualizaciones, por lo tanto no se envia el formulario.`,
+      });
+      dialogRef.afterClosed().subscribe((res) => {
+        if (res) {
+          console.warn(
+            `Para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se evidencian actualizaciones, por lo tanto no se envia el formulario.`
+          );
+        }
+      });
     }
-
-    // console.log(this.formUserFue.value);
-    // console.log(this.valrelacionesService.infoFuente);
   }
 
   enviarTerminar() {
@@ -572,9 +649,24 @@ export class InfFueComponent {
                                                 console.warn(
                                                   `La vista de información administrativa de la oferta: ${this.valrelacionesService.idenPredio.id_oferta} fue enviada y almacenada.`
                                                 );
-                                                console.warn(
-                                                  `Los datos de la oferta: ${this.valrelacionesService.idenPredio.id_oferta} fueron enviados y almacenados SATISFACTORIAMENTE, se procede a limpiar las variables`
-                                                );
+                                                let dialogRef =
+                                                  this.dialog.open(
+                                                    DialogsComponent,
+                                                    {
+                                                      width: '350px',
+                                                      data: `Los datos de la oferta: ${this.valrelacionesService.idenPredio.id_oferta} fueron enviados y almacenados satisfactoriamente, se procede a limpiar el formulario`,
+                                                    }
+                                                  );
+                                                dialogRef
+                                                  .afterClosed()
+                                                  .subscribe((res) => {
+                                                    if (res) {
+                                                      console.warn(
+                                                        `Los datos de la oferta: ${this.valrelacionesService.idenPredio.id_oferta} fueron enviados y almacenados SATISFACTORIAMENTE, se procede a limpiar las variables`
+                                                      );
+                                                    }
+                                                  });
+
                                                 this.valrelacionesService.limpiarVariablesControles();
                                                 this.router.navigate([
                                                   'HomeOfertas',
@@ -620,7 +712,15 @@ export class InfFueComponent {
           }
         });
     } else {
-      console.warn(`Errores: ${mensaje}`);
+      let dialogRef = this.dialog.open(DialogsComponent, {
+        width: '350px',
+        data: `Errores: ${mensaje}`,
+      });
+      dialogRef.afterClosed().subscribe((res) => {
+        if (res) {
+          console.warn(`Errores: ${mensaje}`);
+        }
+      });
     }
   }
 }

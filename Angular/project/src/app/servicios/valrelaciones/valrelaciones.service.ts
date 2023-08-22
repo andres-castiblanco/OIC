@@ -704,37 +704,22 @@ export class ValrelacionesService {
     if (
       this.infoAdmin.ni_persona_captura == undefined ||
       this.infoAdmin.ni_persona_captura == null ||
-      Number.isNaN(this.infoAdmin.ni_persona_captura)
-    ) {
-      mensaje = `${mensaje}- Revisar el login y los datos de la persona que está intentando relaizar el cargue de la oferta`;
-    } else {
-      this.controles.infoAdmin.ni_persona_captura = true;
-    }
-    if (
+      Number.isNaN(this.infoAdmin.ni_persona_captura) ||
       this.infoAdmin.ti_persona_captura == undefined ||
       this.infoAdmin.ti_persona_captura == null ||
-      Number.isNaN(this.infoAdmin.ti_persona_captura)
-    ) {
-      mensaje = `${mensaje}- Revisar el login y los datos de la persona que está intentando relaizar el cargue de la oferta`;
-    } else {
-      this.controles.infoAdmin.ti_persona_captura = true;
-    }
-    if (
+      this.infoAdmin.ti_persona_captura == '' ||
       this.infoAdmin.email_persona_captura == undefined ||
       this.infoAdmin.email_persona_captura == null ||
-      Number.isNaN(this.infoAdmin.email_persona_captura)
-    ) {
-      mensaje = `${mensaje}- Revisar el login y los datos de la persona que está intentando relaizar el cargue de la oferta`;
-    } else {
-      this.controles.infoAdmin.email_persona_captura = true;
-    }
-    if (
+      this.infoAdmin.email_persona_captura == '' ||
       this.infoAdmin.area_persona_captura == undefined ||
       this.infoAdmin.area_persona_captura == null ||
-      Number.isNaN(this.infoAdmin.area_persona_captura)
+      this.infoAdmin.area_persona_captura == ''
     ) {
-      mensaje = `${mensaje}- Revisar el login y los datos de la persona que está intentando relaizar el cargue de la oferta`;
+      mensaje = `${mensaje}- Revisar el login y los datos de la persona que está intentando realizar el cargue de la oferta`;
     } else {
+      this.controles.infoAdmin.ni_persona_captura = true;
+      this.controles.infoAdmin.ti_persona_captura = true;
+      this.controles.infoAdmin.email_persona_captura = true;
       this.controles.infoAdmin.area_persona_captura = true;
     }
 

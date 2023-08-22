@@ -16,6 +16,9 @@ import { resCearOfer } from '../../../modelos/res-crear-ofer.interface';
 import { ApiService } from '../../../servicios/api/api.service';
 import { ValrelacionesService } from '../../../servicios/valrelaciones/valrelaciones.service';
 
+import { MatDialog } from '@angular/material/dialog';
+import { DialogsComponent } from '../../components/dialogs/dialogs.component';
+
 @Component({
   selector: 'app-loc-pre',
   templateUrl: './loc-pre.component.html',
@@ -25,7 +28,8 @@ export class LocPreComponent {
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
-    public valrelacionesService: ValrelacionesService
+    public valrelacionesService: ValrelacionesService,
+    public dialog: MatDialog
   ) {}
 
   get idoferta() {
@@ -1474,8 +1478,6 @@ export class LocPreComponent {
       this.formUserLoca.controls['dir07'].setValue(undefined);
       this.formUserLoca.controls['dir08'].setValue(undefined);
     }
-    // console.log(this.objIdenLoc);
-    // console.log(this.valrelacionesService.locPre);
 
     if (
       this.valrelacionesService.idenPredio.id_oferta !== undefined &&
@@ -1486,8 +1488,7 @@ export class LocPreComponent {
         if (resLocpre.status === '200 OK') {
           this.valrelacionesService.setLocaPredio = this.objIdenLoc;
           this.valrelacionesService.setLocaPredioDir = this.objIdenLocDir;
-          // console.log(this.valrelacionesService.locPre);
-          // console.log(this.valrelacionesService.locPreDir);
+
           this.envioFormVistaBack = true;
           this.noVistaSiguienteBoton =
             this.valrelacionesService.idenPredio.id_oferta !== undefined &&
@@ -1498,21 +1499,44 @@ export class LocPreComponent {
             'noVistaDatGen',
             this.noVistaSiguienteBoton
           );
-          console.warn(
-            `El valor de id_oferta  se inicializó y fue asignado su valor es de: ${this.valrelacionesService.idenPredio.id_oferta}. Se evidencia actualizaciones por lo tanto se actualizan los datos.`
-          );
+          const dialogRef = this.dialog.open(DialogsComponent, {
+            width: '350px',
+            data: `El valor del id oferta se inicializó y fue asignado como: ${this.valrelacionesService.idenPredio.id_oferta}.
+            Se evidencia actualizaciones por lo tanto se actualizan los datos.`,
+          });
+          dialogRef.afterClosed().subscribe((res) => {
+            if (res) {
+              console.warn(
+                `El valor de id_oferta  se inicializó y fue asignado su valor es de: ${this.valrelacionesService.idenPredio.id_oferta}. Se evidencia actualizaciones por lo tanto se actualizan los datos.`
+              );
+            }
+          });
         } else {
-          console.warn(
-            `Error no status '200 OK' para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se actualizan los datos.`
-          );
+          const dialogRef = this.dialog.open(DialogsComponent, {
+            width: '350px',
+            data: `Error para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se guardaron los cambios a los datos.`,
+          });
+          dialogRef.afterClosed().subscribe((res) => {
+            if (res) {
+              console.warn(
+                `Error no status '200 OK' para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se actualizan los datos.`
+              );
+            }
+          });
         }
       });
     } else {
-      console.warn(
-        `El valor de id_oferta ya fue asignado su valor es de: ${this.valrelacionesService.idenPredio.id_oferta}. No se evidencia actualizaciones en el formulario.`
-      );
+      const dialogRef = this.dialog.open(DialogsComponent, {
+        width: '350px',
+        data: `El valor de id oferta ya fue asignado su valor es de: ${this.valrelacionesService.idenPredio.id_oferta}. No se evidencia actualizaciones.`,
+      });
+      dialogRef.afterClosed().subscribe((res) => {
+        if (res) {
+          console.warn(
+            `El valor de id_oferta ya fue asignado su valor es de: ${this.valrelacionesService.idenPredio.id_oferta}. No se evidencia actualizaciones.`
+          );
+        }
+      });
     }
-    // console.log(this.valrelacionesService.locPre);
-    // console.log(this.valrelacionesService.idenPredio);
   }
 }

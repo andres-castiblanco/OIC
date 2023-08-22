@@ -16,6 +16,9 @@ import { ValrelacionesService } from '../../../servicios/valrelaciones/valrelaci
 
 import { infoEconoI } from '../../../modelos/crear-oferta-inf-eco.interface';
 import { resCearOfer } from '../../../modelos/res-crear-ofer.interface';
+
+import { MatDialog } from '@angular/material/dialog';
+import { DialogsComponent } from '../../components/dialogs/dialogs.component';
 @Component({
   selector: 'app-inf-eco',
   templateUrl: './inf-eco.component.html',
@@ -25,7 +28,8 @@ export class InfEcoComponent {
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
-    public valrelacionesService: ValrelacionesService
+    public valrelacionesService: ValrelacionesService,
+    public dialog: MatDialog
   ) {}
 
   get id_oferta() {
@@ -325,21 +329,6 @@ export class InfEcoComponent {
     }
   );
 
-  // getFormValidationErrors() {
-  //   Object.keys(this.formUserEco.controls).forEach((key) => {
-  //     const controlErrors: ValidationErrors | undefined | null =
-  //       this.formUserEco.get(key)?.errors;
-  //     if (controlErrors != null) {
-  //       Object.keys(controlErrors).forEach((keyError) => {
-  //         console.log(
-  //           'Key control: ' + key + ', keyError: ' + keyError + ', err value: ',
-  //           controlErrors[keyError]
-  //         );
-  //       });
-  //     }
-  //   });
-  // }
-
   objDatEcono: infoEconoI = {
     id_oferta: undefined,
     valor_oferta_inicial: undefined,
@@ -470,10 +459,26 @@ export class InfEcoComponent {
         objDatEcono
       );
     if (this.controlCamposInfoEco.validaValoresPosi.control) {
-      console.error(this.controlCamposInfoEco.validaValoresPosi.mensaje);
+      const dialogRef = this.dialog.open(DialogsComponent, {
+        width: '350px',
+        data: this.controlCamposInfoEco.validaValoresPosi.mensaje,
+      });
+      dialogRef.afterClosed().subscribe((res) => {
+        if (res) {
+          console.error(this.controlCamposInfoEco.validaValoresPosi.mensaje);
+        }
+      });
     }
     if (this.controlCamposInfoEco.validaValoresDifCero.control) {
-      console.error(this.controlCamposInfoEco.validaValoresDifCero.mensaje);
+      const dialogRef = this.dialog.open(DialogsComponent, {
+        width: '350px',
+        data: this.controlCamposInfoEco.validaValoresDifCero.mensaje,
+      });
+      dialogRef.afterClosed().subscribe((res) => {
+        if (res) {
+          console.error(this.controlCamposInfoEco.validaValoresDifCero.mensaje);
+        }
+      });
     }
     if (
       this.controlCamposInfoEco.validaValoresPosi.control === false &&
@@ -609,7 +614,7 @@ export class InfEcoComponent {
         .subscribe((resDatEcono) => {
           if (resDatEcono.status === '200 OK') {
             this.valrelacionesService.setInfoEconoPredio = this.objDatEcono;
-            // console.log(this.valrelacionesService.infoEnono);
+
             this.envioFormVistaBack = true;
             this.noVistaSiguienteBoton =
               this.valrelacionesService.idenPredio.id_oferta !== undefined &&
@@ -620,24 +625,46 @@ export class InfEcoComponent {
               'noVistaInfoFuen',
               this.noVistaSiguienteBoton
             );
-            console.warn(
-              `El valor de id_oferta  se inicializó y fue asignado su valor es de: ${this.valrelacionesService.idenPredio.id_oferta}. Se evidencia actualizaciones por lo tanto se actualizan los datos.`
-            );
+            const dialogRef = this.dialog.open(DialogsComponent, {
+              width: '350px',
+              data: `El valor del id oferta se inicializó y fue asignado como: ${this.valrelacionesService.idenPredio.id_oferta}.
+              Se evidencia actualizaciones por lo tanto se actualizan los datos.`,
+            });
+            dialogRef.afterClosed().subscribe((res) => {
+              if (res) {
+                console.warn(
+                  `El valor de id_oferta  se inicializó y fue asignado su valor es de: ${this.valrelacionesService.idenPredio.id_oferta}. Se evidencia actualizaciones por lo tanto se actualizan los datos.`
+                );
+              }
+            });
           } else {
-            console.warn(
-              `Error no status '200 OK' para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se actualizan los datos.`
-            );
+            const dialogRef = this.dialog.open(DialogsComponent, {
+              width: '350px',
+              data: `Error para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se guardaron los cambios a los datos.`,
+            });
+            dialogRef.afterClosed().subscribe((res) => {
+              if (res) {
+                console.warn(
+                  `Error no status '200 OK' para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se actualizan los datos.`
+                );
+              }
+            });
           }
         });
     } else {
       if (this.controlGeneralCamposInfoEco) {
-        console.warn(
-          `El valor de id_oferta ya fue asignado su valor es de: ${this.valrelacionesService.idenPredio.id_oferta}. No se evidencia actualizaciones en el formulario.`
-        );
+        const dialogRef = this.dialog.open(DialogsComponent, {
+          width: '350px',
+          data: `El valor de id oferta ya fue asignado su valor es de: ${this.valrelacionesService.idenPredio.id_oferta}. No se evidencia actualizaciones.`,
+        });
+        dialogRef.afterClosed().subscribe((res) => {
+          if (res) {
+            console.warn(
+              `El valor de id_oferta ya fue asignado su valor es de: ${this.valrelacionesService.idenPredio.id_oferta}. No se evidencia actualizaciones.`
+            );
+          }
+        });
       }
     }
-
-    // console.log(this.formUserEco.value);
-    // console.log(this.valrelacionesService.infoEnono);
   }
 }

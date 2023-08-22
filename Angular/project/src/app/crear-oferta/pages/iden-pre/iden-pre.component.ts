@@ -18,6 +18,9 @@ import { resIdenPreI } from '../../../modelos/res-iden-pre.interface';
 import { ValrelacionesService } from '../../../servicios/valrelaciones/valrelaciones.service';
 import { resCearOfer } from 'src/app/modelos/res-crear-ofer.interface';
 
+import { MatDialog } from '@angular/material/dialog';
+import { DialogsComponent } from '../../components/dialogs/dialogs.component';
+
 @Component({
   selector: 'app-iden-pre',
   templateUrl: './iden-pre.component.html',
@@ -27,7 +30,8 @@ export class IdenPreComponent {
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
-    public valrelacionesService: ValrelacionesService
+    public valrelacionesService: ValrelacionesService,
+    public dialog: MatDialog
   ) {}
 
   get idoferta() {
@@ -154,7 +158,7 @@ export class IdenPreComponent {
     status: null,
   };
 
-  procesar() {
+  procesar(): void {
     this.objIdenPre.npa = this.formUser.value.numpreant?.valueOf();
     this.objIdenPre.codigo_homologado = this.formUser.value.codhom?.valueOf();
     this.objIdenPre.matricula = this.formUser.value.matrinmb?.valueOf();
@@ -226,17 +230,44 @@ export class IdenPreComponent {
             'noVistaLocOfer',
             this.noVistaSiguiente
           );
-          console.warn(
-            `El valor de id_oferta se inicializó y fue asignado su valor es de: ${this.valrelacionesService.idenPredio.id_oferta}. Se evidencia actualizaciones por lo tanto se actualizan los datos.`
-          );
+          const dialogRef = this.dialog.open(DialogsComponent, {
+            width: '350px',
+            data: `El valor del id oferta se inicializó y fue asignado como: ${this.valrelacionesService.idenPredio.id_oferta}.
+            Se evidencia actualizaciones por lo tanto se actualizan los datos.`,
+          });
+          dialogRef.afterClosed().subscribe((res) => {
+            if (res) {
+              console.warn(
+                `El valor de id_oferta se inicializó y fue asignado su valor es de: ${this.valrelacionesService.idenPredio.id_oferta}. Se evidencia actualizaciones por lo tanto se actualizan los datos.`
+              );
+            }
+          });
         } else {
-          `Error no status '200 OK' para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se actualizan los datos.`;
+          const dialogRef = this.dialog.open(DialogsComponent, {
+            width: '350px',
+            data: `Error para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se guardaron los cambios a los datos.`,
+          });
+          dialogRef.afterClosed().subscribe((res) => {
+            if (res) {
+              console.warn(
+                `Error no status '200 OK' para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se actualizan los datos.`
+              );
+            }
+          });
         }
       });
     } else {
-      console.warn(
-        `El valor de id_oferta ya fue asignado su valor es de: ${this.valrelacionesService.idenPredio.id_oferta}. No se evidencia actualizaciones.`
-      );
+      const dialogRef = this.dialog.open(DialogsComponent, {
+        width: '350px',
+        data: `El valor de id oferta ya fue asignado su valor es de: ${this.valrelacionesService.idenPredio.id_oferta}. No se evidencia actualizaciones.`,
+      });
+      dialogRef.afterClosed().subscribe((res) => {
+        if (res) {
+          console.warn(
+            `El valor de id_oferta ya fue asignado su valor es de: ${this.valrelacionesService.idenPredio.id_oferta}. No se evidencia actualizaciones.`
+          );
+        }
+      });
     }
   }
 }

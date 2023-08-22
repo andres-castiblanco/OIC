@@ -1,12 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 /*!
+
  * Start Bootstrap - Simple Sidebar (https://startbootstrap.com/template-overviews/simple-sidebar)
  * Copyright 2013-2019 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-simple-sidebar/blob/master/LICENSE)
  */
 
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap");
-
 
 body {
   overflow-x: hidden;
@@ -26,7 +27,7 @@ img {
   font-family: Montserrat;
 }
 
-header{
+header {
   display: flex;
   padding: auto;
   flex-wrap: center;
@@ -35,7 +36,7 @@ header{
   font-weight: bold;
 }
 
-footer{
+footer {
   /* background-color: rgba(112, 111, 111, 0.1);
   border-radius: 10px; */
   font-size: 10px;
@@ -141,10 +142,11 @@ input[type="submit"]:hover {
 }
 
 @media (max-width: 768px) {
-  body, h1 {
+  body,
+  h1 {
     margin-left: 1rem;
     margin-right: 1rem;
-    font-size: 20px;   
+    font-size: 20px;
   }
 
   #sidebar-wrapper {
@@ -159,4 +161,13 @@ input[type="submit"]:hover {
   #wrapper.toggled #sidebar-wrapper {
     margin-left: -15rem;
   }
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }

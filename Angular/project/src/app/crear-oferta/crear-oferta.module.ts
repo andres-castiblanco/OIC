@@ -15,6 +15,12 @@ import { HeaderComponent } from './components/header/header.component';
 import { NavComponent } from './components/nav/nav.component';
 import { MapaComponent } from './components/mapa/mapa.component';
 
+// import { BrowserModule } from '@angular/platform-browser';
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { DialogsComponent } from './components/dialogs/dialogs.component';
+
 @NgModule({
   declarations: [
     IdenPreComponent,
@@ -27,12 +33,18 @@ import { MapaComponent } from './components/mapa/mapa.component';
     HeaderComponent,
     NavComponent,
     MapaComponent,
+    DialogsComponent,
   ],
-  imports: [ 
+  imports: [
     CommonModule,
     CrearOfertaRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    // BrowserModule,
+    // BrowserAnimationsModule,
+    MatDialogModule,
+    MatButtonModule,
   ],
+  // entryComponents: [DialogsComponent],
 })
 export class CrearOfertaModule {}

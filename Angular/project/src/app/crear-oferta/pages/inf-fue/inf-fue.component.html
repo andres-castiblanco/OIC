@@ -219,157 +219,155 @@
           name="areresofer"
           placeholder=""
         />
-
-        <!-- <label for="obs2"
-          >Observaciones de la persona que captura la oferta</label
-        >
-        <div class="alerError" [hidden]="obs2.valid || obs2.pristine">
-          <div *ngIf="obs2.errors?.['required']">
-            Incluir una observación es obligatorio
-          </div>
-          <div *ngIf="obs2.errors?.['maxlength']">
-            La cantidad de caracteres debe de ser menor a 1000
-          </div>
-        </div>
-        <textarea
-          formControlName="obs2"
-          name="obs2"
-          placeholder="Escribir Observación (Menor a 4000 Carácteres)"
-          style="height: 200px"
-        ></textarea> -->
       </div>
 
-      <h2>Información de la persona que verifica la oferta</h2>
+      <div
+        *ngIf="
+          valrelacionesService.infoPer.rol === 1 ||
+          valrelacionesService.infoPer.rol === 2
+        "
+      >
+        <h2>Información de la persona que verifica la oferta</h2>
 
-      <div class="container">
-        <label for="id_oferta">Id de la Oferta</label>
-        <div class="alerError" [hidden]="id_oferta.valid || id_oferta.pristine">
-          El id es obligatorio
-        </div>
-        <input type="number" formControlName="id_oferta" name="id_oferta" />
+        <div class="container">
+          <label for="id_oferta">Id de la Oferta</label>
+          <div
+            class="alerError"
+            [hidden]="id_oferta.valid || id_oferta.pristine"
+          >
+            El id es obligatorio
+          </div>
+          <input type="number" formControlName="id_oferta" name="id_oferta" />
 
-        <label for="nomveriofer"
-          >Nombres de la persona que verifica la oferta</label
-        >
-        <div
-          class="alerError"
-          [hidden]="nomveriofer.valid || nomveriofer.pristine"
-        >
-          <div *ngIf="nomveriofer.errors?.['required']">
-            El(Los) nombre(s) de la persona es(son) obligatorio(s)
+          <label for="nomveriofer"
+            >Nombres de la persona que verifica la oferta</label
+          >
+          <div
+            class="alerError"
+            [hidden]="nomveriofer.valid || nomveriofer.pristine"
+          >
+            <div *ngIf="nomveriofer.errors?.['required']">
+              El(Los) nombre(s) de la persona es(son) obligatorio(s)
+            </div>
+            <div *ngIf="nomveriofer.errors?.['maxlength']">
+              La cantidad de caracteres debe de ser menor a 50
+            </div>
           </div>
-          <div *ngIf="nomveriofer.errors?.['maxlength']">
-            La cantidad de caracteres debe de ser menor a 50
-          </div>
-        </div>
-        <input
-          type="text"
-          formControlName="nomveriofer"
-          name="nomveriofer"
-          placeholder=""
-        />
+          <input
+            type="text"
+            formControlName="nomveriofer"
+            name="nomveriofer"
+            placeholder=""
+          />
 
-        <label for="apeveriofer"
-          >Apellidos de la persona que verifica la oferta</label
-        >
-        <div
-          class="alerError"
-          [hidden]="apeveriofer.valid || apeveriofer.pristine"
-        >
-          <div *ngIf="apeveriofer.errors?.['required']">
-            El(Los) apellido(s) de la persona es(son) obligatorio(s)
+          <label for="apeveriofer"
+            >Apellidos de la persona que verifica la oferta</label
+          >
+          <div
+            class="alerError"
+            [hidden]="apeveriofer.valid || apeveriofer.pristine"
+          >
+            <div *ngIf="apeveriofer.errors?.['required']">
+              El(Los) apellido(s) de la persona es(son) obligatorio(s)
+            </div>
+            <div *ngIf="apeveriofer.errors?.['maxlength']">
+              La cantidad de caracteres debe de ser menor a 50
+            </div>
           </div>
-          <div *ngIf="apeveriofer.errors?.['maxlength']">
-            La cantidad de caracteres debe de ser menor a 50
-          </div>
-        </div>
-        <input
-          type="text"
-          formControlName="apeveriofer"
-          name="apeveriofer"
-          placeholder=""
-        />
+          <input
+            type="text"
+            formControlName="apeveriofer"
+            name="apeveriofer"
+            placeholder=""
+          />
 
-        <label for="tiperver"
-          >Tipo de Identificación de persona que verifica</label
-        >
-        <div class="alerError" [hidden]="tiperver.valid || tiperver.pristine">
-          Los Servicios publicos son un campo obligatorio
-        </div>
-        <select formControlName="tiperver" name="tiperver" placeholder="---">
-          <option value="CEDULA_CIUDADANIA">CÉDULA DE CIUDADANÍA</option>
-          <option value="CEDULA_EXTRANJERIA">CÉDULA DE EXTRANJERÍA</option>
-        </select>
+          <label for="tiperver"
+            >Tipo de Identificación de persona que verifica</label
+          >
+          <div class="alerError" [hidden]="tiperver.valid || tiperver.pristine">
+            Los Servicios publicos son un campo obligatorio
+          </div>
+          <select formControlName="tiperver" name="tiperver" placeholder="---">
+            <option value="CEDULA_CIUDADANIA">CÉDULA DE CIUDADANÍA</option>
+            <option value="CEDULA_EXTRANJERIA">CÉDULA DE EXTRANJERÍA</option>
+          </select>
 
-        <label for="numperver"
-          >Numero de Identificación de persona que verifica</label
-        >
-        <div class="alerError" [hidden]="numperver.valid || numperver.pristine">
-          <div *ngIf="numperver.errors?.['required']">
-            El Numero de Identificación es obligatorio
+          <label for="numperver"
+            >Numero de Identificación de persona que verifica</label
+          >
+          <div
+            class="alerError"
+            [hidden]="numperver.valid || numperver.pristine"
+          >
+            <div *ngIf="numperver.errors?.['required']">
+              El Numero de Identificación es obligatorio
+            </div>
+            <div *ngIf="numperver.errors?.['min'] || numperver.errors?.['max']">
+              El Numero de Identificación debe de ser positivo y estar de 1 a
+              100000000000
+            </div>
           </div>
-          <div *ngIf="numperver.errors?.['min'] || numperver.errors?.['max']">
-            El Numero de Identificación debe de ser positivo y estar de 1 a
-            100000000000
-          </div>
-        </div>
-        <input
-          type="number"
-          formControlName="numperver"
-          name="numperver"
-          placeholder=""
-        />
+          <input
+            type="number"
+            formControlName="numperver"
+            name="numperver"
+            placeholder=""
+          />
 
-        <label for="emailveri">Email de la persona que verifica:</label>
-        <div class="alerError" [hidden]="emailveri.valid || emailveri.pristine">
-          <div *ngIf="emailveri.errors?.['required']">
-            El correo de la persona que verifica la oferta es obligatorio
+          <label for="emailveri">Email de la persona que verifica:</label>
+          <div
+            class="alerError"
+            [hidden]="emailveri.valid || emailveri.pristine"
+          >
+            <div *ngIf="emailveri.errors?.['required']">
+              El correo de la persona que verifica la oferta es obligatorio
+            </div>
+            <div *ngIf="emailveri.errors?.['maxlength']">
+              La cantidad de caracteres debe de ser menor a 50
+            </div>
           </div>
-          <div *ngIf="emailveri.errors?.['maxlength']">
-            La cantidad de caracteres debe de ser menor a 50
-          </div>
-        </div>
 
-        <input
-          type="email"
-          formControlName="emailveri"
-          name="emailveri"
-          placeholder=""
-        />
+          <input
+            type="email"
+            formControlName="emailveri"
+            name="emailveri"
+            placeholder=""
+          />
 
-        <label for="areverofer">Área de la verificación de la oferta</label>
-        <div
-          class="alerError"
-          [hidden]="areverofer.valid || areverofer.pristine"
-        >
-          <div *ngIf="areverofer.errors?.['required']">
-            El área de la verificación de la oferta es obligatoria
+          <label for="areverofer">Área de la verificación de la oferta</label>
+          <div
+            class="alerError"
+            [hidden]="areverofer.valid || areverofer.pristine"
+          >
+            <div *ngIf="areverofer.errors?.['required']">
+              El área de la verificación de la oferta es obligatoria
+            </div>
+            <div *ngIf="areverofer.errors?.['maxlength']">
+              La cantidad de caracteres debe de ser menor a 100
+            </div>
           </div>
-          <div *ngIf="areverofer.errors?.['maxlength']">
-            La cantidad de caracteres debe de ser menor a 100
+          <input
+            type="text"
+            formControlName="areverofer"
+            name="areverofer"
+            placeholder=""
+          />
+          <label for="obs3">Observaciones de verificación</label>
+          <div class="alerError" [hidden]="obs3.valid || obs3.pristine">
+            <div *ngIf="obs3.errors?.['required']">
+              Incluir una observación es obligatorio
+            </div>
+            <div *ngIf="obs3.errors?.['maxlength']">
+              La cantidad de caracteres debe de ser menor a 1000
+            </div>
           </div>
+          <textarea
+            formControlName="obs3"
+            name="obs3"
+            placeholder=""
+            style="height: 200px"
+          ></textarea>
         </div>
-        <input
-          type="text"
-          formControlName="areverofer"
-          name="areverofer"
-          placeholder=""
-        />
-        <label for="obs3">Observaciones de verificación</label>
-        <div class="alerError" [hidden]="obs3.valid || obs3.pristine">
-          <div *ngIf="obs3.errors?.['required']">
-            Incluir una observación es obligatorio
-          </div>
-          <div *ngIf="obs3.errors?.['maxlength']">
-            La cantidad de caracteres debe de ser menor a 1000
-          </div>
-        </div>
-        <textarea
-          formControlName="obs3"
-          name="obs3"
-          placeholder=""
-          style="height: 200px"
-        ></textarea>
       </div>
 
       <div class="row">
