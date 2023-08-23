@@ -20,6 +20,7 @@ import { Router } from '@angular/router';
 
 import { MatDialog } from '@angular/material/dialog';
 import { DialogsComponent } from '../../components/dialogs/dialogs.component';
+import { HttpEventType, HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-inf-fue',
@@ -27,6 +28,12 @@ import { DialogsComponent } from '../../components/dialogs/dialogs.component';
   styleUrls: ['./inf-fue.component.css'],
 })
 export class InfFueComponent {
+  public archivos: File[] = [];
+  percentDone: number = 0;
+  uploadSuccess: boolean = false;
+  percentDoneDocs: number = 0;
+  uploadSuccessDocs: boolean = false;
+
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
@@ -721,6 +728,62 @@ export class InfFueComponent {
           console.warn(`Errores: ${mensaje}`);
         }
       });
+    }
+  }
+
+  capturarFile(event: any): any {
+    this.archivos = event.target.files;
+    // console.log(this.archivos);
+  }
+
+  capturarDocs(event: any): any {
+    this.archivos = event.target.files;
+    // console.log(this.archivos);
+  }
+
+  subirArchivos(): any {
+    try {
+      const formData = new FormData();
+      console.log(this.archivos);
+      Array.from(this.archivos).forEach((f: any) => {
+        console.log(f);
+        formData.append('files', f);
+      });
+
+      this.api.cargarFile(formData).subscribe((event) => {
+        if (event.type === HttpEventType.UploadProgress) {
+          this.percentDone = Math.round(
+            (100 * event.loaded) / Number(event.total)
+          );
+        } else if (event instanceof HttpResponse) {
+          this.uploadSuccess = true;
+        }
+      });
+    } catch (e) {
+      console.log('Error', e);
+    }
+  }
+
+  subirArchivosDocs(): any {
+    try {
+      const formData = new FormData();
+      console.log(this.archivos);
+      Array.from(this.archivos).forEach((f: any) => {
+        console.log(f);
+        formData.append('files', f);
+      });
+
+      this.api.cargarFile(formData).subscribe((event) => {
+        if (event.type === HttpEventType.UploadProgress) {
+          this.percentDoneDocs = Math.round(
+            (100 * event.loaded) / Number(event.total)
+          );
+        } else if (event instanceof HttpResponse) {
+          this.uploadSuccessDocs = true;
+        }
+      });
+    } catch (e) {
+      console.log('Error', e);
     }
   }
 }

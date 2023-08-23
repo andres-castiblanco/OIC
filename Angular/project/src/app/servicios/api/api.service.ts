@@ -25,6 +25,7 @@ export class ApiService {
   // url: string = 'http://172.28.163.141:8081/ofertainmobiliaria/';
   // url: string = 'http://172.19.3.110:8081/ofertainmobiliaria/';
   url: string = 'https://309edcca-12b0-466d-a296-f6a172af65b7.mock.pstmn.io/';
+  urlImgs: string = 'https://file.io';
 
   constructor(private http: HttpClient) {}
 
@@ -86,5 +87,12 @@ export class ApiService {
   capOferRestInfoAdminOferta(form: infoAdminI): Observable<resCearOfer> {
     let direccion = this.url + 'info_admin';
     return this.http.post<resCearOfer>(direccion, form);
+  }
+
+  cargarFile(file: FormData) {
+    return this.http.post(this.urlImgs, file, {
+      reportProgress: true,
+      observe: 'events',
+    });
   }
 }
