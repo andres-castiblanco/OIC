@@ -296,7 +296,7 @@ export class ValrelacionesService {
       nombre_oferente: false,
       numero_contacto: false,
       url: false,
-      enlace_interno_foto_predio: true,
+      enlace_interno_foto_predio: false,
       enlace_documentos: true,
       observaciones: false,
     },
@@ -1054,7 +1054,7 @@ export class ValrelacionesService {
     this.controles.infoFuente.nombre_oferente = false;
     this.controles.infoFuente.numero_contacto = false;
     this.controles.infoFuente.url = false;
-    this.controles.infoFuente.enlace_interno_foto_predio = true;
+    this.controles.infoFuente.enlace_interno_foto_predio = false;
     this.controles.infoFuente.enlace_documentos = true;
     this.controles.infoFuente.observaciones = false;
 

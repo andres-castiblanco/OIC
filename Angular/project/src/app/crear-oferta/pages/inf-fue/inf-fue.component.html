@@ -48,6 +48,14 @@
         Anexar información
         <div class="container text-center">
           <div class="row">
+            <div
+              class="alerError"
+              *ngIf="
+                !valrelacionesService.infoFuente.enlace_interno_foto_predio
+              "
+            >
+              Favor adjuntar al menos una foto de la oferta
+            </div>
             <div class="col">
               <input
                 multiple
@@ -58,16 +66,29 @@
               />
               <h2 class="col-12">
                 <!-- <input class="btn btn-outline-primary" type="file" name="Fotos" title="Adjuntar Fotos" /> -->
-                <a
+                <button
                   class="btn btn-primary"
                   (click)="subirArchivos()"
                   target="_blank"
-                  role="button"
+                  type="button"
+                  [disabled]="loading"
                 >
                   Adjuntar Fotos
-                </a>
-                <div>Porcentaje de carga: {{ percentDone }}%</div>
-                <div *ngIf="uploadSuccess">Carga exitosa!</div>
+                </button>
+                <div
+                  *ngIf="
+                    valrelacionesService.infoFuente.enlace_interno_foto_predio
+                  "
+                >
+                  Porcentaje de carga: {{ percentDone }}%
+                </div>
+                <div
+                  *ngIf="
+                    valrelacionesService.infoFuente.enlace_interno_foto_predio
+                  "
+                >
+                  Carga exitosa!
+                </div>
               </h2>
             </div>
             <div class="col">
@@ -80,16 +101,21 @@
               />
               <h2 class="col-12">
                 <!-- <input class="btn btn-outline-primary" type="file" name="Fotos" title="Adjuntar Documentos" /> -->
-                <a
+                <button
                   class="btn btn-primary"
                   (click)="subirArchivosDocs()"
                   target="_blank"
-                  role="button"
+                  type="button"
+                  [disabled]="loadingDocs"
                 >
                   Adjuntar Documentos
-                </a>
-                <div>Porcentaje de carga: {{ percentDone }}%</div>
-                <div *ngIf="uploadSuccess">Carga exitosa!</div>
+                </button>
+                <div *ngIf="valrelacionesService.infoFuente.enlace_documentos">
+                  Porcentaje de carga: {{ percentDoneDocs }}%
+                </div>
+                <div *ngIf="valrelacionesService.infoFuente.enlace_documentos">
+                  Carga exitosa!
+                </div>
               </h2>
             </div>
           </div>
@@ -387,7 +413,13 @@
           <button class="buttonEnviar" routerLink="../InfEco">Anterior</button>
         </h2>
         <h2 class="col-4">
-          <button class="buttonEnviar" [disabled]="formUserFue.invalid">
+          <button
+            class="buttonEnviar"
+            [disabled]="
+              formUserFue.invalid ||
+              !valrelacionesService.infoFuente.enlace_interno_foto_predio
+            "
+          >
             Guardar
           </button>
         </h2>

@@ -21,6 +21,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogsComponent } from '../../components/dialogs/dialogs.component';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { ValidarOfertaModule } from '../../../validar-oferta/validar-oferta.module';
 
 @Component({
   selector: 'app-inf-fue',
@@ -30,9 +31,9 @@ import { HttpEventType, HttpResponse } from '@angular/common/http';
 export class InfFueComponent {
   public archivos: File[] = [];
   percentDone: number = 0;
-  uploadSuccess: boolean = false;
+  loading: boolean = false;
   percentDoneDocs: number = 0;
-  uploadSuccessDocs: boolean = false;
+  loadingDocs: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -316,7 +317,7 @@ export class InfFueComponent {
       this.formUserFue.value.url == ''
         ? undefined
         : this.formUserFue.value.url?.valueOf();
-    this.objInfoFuente.enlace_interno_foto_predio = true;
+    this.objInfoFuente.enlace_interno_foto_predio = false;
     this.objInfoFuente.enlace_documentos = true;
     this.objInfoFuente.observaciones = this.formUserFue.value.obs1?.valueOf();
 
@@ -743,6 +744,7 @@ export class InfFueComponent {
 
   subirArchivos(): any {
     try {
+      this.loading = true;
       const formData = new FormData();
       console.log(this.archivos);
       Array.from(this.archivos).forEach((f: any) => {
@@ -756,16 +758,20 @@ export class InfFueComponent {
             (100 * event.loaded) / Number(event.total)
           );
         } else if (event instanceof HttpResponse) {
-          this.uploadSuccess = true;
+          this.valrelacionesService.infoFuente.enlace_interno_foto_predio =
+            true;
         }
+        this.loading = false;
       });
     } catch (e) {
+      this.loading = false;
       console.log('Error', e);
     }
   }
 
   subirArchivosDocs(): any {
     try {
+      this.loadingDocs = true;
       const formData = new FormData();
       console.log(this.archivos);
       Array.from(this.archivos).forEach((f: any) => {
@@ -779,10 +785,12 @@ export class InfFueComponent {
             (100 * event.loaded) / Number(event.total)
           );
         } else if (event instanceof HttpResponse) {
-          this.uploadSuccessDocs = true;
+          this.valrelacionesService.infoFuente.enlace_documentos = true;
         }
+        this.loadingDocs = false;
       });
     } catch (e) {
+      this.loadingDocs = false;
       console.log('Error', e);
     }
   }
