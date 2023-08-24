@@ -73,21 +73,20 @@
                   type="button"
                   [disabled]="loading"
                 >
-                  Adjuntar Fotos
+                  Subir Fotos
+                </button>
+                <button class="btn btn-success"
+                  *ngIf="
+                    valrelacionesService.infoFuente.enlace_interno_foto_predio
+                  "
+                >Porcentaje de carga: {{ percentDone }}%
                 </button>
                 <div
                   *ngIf="
                     valrelacionesService.infoFuente.enlace_interno_foto_predio
                   "
                 >
-                  Porcentaje de carga: {{ percentDone }}%
-                </div>
-                <div
-                  *ngIf="
-                    valrelacionesService.infoFuente.enlace_interno_foto_predio
-                  "
-                >
-                  Carga exitosa!
+                  ✅
                 </div>
               </h2>
             </div>
@@ -108,13 +107,13 @@
                   type="button"
                   [disabled]="loadingDocs"
                 >
-                  Adjuntar Documentos
+                  Subir Archivos
+                </button>
+                <button class="btn btn-success" *ngIf="valrelacionesService.infoFuente.enlace_documentos">
+                  Porcentaje de carga: {{ percentDoneDocs }}%
                 </button>
                 <div *ngIf="valrelacionesService.infoFuente.enlace_documentos">
-                  Porcentaje de carga: {{ percentDoneDocs }}%
-                </div>
-                <div *ngIf="valrelacionesService.infoFuente.enlace_documentos">
-                  Carga exitosa!
+                  ✅
                 </div>
               </h2>
             </div>

@@ -1,6 +1,11 @@
-<div mat-dialog-content>
+<div class="modal-header justify-content-center">
+  <h1 class="modal-title fs-5" id="exampleModalLabel">Mensaje</h1>
+</div>
+
+<div class="modal-body mat-dialog-content"  >
   <p>{{ message }}</p>
 </div>
-<div mat-dialog-actions>
-  <button mat-button [mat-dialog-close]="true">Entendido</button>
+
+<div class="modal-footer justify-content-center" mat-dialog-actions>
+  <button class="btn btn-success" [mat-dialog-close]="true">Entendido</button>
 </div>
