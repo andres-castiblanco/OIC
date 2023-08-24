@@ -49,44 +49,70 @@ export class ApiService {
     return this.http.post<resLoginContraI>(direccion, form);
   }
 
-  capOferRestIDOferta(form: idenPreI): Observable<resCearOfer> {
+  capOferRestIDOferta(form: idenPreI, token: String): Observable<resCearOfer> {
     let direccion = this.url + 'pre_iden';
-    return this.http.post<resCearOfer>(direccion, form);
+    let contenido = { furmulario: form, token: token };
+    return this.http.post<resCearOfer>(direccion, contenido);
   }
 
-  capOferRestLocOferta(form: locPreI): Observable<resCearOfer> {
+  capOferRestLocOferta(form: locPreI, token: String): Observable<resCearOfer> {
     let direccion = this.url + 'pre_loca';
-    return this.http.post<resCearOfer>(direccion, form);
+    let contenido = { furmulario: form, token: token };
+    return this.http.post<resCearOfer>(direccion, contenido);
   }
 
-  capOferRestDatGenOferta(form: datGenI): Observable<resCearOfer> {
+  capOferRestDatGenOferta(
+    form: datGenI,
+    token: String
+  ): Observable<resCearOfer> {
     let direccion = this.url + 'pre_gene';
-    return this.http.post<resCearOfer>(direccion, form);
+    let contenido = { furmulario: form, token: token };
+    return this.http.post<resCearOfer>(direccion, contenido);
   }
 
-  capOferRestInfoFisOferta(form: infoFisiI): Observable<resCearOfer> {
+  capOferRestInfoFisOferta(
+    form: infoFisiI,
+    token: String
+  ): Observable<resCearOfer> {
     let direccion = this.url + 'pre_fisi';
-    return this.http.post<resCearOfer>(direccion, form);
+    let contenido = { furmulario: form, token: token };
+    return this.http.post<resCearOfer>(direccion, contenido);
   }
 
-  capOferRestInfoEconoOferta(form: infoEconoI): Observable<resCearOfer> {
+  capOferRestInfoEconoOferta(
+    form: infoEconoI,
+    token: String
+  ): Observable<resCearOfer> {
     let direccion = this.url + 'pre_econo';
-    return this.http.post<resCearOfer>(direccion, form);
+    let contenido = { furmulario: form, token: token };
+    return this.http.post<resCearOfer>(direccion, contenido);
   }
 
-  capOferRestInfoFuenteOferta(form: infoFuenteI): Observable<resCearOfer> {
+  capOferRestInfoFuenteOferta(
+    form: infoFuenteI,
+    token: String
+  ): Observable<resCearOfer> {
     let direccion = this.url + 'info_fuente';
-    return this.http.post<resCearOfer>(direccion, form);
+    let contenido = { furmulario: form, token: token };
+    return this.http.post<resCearOfer>(direccion, contenido);
   }
 
-  veriOfertaPersonaVerifica(correo: String): Observable<resLoginLoginI> {
+  veriOfertaPersonaVerifica(
+    correo: String,
+    token: String
+  ): Observable<resLoginLoginI> {
     let direccion = this.url + 'perso_veri';
-    return this.http.post<resLoginLoginI>(direccion, correo);
+    let contenido = { correo: correo, token: token };
+    return this.http.post<resLoginLoginI>(direccion, contenido);
   }
 
-  capOferRestInfoAdminOferta(form: infoAdminI): Observable<resCearOfer> {
+  capOferRestInfoAdminOferta(
+    form: infoAdminI,
+    token: String
+  ): Observable<resCearOfer> {
     let direccion = this.url + 'info_admin';
-    return this.http.post<resCearOfer>(direccion, form);
+    let contenido = { furmulario: form, token: token };
+    return this.http.post<resCearOfer>(direccion, contenido);
   }
 
   cargarFile(file: FormData) {

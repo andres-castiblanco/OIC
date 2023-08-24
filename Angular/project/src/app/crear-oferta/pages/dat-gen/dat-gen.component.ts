@@ -141,6 +141,7 @@ export class DatGenComponent {
   resDatGene: resCearOfer = {
     id_oferta: null,
     status: null,
+    token: String(localStorage.getItem('token')),
   };
 
   envioFormVistaBack: boolean = false;
@@ -165,6 +166,7 @@ export class DatGenComponent {
   };
 
   procesar() {
+    this.resDatGene.token = String(localStorage.getItem('token'));
     this.objDatGen.id_oferta =
       this.valrelacionesService.idenPredio.id_oferta?.valueOf();
     this.objDatGen.derecho_tipo = this.formUserGen.value.dertip?.valueOf();
@@ -234,9 +236,10 @@ export class DatGenComponent {
         JSON.stringify(this.objDatGen)
     ) {
       this.api
-        .capOferRestDatGenOferta(this.objDatGen)
+        .capOferRestDatGenOferta(this.objDatGen, this.resDatGene.token)
         .subscribe((resDatGene) => {
           if (resDatGene.status === '200 OK') {
+            localStorage.setItem('token', resDatGene.token?.valueOf());
             this.valrelacionesService.setDatGenPredio = this.objDatGen;
 
             this.envioFormVistaBack = true;

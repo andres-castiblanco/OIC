@@ -351,6 +351,7 @@ export class InfEcoComponent {
   resDatEcono: resCearOfer = {
     id_oferta: null,
     status: null,
+    token: String(localStorage.getItem('token')),
   };
 
   envioFormVistaBack: boolean = false;
@@ -491,6 +492,7 @@ export class InfEcoComponent {
   }
 
   procesar() {
+    this.resDatEcono.token = String(localStorage.getItem('token'));
     this.objDatEcono.id_oferta =
       this.valrelacionesService.idenPredio.id_oferta?.valueOf();
     this.objDatEcono.valor_oferta_inicial = this.controlEntrevariables
@@ -610,9 +612,10 @@ export class InfEcoComponent {
       this.controlGeneralCamposInfoEco
     ) {
       this.api
-        .capOferRestInfoEconoOferta(this.objDatEcono)
+        .capOferRestInfoEconoOferta(this.objDatEcono, this.resDatEcono.token)
         .subscribe((resDatEcono) => {
           if (resDatEcono.status === '200 OK') {
+            localStorage.setItem('token', resDatEcono.token?.valueOf());
             this.valrelacionesService.setInfoEconoPredio = this.objDatEcono;
 
             this.envioFormVistaBack = true;

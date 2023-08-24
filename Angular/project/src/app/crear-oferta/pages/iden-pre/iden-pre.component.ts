@@ -156,9 +156,11 @@ export class IdenPreComponent {
   resIdenpre: resCearOfer = {
     id_oferta: null,
     status: null,
+    token: String(localStorage.getItem('token')),
   };
 
   procesar(): void {
+    this.resIdenpre.token = String(localStorage.getItem('token'));
     this.objIdenPre.npa = this.formUser.value.numpreant?.valueOf();
     this.objIdenPre.codigo_homologado = this.formUser.value.codhom?.valueOf();
     this.objIdenPre.matricula = this.formUser.value.matrinmb?.valueOf();
@@ -214,48 +216,51 @@ export class IdenPreComponent {
       JSON.stringify(this.valrelacionesService.idenPredio) !==
         JSON.stringify(this.objIdenPre)
     ) {
-      this.api.capOferRestIDOferta(this.objIdenPre).subscribe((resIdenpre) => {
-        if (resIdenpre.status === '200 OK') {
-          this.objIdenPre.id_oferta = Number(resIdenpre.id_oferta);
-          this.valrelacionesService.idenPredio.id_oferta = Number(
-            resIdenpre.id_oferta
-          );
-          this.valrelacionesService.setIdenPredio = this.objIdenPre;
-          this.noVistaOfer = true;
-          this.noVistaSiguiente = false;
-          this.formUser.controls['idoferta'].setValue(
-            String(this.valrelacionesService.idenPredio.id_oferta)
-          );
-          this.valrelacionesService.habilitarVista(
-            'noVistaLocOfer',
-            this.noVistaSiguiente
-          );
-          const dialogRef = this.dialog.open(DialogsComponent, {
-            width: '350px',
-            data: `El valor del id oferta se inicializó y fue asignado como: ${this.valrelacionesService.idenPredio.id_oferta}.
+      this.api
+        .capOferRestIDOferta(this.objIdenPre, this.resIdenpre.token)
+        .subscribe((resIdenpre) => {
+          if (resIdenpre.status === '200 OK') {
+            localStorage.setItem('token', resIdenpre.token?.valueOf());
+            this.objIdenPre.id_oferta = Number(resIdenpre.id_oferta);
+            this.valrelacionesService.idenPredio.id_oferta = Number(
+              resIdenpre.id_oferta
+            );
+            this.valrelacionesService.setIdenPredio = this.objIdenPre;
+            this.noVistaOfer = true;
+            this.noVistaSiguiente = false;
+            this.formUser.controls['idoferta'].setValue(
+              String(this.valrelacionesService.idenPredio.id_oferta)
+            );
+            this.valrelacionesService.habilitarVista(
+              'noVistaLocOfer',
+              this.noVistaSiguiente
+            );
+            const dialogRef = this.dialog.open(DialogsComponent, {
+              width: '350px',
+              data: `El valor del id oferta se inicializó y fue asignado como: ${this.valrelacionesService.idenPredio.id_oferta}.
             Se evidencia actualizaciones por lo tanto se actualizan los datos.`,
-          });
-          dialogRef.afterClosed().subscribe((res) => {
-            if (res) {
-              console.warn(
-                `El valor de id_oferta se inicializó y fue asignado su valor es de: ${this.valrelacionesService.idenPredio.id_oferta}. Se evidencia actualizaciones por lo tanto se actualizan los datos.`
-              );
-            }
-          });
-        } else {
-          const dialogRef = this.dialog.open(DialogsComponent, {
-            width: '350px',
-            data: `Error para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se guardaron los cambios a los datos.`,
-          });
-          dialogRef.afterClosed().subscribe((res) => {
-            if (res) {
-              console.warn(
-                `Error no status '200 OK' para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se actualizan los datos.`
-              );
-            }
-          });
-        }
-      });
+            });
+            dialogRef.afterClosed().subscribe((res) => {
+              if (res) {
+                console.warn(
+                  `El valor de id_oferta se inicializó y fue asignado su valor es de: ${this.valrelacionesService.idenPredio.id_oferta}. Se evidencia actualizaciones por lo tanto se actualizan los datos.`
+                );
+              }
+            });
+          } else {
+            const dialogRef = this.dialog.open(DialogsComponent, {
+              width: '350px',
+              data: `Error para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se guardaron los cambios a los datos.`,
+            });
+            dialogRef.afterClosed().subscribe((res) => {
+              if (res) {
+                console.warn(
+                  `Error no status '200 OK' para la oferta: ${this.valrelacionesService.idenPredio.id_oferta}. No se actualizan los datos.`
+                );
+              }
+            });
+          }
+        });
     } else {
       const dialogRef = this.dialog.open(DialogsComponent, {
         width: '350px',

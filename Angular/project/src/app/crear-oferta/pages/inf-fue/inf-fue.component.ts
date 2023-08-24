@@ -299,12 +299,14 @@ export class InfFueComponent {
   resInfoFuente: resCearOfer = {
     id_oferta: null,
     status: null,
+    token: String(localStorage.getItem('token')),
   };
 
   envioFormVistaBack: boolean = false;
   noVistaSiguienteBoton: boolean = true;
 
   procesar() {
+    this.resInfoFuente.token = String(localStorage.getItem('token'));
     this.objInfoFuente.id_oferta =
       this.valrelacionesService.idenPredio.id_oferta?.valueOf();
     this.objInfoFuente.nombre_oferente = this.formUserFue.value.nom?.valueOf();
@@ -317,7 +319,10 @@ export class InfFueComponent {
       this.formUserFue.value.url == ''
         ? undefined
         : this.formUserFue.value.url?.valueOf();
-    this.objInfoFuente.enlace_interno_foto_predio = false;
+    this.objInfoFuente.enlace_interno_foto_predio =
+      this.valrelacionesService.infoFuente.enlace_interno_foto_predio === false
+        ? false
+        : true;
     this.objInfoFuente.enlace_documentos = true;
     this.objInfoFuente.observaciones = this.formUserFue.value.obs1?.valueOf();
 
@@ -345,9 +350,13 @@ export class InfFueComponent {
         this.objPerVeri.email === '')
     ) {
       this.api
-        .capOferRestInfoFuenteOferta(this.objInfoFuente)
+        .capOferRestInfoFuenteOferta(
+          this.objInfoFuente,
+          this.resInfoFuente.token
+        )
         .subscribe((resInfoFuente) => {
           if (resInfoFuente.status === '200 OK') {
+            localStorage.setItem('token', resInfoFuente.token?.valueOf());
             this.valrelacionesService.setInfoFuentePredio = this.objInfoFuente;
 
             let dialogRef = this.dialog.open(DialogsComponent, {
@@ -363,10 +372,16 @@ export class InfFueComponent {
               }
             });
 
+            this.resInfoFuente.token = String(localStorage.getItem('token'));
+
             this.api
-              .capOferRestInfoAdminOferta(this.objInfoAdmin)
+              .capOferRestInfoAdminOferta(
+                this.objInfoAdmin,
+                this.resInfoFuente.token
+              )
               .subscribe((resInfoAdmin) => {
                 if (resInfoAdmin.status === '200 OK') {
+                  localStorage.setItem('token', resInfoAdmin.token?.valueOf());
                   this.valrelacionesService.setInfoAdminePredio =
                     this.objInfoAdmin;
                   this.envioFormVistaBack = true;
@@ -431,9 +446,13 @@ export class InfFueComponent {
       this.objPerVeri.email !== ''
     ) {
       this.api
-        .veriOfertaPersonaVerifica(this.objPerVeri.email)
+        .veriOfertaPersonaVerifica(
+          this.objPerVeri.email,
+          this.resInfoFuente.token
+        )
         .subscribe((resPerVerifica) => {
           if (resPerVerifica.status === '200 OK') {
+            localStorage.setItem('token', resPerVerifica.token?.valueOf());
             this.valrelacionesService.setInfoPersonaVeri =
               resPerVerifica.dat_usua;
 
@@ -471,10 +490,20 @@ export class InfFueComponent {
                 String(this.objInfoAdmin.area_persona_verifica)
               );
 
+              this.resInfoFuente.token = String(localStorage.getItem('token'));
+
               this.api
-                .capOferRestInfoFuenteOferta(this.objInfoFuente)
+                .capOferRestInfoFuenteOferta(
+                  this.objInfoFuente,
+                  this.resInfoFuente.token
+                )
                 .subscribe((resInfoFuente) => {
                   if (resInfoFuente.status === '200 OK') {
+                    localStorage.setItem(
+                      'token',
+                      resInfoFuente.token?.valueOf()
+                    );
+
                     this.valrelacionesService.setInfoFuentePredio =
                       this.objInfoFuente;
 
@@ -491,10 +520,22 @@ export class InfFueComponent {
                       }
                     });
 
+                    this.resInfoFuente.token = String(
+                      localStorage.getItem('token')
+                    );
+
                     this.api
-                      .capOferRestInfoAdminOferta(this.objInfoAdmin)
+                      .capOferRestInfoAdminOferta(
+                        this.objInfoAdmin,
+                        this.resInfoFuente.token
+                      )
                       .subscribe((resInfoAdmin) => {
                         if (resInfoAdmin.status === '200 OK') {
+                          localStorage.setItem(
+                            'token',
+                            resInfoAdmin.token?.valueOf()
+                          );
+
                           this.valrelacionesService.setInfoAdminePredio =
                             this.objInfoAdmin;
                           this.envioFormVistaBack = true;
@@ -590,6 +631,7 @@ export class InfFueComponent {
   }
 
   enviarTerminar() {
+    this.resInfoFuente.token = String(localStorage.getItem('token'));
     let mensaje = this.valrelacionesService.controlesGeneralesVistasMensaje();
     let controlTotal =
       this.valrelacionesService.controlesGeneralesVistasBolean();
@@ -597,63 +639,114 @@ export class InfFueComponent {
       console.log(`NO SE PRESENTÓ NINGÚN ERROR... :)`);
       console.log(`Se procede al envío de los datos por vista: `);
       this.api
-        .capOferRestIDOferta(this.valrelacionesService.idenPredio)
+        .capOferRestIDOferta(
+          this.valrelacionesService.idenPredio,
+          this.resInfoFuente.token
+        )
         .subscribe((resIdenpre) => {
           if (resIdenpre.status === '200 OK') {
+            localStorage.setItem('token', resIdenpre.token?.valueOf());
             console.warn(
               `La vista de crear oferta de la oferta: ${this.valrelacionesService.idenPredio.id_oferta} fue enviada y almacenada.`
             );
+            // this.resInfoFuente.token = String(localStorage.getItem('token'));
             this.api
-              .capOferRestLocOferta(this.valrelacionesService.locPre)
+              .capOferRestLocOferta(
+                this.valrelacionesService.locPre,
+                resIdenpre.token?.valueOf()
+              )
               .subscribe((resLocpre) => {
                 if (resLocpre.status === '200 OK') {
+                  localStorage.setItem('token', resLocpre.token?.valueOf());
                   console.warn(
                     `La vista de localización oferta de la oferta:${this.valrelacionesService.idenPredio.id_oferta} fue enviada y almacenada.`
                   );
+                  // this.resInfoFuente.token = String(
+                  //   localStorage.getItem('token')
+                  // );
                   this.api
-                    .capOferRestDatGenOferta(this.valrelacionesService.datGen)
+                    .capOferRestDatGenOferta(
+                      this.valrelacionesService.datGen,
+                      resLocpre.token?.valueOf()
+                    )
                     .subscribe((resDatGene) => {
                       if (resDatGene.status === '200 OK') {
+                        localStorage.setItem(
+                          'token',
+                          resDatGene.token?.valueOf()
+                        );
                         console.warn(
                           `La vista de datos generales de la oferta: ${this.valrelacionesService.idenPredio.id_oferta} fue enviada y almacenada.`
                         );
+                        // this.resInfoFuente.token = String(
+                        //   localStorage.getItem('token')
+                        // );
                         this.api
                           .capOferRestInfoFisOferta(
-                            this.valrelacionesService.infoFis
+                            this.valrelacionesService.infoFis,
+                            resDatGene.token?.valueOf()
                           )
                           .subscribe((resDatFis) => {
                             if (resDatFis.status === '200 OK') {
+                              localStorage.setItem(
+                                'token',
+                                resDatFis.token?.valueOf()
+                              );
                               console.warn(
                                 `La vista de información física de la oferta: ${this.valrelacionesService.idenPredio.id_oferta} fue enviada y almacenada.`
                               );
+                              // this.resInfoFuente.token = String(
+                              //   localStorage.getItem('token')
+                              // );
                               this.api
                                 .capOferRestInfoEconoOferta(
-                                  this.valrelacionesService.infoEnono
+                                  this.valrelacionesService.infoEnono,
+                                  resDatFis.token?.valueOf()
                                 )
                                 .subscribe((resDatEcono) => {
                                   if (resDatEcono.status === '200 OK') {
+                                    localStorage.setItem(
+                                      'token',
+                                      resDatEcono.token?.valueOf()
+                                    );
                                     console.warn(
                                       `La vista de información económica de la oferta: ${this.valrelacionesService.idenPredio.id_oferta} fue enviada y almacenada.`
                                     );
+                                    // this.resInfoFuente.token = String(
+                                    //   localStorage.getItem('token')
+                                    // );
                                     this.api
                                       .capOferRestInfoFuenteOferta(
-                                        this.valrelacionesService.infoFuente
+                                        this.valrelacionesService.infoFuente,
+                                        resDatEcono.token?.valueOf()
                                       )
                                       .subscribe((resInfoFuente) => {
                                         if (resInfoFuente.status === '200 OK') {
+                                          localStorage.setItem(
+                                            'token',
+                                            resInfoFuente.token?.valueOf()
+                                          );
                                           console.warn(
                                             `La vista de información fuente de la oferta:  ${this.valrelacionesService.idenPredio.id_oferta} fue enviada y almacenada.`
                                           );
 
+                                          // this.resInfoFuente.token = String(
+                                          //   localStorage.getItem('token')
+                                          // );
                                           this.api
                                             .capOferRestInfoAdminOferta(
                                               this.valrelacionesService
-                                                .infoAdmin
+                                                .infoAdmin,
+                                              resInfoFuente.token?.valueOf()
                                             )
                                             .subscribe((resInfoAdmin) => {
                                               if (
                                                 resInfoAdmin.status === '200 OK'
                                               ) {
+                                                localStorage.setItem(
+                                                  'token',
+                                                  resInfoAdmin.token?.valueOf()
+                                                );
                                                 console.warn(
                                                   `La vista de información administrativa de la oferta: ${this.valrelacionesService.idenPredio.id_oferta} fue enviada y almacenada.`
                                                 );

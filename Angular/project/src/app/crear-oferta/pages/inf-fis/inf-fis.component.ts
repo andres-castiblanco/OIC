@@ -340,6 +340,7 @@ export class InfFisComponent {
   resDatFis: resCearOfer = {
     id_oferta: null,
     status: null,
+    token: String(localStorage.getItem('token')),
   };
 
   envioFormVistaBack: boolean = false;
@@ -466,6 +467,7 @@ export class InfFisComponent {
   }
 
   procesar() {
+    this.resDatFis.token = String(localStorage.getItem('token'));
     this.objDatFis.id_oferta =
       this.valrelacionesService.idenPredio.id_oferta?.valueOf();
     this.objDatFis.area_terreno =
@@ -552,9 +554,10 @@ export class InfFisComponent {
       this.controlGeneralCamposInfoFisi
     ) {
       this.api
-        .capOferRestInfoFisOferta(this.objDatFis)
+        .capOferRestInfoFisOferta(this.objDatFis, this.resDatFis.token)
         .subscribe((resDatFis) => {
           if (resDatFis.status === '200 OK') {
+            localStorage.setItem('token', resDatFis.token?.valueOf());
             this.valrelacionesService.setInfoFisPredio = this.objDatFis;
 
             this.envioFormVistaBack = true;
