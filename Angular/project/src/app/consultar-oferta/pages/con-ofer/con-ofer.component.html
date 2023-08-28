@@ -1,250 +1,445 @@
 <!-- <p>con-ofer works!</p> -->
 <!DOCTYPE html>
 <html>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-<body>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
     <app-header></app-header>
-    <div class="container">
+    <form [formGroup]="formConsul" (ngSubmit)="consultar()">
+      <div class="container">
         <h2>Consultar Oferta</h2>
-        
+
         <div class="mb-3 row">
-            <label class="col-form-label col-2" for="idoferta">Id de la Oferta</label>
-            <div class="col-10">
-                <input type="number" id="idoferta" name="Id Oferta" placeholder="123456789" min="0" max="99999999999999999999999999999" maxlength="12" required>
+          <label class="col-form-label col-2" for="id_oferta"
+            >Id de la Oferta</label
+          >
+
+          <div
+            class="alerError"
+            [hidden]="id_oferta.valid || id_oferta.pristine"
+          >
+            <div *ngIf="id_oferta.errors?.['maxlength']">
+              La cantidad de números debe de ser menor o igual a 30
             </div>
+            <div
+              class="alerError"
+              *ngIf="formConsul.controls['id_oferta'].hasError('hasNumber')"
+            >
+              Los valores ingresados deben de ser digitos 0-9
+            </div>
+          </div>
+
+          <div class="col-10">
+            <input
+              type="text"
+              id="id_oferta"
+              formControlName="id_oferta"
+              name="id_Oferta"
+              placeholder="123456789"
+            />
+          </div>
         </div>
 
         <div class="mb-3 row">
-            <label class="col-form-label col-2" for="numprenue">Número Predial Nuevo</label>
-            <div class="col-10">
-                <input type="number" id="numprenue" name="numprenue" placeholder="158140000000000060399000000000" maxlength="30" required>
+          <label class="col-form-label col-2" for="numprenue"
+            >Número Predial Nuevo</label
+          >
+
+          <div
+            class="alerError"
+            [hidden]="numprenue.valid || numprenue.pristine"
+          >
+            <div
+              *ngIf="numprenue.errors?.['minlength'] || numprenue.errors?.['maxlength']"
+            >
+              La cantidad de números debe de ser mayor de 20 y menor o igual a
+              30
             </div>
+            <div
+              class="alerError"
+              *ngIf="formConsul.controls['numprenue'].hasError('hasNumber')"
+            >
+              Los valores ingresados deben de ser digitos 0-9
+            </div>
+          </div>
+          <div class="col-10">
+            <input
+              type="text"
+              id="numprenue"
+              formControlName="numprenue"
+              name="numprenue"
+              placeholder="158140000000000060399000000000"
+            />
+          </div>
         </div>
 
         <div class="mb-3 row">
-            <label class="col-form-label col-2" for="numpreant">Número Predial Antiguo</label>
-            <div class="col-10">
-                <input type="number" id="numpreant" name="numpreant" placeholder="158140000000000060399000" maxlength="20" required>
+          <label class="col-form-label col-2" for="numpreant"
+            >Número Predial Antiguo</label
+          >
+          <div
+            class="alerError"
+            [hidden]="numpreant.valid || numpreant.pristine"
+          >
+            <div
+              *ngIf="numpreant.errors?.['minlength'] || numpreant.errors?.['maxlength']"
+            >
+              La cantidad de números debe de ser mayor de 10 y menor o igual a
+              20
             </div>
+            <div
+              class="alerError"
+              *ngIf="formConsul.controls['numpreant'].hasError('hasNumber')"
+            >
+              Los valores ingresados deben de ser digitos 0-9
+            </div>
+          </div>
+          <div class="col-10">
+            <input
+              type="text"
+              id="numpreant"
+              formControlName="numpreant"
+              name="numpreant"
+              placeholder="158140000000000060399000"
+            />
+          </div>
         </div>
 
         <div class="mb-3 row">
-            <label class="col-form-label col-2" for="matrinmb">Matricula Inmobiliaria</label>
-            <div class="col-10">
-                <input type="text" id="matrinmb" name="matrinmb" placeholder="070-73096" maxlength="12" required>
+          <label class="col-form-label col-2" for="matrinmb"
+            >Matricula Inmobiliaria</label
+          >
+          <div class="alerError" [hidden]="matrinmb.valid || matrinmb.pristine">
+            <div *ngIf="matrinmb.errors?.['maxlength']">
+              La cantidad de caracteres debe de ser inferior a 20
             </div>
+          </div>
+          <div class="col-10">
+            <input
+              type="text"
+              formControlName="matrinmb"
+              name="matrinmb"
+              placeholder="070-73096"
+            />
+          </div>
         </div>
-        
+
         <div class="mb-3 row">
-            <label class="col-form-label col-2" for="dep">Departamento</label>
-            <div class="col-10">
-                <select id="dep" name="dep">
-                    <option value="05_ANTIOQUIA">05_ANTIOQUIA</option>
-                    <option value="08_ATLÁNTICO">08_ATLÁNTICO</option>
-                    <option value="11_BOGOTÁ, D.C.">11_BOGOTÁ, D.C.</option>
+          <label class="col-form-label col-2" for="dep">Departamento</label>
+          <div class="col-10">
+            <select
+              formControlName="dep"
+              name="dep"
+              (ngModelChange)="handleChange($event)"
+            >
+              <option *ngFor="let dto of deptos" [value]="dto">
+                {{ dto }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="mb-3 row">
+          <label class="col-form-label col-2" for="mun">Municipio</label>
+          <div class="col-10">
+            <select formControlName="mun" name="mun">
+              <option *ngFor="let mpio of mpios" [value]="mpio">
+                {{ mpio }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="mb-3 row">
+          <label class="col-form-label col-2" for="feccapofer"
+            >Fecha de Captura Oferta</label
+          >
+          <div class="col-10">
+            <input
+              type="date"
+              formControlName="feccapofer"
+              name="feccapofer"
+              value="2023-07-22"
+              min="2000-01-01"
+              max="2030-12-31"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3 row">
+          <label class="col-form-label col-2" for="dirrur"
+            >Dirección Rural</label
+          >
+          <div class="alerError" [hidden]="dirrur.valid || dirrur.pristine">
+            <div *ngIf="dirrur.errors?.['maxlength']">
+              La cantidad de caracteres debe de ser inferior a 100
+            </div>
+          </div>
+          <div class="col-10">
+            <input
+              type="text"
+              formControlName="dirrur"
+              name="dirrur"
+              placeholder="Km 3 via Belen, Finca La Hermosa"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3 row">
+          <label class="col-form-label col-2" for="dir">Dirección Urbana</label>
+
+          <div class="alerError" [hidden]="dir01.valid || dir01.pristine"></div>
+          <div class="alerError" [hidden]="dir02.valid || dir02.pristine">
+            <div *ngIf="dir02.errors?.['min'] || dir02.errors?.['max']">
+              El número de la vía principal debe de estar entre 0 y 1000
+            </div>
+          </div>
+          <div class="alerError" [hidden]="dir06.valid || dir06.pristine">
+            <div *ngIf="dir06.errors?.['min'] || dir06.errors?.['max']">
+              El número de la vía secundaria debe de estar entre 0 y 1000
+            </div>
+          </div>
+
+          <div class="col-10">
+            <div class="direction">
+              <div>
+                <select formControlName="dir01" name="dir01">
+                  <option value="---">---</option>
+                  <option value="CL">CL</option>
+                  <option value="CR">CR</option>
+                  <option value="DG">DG</option>
+                  <option value="TR">TR</option>
+                  <option value="AV CL">AV CL</option>
+                  <option value="AV CR">AV CR</option>
                 </select>
-            </div>
-        </div>        
+              </div>
 
-        <div class="mb-3 row">
-            <label class="col-form-label col-2" for="mun">Municipio</label>
-            <div class="col-10">
-                <select id="mun" name="mun">
-                    <option value="05001_MEDELLÍN">05001_MEDELLÍN</option>
-                    <option value="05002_ABEJORRAL">05002_ABEJORRAL</option>
-                    <option value="05004_ABRIAQUÍ">05004_ABRIAQUÍ</option>
-                    <option value="05021_ALEJANDRÍA">05021_ALEJANDRÍA</option>
-                    <option value="99773_CUMARIBO">99773_CUMARIBO</option>
+              <div>
+                <input
+                  type="number"
+                  formControlName="dir02"
+                  name="dir02"
+                  placeholder="85"
+                />
+              </div>
+
+              <div>
+                <select formControlName="dir03" name="dir03">
+                  <option value="A">A</option>
+                  <option value="B">B</option>
+                  <option value="C">C</option>
+                  <option value="D">D</option>
+                  <option value="E">E</option>
+                  <option value="F">F</option>
+                  <option value="G">G</option>
+                  <option value="H">H</option>
+                  <option value="I">I</option>
+                  <option value="J">J</option>
+                  <option value="K">K</option>
+                  <option value="L">L</option>
+                  <option value="M">M</option>
+                  <option value="N">N</option>
+                  <option value="O">O</option>
+                  <option value="P">P</option>
+                  <option value="Q">Q</option>
+                  <option value="R">R</option>
+                  <option value="T">T</option>
+                  <option value="U">U</option>
+                  <option value="V">V</option>
+                  <option value="W">W</option>
+                  <option value="X">X</option>
+                  <option value="Y">Y</option>
+                  <option value="Z">Z</option>
                 </select>
-            </div>
-        </div>
+              </div>
 
-        <div class="mb-3 row">
-            <label class="col-form-label col-2" for="feccapofer">Fecha de Captura Oferta</label>
-            <div class="col-10">
-                <input type="date" id="feccapofer" name="feccapofer"
-                    value="2023-07-22"
-                    min="2000-01-01" max="2030-12-31">
-            </div>
-        </div>
+              <div>
+                <input
+                  type="checkbox"
+                  name="dir04"
+                  formControlName="dir04"
+                /><label for="dir04">Bis</label>
+              </div>
 
+              <div>
+                <select formControlName="dir05" name="dir05">
+                  <option value="Norte">Norte</option>
+                  <option value="Sur">Sur</option>
+                  <option value="Este">Este</option>
+                  <option value="Oeste">Oeste</option>
+                </select>
+              </div>
 
-        <div class="mb-3 row">
-            <label class="col-form-label col-2" for="dirrur">Dirección Rural</label>
-            <div class="col-10">
-                <input type="text" id="dirrur" name="dirrur" placeholder="Km 3 via Belen, Finca La Hermosa">
-            </div>
-        </div>
-            
+              <div>
+                <input
+                  type="number"
+                  formControlName="dir06"
+                  name="dir06"
+                  placeholder="15"
+                />
+              </div>
 
-        <div class="mb-3 row">
-            <label class="col-form-label col-2" for="dir">Dirección Urbana</label>
-            <div class="col-10">
-                <div class="direction">
-                    <div>
-                        <select id="dir01" name="dir01">
-                            <option value="---">---</option>
-                            <option value="CL">CL</option>
-                            <option value="CR">CR</option>
-                            <option value="DG">DG</option>
-                            <option value="TR">TR</option>
-                            <option value="AV CL">AV CL</option>
-                            <option value="AV CR">AV CR</option>
-                        </select>
-                    </div>
-    
-                    <div>
-                        <input type="number" id="dir02" name="dir02" placeholder="85" maxlength="3">
-                    </div>
-    
-                    <div>
-                        <select id="dir03" name="dir03">
-                            <option value="A">A</option>
-                            <option value="B">B</option>
-                            <option value="C">C</option>
-                            <option value="D">D</option>
-                            <option value="E">E</option>
-                            <option value="F">F</option>
-                            <option value="G">G</option>
-                            <option value="H">H</option>
-                            <option value="I">I</option>
-                            <option value="J">J</option>
-                            <option value="K">K</option>
-                            <option value="L">L</option>
-                            <option value="M">M</option>
-                            <option value="N">N</option>
-                            <option value="O">O</option>
-                            <option value="P">P</option>
-                            <option value="Q">Q</option>
-                            <option value="R">R</option>
-                            <option value="T">T</option>
-                            <option value="U">U</option>
-                            <option value="V">V</option>
-                            <option value="W">W</option>
-                            <option value="X">X</option>
-                            <option value="Y">Y</option>
-                            <option value="Z">Z</option>
-                        </select>
-                    </div>
-    
-                    <div>
-                        <input type="checkbox" name="dir04" id="dir04"><label for="dir04">Bis</label>
-                    </div>
-                
-                    <div>
-                        <select id="dir05" name="dir05">
-                            <option value="Norte">Norte</option>
-                            <option value="Sur">Sur</option>
-                            <option value="Este">Este</option>
-                            <option value="Oeste">Oeste</option>
-                        </select>
-                    </div>
-    
-                    <div>
-                        <input type="number" id="dir06" name="dir06" placeholder="15" maxlength="3">
-                    </div>
-                
-                    <div>
-                        <select id="dir07" name="dir07">
-                            <option value="A">A</option>
-                            <option value="B">B</option>
-                            <option value="C">C</option>
-                            <option value="D">D</option>
-                            <option value="E">E</option>
-                            <option value="F">F</option>
-                            <option value="G">G</option>
-                            <option value="H">H</option>
-                            <option value="I">I</option>
-                            <option value="J">J</option>
-                            <option value="K">K</option>
-                            <option value="L">L</option>
-                            <option value="M">M</option>
-                            <option value="N">N</option>
-                            <option value="O">O</option>
-                            <option value="P">P</option>
-                            <option value="Q">Q</option>
-                            <option value="R">R</option>
-                            <option value="T">T</option>
-                            <option value="U">U</option>
-                            <option value="V">V</option>
-                            <option value="W">W</option>
-                            <option value="X">X</option>
-                            <option value="Y">Y</option>
-                            <option value="Z">Z</option>
-                        </select>
-                    </div>
-                </div>
+              <div>
+                <select formControlName="dir07" name="dir07">
+                  <option value="A">A</option>
+                  <option value="B">B</option>
+                  <option value="C">C</option>
+                  <option value="D">D</option>
+                  <option value="E">E</option>
+                  <option value="F">F</option>
+                  <option value="G">G</option>
+                  <option value="H">H</option>
+                  <option value="I">I</option>
+                  <option value="J">J</option>
+                  <option value="K">K</option>
+                  <option value="L">L</option>
+                  <option value="M">M</option>
+                  <option value="N">N</option>
+                  <option value="O">O</option>
+                  <option value="P">P</option>
+                  <option value="Q">Q</option>
+                  <option value="R">R</option>
+                  <option value="T">T</option>
+                  <option value="U">U</option>
+                  <option value="V">V</option>
+                  <option value="W">W</option>
+                  <option value="X">X</option>
+                  <option value="Y">Y</option>
+                  <option value="Z">Z</option>
+                </select>
+              </div>
+              <div>
+                <input
+                  type="number"
+                  formControlName="dir08"
+                  name="dir08"
+                  placeholder="56"
+                  maxlength="3"
+                />
+              </div>
             </div>
+          </div>
         </div>
 
         <div class="col-md-12 text-center">
-            <!-- <p><input type="submit" value="Consultar"></p> -->
-            <button class="btn btn-success btn-lg">Consultar</button>
-        </div> 
-            
-    </div>
+          <!-- <p><input type="submit" value="Consultar"></p> -->
+          <button class="buttonEnviar" [disabled]="formConsul.invalid">
+            Consultar
+          </button>
+          <button
+            type="button"
+            class="buttonEnviar"
+            (click)="limpiarConsulta()"
+          >
+            Limpiar
+          </button>
+        </div>
+      </div>
+    </form>
 
-    <hr class="style-seven">
+    <hr class="style-seven" />
 
     <div>
-        <table class="table table-borderless table-striped">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Id Oferta</th>
-                    <th scope="col">Matrícula Inmobiliaria</th>
-                    <th scope="col">Opciones</th>
-                
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">123456789</th>
-                    <td>300-5329325</td>
-                    <td>
-                        <button class="m-1 btn btn-primary btn-sm"><i class="fas fa-edit" style="font-size:12px;color:black;"></i> Editar </button>
-                        <button class="m-1 btn btn-danger btn-sm"><i class="fas fa-trash-alt" style="font-size:12px;color:red;"></i> Eliminar </button>
-                        <button class="m-1 btn btn-warning btn-sm"><i class="fas fa-clone" style="font-size:12px;color:rgb(30, 48, 80);"></i> Duplicar </button> 
-                        <button class="m-1 btn btn-info btn-sm"><i class="fas fa-list-alt" style="font-size:12px;color:green;"></i> Inspeccionar </button>  
-                    </td>
-                    
-                </tr>
-                <tr>
-                    <th scope="row">987654321</th>
-                    <td>50C-1826372</td>
-                    <td>
-                        <button class="m-1 btn btn-primary btn-sm"><i class="fas fa-edit" style="font-size:12px;color:black;"></i> Editar </button>
-                        <button class="m-1 btn btn-danger btn-sm"><i class="fas fa-trash-alt" style="font-size:12px;color:red;"></i> Eliminar </button>
-                        <button class="m-1 btn btn-warning btn-sm"><i class="fas fa-clone" style="font-size:12px;color:rgb(30, 48, 80);"></i> Duplicar </button> 
-                        <button class="m-1 btn btn-info btn-sm"><i class="fas fa-list-alt" style="font-size:12px;color:green;"></i> Inspeccionar </button>  
-                    </td>
-                    
-                </tr>
-                
-            </tbody>
-        </table>
+      <table class="table table-borderless table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Id Oferta</th>
+            <th scope="col">Matrícula Inmobiliaria</th>
+            <th scope="col">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">123456789</th>
+            <td>300-5329325</td>
+            <td>
+              <button class="m-1 btn btn-primary btn-sm">
+                <i
+                  class="fas fa-edit"
+                  style="font-size: 12px; color: black"
+                ></i>
+                Editar
+              </button>
+              <button class="m-1 btn btn-danger btn-sm">
+                <i
+                  class="fas fa-trash-alt"
+                  style="font-size: 12px; color: red"
+                ></i>
+                Eliminar
+              </button>
+              <button class="m-1 btn btn-warning btn-sm">
+                <i
+                  class="fas fa-clone"
+                  style="font-size: 12px; color: rgb(30, 48, 80)"
+                ></i>
+                Duplicar
+              </button>
+              <button class="m-1 btn btn-info btn-sm">
+                <i
+                  class="fas fa-list-alt"
+                  style="font-size: 12px; color: green"
+                ></i>
+                Inspeccionar
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">987654321</th>
+            <td>50C-1826372</td>
+            <td>
+              <button class="m-1 btn btn-primary btn-sm">
+                <i
+                  class="fas fa-edit"
+                  style="font-size: 12px; color: black"
+                ></i>
+                Editar
+              </button>
+              <button class="m-1 btn btn-danger btn-sm">
+                <i
+                  class="fas fa-trash-alt"
+                  style="font-size: 12px; color: red"
+                ></i>
+                Eliminar
+              </button>
+              <button class="m-1 btn btn-warning btn-sm">
+                <i
+                  class="fas fa-clone"
+                  style="font-size: 12px; color: rgb(30, 48, 80)"
+                ></i>
+                Duplicar
+              </button>
+              <button class="m-1 btn btn-info btn-sm">
+                <i
+                  class="fas fa-list-alt"
+                  style="font-size: 12px; color: green"
+                ></i>
+                Inspeccionar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-        <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-                <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-                </li>
-            </ul>
-        </nav>
-
-    </div> 
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
 
     <app-footer></app-footer>
-</body>
+  </body>
 </html>
