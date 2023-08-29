@@ -1,1 +1,140 @@
-<p>dat-gen-edit works!</p>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <app-header></app-header>
+    <form [formGroup]="formUserGen" (ngSubmit)="procesar()">
+      <div class="container">
+        <h2>Datos Generales</h2>
+
+        <label for="idoferta">Id de la Oferta</label>
+        <div class="alerError" [hidden]="idoferta.valid || idoferta.pristine">
+          El id es obligatorio
+        </div>
+        <input type="number" formControlName="idoferta" name="Id Oferta" />
+
+        <label for="dertip">Derecho Tipo</label>
+        <div class="alerError" *ngIf="dertip.errors?.['required']">
+          El derecho tipo es un campo obligatorio
+        </div>
+        <select formControlName="dertip" name="dertip">
+          <option value="OCUPACION">OCUPACION</option>
+          <option value="POSESION">POSESIÓN</option>
+          <option value="DERECHO_DE_DOMINIO_O_PROPIEDAD">
+            DERECHO DE DOMINIO O PROPIEDAD
+          </option>
+        </select>
+
+        <label for="tipinmb">Tipo de Inmueble</label>
+        <div class="alerError" *ngIf="tipinmb.errors?.['required']">
+          El tipo de inmueble es un campo obligatorio
+        </div>
+        <select formControlName="tipinmb" name="tipinmb">
+          <option value="CASA">CASA</option>
+          <option value="APARTAMENTO">APARTAMENTO</option>
+          <option value="BODEGA">BODEGA</option>
+          <option value="OFICINA">OFICINA</option>
+          <option value="LOCAL_COMERCIAL">LOCAL COMERCIAL</option>
+          <option value="EDIFICIO">EDIFICIO</option>
+          <option value="LOTE">LOTE</option>
+          <option value="FINCA">FINCA</option>
+          <option value="CASA_CAMPESTRE">CASA CAMPESTRE</option>
+          <option value="CABAÑA">CABAÑA</option>
+          <option value="CASA_LOTE">CASA LOTE</option>
+          <option value="GARAJE_EN_PH">GARAJE EN_PH</option>
+          <option value="PARQUEADERO_COMERCIAL">PARQUEADERO COMERCIAL</option>
+          <option value="DEPOSITO_EN_PH">DEPOSITO EN PH</option>
+          <option value="OTRO">OTRO</option>
+        </select>
+
+        <div *ngIf="formUserGen.value.tipinmb?.valueOf() !== 'LOTE'">
+          <label for="valanex">Valor Incluye Anexidades</label>
+          <div class="alerError" *ngIf="formUserGen.errors?.['required']">
+            El especificar si incluye anexidades es obligatorio
+          </div>
+          <select formControlName="valanex" name="valanex">
+            <option value="SI">SI</option>
+            <option value="NO">NO</option>
+          </select>
+        </div>
+
+        <label for="feccapofer">Fecha de Captura Oferta</label>
+        <div class="alerError" *ngIf="feccapofer.errors?.['required']">
+          La fecha de captura de la oferta es obligatoria
+        </div>
+        <div>
+          <input
+            type="date"
+            formControlName="feccapofer"
+            name="feccapofer"
+            value="2023-07-22"
+            min="2000-01-01"
+            max="2030-12-31"
+          />
+        </div>
+
+        <label for="tiemofemer">Tiempo Oferta en el Mercado (en meses)</label>
+
+        <input
+          type="number"
+          formControlName="tiemofemer"
+          name="tiemofemer"
+          placeholder="2"
+          step="1"
+        />
+
+        <div *ngIf="controlEntrevariables.val_proyecto_inmobiliario">
+          <label for="proinmb">Proyectos Inmobiliario</label>
+          <div class="alerError" *ngIf="formUserGen.errors?.['required']">
+            El especificar si es proyecto inmobiliario es obligatorio
+          </div>
+          <select formControlName="proinmb" name="proinmb">
+            <option value="SI">SI</option>
+            <option value="NO">NO</option>
+          </select>
+
+          <div *ngIf="this.formUserGen.value.proinmb?.valueOf() === 'SI'">
+            <label for="desproy">Descripción del Proyecto</label>
+            <div class="alerError" *ngIf="formUserGen.errors?.['required']">
+              La descripción del proyecto inmobiliario es obligatorio
+            </div>
+            <textarea
+              formControlName="desproy"
+              name="desproy"
+              placeholder="Escribir Descripción (Menor a 500 Caracteres)"
+              style="height: 200px"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <h2 class="col-4">
+          <button class="buttonEnviar" routerLink="../LocPre">Anterior</button>
+        </h2>
+        <h2 class="col-4">
+          <button
+            class="buttonEnviar"
+            [disabled]="
+              formUserGen.invalid || editar.idenPredio.id_oferta == undefined
+            "
+          >
+            Guardar
+          </button>
+        </h2>
+        <h2 class="col-4">
+          <button
+            class="buttonEnviar"
+            [disabled]="!editar.vistasHabilitar.noVistaInfoFisi"
+            routerLink="../InfFis"
+          >
+            Siguiente
+          </button>
+        </h2>
+      </div>
+    </form>
+    <app-footer></app-footer>
+  </body>
+</html>

@@ -33,6 +33,45 @@ export class EditarService {
     obs_verifica: 'Sin comentarios',
   };
 
+  estrucIdenPredio(): any {
+    this.idenPredio.id_oferta =
+      Number(this.idenPredio.id_oferta) <= 0 ||
+      Number.isNaN(Number(this.idenPredio.id_oferta))
+        ? undefined
+        : Number(this.idenPredio.id_oferta);
+    this.idenPredio.npn =
+      this.idenPredio.npn == '' ? undefined : this.idenPredio.npn;
+    this.idenPredio.npa =
+      this.idenPredio.npa == '' ? undefined : this.idenPredio.npa;
+    this.idenPredio.codigo_homologado =
+      this.idenPredio.codigo_homologado == ''
+        ? undefined
+        : this.idenPredio.codigo_homologado;
+    this.idenPredio.matricula =
+      this.idenPredio.matricula == '' ? undefined : this.idenPredio.matricula;
+    this.idenPredio.condicion_juridica =
+      this.idenPredio.condicion_juridica == ''
+        ? undefined
+        : this.idenPredio.condicion_juridica;
+    this.idenPredio.tipo_oferta =
+      this.idenPredio.tipo_oferta == ''
+        ? undefined
+        : this.idenPredio.tipo_oferta;
+    this.idenPredio.tipo_predio =
+      this.idenPredio.tipo_predio == ''
+        ? undefined
+        : this.idenPredio.tipo_predio;
+    this.idenPredio.id_oferta =
+      Number(this.idenPredio.estado_oferta) <= 0 ||
+      Number.isNaN(Number(this.idenPredio.estado_oferta))
+        ? undefined
+        : Number(this.idenPredio.estado_oferta);
+    this.idenPredio.obs_verifica =
+      this.idenPredio.obs_verifica == ''
+        ? undefined
+        : this.idenPredio.obs_verifica;
+  }
+
   locPre: locPreI = {
     id_oferta: undefined,
     departamento: undefined,
@@ -291,7 +330,7 @@ export class EditarService {
       nombre_oferente: false,
       numero_contacto: false,
       url: false,
-      enlace_interno_foto_predio: false,
+      enlace_interno_foto_predio: true,
       enlace_documentos: true,
       observaciones: false,
     },

@@ -1,1 +1,433 @@
-<p>inf-fue-edit works!</p>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <app-header></app-header>
+    <form [formGroup]="formUserFue" (ngSubmit)="procesar()">
+      <h2>Información de la persona que publica la oferta</h2>
+      <div class="container">
+        <label for="id_oferta">Id de la Oferta</label>
+        <div class="alerError" [hidden]="id_oferta.valid || id_oferta.pristine">
+          El id es obligatorio
+        </div>
+        <input type="number" formControlName="id_oferta" name="Id_Oferta" />
+
+        <label for="nom">Nombre del Oferente</label>
+        <div class="alerError" *ngIf="nom.errors?.['required']">
+          El nombre es obligatorio
+        </div>
+        <div [hidden]="nom.valid || nom.pristine">
+          <div *ngIf="nom.errors?.['maxlength']">
+            La cantidad de caracteres debe de ser menor a 50
+          </div>
+        </div>
+        <input type="text" formControlName="nom" name="nom" placeholder="" />
+
+        <label for="tel">Número de contacto</label>
+        <div
+          class="alerError"
+          *ngIf="formUserFue.controls['tel'].hasError('valoresVacios')"
+        >
+          Debe de existir al menos un valor de contacto o URL, favor ingresar
+          digitos
+        </div>
+        <input type="number" formControlName="tel" name="tel" placeholder="" />
+
+        <label for="url">Url</label>
+        <div
+          class="alerError"
+          *ngIf="formUserFue.controls['url'].hasError('valoresVacios')"
+        >
+          Debe de existir al menos un valor de contacto o URL, favor ingresar
+          una URL válida
+        </div>
+        <input type="text" formControlName="url" name="url" placeholder="" />
+
+        Anexar información
+        <div class="container text-center">
+          <div class="row">
+            <!-- <div
+              class="alerError"
+              *ngIf="!editar.infoFuente.enlace_interno_foto_predio"
+            >
+              Favor adjuntar al menos una foto de la oferta
+            </div> -->
+            <div class="col">
+              <input
+                multiple
+                type="file"
+                name="Fotos"
+                title="Adjuntar Fotos"
+                (change)="capturarFile($event)"
+              />
+              <h2 class="col-12">
+                <!-- <input class="btn btn-outline-primary" type="file" name="Fotos" title="Adjuntar Fotos" /> -->
+                <button
+                  class="btn btn-primary"
+                  (click)="subirArchivos()"
+                  target="_blank"
+                  type="button"
+                  [disabled]="loading"
+                >
+                  Subir Fotos
+                </button>
+                <button
+                  class="btn btn-success"
+                  *ngIf="editar.infoFuente.enlace_interno_foto_predio"
+                >
+                  Porcentaje de carga: {{ percentDone }}%
+                </button>
+                <div *ngIf="editar.infoFuente.enlace_interno_foto_predio">
+                  ✅
+                </div>
+              </h2>
+            </div>
+            <div class="col">
+              <input
+                multiple
+                type="file"
+                name="Documentos"
+                title="Adjuntar Documentos"
+                (change)="capturarDocs($event)"
+              />
+              <h2 class="col-12">
+                <!-- <input class="btn btn-outline-primary" type="file" name="Fotos" title="Adjuntar Documentos" /> -->
+                <button
+                  class="btn btn-primary"
+                  (click)="subirArchivosDocs()"
+                  target="_blank"
+                  type="button"
+                  [disabled]="loadingDocs"
+                >
+                  Subir Archivos
+                </button>
+                <button
+                  class="btn btn-success"
+                  *ngIf="editar.infoFuente.enlace_documentos"
+                >
+                  Porcentaje de carga: {{ percentDoneDocs }}%
+                </button>
+                <div *ngIf="editar.infoFuente.enlace_documentos">✅</div>
+              </h2>
+            </div>
+          </div>
+        </div>
+
+        <label for="obs1">Observaciones de la oferta</label>
+        <div class="alerError" *ngIf="obs1.errors?.['required']">
+          La observación de la oferta es obligatoria
+        </div>
+        <div [hidden]="obs1.valid || obs1.pristine">
+          <div *ngIf="obs1.errors?.['maxlength']">
+            La cantidad de caracteres debe de ser menor a 4000
+          </div>
+        </div>
+        <textarea
+          formControlName="obs1"
+          name="obs1"
+          placeholder="Escribir Observación (Menor a 4000 Carácteres)"
+          style="height: 200px"
+        ></textarea>
+      </div>
+
+      <h2>Información de la persona que captura la oferta</h2>
+
+      <div class="container">
+        <label for="id_oferta">Id de la Oferta</label>
+        <div class="alerError" [hidden]="id_oferta.valid || id_oferta.pristine">
+          El id es obligatorio
+        </div>
+        <input type="number" formControlName="id_oferta" name="Id_Oferta" />
+
+        <label for="nomcapofer"
+          >Nombres de la persona que captura la oferta</label
+        >
+        <div
+          class="alerError"
+          [hidden]="nomcapofer.valid || nomcapofer.pristine"
+        >
+          <div *ngIf="nomcapofer.errors?.['required']">
+            El(Los) nombre(s) de la persona es(son) obligatorio(s)
+          </div>
+          <div *ngIf="nomcapofer.errors?.['maxlength']">
+            La cantidad de caracteres debe de ser menor a 50
+          </div>
+        </div>
+        <input
+          type="text"
+          formControlName="nomcapofer"
+          name="nomcapofer"
+          placeholder=""
+        />
+
+        <label for="apecapofer"
+          >Apellidos de la persona que captura la oferta</label
+        >
+        <div
+          class="alerError"
+          [hidden]="apecapofer.valid || apecapofer.pristine"
+        >
+          <div *ngIf="apecapofer.errors?.['required']">
+            El(Los) apellido(s) de la persona es(son) obligatorio(s)
+          </div>
+          <div *ngIf="apecapofer.errors?.['maxlength']">
+            La cantidad de caracteres debe de ser menor a 50
+          </div>
+        </div>
+        <input
+          type="text"
+          formControlName="apecapofer"
+          name="apecapofer"
+          placeholder=""
+        />
+
+        <label for="tipercap"
+          >Tipo de Identificación de persona que captura la oferta</label
+        >
+        <div class="alerError" [hidden]="tipercap.valid || tipercap.pristine">
+          Los Servicios publicos son un campo obligatorio
+        </div>
+        <select formControlName="tipercap" name="tipercap" placeholder="---">
+          <option value="CEDULA_CIUDADANIA">CÉDULA DE CIUDADANÍA</option>
+          <option value="CEDULA_EXTRANJERIA">CÉDULA DE EXTRANJERÍA</option>
+        </select>
+
+        <label for="numidencap"
+          >Numero de Identificación de persona que captura</label
+        >
+        <div
+          class="alerError"
+          [hidden]="numidencap.valid || numidencap.pristine"
+        >
+          <div *ngIf="numidencap.errors?.['required']">
+            El Numero de Identificación es obligatorio
+          </div>
+          <div *ngIf="numidencap.errors?.['min'] || numidencap.errors?.['max']">
+            El Numero de Identificación debe de ser positivo y estar de 1 a
+            1000000000
+          </div>
+        </div>
+        <input
+          type="number"
+          formControlName="numidencap"
+          name="numidencap"
+          placeholder=""
+        />
+
+        <label for="emailcap">Email de la persona que captura la oferta:</label>
+        <div class="alerError" [hidden]="emailcap.valid || emailcap.pristine">
+          <div *ngIf="emailcap.errors?.['required']">
+            El correo del responsable de la oferta es obligatorio
+          </div>
+          <div *ngIf="emailcap.errors?.['maxlength']">
+            La cantidad de caracteres debe de ser menor a 50
+          </div>
+        </div>
+
+        <input
+          type="email"
+          formControlName="emailcap"
+          name="emailcap"
+          placeholder=""
+        />
+
+        <label for="areresofer">Área responsable de la oferta</label>
+        <div
+          class="alerError"
+          [hidden]="areresofer.valid || areresofer.pristine"
+        >
+          <div *ngIf="areresofer.errors?.['required']">
+            El área responsable de la oferta es obligatoria
+          </div>
+          <div *ngIf="areresofer.errors?.['maxlength']">
+            La cantidad de caracteres debe de ser menor a 100
+          </div>
+        </div>
+        <input
+          type="text"
+          formControlName="areresofer"
+          name="areresofer"
+          placeholder=""
+        />
+      </div>
+
+      <div *ngIf="editar.infoPer.rol === 1 || editar.infoPer.rol === 2">
+        <h2>Información de la persona que verifica la oferta</h2>
+
+        <div class="container">
+          <label for="id_oferta">Id de la Oferta</label>
+          <div
+            class="alerError"
+            [hidden]="id_oferta.valid || id_oferta.pristine"
+          >
+            El id es obligatorio
+          </div>
+          <input type="number" formControlName="id_oferta" name="id_oferta" />
+
+          <label for="nomveriofer"
+            >Nombres de la persona que verifica la oferta</label
+          >
+          <div
+            class="alerError"
+            [hidden]="nomveriofer.valid || nomveriofer.pristine"
+          >
+            <div *ngIf="nomveriofer.errors?.['required']">
+              El(Los) nombre(s) de la persona es(son) obligatorio(s)
+            </div>
+            <div *ngIf="nomveriofer.errors?.['maxlength']">
+              La cantidad de caracteres debe de ser menor a 50
+            </div>
+          </div>
+          <input
+            type="text"
+            formControlName="nomveriofer"
+            name="nomveriofer"
+            placeholder=""
+          />
+
+          <label for="apeveriofer"
+            >Apellidos de la persona que verifica la oferta</label
+          >
+          <div
+            class="alerError"
+            [hidden]="apeveriofer.valid || apeveriofer.pristine"
+          >
+            <div *ngIf="apeveriofer.errors?.['required']">
+              El(Los) apellido(s) de la persona es(son) obligatorio(s)
+            </div>
+            <div *ngIf="apeveriofer.errors?.['maxlength']">
+              La cantidad de caracteres debe de ser menor a 50
+            </div>
+          </div>
+          <input
+            type="text"
+            formControlName="apeveriofer"
+            name="apeveriofer"
+            placeholder=""
+          />
+
+          <label for="tiperver"
+            >Tipo de Identificación de persona que verifica</label
+          >
+          <div class="alerError" [hidden]="tiperver.valid || tiperver.pristine">
+            Los Servicios publicos son un campo obligatorio
+          </div>
+          <select formControlName="tiperver" name="tiperver" placeholder="---">
+            <option value="CEDULA_CIUDADANIA">CÉDULA DE CIUDADANÍA</option>
+            <option value="CEDULA_EXTRANJERIA">CÉDULA DE EXTRANJERÍA</option>
+          </select>
+
+          <label for="numperver"
+            >Numero de Identificación de persona que verifica</label
+          >
+          <div
+            class="alerError"
+            [hidden]="numperver.valid || numperver.pristine"
+          >
+            <div *ngIf="numperver.errors?.['required']">
+              El Numero de Identificación es obligatorio
+            </div>
+            <div *ngIf="numperver.errors?.['min'] || numperver.errors?.['max']">
+              El Numero de Identificación debe de ser positivo y estar de 1 a
+              100000000000
+            </div>
+          </div>
+          <input
+            type="number"
+            formControlName="numperver"
+            name="numperver"
+            placeholder=""
+          />
+
+          <label for="emailveri">Email de la persona que verifica:</label>
+          <div
+            class="alerError"
+            [hidden]="emailveri.valid || emailveri.pristine"
+          >
+            <div *ngIf="emailveri.errors?.['required']">
+              El correo de la persona que verifica la oferta es obligatorio
+            </div>
+            <div *ngIf="emailveri.errors?.['maxlength']">
+              La cantidad de caracteres debe de ser menor a 50
+            </div>
+          </div>
+
+          <input
+            type="email"
+            formControlName="emailveri"
+            name="emailveri"
+            placeholder=""
+          />
+
+          <label for="areverofer">Área de la verificación de la oferta</label>
+          <div
+            class="alerError"
+            [hidden]="areverofer.valid || areverofer.pristine"
+          >
+            <div *ngIf="areverofer.errors?.['required']">
+              El área de la verificación de la oferta es obligatoria
+            </div>
+            <div *ngIf="areverofer.errors?.['maxlength']">
+              La cantidad de caracteres debe de ser menor a 100
+            </div>
+          </div>
+          <input
+            type="text"
+            formControlName="areverofer"
+            name="areverofer"
+            placeholder=""
+          />
+          <label for="obs3">Observaciones de verificación</label>
+          <div class="alerError" [hidden]="obs3.valid || obs3.pristine">
+            <div *ngIf="obs3.errors?.['required']">
+              Incluir una observación es obligatorio
+            </div>
+            <div *ngIf="obs3.errors?.['maxlength']">
+              La cantidad de caracteres debe de ser menor a 1000
+            </div>
+          </div>
+          <textarea
+            formControlName="obs3"
+            name="obs3"
+            placeholder=""
+            style="height: 200px"
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="row">
+        <h2 class="col-4">
+          <button class="buttonEnviar" routerLink="../InfEco">Anterior</button>
+        </h2>
+        <h2 class="col-4">
+          <button
+            class="buttonEnviar"
+            [disabled]="
+              formUserFue.invalid ||
+              !editar.infoFuente.enlace_interno_foto_predio ||
+              editar.idenPredio.id_oferta == undefined
+            "
+          >
+            Guardar
+          </button>
+        </h2>
+        <h2 class="col-4">
+          <button
+            type="button"
+            class="buttonEnviar"
+            [disabled]="
+              !editar.vistasHabilitar.noEnvioTerminar ||
+              editar.idenPredio.id_oferta == undefined
+            "
+            (click)="enviarTerminar()"
+          >
+            Enviar y terminar
+          </button>
+        </h2>
+      </div>
+    </form>
+    <app-footer></app-footer>
+  </body>
+</html>

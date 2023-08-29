@@ -1613,6 +1613,7 @@ export class ConOferComponent {
           this.editar.setInfoFuentePredio = reseditOfer.datos[5];
           this.editar.setInfoAdminePredio = reseditOfer.datos[6];
 
+          this.router.navigate(['ModOfer/IdenPre']);
           console.log(this.editar.idenPredio);
         } else {
           const dialogRef = this.dialog.open(DialogsComponent, {
