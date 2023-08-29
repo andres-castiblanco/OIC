@@ -20,6 +20,7 @@ import { consulOferI } from 'src/app/modelos/consulta-oferta.interface';
 import { resconsulOferI } from 'src/app/modelos/res-consulta-oferta.interface';
 
 import { Observable } from 'rxjs';
+import { ResEditOferI } from 'src/app/modelos/res-editar-oferta.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -142,5 +143,11 @@ export class ApiService {
     let direccion = this.url + 'consul_oferta/' + pagina;
     let contenido = { furmulario: form, token: token };
     return this.http.post<resconsulOferI>(direccion, contenido);
+  }
+
+  editarOferta(id_oferta: Number, token: String): Observable<ResEditOferI> {
+    let direccion = this.url + 'edit_oferta';
+    let contenido = { id_oferta: id_oferta, token: token };
+    return this.http.post<ResEditOferI>(direccion, contenido);
   }
 }

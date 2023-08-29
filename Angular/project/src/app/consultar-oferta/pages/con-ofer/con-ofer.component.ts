@@ -8,6 +8,7 @@ import {
 } from '../../../modelos/consulta-oferta.interface';
 import { resconsulOferI } from '../../../modelos/res-consulta-oferta.interface';
 import { ConsultaService } from '../../../servicios/consulta/consulta.service';
+import { EditarService } from '../../../servicios/editar/editar.service';
 import {
   FormBuilder,
   FormGroup,
@@ -22,6 +23,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogsComponent } from '../../components/dialogs/dialogs.component';
 
 import { Router } from '@angular/router';
+import { ResEditOferI } from 'src/app/modelos/res-editar-oferta.interface';
 
 @Component({
   selector: 'app-con-ofer',
@@ -35,7 +37,8 @@ export class ConOferComponent {
     private api: ApiService,
     public dialog: MatDialog,
     public valrelacionesService: ValrelacionesService,
-    private router: Router
+    private router: Router,
+    public editar: EditarService
   ) {}
 
   get id_oferta() {
@@ -1596,6 +1599,33 @@ export class ConOferComponent {
   }
 
   editarOferta(id_oferta: string): any {
+    this.resConsulOferObj.token = String(localStorage.getItem('token'));
+    this.api
+      .editarOferta(Number(id_oferta), this.resConsulOferObj.token)
+      .subscribe((reseditOfer: ResEditOferI) => {
+        if (reseditOfer.status === '200 OK') {
+          localStorage.setItem('token', reseditOfer.token?.valueOf());
+          this.editar.setIdenPredio = reseditOfer.datos[0];
+          this.editar.setLocaPredio = reseditOfer.datos[1];
+          this.editar.setDatGenPredio = reseditOfer.datos[2];
+          this.editar.setInfoFisPredio = reseditOfer.datos[3];
+          this.editar.setInfoEconoPredio = reseditOfer.datos[4];
+          this.editar.setInfoFuentePredio = reseditOfer.datos[5];
+          this.editar.setInfoAdminePredio = reseditOfer.datos[6];
+
+          console.log(this.editar.idenPredio);
+        } else {
+          const dialogRef = this.dialog.open(DialogsComponent, {
+            width: '350px',
+            data: reseditOfer.msj,
+          });
+          dialogRef.afterClosed().subscribe((res) => {
+            if (res) {
+              console.warn(reseditOfer.msj);
+            }
+          });
+        }
+      });
     console.log(id_oferta);
   }
 
