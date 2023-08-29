@@ -16,6 +16,9 @@ import { loginContraI } from '../../modelos/login-contra.interface';
 import { resLoginContraI } from '../../modelos/res-logis-contra.interface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { loginCambContraI } from 'src/app/modelos/login-camb-contra.interface';
+import { consulOferI } from 'src/app/modelos/consulta-oferta.interface';
+import { resconsulOferI } from 'src/app/modelos/res-consulta-oferta.interface';
+
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -120,5 +123,24 @@ export class ApiService {
       reportProgress: true,
       observe: 'events',
     });
+  }
+
+  consultarOferta(
+    form: consulOferI,
+    token: String
+  ): Observable<resconsulOferI> {
+    let direccion = this.url + 'consul_oferta';
+    let contenido = { furmulario: form, token: token };
+    return this.http.post<resconsulOferI>(direccion, contenido);
+  }
+
+  consultarOfertaPag(
+    form: consulOferI,
+    token: String,
+    pagina: Number
+  ): Observable<resconsulOferI> {
+    let direccion = this.url + 'consul_oferta/' + pagina;
+    let contenido = { furmulario: form, token: token };
+    return this.http.post<resconsulOferI>(direccion, contenido);
   }
 }

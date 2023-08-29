@@ -15,22 +15,21 @@
             >Id de la Oferta</label
           >
 
-          <div
-            class="alerError"
-            [hidden]="id_oferta.valid || id_oferta.pristine"
-          >
-            <div *ngIf="id_oferta.errors?.['maxlength']">
-              La cantidad de números debe de ser menor o igual a 30
-            </div>
+          <div class="col-10">
             <div
               class="alerError"
-              *ngIf="formConsul.controls['id_oferta'].hasError('hasNumber')"
+              [hidden]="id_oferta.valid || id_oferta.pristine"
             >
-              Los valores ingresados deben de ser digitos 0-9
+              <div *ngIf="id_oferta.errors?.['maxlength']">
+                La cantidad de números debe de ser menor o igual a 30
+              </div>
+              <div
+                class="alerError"
+                *ngIf="formConsul.controls['id_oferta'].hasError('hasNumber')"
+              >
+                Los valores ingresados deben de ser digitos 0-9
+              </div>
             </div>
-          </div>
-
-          <div class="col-10">
             <input
               type="text"
               id="id_oferta"
@@ -46,24 +45,24 @@
             >Número Predial Nuevo</label
           >
 
-          <div
-            class="alerError"
-            [hidden]="numprenue.valid || numprenue.pristine"
-          >
-            <div
-              *ngIf="numprenue.errors?.['minlength'] || numprenue.errors?.['maxlength']"
-            >
-              La cantidad de números debe de ser mayor de 20 y menor o igual a
-              30
-            </div>
+          <div class="col-10">
             <div
               class="alerError"
-              *ngIf="formConsul.controls['numprenue'].hasError('hasNumber')"
+              [hidden]="numprenue.valid || numprenue.pristine"
             >
-              Los valores ingresados deben de ser digitos 0-9
+              <div
+                *ngIf="numprenue.errors?.['minlength'] || numprenue.errors?.['maxlength']"
+              >
+                La cantidad de números debe de ser mayor de 20 y menor o igual a
+                30
+              </div>
+              <div
+                class="alerError"
+                *ngIf="formConsul.controls['numprenue'].hasError('hasNumber')"
+              >
+                Los valores ingresados deben de ser digitos 0-9
+              </div>
             </div>
-          </div>
-          <div class="col-10">
             <input
               type="text"
               id="numprenue"
@@ -78,24 +77,24 @@
           <label class="col-form-label col-2" for="numpreant"
             >Número Predial Antiguo</label
           >
-          <div
-            class="alerError"
-            [hidden]="numpreant.valid || numpreant.pristine"
-          >
-            <div
-              *ngIf="numpreant.errors?.['minlength'] || numpreant.errors?.['maxlength']"
-            >
-              La cantidad de números debe de ser mayor de 10 y menor o igual a
-              20
-            </div>
+          <div class="col-10">
             <div
               class="alerError"
-              *ngIf="formConsul.controls['numpreant'].hasError('hasNumber')"
+              [hidden]="numpreant.valid || numpreant.pristine"
             >
-              Los valores ingresados deben de ser digitos 0-9
+              <div
+                *ngIf="numpreant.errors?.['minlength'] || numpreant.errors?.['maxlength']"
+              >
+                La cantidad de números debe de ser mayor de 10 y menor o igual a
+                20
+              </div>
+              <div
+                class="alerError"
+                *ngIf="formConsul.controls['numpreant'].hasError('hasNumber')"
+              >
+                Los valores ingresados deben de ser digitos 0-9
+              </div>
             </div>
-          </div>
-          <div class="col-10">
             <input
               type="text"
               id="numpreant"
@@ -110,12 +109,16 @@
           <label class="col-form-label col-2" for="matrinmb"
             >Matricula Inmobiliaria</label
           >
-          <div class="alerError" [hidden]="matrinmb.valid || matrinmb.pristine">
-            <div *ngIf="matrinmb.errors?.['maxlength']">
-              La cantidad de caracteres debe de ser inferior a 20
-            </div>
-          </div>
+
           <div class="col-10">
+            <div
+              class="alerError"
+              [hidden]="matrinmb.valid || matrinmb.pristine"
+            >
+              <div *ngIf="matrinmb.errors?.['maxlength']">
+                La cantidad de caracteres debe de ser inferior a 20
+              </div>
+            </div>
             <input
               type="text"
               formControlName="matrinmb"
@@ -171,12 +174,13 @@
           <label class="col-form-label col-2" for="dirrur"
             >Dirección Rural</label
           >
-          <div class="alerError" [hidden]="dirrur.valid || dirrur.pristine">
-            <div *ngIf="dirrur.errors?.['maxlength']">
-              La cantidad de caracteres debe de ser inferior a 100
-            </div>
-          </div>
+
           <div class="col-10">
+            <div class="alerError" [hidden]="dirrur.valid || dirrur.pristine">
+              <div *ngIf="dirrur.errors?.['maxlength']">
+                La cantidad de caracteres debe de ser inferior a 100
+              </div>
+            </div>
             <input
               type="text"
               formControlName="dirrur"
@@ -189,19 +193,17 @@
         <div class="mb-3 row">
           <label class="col-form-label col-2" for="dir">Dirección Urbana</label>
 
-          <div class="alerError" [hidden]="dir01.valid || dir01.pristine"></div>
-          <div class="alerError" [hidden]="dir02.valid || dir02.pristine">
-            <div *ngIf="dir02.errors?.['min'] || dir02.errors?.['max']">
-              El número de la vía principal debe de estar entre 0 y 1000
-            </div>
-          </div>
-          <div class="alerError" [hidden]="dir06.valid || dir06.pristine">
-            <div *ngIf="dir06.errors?.['min'] || dir06.errors?.['max']">
-              El número de la vía secundaria debe de estar entre 0 y 1000
-            </div>
-          </div>
-
           <div class="col-10">
+            <div class="alerError" [hidden]="dir02.valid || dir02.pristine">
+              <div *ngIf="dir02.errors?.['min'] || dir02.errors?.['max']">
+                El número de la vía principal debe de estar entre 0 y 1000
+              </div>
+            </div>
+            <div class="alerError" [hidden]="dir06.valid || dir06.pristine">
+              <div *ngIf="dir06.errors?.['min'] || dir06.errors?.['max']">
+                El número de la vía secundaria debe de estar entre 0 y 1000
+              </div>
+            </div>
             <div class="direction">
               <div>
                 <select formControlName="dir01" name="dir01">
@@ -322,11 +324,11 @@
           </div>
         </div>
 
-        <div class="col-md-12 text-center">
-          <!-- <p><input type="submit" value="Consultar"></p> -->
+        <div class="col-md-12 text-center d-flex justify-content-around">
           <button class="buttonEnviar" [disabled]="formConsul.invalid">
             Consultar
           </button>
+
           <button
             type="button"
             class="buttonEnviar"
@@ -345,76 +347,58 @@
         <thead class="thead-dark">
           <tr>
             <th scope="col">Id Oferta</th>
-            <th scope="col">Matrícula Inmobiliaria</th>
+            <th scope="col">Matricula</th>
+            <th scope="col">Estado Oferta</th>
             <th scope="col">Opciones</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">123456789</th>
-            <td>300-5329325</td>
+          <tr *ngFor="let oferta of resConsulOferObj.dat_consul.registros">
+            <th scope="row">
+              {{ oferta.id_oferta }}
+            </th>
+            <td>{{ oferta.matricula }}</td>
+            <td>{{ oferta.estado_oferta }}</td>
             <td>
-              <button class="m-1 btn btn-primary btn-sm">
+              <button
+                class="m-1 btn btn-primary btn-sm"
+                (click)="editarOferta(oferta.id_oferta)"
+              >
                 <i
                   class="fas fa-edit"
                   style="font-size: 12px; color: black"
                 ></i>
                 Editar
               </button>
-              <button class="m-1 btn btn-danger btn-sm">
+              <button
+                class="m-1 btn btn-danger btn-sm"
+                (click)="eliminarOferta(oferta.id_oferta)"
+              >
                 <i
                   class="fas fa-trash-alt"
-                  style="font-size: 12px; color: red"
-                ></i>
-                Eliminar
-              </button>
-              <button class="m-1 btn btn-warning btn-sm">
-                <i
-                  class="fas fa-clone"
-                  style="font-size: 12px; color: rgb(30, 48, 80)"
-                ></i>
-                Duplicar
-              </button>
-              <button class="m-1 btn btn-info btn-sm">
-                <i
-                  class="fas fa-list-alt"
-                  style="font-size: 12px; color: green"
-                ></i>
-                Inspeccionar
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">987654321</th>
-            <td>50C-1826372</td>
-            <td>
-              <button class="m-1 btn btn-primary btn-sm">
-                <i
-                  class="fas fa-edit"
                   style="font-size: 12px; color: black"
                 ></i>
-                Editar
-              </button>
-              <button class="m-1 btn btn-danger btn-sm">
-                <i
-                  class="fas fa-trash-alt"
-                  style="font-size: 12px; color: red"
-                ></i>
                 Eliminar
               </button>
-              <button class="m-1 btn btn-warning btn-sm">
+              <button
+                class="m-1 btn btn-warning btn-sm"
+                (click)="duplicarOferta(oferta.id_oferta)"
+              >
                 <i
                   class="fas fa-clone"
                   style="font-size: 12px; color: rgb(30, 48, 80)"
                 ></i>
                 Duplicar
               </button>
-              <button class="m-1 btn btn-info btn-sm">
+              <button
+                class="m-1 btn btn-info btn-sm"
+                (click)="verificarOferta(oferta.id_oferta)"
+              >
                 <i
                   class="fas fa-list-alt"
                   style="font-size: 12px; color: green"
                 ></i>
-                Inspeccionar
+                Validar
               </button>
             </td>
           </tr>
@@ -424,15 +408,28 @@
       <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
           <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
+            <a
+              class="page-link"
+              (click)="consultarPaginaAnt()"
+              aria-label="Previous"
+            >
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <ul
+            class="pagination justify-content-center"
+            *ngFor="let pag of cant_pag"
+          >
+            <li class="page-item">
+              <a class="page-link" (click)="consultarPagina(pag)">{{ pag }}</a>
+            </li>
+          </ul>
           <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
+            <a
+              class="page-link"
+              (click)="consultarPaginaPos()"
+              aria-label="Next"
+            >
               <span aria-hidden="true">&raquo;</span>
             </a>
           </li>

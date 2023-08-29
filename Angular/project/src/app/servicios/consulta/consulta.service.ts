@@ -5,12 +5,13 @@ import {
   consulLocPreIDir,
 } from '../../modelos/consulta-oferta.interface';
 import { resconsulOferI } from '../../modelos/res-consulta-oferta.interface';
+import { ValrelacionesService } from '../valrelaciones/valrelaciones.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ConsultaService {
-  constructor() {}
+  constructor(public valrelacionesService: ValrelacionesService) {}
 
   consultaOfer: consulOferI = {
     id_oferta: undefined,
@@ -21,6 +22,9 @@ export class ConsultaService {
     departamento: undefined,
     municipio: undefined,
     direccion: undefined,
+
+    email: this.valrelacionesService.infoPer.email,
+    rol: this.valrelacionesService.infoPer.rol,
   };
 
   consultaOferDir: consulLocPreIDir = {

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { ApiService } from '../../../servicios/api/api.service';
+import { ValrelacionesService } from '../../../servicios/valrelaciones/valrelaciones.service';
 import {
   consulOferI,
   consulLocPreIDir,
@@ -20,6 +21,8 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { DialogsComponent } from '../../components/dialogs/dialogs.component';
 
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-con-ofer',
   templateUrl: './con-ofer.component.html',
@@ -30,7 +33,9 @@ export class ConOferComponent {
     private fb: FormBuilder,
     public consultaService: ConsultaService,
     private api: ApiService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public valrelacionesService: ValrelacionesService,
+    private router: Router
   ) {}
 
   get id_oferta() {
@@ -1376,6 +1381,9 @@ export class ConOferComponent {
     departamento: undefined,
     municipio: undefined,
     direccion: undefined,
+
+    email: this.valrelacionesService.infoPer.email,
+    rol: this.valrelacionesService.infoPer.rol,
   };
 
   objconsulOferDir: consulLocPreIDir = {
@@ -1395,12 +1403,28 @@ export class ConOferComponent {
     dirrur: undefined,
   };
 
-  resConsulOfer: resconsulOferI = {
+  resConsulOferObj: resconsulOferI = {
+    status: undefined,
+    msj: '',
+    dat_consul: {
+      cant_reg: 0,
+      registros: [
+        {
+          id_oferta: undefined,
+          matricula: undefined,
+          estado_oferta: undefined,
+        },
+      ],
+    },
     token: String(localStorage.getItem('token')),
   };
 
+  cant_pag: number[] = [];
+  cant_reg_pag: number = 2;
+  pag_actual: number = 0;
+
   consultar(): any {
-    this.resConsulOfer.token = String(localStorage.getItem('token'));
+    this.resConsulOferObj.token = String(localStorage.getItem('token'));
     this.objconsulOfer.id_oferta =
       Number.isNaN(Number(this.formConsul.value.id_oferta?.valueOf())) ||
       Number(this.formConsul.value.id_oferta?.valueOf()) == 0
@@ -1477,8 +1501,55 @@ export class ConOferComponent {
     let mensaje = this.consultaService.controlVacios();
 
     if (mensaje === ``) {
-      console.log(this.consultaService.consultaOfer);
-      console.log(this.consultaService.consultaOferDir);
+      this.api
+        .consultarOferta(
+          this.consultaService.setConsulOfer,
+          this.resConsulOferObj.token
+        )
+        .subscribe((resConsulOfer) => {
+          const dialogRef = this.dialog.open(DialogsComponent, {
+            width: '350px',
+            data: `${resConsulOfer.msj}, se consultaron ${this.cant_reg_pag} de ${resConsulOfer.dat_consul.cant_reg} registros.`,
+          });
+          dialogRef.afterClosed().subscribe((res) => {
+            if (res) {
+              console.warn(resConsulOfer.msj);
+            }
+          });
+          if (resConsulOfer.status === '200 OK') {
+            localStorage.setItem('token', resConsulOfer.token?.valueOf());
+            this.resConsulOferObj = resConsulOfer;
+            this.cant_pag = Array.from(
+              Array(
+                this.resConsulOferObj.dat_consul.cant_reg % this.cant_reg_pag ==
+                  0
+                  ? Math.trunc(
+                      this.resConsulOferObj.dat_consul.cant_reg /
+                        this.cant_reg_pag
+                    )
+                  : Math.trunc(
+                      this.resConsulOferObj.dat_consul.cant_reg /
+                        this.cant_reg_pag
+                    ) + 1
+              ).keys()
+            );
+            this.cant_pag = this.cant_pag.map(function (value) {
+              return (value = value + 1);
+            });
+            this.pag_actual = 1;
+            console.log(this.resConsulOferObj.dat_consul.registros);
+          } else {
+            const dialogRef = this.dialog.open(DialogsComponent, {
+              width: '350px',
+              data: resConsulOfer.msj,
+            });
+            dialogRef.afterClosed().subscribe((res) => {
+              if (res) {
+                console.warn(resConsulOfer.msj);
+              }
+            });
+          }
+        });
     } else {
       const dialogRef = this.dialog.open(DialogsComponent, {
         width: '350px',
@@ -1522,5 +1593,90 @@ export class ConOferComponent {
         console.warn('Datos limpiados');
       }
     });
+  }
+
+  editarOferta(id_oferta: string): any {
+    console.log(id_oferta);
+  }
+
+  eliminarOferta(id_oferta: string): any {
+    console.log(id_oferta);
+  }
+
+  duplicarOferta(id_oferta: string): any {
+    console.log(id_oferta);
+  }
+
+  verificarOferta(id_oferta: string): any {
+    console.log(id_oferta);
+  }
+
+  consultarPagina(pag: number): any {
+    this.api
+      .consultarOfertaPag(
+        this.consultaService.setConsulOfer,
+        this.resConsulOferObj.token,
+        pag
+      )
+      .subscribe((resConsulOfer) => {
+        if (resConsulOfer.status === '200 OK') {
+          localStorage.setItem('token', resConsulOfer.token?.valueOf());
+          this.resConsulOferObj = resConsulOfer;
+          this.pag_actual = pag;
+
+          console.log(this.resConsulOferObj.dat_consul.registros);
+        } else {
+          const dialogRef = this.dialog.open(DialogsComponent, {
+            width: '350px',
+            data: resConsulOfer.msj,
+          });
+          dialogRef.afterClosed().subscribe((res) => {
+            if (res) {
+              console.warn(resConsulOfer.msj);
+            }
+          });
+        }
+      });
+    console.log(pag);
+  }
+
+  consultarPaginaAnt(): any {
+    if (this.pag_actual <= 1) {
+      const dialogRef = this.dialog.open(DialogsComponent, {
+        width: '350px',
+        data: `No hay páginas. Continuar a la siguiente.`,
+      });
+      dialogRef.afterClosed().subscribe((res) => {
+        if (res) {
+          console.warn(`No hay páginas. Continuar a la siguiente.`);
+        }
+      });
+    } else {
+      this.consultarPagina(this.pag_actual - 1);
+      this.pag_actual =
+        this.pag_actual <= 1 ? this.pag_actual : this.pag_actual - 1;
+    }
+  }
+
+  consultarPaginaPos(): any {
+    console.log(this.cant_pag.length);
+
+    if (this.pag_actual == this.cant_pag.length) {
+      const dialogRef = this.dialog.open(DialogsComponent, {
+        width: '350px',
+        data: `No hay páginas. Continuar a la anterior.`,
+      });
+      dialogRef.afterClosed().subscribe((res) => {
+        if (res) {
+          console.warn(`No hay páginas. Continuar a la anterior.`);
+        }
+      });
+    } else {
+      this.consultarPagina(this.pag_actual + 1);
+      this.pag_actual =
+        this.pag_actual == this.cant_pag.length
+          ? this.pag_actual
+          : this.pag_actual + 1;
+    }
   }
 }

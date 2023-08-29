@@ -7,6 +7,9 @@ export interface consulOferI {
   departamento: String | null | undefined;
   municipio: String | null | undefined;
   direccion: String | null | undefined;
+
+  email: String | null | undefined;
+  rol: Number | null | undefined;
 }
 
 export interface consulLocPreIDir {
