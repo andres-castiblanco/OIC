@@ -1,4 +1,3 @@
-import { idenPreI } from './../../../modelos/crear-oferta-iden-pre.interface';
 import { Component } from '@angular/core';
 import {
   FormBuilder,

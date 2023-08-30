@@ -149,11 +149,27 @@
         >
           El estado de la oferta es obligatorio
         </div>
-        <input
-          type="number"
+        <select
+          id="estado_oferta"
           formControlName="estado_oferta"
           name="estado_oferta"
-        />
+        >
+          <option value="1_POR_ASIGNAR_A_REVISION">
+            1. Oferta por asignar a revisión
+          </option>
+          <option value="2_ASIGNADO_PARA_REVISION">
+            2. Oferta asiganda para revisión
+          </option>
+          <option value="3_CON_OBSERVACIONES">
+            3. Oferta con observaciones pendientes
+          </option>
+          <option value="4_POR_VERIFICACION_DE_OBSERVACIONES">
+            4. Oferta por verificación de observaciones
+          </option>
+          <option value="5_APROBADA_VERIFICADA">
+            5. Oferta aprobada y validada
+          </option>
+        </select>
 
         <label for="obs_verifica"
           >Observaciones verificación (Se modifica en la verificación de la
@@ -165,7 +181,12 @@
         >
           Las observaciones de verificación de la oferta son obligatorias
         </div>
-        <input type="text" formControlName="obs_verifica" name="obs_verifica" />
+        <!-- <input type="text" formControlName="obs_verifica" name="obs_verifica" /> -->
+        <textarea
+          formControlName="obs_verifica"
+          name="obs_verifica"
+          style="height: 200px"
+        ></textarea>
       </div>
 
       <div class="row">

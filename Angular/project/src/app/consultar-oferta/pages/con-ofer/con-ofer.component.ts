@@ -9,6 +9,7 @@ import {
 import { resconsulOferI } from '../../../modelos/res-consulta-oferta.interface';
 import { ConsultaService } from '../../../servicios/consulta/consulta.service';
 import { EditarService } from '../../../servicios/editar/editar.service';
+import { ValidarService } from '../../../servicios/validar/validar.service';
 import {
   FormBuilder,
   FormGroup,
@@ -38,7 +39,8 @@ export class ConOferComponent {
     public dialog: MatDialog,
     public valrelacionesService: ValrelacionesService,
     private router: Router,
-    public editar: EditarService
+    public editar: EditarService,
+    public validar: ValidarService
   ) {}
 
   get id_oferta() {
@@ -1506,7 +1508,7 @@ export class ConOferComponent {
     if (mensaje === ``) {
       this.api
         .consultarOferta(
-          this.consultaService.setConsulOfer,
+          this.consultaService.consultaOfer,
           this.resConsulOferObj.token
         )
         .subscribe((resConsulOfer) => {
@@ -1620,7 +1622,24 @@ export class ConOferComponent {
           this.editar.estrucInfoFuente();
           this.editar.setInfoAdminePredio = reseditOfer.datos[6];
           this.editar.estrucInfoAdmin();
-          this.editar.setInfoPersona = this.valrelacionesService.infoPer;
+
+          if (
+            this.editar.infoAdmin.email_persona_captura != undefined &&
+            this.editar.infoAdmin.email_persona_captura != ''
+          ) {
+            this.api
+              .veriOfertaPersonaVerifica(
+                this.editar.infoAdmin.email_persona_captura,
+                this.resConsulOferObj.token
+              )
+              .subscribe((resPerCaptura) => {
+                if (resPerCaptura.status === '200 OK') {
+                  localStorage.setItem('token', resPerCaptura.token?.valueOf());
+                  this.editar.setInfoPersona = resPerCaptura.dat_usua;
+                }
+              });
+          }
+
           if (
             this.editar.infoAdmin.email_persona_verifica != undefined &&
             this.editar.infoAdmin.email_persona_verifica != ''
@@ -1655,18 +1674,17 @@ export class ConOferComponent {
 
           const dialogRef = this.dialog.open(DialogsComponent, {
             width: '350px',
-            data: `Cargando datos para editar oferta en la sección de modificar oferta.`,
+            data: `Cargando datos para editar oferta ${this.editar.idenPredio.id_oferta} en la sección de modificar oferta.`,
           });
           dialogRef.afterClosed().subscribe((res) => {
             if (res) {
               console.warn(
-                `Cargando datos para editar oferta en la sección de modificar oferta.`
+                `Cargando datos para editar oferta ${this.editar.idenPredio.id_oferta}  en la sección de modificar oferta.`
               );
             }
           });
 
           this.router.navigate(['ModOfer/IdenPre']);
-          console.log(this.editar.idenPredio);
         } else {
           const dialogRef = this.dialog.open(DialogsComponent, {
             width: '350px',
@@ -1691,13 +1709,114 @@ export class ConOferComponent {
   }
 
   verificarOferta(id_oferta: string): any {
+    this.resConsulOferObj.token = String(localStorage.getItem('token'));
+    this.api
+      .validarOferta(
+        Number(id_oferta),
+        this.resConsulOferObj.token,
+        Number(this.valrelacionesService.infoPer.rol)
+      )
+      .subscribe((resveriOfer: ResEditOferI) => {
+        if (resveriOfer.status === '200 OK') {
+          localStorage.setItem('token', resveriOfer.token?.valueOf());
+          this.validar.setIdenPredio = resveriOfer.datos[0];
+          this.validar.estrucIdenPredio();
+          this.validar.setLocaPredio = resveriOfer.datos[1];
+          this.validar.estrucLocPre();
+          this.validar.setDatGenPredio = resveriOfer.datos[2];
+          this.validar.estrucDatGen();
+          this.validar.setInfoFisPredio = resveriOfer.datos[3];
+          this.validar.estrucInfoFis();
+          this.validar.setInfoEconoPredio = resveriOfer.datos[4];
+          this.validar.estrucInfoEnono();
+          this.validar.setInfoFuentePredio = resveriOfer.datos[5];
+          this.validar.estrucInfoFuente();
+          this.validar.setInfoAdminePredio = resveriOfer.datos[6];
+          this.validar.estrucInfoAdmin();
+
+          if (
+            this.validar.infoAdmin.email_persona_captura != undefined &&
+            this.validar.infoAdmin.email_persona_captura != ''
+          ) {
+            this.resConsulOferObj.token = String(localStorage.getItem('token'));
+            this.api
+              .veriOfertaPersonaVerifica(
+                this.validar.infoAdmin.email_persona_captura,
+                this.resConsulOferObj.token
+              )
+              .subscribe((resPerCaptura) => {
+                if (resPerCaptura.status === '200 OK') {
+                  localStorage.setItem('token', resPerCaptura.token?.valueOf());
+                  this.validar.setInfoPersona = resPerCaptura.dat_usua;
+                }
+              });
+          }
+
+          if (
+            this.validar.infoAdmin.email_persona_verifica != undefined &&
+            this.validar.infoAdmin.email_persona_verifica != ''
+          ) {
+            this.resConsulOferObj.token = String(localStorage.getItem('token'));
+            this.api
+              .veriOfertaPersonaVerifica(
+                this.validar.infoAdmin.email_persona_verifica,
+                this.resConsulOferObj.token
+              )
+              .subscribe((resPerVerifica) => {
+                if (resPerVerifica.status === '200 OK') {
+                  localStorage.setItem(
+                    'token',
+                    resPerVerifica.token?.valueOf()
+                  );
+                  this.validar.setInfoPersonaVeri = resPerVerifica.dat_usua;
+                }
+              });
+          } else {
+            const dialogRef = this.dialog.open(DialogsComponent, {
+              width: '350px',
+              data: `No se ha asignado persona para verificación de la oferta ${this.validar.idenPredio.id_oferta}. Favor asignarla`,
+            });
+            dialogRef.afterClosed().subscribe((res) => {
+              if (res) {
+                console.warn(
+                  `No se ha asignado persona para verificación de la oferta ${this.validar.idenPredio.id_oferta}. Favor asignarla`
+                );
+              }
+            });
+          }
+
+          const dialogRef = this.dialog.open(DialogsComponent, {
+            width: '350px',
+            data: `Cargando datos para validar oferta ${this.validar.idenPredio.id_oferta} en la sección de validar oferta.`,
+          });
+          dialogRef.afterClosed().subscribe((res) => {
+            if (res) {
+              console.warn(
+                `Cargando datos para validar oferta ${this.validar.idenPredio.id_oferta}  en la sección de validar oferta.`
+              );
+            }
+          });
+
+          this.router.navigate(['ValOfer/IdenPre']);
+        } else {
+          const dialogRef = this.dialog.open(DialogsComponent, {
+            width: '350px',
+            data: resveriOfer.msj,
+          });
+          dialogRef.afterClosed().subscribe((res) => {
+            if (res) {
+              console.warn(resveriOfer.msj);
+            }
+          });
+        }
+      });
     console.log(id_oferta);
   }
 
   consultarPagina(pag: number): any {
     this.api
       .consultarOfertaPag(
-        this.consultaService.setConsulOfer,
+        this.consultaService.consultaOfer,
         this.resConsulOferObj.token,
         pag
       )

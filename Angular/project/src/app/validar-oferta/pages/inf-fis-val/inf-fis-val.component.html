@@ -1,1 +1,408 @@
-<p>inf-fis-val works!</p>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <app-header></app-header>
+    <form [formGroup]="formUserFis" (ngSubmit)="procesar()">
+      <div class="container">
+        <h2>Información Física</h2>
+
+        <label for="idoferta">Id de la Oferta</label>
+        <div class="alerError" [hidden]="idoferta.valid || idoferta.pristine">
+          El id es obligatorio
+        </div>
+        <input type="number" formControlName="idoferta" name="Id Oferta" />
+
+        <div *ngIf="controlEntrevariables.val_area_terreno">
+          <div *ngIf="!controlEntrevariables.val_tipo_rural">
+            <label for="atm2">Área terreno (m2)</label>
+            <div
+              class="alerError"
+              *ngIf="formUserFis.controls['atm2'].hasError('areasVacias')"
+            >
+              Debe de existir al menos un valor en área de terreno o de
+              construcción y deben de ser mayor de cero
+            </div>
+            <input type="number" formControlName="atm2" name="atm2" />
+          </div>
+
+          <div *ngIf="controlEntrevariables.val_tipo_rural">
+            <label for="atha">Área terreno (ha)</label>
+            <div
+              class="alerError"
+              *ngIf="formUserFis.controls['atha'].hasError('areasVacias')"
+            >
+              Debe de existir al menos un valor en área de terreno o de
+              construcción y deben de ser mayor de cero
+            </div>
+            <input type="number" formControlName="atha" name="atha" />
+          </div>
+        </div>
+
+        <div *ngIf="controlEntrevariables.val_n_lote">
+          <label for="acm2">Área construcción (m2)</label>
+          <div
+            class="alerError"
+            *ngIf="formUserFis.controls['acm2'].hasError('areasVacias')"
+          >
+            Debe de existir al menos un valor en área de terreno o de
+            construcción y deben de ser mayor de cero
+          </div>
+          <input type="number" formControlName="acm2" name="acm2" />
+        </div>
+
+        <div *ngIf="controlEntrevariables.val_area_privada">
+          <label for="apm2">Área privada (m2)</label>
+          <div
+            class="alerError"
+            *ngIf="formUserFis.controls['apm2'].hasError('areasVacias')"
+          >
+            Debe de existir al menos un valor en área de construcción o en área
+            privada y deben de ser mayor de cero
+          </div>
+          <input type="number" formControlName="apm2" name="apm2" />
+        </div>
+
+        <div *ngIf="controlEntrevariables.val_n_lote_finca">
+          <label for="apha">Área cultivo (ha)</label>
+          <div class="alerError" [hidden]="apha.valid || apha.pristine">
+            <div *ngIf="apha.errors?.['maxlength']">
+              La cantidad reportada supera el umbral de aceptación
+            </div>
+            <div *ngIf="formUserFis.controls['apha'].hasError('hasNumber')">
+              La cantidad reportada debe de ser mayor a cero y no debe contener
+              caracteres
+            </div>
+          </div>
+          <input type="text" formControlName="apha" name="apha" />
+        </div>
+
+        <div *ngIf="controlEntrevariables.val_n_lote">
+          <label for="ac">Año de construcción</label>
+          <div class="alerError" [hidden]="ac.valid || ac.pristine">
+            <div *ngIf="ac.errors?.['maxlength']">
+              La cantidad reportada supera el umbral de aceptación
+            </div>
+            <div *ngIf="formUserFis.controls['ac'].hasError('hasNumber')">
+              La cantidad reportada debe de ser mayor a cero y no debe contener
+              caracteres
+            </div>
+          </div>
+          <input type="text" formControlName="ac" name="ac" />
+
+          <label for="conser">Conservación</label>
+          <select formControlName="conser" name="conse">
+            <option value="BUENO">BUENO</option>
+            <option value="REGULAR">REGULAR</option>
+            <option value="MALO">MALO</option>
+            <option value="NO_CLASIFICADO">NO CLASIFICADO</option>
+          </select>
+        </div>
+
+        <label for="desecon">Destinación económica</label>
+        <div class="alerError" *ngIf="desecon.errors?.['required']">
+          La destinación económica del predio es obligatoria
+        </div>
+        <select formControlName="desecon" name="desecon">
+          <option value="ACUICOLA">ACUICOLA</option>
+          <option value="AGRICOLA">AGRICOLA</option>
+          <option value="AGROINDUSTRIAL">AGROINDUSTRIAL</option>
+          <option value="AGROFORESTAL">AGROFORESTAL</option>
+          <option value="COMERCIAL">COMERCIAL</option>
+          <option value="CULTURAL">CULTURAL</option>
+          <option value="EDUCATIVO">EDUCATIVO</option>
+          <option value="FORESTAL">FORESTAL</option>
+          <option value="HABITACIONAL">HABITACIONAL</option>
+          <option value="INDUSTRIAL">INDUSTRIAL</option>
+          <option value="INFRAESTRUCTURA_ASOCIADA_PRODUCCION_AGROPECUARIA">
+            INFRAESTRUCTURA ASOCIADA PRODUCCION AGROPECUARIA
+          </option>
+          <option value="INFRAESTRUCTURA_HIDRAULICA">
+            INFRAESTRUCTURA HIDRAULICA
+          </option>
+          <option value="INFRAESTRUCTURA_SANEAMIENTO_BASICO">
+            INFRAESTRUCTURA SANEAMIENTO BASICO
+          </option>
+          <option value="INFRAESTRUCTURA_SEGURIDAD">
+            INFRAESTRUCTURA SEGURIDAD
+          </option>
+          <option value="INFRAESTRUCTURA_TRANSPORTE">
+            INFRAESTRUCTURA TRANSPORTE
+          </option>
+          <option value="INSTITUCIONAL">INSTITUCIONAL</option>
+          <option value="MINERIA_HIDROCARBUROS">MINERIA HIDROCARBUROS</option>
+          <option value="LOTE_URBANIZABLE_NO_URBANIZADO">
+            LOTE URBANIZABLE NO URBANIZADO
+          </option>
+          <option value="LOTE_URBANIZADO_NO_CONSTRUIDO">
+            LOTE URBANIZADO NO CONSTRUIDO
+          </option>
+          <option value="LOTE_NO_URBANIZABLE">LOTE NO URBANIZABLE</option>
+          <option value="PECUARIO">PECUARIO</option>
+          <option value="RECREACIONAL">RECREACIONAL</option>
+          <option value="RELIGIOSO">RELIGIOSO</option>
+          <option value="SALUBRIDAD">SALUBRIDAD</option>
+          <option value="SERVICIO_FUNERARIOS">SERVICIO FUNERARIOS</option>
+          <option value="USO_PUBLICO">USO PUBLICO</option>
+        </select>
+
+        <div *ngIf="controlEntrevariables.val_n_lote">
+          <label for="altedif">Altura edificio</label>
+          <select formControlName="altedif" name="altedif">
+            <option value="SI">SI</option>
+            <option value="NO">NO</option>
+          </select>
+
+          <label for="numpis">Número de pisos</label>
+          <div class="alerError" [hidden]="numpis.valid || numpis.pristine">
+            <div *ngIf="numpis.errors?.['maxlength']">
+              La cantidad reportada supera el umbral de aceptación
+            </div>
+            <div *ngIf="formUserFis.controls['numpis'].hasError('hasNumber')">
+              La cantidad reportada debe de ser mayor a cero y no debe contener
+              caracteres
+            </div>
+          </div>
+          <input type="text" formControlName="numpis" name="numpis" />
+        </div>
+
+        <div *ngIf="controlEntrevariables.val_tipo_rural">
+          <label for="tir">Tipo de inmueble rural</label>
+          <input type="text" formControlName="tir" name="tir" />
+        </div>
+
+        <label for="tiptipo">Tipologia Tipo</label>
+        <div class="alerError" *ngIf="formUserFis.errors?.['required']">
+          La tipología del predio es obligatoria
+        </div>
+        <select formControlName="tiptipo" name="tiptipo">
+          <option value="RESIDENCIAL_TIPO_1A">RESIDENCIAL TIPO 1A</option>
+          <option value="RESIDENCIAL_TIPO_1B">RESIDENCIAL TIPO 1B</option>
+          <option value="RESIDENCIAL_TIPO_2A">RESIDENCIAL TIPO 2A</option>
+          <option value="RESIDENCIAL_TIPO_2B">RESIDENCIAL TIPO 2B</option>
+          <option value="RESIDENCIAL_TIPO_3A">RESIDENCIAL TIPO 3A</option>
+          <option value="RESIDENCIAL_TIPO_3B">RESIDENCIAL TIPO 3B</option>
+          <option value="RESIDENCIAL_TIPO_4A">RESIDENCIAL TIPO 4A</option>
+          <option value="RESIDENCIAL_TIPO_4B">RESIDENCIAL TIPO 4B</option>
+          <option value="RESIDENCIAL_TIPO_5A">RESIDENCIAL TIPO 5A</option>
+          <option value="RESIDENCIAL_TIPO_5B">RESIDENCIAL TIPO 5B</option>
+          <option value="RESIDENCIAL_TIPO_6A">RESIDENCIAL TIPO 6A</option>
+          <option value="RESIDENCIAL_TIPO_6B">RESIDENCIAL TIPO 6B</option>
+          <option value="COMERCIAL_BARRIAL_1">COMERCIAL BARRIAL 1</option>
+          <option value="COMERCIAL_BARRIAL_2">COMERCIAL BARRIAL 2</option>
+          <option value="COMERCIAL_SECTORIAL_1">COMERCIAL SECTORIAL 1</option>
+          <option value="COMERCIAL_SECTORIAL_2">COMERCIAL SECTORIAL 2</option>
+          <option value="COMERCIAL_ESPECIALIZADO_1">
+            COMERCIAL ESPECIALIZADO 1
+          </option>
+          <option value="COMERCIAL_ESPECIALIZADO_2">
+            COMERCIAL ESPECIALIZADO 2
+          </option>
+          <option value="INDUSTRIAL_LIVIANA_1">INDUSTRIAL LIVIANA 1</option>
+          <option value="INDUSTRIAL_LIVIANA_2">INDUSTRIAL LIVIANA 2</option>
+          <option value="INDUSTRIAL_MEDIANA_1">INDUSTRIAL MEDIANA 1</option>
+          <option value="INDUSTRIAL_MEDIANA_2">INDUSTRIAL MEDIANA 2</option>
+          <option value="INDUSTRIAL_PESADA_1">INDUSTRIAL PESADA 1</option>
+          <option value="INDUSTRIAL_PESADA_2">INDUSTRIAL PESADA 2</option>
+          <option value="OTRO">OTRO</option>
+        </select>
+
+        <div *ngIf="controlEntrevariables.val_n_lote_finca">
+          <label for="edcul">Edad cultivo (Años)</label>
+          <div class="alerError" [hidden]="edcul.valid || edcul.pristine">
+            <div *ngIf="edcul.errors?.['maxlength']">
+              La cantidad reportada supera el umbral de aceptación
+            </div>
+            <div *ngIf="formUserFis.controls['edcul'].hasError('hasNumber')">
+              La cantidad reportada debe de ser mayor a cero y no debe contener
+              caracteres
+            </div>
+          </div>
+          <input type="text" formControlName="edcul" name="edcul" />
+
+          <label for="tipcul">Tipo de cultivo</label>
+          <select formControlName="tipcul" name="tipcul">
+            <option value="PERMANENTE">PERMANENTE</option>
+            <option value="SEMIPERMANENTE">SEMIPERMANENTE</option>
+            <option value="TRANSITORIO">TRANSITORIO</option>
+            <option value="NO_APLICA">NO APLICA</option>
+          </select>
+        </div>
+
+        <div *ngIf="controlEntrevariables.val_area_privada">
+          <label for="coef">Coeficiente</label>
+          <div class="alerError" [hidden]="coef.valid || coef.pristine">
+            <div *ngIf="coef.errors?.['maxlength']">
+              La cantidad reportada supera el umbral de aceptación
+            </div>
+            <div *ngIf="formUserFis.controls['coef'].hasError('hasNumber')">
+              La cantidad reportada debe de ser mayor a cero y no debe contener
+              caracteres
+            </div>
+          </div>
+          <input type="text" formControlName="coef" name="coef" />
+        </div>
+
+        <label for="serpubl">Servicios publicos</label>
+        <div class="alerError" *ngIf="serpubl.errors?.['required']">
+          Los Servicios publicos son un campo obligatorio
+        </div>
+        <select formControlName="serpubl" name="serpubl">
+          <option value="BASICOS_MAS_COMPLEMENTARIOS">
+            BASICOS MAS COMPLEMENTARIOS
+          </option>
+          <option value="BASICOS">BASICOS</option>
+          <option value="IMCOMPLETOS">INCOMPLETOS</option>
+          <option value="SIN_SERVICIOS">SIN SERVICIOS</option>
+        </select>
+
+        <label for="estra">Estrato</label>
+        <div class="alerError" [hidden]="estra.valid || estra.pristine">
+          <div *ngIf="estra.errors?.['maxlength']">
+            La cantidad reportada supera el umbral de aceptación
+          </div>
+          <div *ngIf="formUserFis.controls['estra'].hasError('hasNumber')">
+            La cantidad reportada debe de ser mayor a cero y no debe contener
+            caracteres
+          </div>
+        </div>
+        <input type="text" formControlName="estra" name="estra" />
+
+        <label for="garaje">Garajes</label>
+        <div class="alerError" [hidden]="garaje.valid || garaje.pristine">
+          <div *ngIf="garaje.errors?.['maxlength']">
+            La cantidad reportada supera el umbral de aceptación
+          </div>
+          <div *ngIf="formUserFis.controls['garaje'].hasError('hasNumber')">
+            La cantidad reportada debe de ser mayor a cero y no debe contener
+            caracteres
+          </div>
+        </div>
+        <input type="text" formControlName="garaje" name="garaje" />
+
+        <div *ngIf="controlEntrevariables.val_n_lote">
+          <label for="banos">Numero de baños</label>
+          <div class="alerError" [hidden]="banos.valid || banos.pristine">
+            <div *ngIf="banos.errors?.['maxlength']">
+              La cantidad reportada supera el umbral de aceptación
+            </div>
+            <div *ngIf="formUserFis.controls['banos'].hasError('hasNumber')">
+              La cantidad reportada debe de ser mayor a cero y no debe contener
+              caracteres
+            </div>
+          </div>
+          <input type="text" formControlName="banos" name="banos" />
+
+          <label for="numhabi">Numero de habitaciones</label>
+          <div class="alerError" [hidden]="numhabi.valid || numhabi.pristine">
+            <div *ngIf="numhabi.errors?.['maxlength']">
+              La cantidad reportada supera el umbral de aceptación
+            </div>
+            <div *ngIf="formUserFis.controls['numhabi'].hasError('hasNumber')">
+              La cantidad reportada debe de ser mayor a cero y no debe contener
+              caracteres
+            </div>
+          </div>
+          <input type="text" formControlName="numhabi" name="numhabi" />
+
+          <label for="numdep">Numero de depositos</label>
+          <div class="alerError" [hidden]="numdep.valid || numdep.pristine">
+            <div *ngIf="numdep.errors?.['maxlength']">
+              La cantidad reportada supera el umbral de aceptación
+            </div>
+            <div *ngIf="formUserFis.controls['numdep'].hasError('hasNumber')">
+              La cantidad reportada debe de ser mayor a cero y no debe contener
+              caracteres
+            </div>
+          </div>
+          <input type="text" formControlName="numdep" name="numdep" />
+
+          <label for="conanex">Construcciones Anexas</label>
+          <div class="alerError" [hidden]="conanex.valid || conanex.pristine">
+            <div *ngIf="conanex.errors?.['maxlength']">
+              La cantidad de caracteres debe de ser menor a 100
+            </div>
+          </div>
+
+          <input type="text" formControlName="conanex" name="conanex" />
+        </div>
+        <label for="estado_oferta"
+          >Estado de la oferta (Se modifica en la verificación de la
+          oferta)</label
+        >
+        <div
+          class="alerError"
+          [hidden]="estado_oferta.valid || estado_oferta.pristine"
+        >
+          El estado de la oferta es obligatorio
+        </div>
+        <select
+          id="estado_oferta"
+          formControlName="estado_oferta"
+          name="estado_oferta"
+        >
+          <option value="1_POR_ASIGNAR_A_REVISION">
+            1. Oferta por asignar a revisión
+          </option>
+          <option value="2_ASIGNADO_PARA_REVISION">
+            2. Oferta asignada para revisión
+          </option>
+          <option value="3_CON_OBSERVACIONES">
+            3. Oferta con observaciones pendientes
+          </option>
+          <option value="4_POR_VERIFICACION_DE_OBSERVACIONES">
+            4. Oferta por verificación de observaciones
+          </option>
+          <option value="5_APROBADA_VERIFICADA">
+            5. Oferta aprobada y validada
+          </option>
+        </select>
+
+        <label for="obs_verifica"
+          >Observaciones verificación (Se modifica en la verificación de la
+          oferta)</label
+        >
+        <div
+          class="alerError"
+          [hidden]="obs_verifica.valid || obs_verifica.pristine"
+        >
+          Las observaciones de verificación de la oferta son obligatorias
+        </div>
+        <!-- <input type="text" formControlName="obs_verifica" name="obs_verifica" /> -->
+        <textarea
+          formControlName="obs_verifica"
+          name="obs_verifica"
+          style="height: 200px"
+        ></textarea>
+      </div>
+
+      <div class="row">
+        <h2 class="col-4">
+          <button class="buttonEnviar" routerLink="../DatGen">Anterior</button>
+        </h2>
+        <h2 class="col-4">
+          <button
+            class="buttonEnviar"
+            [disabled]="
+              formUserFis.invalid || validar.idenPredio.id_oferta == undefined
+            "
+          >
+            Guardar
+          </button>
+        </h2>
+        <h2 class="col-4">
+          <button
+            class="buttonEnviar"
+            [disabled]="!validar.vistasHabilitar.noVistaInfoEnoco"
+            routerLink="../InfEco"
+          >
+            Siguiente
+          </button>
+        </h2>
+      </div>
+    </form>
+    <app-footer></app-footer>
+  </body>
+</html>

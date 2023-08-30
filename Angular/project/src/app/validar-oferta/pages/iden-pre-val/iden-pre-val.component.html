@@ -1,1 +1,219 @@
-<p>iden-pre-val works!</p>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <app-header></app-header>
+    <form [formGroup]="formUser" (ngSubmit)="procesar()">
+      <div class="container">
+        <h2>Identificación del Predio</h2>
+
+        <label for="idoferta"
+          >Id de la Oferta (Se genera automaticamente)</label
+        >
+        <div class="alerError" [hidden]="idoferta.valid || idoferta.pristine">
+          El id es obligatorio
+        </div>
+        <input type="number" formControlName="idoferta" name="Id Oferta" />
+
+        <label for="numprenue">Número Predial Nuevo</label>
+        <div
+          class="alerError"
+          *ngIf="formUser.controls['numprenue'].hasError('hasNumber')"
+        >
+          Los valores ingresados deben de ser digitos 0-9
+        </div>
+        <div class="alerError" [hidden]="numprenue.valid || numprenue.pristine">
+          <div
+            *ngIf="numprenue.errors?.['minlength'] || numprenue.errors?.['maxlength']"
+          >
+            La cantidad de números debe de ser mayor de 20 y menor o igual a 30
+          </div>
+        </div>
+        <input
+          type="text"
+          id="numprenue"
+          formControlName="numprenue"
+          name="numprenue"
+        />
+
+        <label for="numpreant">Número Predial Antiguo</label>
+        <div
+          class="alerError"
+          *ngIf="formUser.controls['numpreant'].hasError('hasNumber')"
+        >
+          Los valores ingresados deben de ser digitos 0-9
+        </div>
+        <div class="alerError" [hidden]="numpreant.valid || numpreant.pristine">
+          <div
+            *ngIf="numpreant.errors?.['minlength'] || numpreant.errors?.['maxlength']"
+          >
+            La cantidad de números debe de ser mayor de 10 y menor o igual a 20
+          </div>
+        </div>
+        <input
+          type="text"
+          id="numpreant"
+          formControlName="numpreant"
+          name="numpreant"
+        />
+
+        <label for="codhom">Código Homologado</label>
+        <div class="alerError" [hidden]="codhom.valid || codhom.pristine">
+          <div *ngIf="codhom.errors?.['maxlength']">
+            La cantidad de caracteres debe de ser inferior a 20
+          </div>
+        </div>
+        <input type="text" formControlName="codhom" name="codhom" />
+
+        <label for="matrinmb">Matricula Inmobiliaria</label>
+        <div class="alerError" [hidden]="matrinmb.valid || matrinmb.pristine">
+          <div *ngIf="matrinmb.errors?.['maxlength']">
+            La cantidad de caracteres debe de ser inferior a 20
+          </div>
+        </div>
+        <input type="text" formControlName="matrinmb" name="matrinmb" />
+
+        <label for="conjur">Condición Juridica</label>
+        <div class="alerError" *ngIf="conjur.errors?.['required']">
+          La condición jurídica es obligatoria
+        </div>
+        <select id="conjur" formControlName="conjur" name="conjur">
+          <option value="NPH">NPH</option>
+          <option value="PH">PH</option>
+          <option value="PH_MATRIZ">PH MATRIZ</option>
+          <option value="PH_UNIDAD_PREDIAL">PH UNIDAD PREDIAL</option>
+          <option value="CONDOMINIO">CONDOMINIO</option>
+          <option value="CONDOMINIO_MATRIZ">CONDOMINIO MATRIZ</option>
+          <option value="CONDOMINIO_UNIDAD_PREDIAL">
+            CONDOMINIO UNIDAD PREDIAL
+          </option>
+          <option value="PARQUE_CEMENTERIO_MATRIZ">
+            PARQUE CEMENTERIO MATRIZ
+          </option>
+          <option value="PARQUE_CEMENTERIO_UNIDAD_PREDIAL">
+            PARQUE CEMENTERIO UNIDAD PREDIAL
+          </option>
+          <option value="VIA">VIA</option>
+          <option value="INFORMAL">INFORMAL</option>
+          <option value="BIEN_USO_PUBLICO">BIEN USO PUBLICO</option>
+        </select>
+
+        <label for="tipofer">Tipo Oferta</label>
+        <div class="alerError" *ngIf="tipofer.errors?.['required']">
+          El tipo de oferta es obligatorio
+        </div>
+        <select id="tipofer" formControlName="tipofer" name="tipofer">
+          <option value="VENTA">VENTA</option>
+          <option value="ARRIENDO">ARRIENDO</option>
+        </select>
+
+        <label for="tippre">Tipo Predio</label>
+        <div class="alerError" *ngIf="tippre.errors?.['required']">
+          El tipo de predio es obligatorio
+        </div>
+        <select id="tippre" formControlName="tippre" name="tippre">
+          <option value="URBANO">URBANO</option>
+          <option value="RURAL">RURAL</option>
+          <option value="CORREGIMIENTO_Y_CASERIOS">
+            CORREGIMIENTO Y/O CASERIOS
+          </option>
+        </select>
+
+        <label for="oriofer">Origen de la Oferta</label>
+        <div class="alerError" *ngIf="oriofer.errors?.['required']">
+          El origen de la oferta es obligatorio
+        </div>
+        <select id="oriofer" formControlName="oriofer" name="oriofer">
+          <option value="IVP">IVP</option>
+          <option value="ACTUALIZACION">ACTUALIZACIÓN</option>
+          <option value="CONSERVACION">CONSERVACIÓN</option>
+          <option value="FORMACION">FORMACIÓN</option>
+          <option value="INVESTIGACION">INVESTIGACIÓN</option>
+        </select>
+
+        <label for="estado_oferta"
+          >Estado de la oferta (Se modifica en la verificación de la
+          oferta)</label
+        >
+        <div
+          class="alerError"
+          [hidden]="estado_oferta.valid || estado_oferta.pristine"
+        >
+          El estado de la oferta es obligatorio
+        </div>
+        <select
+          id="estado_oferta"
+          formControlName="estado_oferta"
+          name="estado_oferta"
+        >
+          <option value="1_POR_ASIGNAR_A_REVISION">
+            1. Oferta por asignar a revisión
+          </option>
+          <option value="2_ASIGNADO_PARA_REVISION">
+            2. Oferta asignada para revisión
+          </option>
+          <option value="3_CON_OBSERVACIONES">
+            3. Oferta con observaciones pendientes
+          </option>
+          <option value="4_POR_VERIFICACION_DE_OBSERVACIONES">
+            4. Oferta por verificación de observaciones
+          </option>
+          <option value="5_APROBADA_VERIFICADA">
+            5. Oferta aprobada y validada
+          </option>
+        </select>
+
+        <label for="obs_verifica"
+          >Observaciones verificación (Se modifica en la verificación de la
+          oferta)</label
+        >
+        <div
+          class="alerError"
+          [hidden]="obs_verifica.valid || obs_verifica.pristine"
+        >
+          Las observaciones de verificación de la oferta son obligatorias
+        </div>
+        <!-- <input type="text" formControlName="obs_verifica" name="obs_verifica" /> -->
+        <textarea
+          formControlName="obs_verifica"
+          name="obs_verifica"
+          style="height: 200px"
+        ></textarea>
+      </div>
+
+      <div class="row">
+        <h2 class="col-4"></h2>
+        <h2 class="col-4">
+          <button
+            class="buttonEnviar"
+            [disabled]="
+              formUser.invalid || validar.idenPredio.id_oferta == undefined
+            "
+          >
+            Guardar
+          </button>
+        </h2>
+
+        <h2 class="col-4">
+          <button
+            class="buttonEnviar"
+            [disabled]="!validar.vistasHabilitar.noVistaLocOfer"
+            routerLink="../LocPre"
+          >
+            Siguiente
+          </button>
+        </h2>
+      </div>
+    </form>
+
+    <app-footer></app-footer>
+  </body>
+</html>

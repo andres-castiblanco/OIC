@@ -28,7 +28,7 @@ export class EditarService {
     tipo_oferta: undefined,
     tipo_predio: undefined,
     oferta_origen: undefined,
-    estado_oferta: 1,
+    estado_oferta: '1_POR_ASIGNAR_A_REVISION',
     // obs_verifica: 'Sin comentarios' as unknown | Text,
     obs_verifica: 'Sin comentarios',
   };
@@ -62,10 +62,9 @@ export class EditarService {
         ? undefined
         : this.idenPredio.tipo_predio;
     this.idenPredio.estado_oferta =
-      Number(this.idenPredio.estado_oferta) <= 0 ||
-      Number.isNaN(Number(this.idenPredio.estado_oferta))
-        ? 0
-        : Number(this.idenPredio.estado_oferta);
+      this.idenPredio.estado_oferta == ''
+        ? '1_POR_ASIGNAR_A_REVISION'
+        : this.idenPredio.estado_oferta;
     this.idenPredio.obs_verifica =
       this.idenPredio.obs_verifica == ''
         ? undefined
@@ -1214,7 +1213,7 @@ export class EditarService {
     this.idenPredio.tipo_oferta = undefined;
     this.idenPredio.tipo_predio = undefined;
     this.idenPredio.oferta_origen = undefined;
-    this.idenPredio.estado_oferta = 1;
+    this.idenPredio.estado_oferta = '1_POR_ASIGNAR_A_REVISION';
     this.idenPredio.obs_verifica = 'Sin comentarios';
 
     this.locPre.id_oferta = this.idenPredio.id_oferta;

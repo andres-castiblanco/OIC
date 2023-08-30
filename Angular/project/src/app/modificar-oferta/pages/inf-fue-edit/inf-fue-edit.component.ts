@@ -375,6 +375,8 @@ export class InfFueEditComponent {
                 if (resInfoAdmin.status === '200 OK') {
                   localStorage.setItem('token', resInfoAdmin.token?.valueOf());
                   this.editar.setInfoAdminePredio = this.objInfoAdmin;
+                  this.editar.idenPredio.estado_oferta =
+                    '1_POR_ASIGNAR_A_REVISION';
                   // this.envioFormVistaBack = true;
                   // this.noVistaSiguienteBoton =
                   //   this.editar.idenPredio.id_oferta !==
@@ -456,6 +458,7 @@ export class InfFueEditComponent {
                 this.editar.infoPerVeri.area;
 
               this.editar.setInfoAdminePredio = this.objInfoAdmin;
+              this.editar.idenPredio.estado_oferta = '2_ASIGNADO_PARA_REVISION';
 
               this.formUserFue.controls['nomveriofer'].setValue(
                 String(this.editar.infoPerVeri.nombres)

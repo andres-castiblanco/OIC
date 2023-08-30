@@ -8,6 +8,6 @@ export interface idenPreI {
   tipo_oferta: String | null | undefined;
   tipo_predio: String | null | undefined;
   oferta_origen: String | null | undefined;
-  estado_oferta: Number;
+  estado_oferta: String;
   obs_verifica: String | unknown;
 }

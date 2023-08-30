@@ -21,6 +21,7 @@ import { resconsulOferI } from 'src/app/modelos/res-consulta-oferta.interface';
 
 import { Observable } from 'rxjs';
 import { ResEditOferI } from 'src/app/modelos/res-editar-oferta.interface';
+import { infoPerI } from 'src/app/modelos/crear-oferta-personas.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -146,6 +147,16 @@ export class ApiService {
   }
 
   editarOferta(id_oferta: Number, token: String): Observable<ResEditOferI> {
+    let direccion = this.url + 'edit_oferta';
+    let contenido = { id_oferta: id_oferta, token: token };
+    return this.http.post<ResEditOferI>(direccion, contenido);
+  }
+
+  validarOferta(
+    id_oferta: Number,
+    token: String,
+    rol: Number
+  ): Observable<ResEditOferI> {
     let direccion = this.url + 'edit_oferta';
     let contenido = { id_oferta: id_oferta, token: token };
     return this.http.post<ResEditOferI>(direccion, contenido);

@@ -384,6 +384,8 @@ export class InfFueComponent {
                   localStorage.setItem('token', resInfoAdmin.token?.valueOf());
                   this.valrelacionesService.setInfoAdminePredio =
                     this.objInfoAdmin;
+                  this.valrelacionesService.idenPredio.estado_oferta =
+                    '1_POR_ASIGNAR_A_REVISION';
                   this.envioFormVistaBack = true;
                   this.noVistaSiguienteBoton =
                     this.valrelacionesService.idenPredio.id_oferta !==
@@ -470,6 +472,8 @@ export class InfFueComponent {
                 this.valrelacionesService.infoPerVeri.area;
 
               this.valrelacionesService.setInfoAdminePredio = this.objInfoAdmin;
+              this.valrelacionesService.idenPredio.estado_oferta =
+                '2_ASIGNADO_PARA_REVISION';
 
               this.formUserFue.controls['nomveriofer'].setValue(
                 String(this.valrelacionesService.infoPerVeri.nombres)

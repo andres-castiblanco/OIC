@@ -152,8 +152,8 @@ export class IdenPreEditComponent {
     tipo_oferta: undefined,
     tipo_predio: undefined,
     oferta_origen: undefined,
-    estado_oferta: 1,
-    obs_verifica: 'Sin comentarios',
+    estado_oferta: this.editar.idenPredio.estado_oferta,
+    obs_verifica: this.editar.idenPredio.obs_verifica,
   };
 
   // noVistaOfer: boolean =

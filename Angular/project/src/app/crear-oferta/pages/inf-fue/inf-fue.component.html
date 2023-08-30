@@ -75,11 +75,14 @@
                 >
                   Subir Fotos
                 </button>
-                <button class="btn btn-success"
+                <button
+                  class="btn btn-success"
+                  [disabled]="true"
                   *ngIf="
                     valrelacionesService.infoFuente.enlace_interno_foto_predio
                   "
-                >Porcentaje de carga: {{ percentDone }}%
+                >
+                  Porcentaje de carga: {{ percentDone }}%
                 </button>
                 <div
                   *ngIf="
@@ -109,7 +112,11 @@
                 >
                   Subir Archivos
                 </button>
-                <button class="btn btn-success" *ngIf="valrelacionesService.infoFuente.enlace_documentos">
+                <button
+                  class="btn btn-success"
+                  [disabled]="true"
+                  *ngIf="valrelacionesService.infoFuente.enlace_documentos"
+                >
                   Porcentaje de carga: {{ percentDoneDocs }}%
                 </button>
                 <div *ngIf="valrelacionesService.infoFuente.enlace_documentos">

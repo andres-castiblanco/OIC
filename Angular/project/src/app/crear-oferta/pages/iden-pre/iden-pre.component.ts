@@ -144,8 +144,8 @@ export class IdenPreComponent {
     tipo_oferta: undefined,
     tipo_predio: undefined,
     oferta_origen: undefined,
-    estado_oferta: 1,
-    obs_verifica: 'Sin comentarios',
+    estado_oferta: this.valrelacionesService.idenPredio.estado_oferta,
+    obs_verifica: this.valrelacionesService.idenPredio.obs_verifica,
   };
 
   noVistaOfer: boolean =
