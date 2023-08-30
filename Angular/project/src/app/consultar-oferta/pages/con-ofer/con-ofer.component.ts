@@ -1603,15 +1603,67 @@ export class ConOferComponent {
     this.api
       .editarOferta(Number(id_oferta), this.resConsulOferObj.token)
       .subscribe((reseditOfer: ResEditOferI) => {
+        console.log(reseditOfer);
         if (reseditOfer.status === '200 OK') {
           localStorage.setItem('token', reseditOfer.token?.valueOf());
           this.editar.setIdenPredio = reseditOfer.datos[0];
+          this.editar.estrucIdenPredio();
           this.editar.setLocaPredio = reseditOfer.datos[1];
+          this.editar.estrucLocPre();
           this.editar.setDatGenPredio = reseditOfer.datos[2];
+          this.editar.estrucDatGen();
           this.editar.setInfoFisPredio = reseditOfer.datos[3];
+          this.editar.estrucInfoFis();
           this.editar.setInfoEconoPredio = reseditOfer.datos[4];
+          this.editar.estrucInfoEnono();
           this.editar.setInfoFuentePredio = reseditOfer.datos[5];
+          this.editar.estrucInfoFuente();
           this.editar.setInfoAdminePredio = reseditOfer.datos[6];
+          this.editar.estrucInfoAdmin();
+          this.editar.setInfoPersona = this.valrelacionesService.infoPer;
+          if (
+            this.editar.infoAdmin.email_persona_verifica != undefined &&
+            this.editar.infoAdmin.email_persona_verifica != ''
+          ) {
+            this.api
+              .veriOfertaPersonaVerifica(
+                this.editar.infoAdmin.email_persona_verifica,
+                this.resConsulOferObj.token
+              )
+              .subscribe((resPerVerifica) => {
+                if (resPerVerifica.status === '200 OK') {
+                  localStorage.setItem(
+                    'token',
+                    resPerVerifica.token?.valueOf()
+                  );
+                  this.editar.setInfoPersonaVeri = resPerVerifica.dat_usua;
+                }
+              });
+          } else {
+            const dialogRef = this.dialog.open(DialogsComponent, {
+              width: '350px',
+              data: `No se ha asignado persona para verificación de la oferta.`,
+            });
+            dialogRef.afterClosed().subscribe((res) => {
+              if (res) {
+                console.warn(
+                  `No se ha asignado persona para verificación de la oferta.`
+                );
+              }
+            });
+          }
+
+          const dialogRef = this.dialog.open(DialogsComponent, {
+            width: '350px',
+            data: `Cargando datos para editar oferta en la sección de modificar oferta.`,
+          });
+          dialogRef.afterClosed().subscribe((res) => {
+            if (res) {
+              console.warn(
+                `Cargando datos para editar oferta en la sección de modificar oferta.`
+              );
+            }
+          });
 
           this.router.navigate(['ModOfer/IdenPre']);
           console.log(this.editar.idenPredio);

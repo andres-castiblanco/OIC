@@ -61,10 +61,10 @@ export class EditarService {
       this.idenPredio.tipo_predio == ''
         ? undefined
         : this.idenPredio.tipo_predio;
-    this.idenPredio.id_oferta =
+    this.idenPredio.estado_oferta =
       Number(this.idenPredio.estado_oferta) <= 0 ||
       Number.isNaN(Number(this.idenPredio.estado_oferta))
-        ? undefined
+        ? 0
         : Number(this.idenPredio.estado_oferta);
     this.idenPredio.obs_verifica =
       this.idenPredio.obs_verifica == ''
@@ -82,6 +82,36 @@ export class EditarService {
     longitud: undefined,
     direccion: undefined,
   };
+
+  estrucLocPre(): any {
+    this.locPre.id_oferta =
+      Number(this.locPre.id_oferta) <= 0 ||
+      Number.isNaN(Number(this.locPre.id_oferta))
+        ? undefined
+        : Number(this.locPre.id_oferta);
+    this.locPre.departamento =
+      this.locPre.departamento == '' ? undefined : this.locPre.departamento;
+    this.locPre.municipio =
+      this.locPre.municipio == '' ? undefined : this.locPre.municipio;
+    this.locPre.barrio =
+      this.locPre.barrio == '' ? undefined : this.locPre.barrio;
+    this.locPre.vereda =
+      this.locPre.vereda == '' ? undefined : this.locPre.vereda;
+    this.locPre.latitud =
+      Number(this.locPre.latitud) < -5 ||
+      Number(this.locPre.latitud) > 15 ||
+      Number.isNaN(Number(this.locPre.latitud))
+        ? undefined
+        : Number(this.locPre.latitud);
+    this.locPre.longitud =
+      Number(this.locPre.longitud) < -83 ||
+      Number(this.locPre.longitud) > -65 ||
+      Number.isNaN(Number(this.locPre.longitud))
+        ? undefined
+        : Number(this.locPre.longitud);
+    this.locPre.direccion =
+      this.locPre.direccion == '' ? undefined : this.locPre.direccion;
+  }
 
   locPreDir: locPreIDir = {
     id_oferta: undefined,
@@ -111,6 +141,36 @@ export class EditarService {
     proyecto_descripcion: undefined,
   };
 
+  estrucDatGen(): any {
+    this.datGen.id_oferta =
+      Number(this.datGen.id_oferta) <= 0 ||
+      Number.isNaN(Number(this.datGen.id_oferta))
+        ? undefined
+        : Number(this.datGen.id_oferta);
+    this.datGen.derecho_tipo =
+      this.datGen.derecho_tipo == '' ? undefined : this.datGen.derecho_tipo;
+    this.datGen.tipo_inmueble =
+      this.datGen.tipo_inmueble == '' ? undefined : this.datGen.tipo_inmueble;
+    this.datGen.si_valor_incluye_anexidades =
+      this.datGen.si_valor_incluye_anexidades == ''
+        ? undefined
+        : this.datGen.si_valor_incluye_anexidades;
+    this.datGen.fecha = this.datGen.fecha == '' ? undefined : this.datGen.fecha;
+    this.datGen.tiempo_oferta_mercado =
+      Number(this.datGen.tiempo_oferta_mercado) <= 0 ||
+      Number.isNaN(Number(this.datGen.tiempo_oferta_mercado))
+        ? undefined
+        : Number(this.datGen.tiempo_oferta_mercado);
+    this.datGen.proyecto_inmobiliario =
+      this.datGen.proyecto_inmobiliario == ''
+        ? undefined
+        : this.datGen.proyecto_inmobiliario;
+    this.datGen.proyecto_descripcion =
+      this.datGen.proyecto_descripcion == ''
+        ? undefined
+        : this.datGen.proyecto_descripcion;
+  }
+
   infoFis: infoFisiI = {
     id_oferta: undefined,
     area_terreno: undefined,
@@ -136,6 +196,107 @@ export class EditarService {
     construcciones_anexas: undefined,
   };
 
+  estrucInfoFis(): any {
+    this.infoFis.id_oferta =
+      Number(this.infoFis.id_oferta) <= 0 ||
+      Number.isNaN(Number(this.infoFis.id_oferta))
+        ? undefined
+        : Number(this.infoFis.id_oferta);
+    this.infoFis.area_terreno =
+      Number(this.infoFis.area_terreno) <= 0 ||
+      Number.isNaN(Number(this.infoFis.area_terreno))
+        ? undefined
+        : Number(this.infoFis.area_terreno);
+    this.infoFis.area_construccion =
+      Number(this.infoFis.area_construccion) <= 0 ||
+      Number.isNaN(Number(this.infoFis.area_construccion))
+        ? undefined
+        : Number(this.infoFis.area_construccion);
+    this.infoFis.ano_construccion =
+      Number(this.infoFis.ano_construccion) <= 0 ||
+      Number.isNaN(Number(this.infoFis.ano_construccion))
+        ? undefined
+        : Number(this.infoFis.ano_construccion);
+    this.infoFis.conservacion =
+      this.infoFis.conservacion == '' ? undefined : this.infoFis.conservacion;
+    this.infoFis.area_privada =
+      Number(this.infoFis.area_privada) <= 0 ||
+      Number.isNaN(Number(this.infoFis.area_privada))
+        ? undefined
+        : Number(this.infoFis.area_privada);
+    this.infoFis.destinacion_economica =
+      this.infoFis.destinacion_economica == ''
+        ? undefined
+        : this.infoFis.destinacion_economica;
+    this.infoFis.altura_edificio =
+      this.infoFis.altura_edificio == ''
+        ? undefined
+        : this.infoFis.altura_edificio;
+    this.infoFis.numero_piso =
+      Number(this.infoFis.numero_piso) <= 0 ||
+      Number.isNaN(Number(this.infoFis.numero_piso))
+        ? undefined
+        : Number(this.infoFis.numero_piso);
+    this.infoFis.area_cultivo =
+      Number(this.infoFis.area_cultivo) <= 0 ||
+      Number.isNaN(Number(this.infoFis.area_cultivo))
+        ? undefined
+        : Number(this.infoFis.area_cultivo);
+    this.infoFis.tipo_inmueble_rural =
+      this.infoFis.tipo_inmueble_rural == ''
+        ? undefined
+        : this.infoFis.tipo_inmueble_rural;
+    this.infoFis.tipologia_tipo =
+      this.infoFis.tipologia_tipo == ''
+        ? undefined
+        : this.infoFis.tipologia_tipo;
+    this.infoFis.edad_cultivo =
+      Number(this.infoFis.edad_cultivo) <= 0 ||
+      Number.isNaN(Number(this.infoFis.edad_cultivo))
+        ? undefined
+        : Number(this.infoFis.edad_cultivo);
+    this.infoFis.tipo_cultivo =
+      this.infoFis.tipo_cultivo == '' ? undefined : this.infoFis.tipo_cultivo;
+    this.infoFis.coeficiente =
+      Number(this.infoFis.coeficiente) <= 0 ||
+      Number.isNaN(Number(this.infoFis.coeficiente))
+        ? undefined
+        : Number(this.infoFis.coeficiente);
+    this.infoFis.servicios_publicos =
+      this.infoFis.servicios_publicos == ''
+        ? undefined
+        : this.infoFis.servicios_publicos;
+    this.infoFis.estrato =
+      Number(this.infoFis.estrato) <= 0 ||
+      Number.isNaN(Number(this.infoFis.estrato))
+        ? undefined
+        : Number(this.infoFis.estrato);
+    this.infoFis.garajes =
+      Number(this.infoFis.garajes) <= 0 ||
+      Number.isNaN(Number(this.infoFis.garajes))
+        ? undefined
+        : Number(this.infoFis.garajes);
+    this.infoFis.numero_banos =
+      Number(this.infoFis.numero_banos) <= 0 ||
+      Number.isNaN(Number(this.infoFis.numero_banos))
+        ? undefined
+        : Number(this.infoFis.numero_banos);
+    this.infoFis.numero_habitaciones =
+      Number(this.infoFis.numero_habitaciones) <= 0 ||
+      Number.isNaN(Number(this.infoFis.numero_habitaciones))
+        ? undefined
+        : Number(this.infoFis.numero_habitaciones);
+    this.infoFis.numero_depositos =
+      Number(this.infoFis.numero_depositos) <= 0 ||
+      Number.isNaN(Number(this.infoFis.numero_depositos))
+        ? undefined
+        : Number(this.infoFis.numero_depositos);
+    this.infoFis.construcciones_anexas =
+      this.infoFis.construcciones_anexas == ''
+        ? undefined
+        : this.infoFis.construcciones_anexas;
+  }
+
   infoEnono: infoEconoI = {
     id_oferta: undefined,
     valor_oferta_inicial: undefined,
@@ -155,6 +316,89 @@ export class EditarService {
     valor_anexidades: undefined,
   };
 
+  estrucInfoEnono(): any {
+    this.infoEnono.id_oferta =
+      Number(this.infoEnono.id_oferta) <= 0 ||
+      Number.isNaN(Number(this.infoEnono.id_oferta))
+        ? undefined
+        : Number(this.infoEnono.id_oferta);
+    this.infoEnono.valor_oferta_inicial =
+      Number(this.infoEnono.valor_oferta_inicial) <= 0 ||
+      Number.isNaN(Number(this.infoEnono.valor_oferta_inicial))
+        ? undefined
+        : Number(this.infoEnono.valor_oferta_inicial);
+    this.infoEnono.porcentaje_negociacion =
+      Number(this.infoEnono.porcentaje_negociacion) <= 0 ||
+      Number.isNaN(Number(this.infoEnono.porcentaje_negociacion))
+        ? undefined
+        : Number(this.infoEnono.porcentaje_negociacion);
+    this.infoEnono.valor_oferta_final =
+      Number(this.infoEnono.valor_oferta_final) <= 0 ||
+      Number.isNaN(Number(this.infoEnono.valor_oferta_final))
+        ? undefined
+        : Number(this.infoEnono.valor_oferta_final);
+    this.infoEnono.valor_terreno =
+      Number(this.infoEnono.valor_terreno) <= 0 ||
+      Number.isNaN(Number(this.infoEnono.valor_terreno))
+        ? undefined
+        : Number(this.infoEnono.valor_terreno);
+    this.infoEnono.valor_construccion_m2 =
+      Number(this.infoEnono.valor_construccion_m2) <= 0 ||
+      Number.isNaN(Number(this.infoEnono.valor_construccion_m2))
+        ? undefined
+        : Number(this.infoEnono.valor_construccion_m2);
+    this.infoEnono.valor_area_privada =
+      Number(this.infoEnono.valor_area_privada) <= 0 ||
+      Number.isNaN(Number(this.infoEnono.valor_area_privada))
+        ? undefined
+        : Number(this.infoEnono.valor_area_privada);
+    this.infoEnono.valor_cultivo =
+      Number(this.infoEnono.valor_cultivo) <= 0 ||
+      Number.isNaN(Number(this.infoEnono.valor_cultivo))
+        ? undefined
+        : Number(this.infoEnono.valor_cultivo);
+    this.infoEnono.avaluo_catastral =
+      Number(this.infoEnono.avaluo_catastral) <= 0 ||
+      Number.isNaN(Number(this.infoEnono.avaluo_catastral))
+        ? undefined
+        : Number(this.infoEnono.avaluo_catastral);
+    this.infoEnono.valor_administracion =
+      Number(this.infoEnono.valor_administracion) <= 0 ||
+      Number.isNaN(Number(this.infoEnono.valor_administracion))
+        ? undefined
+        : Number(this.infoEnono.valor_administracion);
+    this.infoEnono.valor_arriendo_inicial =
+      Number(this.infoEnono.valor_arriendo_inicial) <= 0 ||
+      Number.isNaN(Number(this.infoEnono.valor_arriendo_inicial))
+        ? undefined
+        : Number(this.infoEnono.valor_arriendo_inicial);
+    this.infoEnono.valor_arriendo_final =
+      Number(this.infoEnono.valor_arriendo_final) <= 0 ||
+      Number.isNaN(Number(this.infoEnono.valor_arriendo_final))
+        ? undefined
+        : Number(this.infoEnono.valor_arriendo_final);
+    this.infoEnono.valor_terraza_balcon_patio =
+      Number(this.infoEnono.valor_terraza_balcon_patio) <= 0 ||
+      Number.isNaN(Number(this.infoEnono.valor_terraza_balcon_patio))
+        ? undefined
+        : Number(this.infoEnono.valor_terraza_balcon_patio);
+    this.infoEnono.valor_garajes =
+      Number(this.infoEnono.valor_garajes) <= 0 ||
+      Number.isNaN(Number(this.infoEnono.valor_garajes))
+        ? undefined
+        : Number(this.infoEnono.valor_garajes);
+    this.infoEnono.valor_depositos =
+      Number(this.infoEnono.valor_depositos) <= 0 ||
+      Number.isNaN(Number(this.infoEnono.valor_depositos))
+        ? undefined
+        : Number(this.infoEnono.valor_depositos);
+    this.infoEnono.valor_anexidades =
+      Number(this.infoEnono.valor_anexidades) <= 0 ||
+      Number.isNaN(Number(this.infoEnono.valor_anexidades))
+        ? undefined
+        : Number(this.infoEnono.valor_anexidades);
+  }
+
   infoFuente: infoFuenteI = {
     id_oferta: undefined,
     nombre_oferente: undefined,
@@ -164,6 +408,31 @@ export class EditarService {
     enlace_documentos: undefined,
     observaciones: undefined,
   };
+
+  estrucInfoFuente(): any {
+    this.infoFuente.id_oferta =
+      Number(this.infoFuente.id_oferta) <= 0 ||
+      Number.isNaN(Number(this.infoFuente.id_oferta))
+        ? undefined
+        : Number(this.infoFuente.id_oferta);
+    this.infoFuente.nombre_oferente =
+      this.infoFuente.nombre_oferente == ''
+        ? undefined
+        : this.infoFuente.nombre_oferente;
+    this.infoFuente.numero_contacto =
+      Number(this.infoFuente.numero_contacto) <= 0 ||
+      Number.isNaN(Number(this.infoFuente.numero_contacto))
+        ? undefined
+        : Number(this.infoFuente.numero_contacto);
+    this.infoFuente.url =
+      this.infoFuente.url == '' ? undefined : this.infoFuente.url;
+    this.infoFuente.enlace_interno_foto_predio = true;
+    this.infoFuente.enlace_documentos = true;
+    this.infoFuente.observaciones =
+      this.infoFuente.observaciones == ''
+        ? undefined
+        : this.infoFuente.observaciones;
+  }
 
   infoPer: infoPerI = {
     ti_persona: undefined,
@@ -198,6 +467,48 @@ export class EditarService {
     email_persona_verifica: undefined,
     area_persona_verifica: undefined,
   };
+
+  estrucInfoAdmin(): any {
+    this.infoAdmin.id_oferta =
+      Number(this.infoAdmin.id_oferta) <= 0 ||
+      Number.isNaN(Number(this.infoAdmin.id_oferta))
+        ? undefined
+        : Number(this.infoAdmin.id_oferta);
+    this.infoAdmin.ti_persona_captura =
+      this.infoAdmin.ti_persona_captura == ''
+        ? undefined
+        : this.infoAdmin.ti_persona_captura;
+    this.infoAdmin.ni_persona_captura =
+      Number(this.infoAdmin.ni_persona_captura) <= 0 ||
+      Number.isNaN(Number(this.infoAdmin.ni_persona_captura))
+        ? undefined
+        : Number(this.infoAdmin.ni_persona_captura);
+    this.infoAdmin.email_persona_captura =
+      this.infoAdmin.email_persona_captura == ''
+        ? undefined
+        : this.infoAdmin.email_persona_captura;
+    this.infoAdmin.area_persona_captura =
+      this.infoAdmin.area_persona_captura == ''
+        ? undefined
+        : this.infoAdmin.area_persona_captura;
+    this.infoAdmin.ti_persona_verifica =
+      this.infoAdmin.ti_persona_verifica == ''
+        ? undefined
+        : this.infoAdmin.ti_persona_verifica;
+    this.infoAdmin.ni_persona_verifica =
+      Number(this.infoAdmin.ni_persona_verifica) <= 0 ||
+      Number.isNaN(Number(this.infoAdmin.ni_persona_verifica))
+        ? undefined
+        : Number(this.infoAdmin.ni_persona_verifica);
+    this.infoAdmin.email_persona_verifica =
+      this.infoAdmin.email_persona_verifica == ''
+        ? undefined
+        : this.infoAdmin.email_persona_verifica;
+    this.infoAdmin.area_persona_verifica =
+      this.infoAdmin.area_persona_verifica == ''
+        ? undefined
+        : this.infoAdmin.area_persona_verifica;
+  }
 
   vistasHabilitar: interVistasOfertas = {
     noVistaIdenPreOfer: true,

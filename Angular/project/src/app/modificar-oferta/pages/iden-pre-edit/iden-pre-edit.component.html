@@ -42,7 +42,6 @@
           id="numprenue"
           formControlName="numprenue"
           name="numprenue"
-          placeholder="158140000000000060399000000000"
         />
 
         <label for="numpreant">Número Predial Antiguo</label>
@@ -64,7 +63,6 @@
           id="numpreant"
           formControlName="numpreant"
           name="numpreant"
-          placeholder="158140000000000060399000"
         />
 
         <label for="codhom">Código Homologado</label>
@@ -73,12 +71,7 @@
             La cantidad de caracteres debe de ser inferior a 20
           </div>
         </div>
-        <input
-          type="text"
-          formControlName="codhom"
-          name="codhom"
-          placeholder="APY0001JHND0"
-        />
+        <input type="text" formControlName="codhom" name="codhom" />
 
         <label for="matrinmb">Matricula Inmobiliaria</label>
         <div class="alerError" [hidden]="matrinmb.valid || matrinmb.pristine">
@@ -86,12 +79,7 @@
             La cantidad de caracteres debe de ser inferior a 20
           </div>
         </div>
-        <input
-          type="text"
-          formControlName="matrinmb"
-          name="matrinmb"
-          placeholder="070-73096"
-        />
+        <input type="text" formControlName="matrinmb" name="matrinmb" />
 
         <label for="conjur">Condición Juridica</label>
         <div class="alerError" *ngIf="conjur.errors?.['required']">

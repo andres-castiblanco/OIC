@@ -23,7 +23,7 @@
             La cantidad de caracteres debe de ser menor a 50
           </div>
         </div>
-        <input type="text" formControlName="nom" name="nom" placeholder="" />
+        <input type="text" formControlName="nom" name="nom" />
 
         <label for="tel">Número de contacto</label>
         <div
@@ -33,7 +33,7 @@
           Debe de existir al menos un valor de contacto o URL, favor ingresar
           digitos
         </div>
-        <input type="number" formControlName="tel" name="tel" placeholder="" />
+        <input type="number" formControlName="tel" name="tel" />
 
         <label for="url">Url</label>
         <div
@@ -43,7 +43,7 @@
           Debe de existir al menos un valor de contacto o URL, favor ingresar
           una URL válida
         </div>
-        <input type="text" formControlName="url" name="url" placeholder="" />
+        <input type="text" formControlName="url" name="url" />
 
         Anexar información
         <div class="container text-center">
@@ -127,7 +127,6 @@
         <textarea
           formControlName="obs1"
           name="obs1"
-          placeholder="Escribir Observación (Menor a 4000 Carácteres)"
           style="height: 200px"
         ></textarea>
       </div>
@@ -155,12 +154,7 @@
             La cantidad de caracteres debe de ser menor a 50
           </div>
         </div>
-        <input
-          type="text"
-          formControlName="nomcapofer"
-          name="nomcapofer"
-          placeholder=""
-        />
+        <input type="text" formControlName="nomcapofer" name="nomcapofer" />
 
         <label for="apecapofer"
           >Apellidos de la persona que captura la oferta</label
@@ -176,12 +170,7 @@
             La cantidad de caracteres debe de ser menor a 50
           </div>
         </div>
-        <input
-          type="text"
-          formControlName="apecapofer"
-          name="apecapofer"
-          placeholder=""
-        />
+        <input type="text" formControlName="apecapofer" name="apecapofer" />
 
         <label for="tipercap"
           >Tipo de Identificación de persona que captura la oferta</label
@@ -189,7 +178,7 @@
         <div class="alerError" [hidden]="tipercap.valid || tipercap.pristine">
           Los Servicios publicos son un campo obligatorio
         </div>
-        <select formControlName="tipercap" name="tipercap" placeholder="---">
+        <select formControlName="tipercap" name="tipercap">
           <option value="CEDULA_CIUDADANIA">CÉDULA DE CIUDADANÍA</option>
           <option value="CEDULA_EXTRANJERIA">CÉDULA DE EXTRANJERÍA</option>
         </select>
@@ -209,12 +198,7 @@
             1000000000
           </div>
         </div>
-        <input
-          type="number"
-          formControlName="numidencap"
-          name="numidencap"
-          placeholder=""
-        />
+        <input type="number" formControlName="numidencap" name="numidencap" />
 
         <label for="emailcap">Email de la persona que captura la oferta:</label>
         <div class="alerError" [hidden]="emailcap.valid || emailcap.pristine">
@@ -226,12 +210,7 @@
           </div>
         </div>
 
-        <input
-          type="email"
-          formControlName="emailcap"
-          name="emailcap"
-          placeholder=""
-        />
+        <input type="email" formControlName="emailcap" name="emailcap" />
 
         <label for="areresofer">Área responsable de la oferta</label>
         <div
@@ -245,12 +224,7 @@
             La cantidad de caracteres debe de ser menor a 100
           </div>
         </div>
-        <input
-          type="text"
-          formControlName="areresofer"
-          name="areresofer"
-          placeholder=""
-        />
+        <input type="text" formControlName="areresofer" name="areresofer" />
       </div>
 
       <div *ngIf="editar.infoPer.rol === 1 || editar.infoPer.rol === 2">
@@ -280,12 +254,7 @@
               La cantidad de caracteres debe de ser menor a 50
             </div>
           </div>
-          <input
-            type="text"
-            formControlName="nomveriofer"
-            name="nomveriofer"
-            placeholder=""
-          />
+          <input type="text" formControlName="nomveriofer" name="nomveriofer" />
 
           <label for="apeveriofer"
             >Apellidos de la persona que verifica la oferta</label
@@ -301,12 +270,7 @@
               La cantidad de caracteres debe de ser menor a 50
             </div>
           </div>
-          <input
-            type="text"
-            formControlName="apeveriofer"
-            name="apeveriofer"
-            placeholder=""
-          />
+          <input type="text" formControlName="apeveriofer" name="apeveriofer" />
 
           <label for="tiperver"
             >Tipo de Identificación de persona que verifica</label
@@ -314,7 +278,7 @@
           <div class="alerError" [hidden]="tiperver.valid || tiperver.pristine">
             Los Servicios publicos son un campo obligatorio
           </div>
-          <select formControlName="tiperver" name="tiperver" placeholder="---">
+          <select formControlName="tiperver" name="tiperver">
             <option value="CEDULA_CIUDADANIA">CÉDULA DE CIUDADANÍA</option>
             <option value="CEDULA_EXTRANJERIA">CÉDULA DE EXTRANJERÍA</option>
           </select>
@@ -334,12 +298,7 @@
               100000000000
             </div>
           </div>
-          <input
-            type="number"
-            formControlName="numperver"
-            name="numperver"
-            placeholder=""
-          />
+          <input type="number" formControlName="numperver" name="numperver" />
 
           <label for="emailveri">Email de la persona que verifica:</label>
           <div
@@ -354,12 +313,7 @@
             </div>
           </div>
 
-          <input
-            type="email"
-            formControlName="emailveri"
-            name="emailveri"
-            placeholder=""
-          />
+          <input type="email" formControlName="emailveri" name="emailveri" />
 
           <label for="areverofer">Área de la verificación de la oferta</label>
           <div
@@ -373,12 +327,7 @@
               La cantidad de caracteres debe de ser menor a 100
             </div>
           </div>
-          <input
-            type="text"
-            formControlName="areverofer"
-            name="areverofer"
-            placeholder=""
-          />
+          <input type="text" formControlName="areverofer" name="areverofer" />
           <label for="obs3">Observaciones de verificación</label>
           <div class="alerError" [hidden]="obs3.valid || obs3.pristine">
             <div *ngIf="obs3.errors?.['required']">
@@ -391,7 +340,6 @@
           <textarea
             formControlName="obs3"
             name="obs3"
-            placeholder=""
             style="height: 200px"
           ></textarea>
         </div>

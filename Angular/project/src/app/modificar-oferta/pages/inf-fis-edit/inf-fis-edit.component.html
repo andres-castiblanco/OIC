@@ -25,12 +25,7 @@
               Debe de existir al menos un valor en área de terreno o de
               construcción y deben de ser mayor de cero
             </div>
-            <input
-              type="number"
-              formControlName="atm2"
-              name="atm2"
-              placeholder="2500"
-            />
+            <input type="number" formControlName="atm2" name="atm2" />
           </div>
 
           <div *ngIf="controlEntrevariables.val_tipo_rural">
@@ -42,12 +37,7 @@
               Debe de existir al menos un valor en área de terreno o de
               construcción y deben de ser mayor de cero
             </div>
-            <input
-              type="number"
-              formControlName="atha"
-              name="atha"
-              placeholder="1500"
-            />
+            <input type="number" formControlName="atha" name="atha" />
           </div>
         </div>
 
@@ -60,12 +50,7 @@
             Debe de existir al menos un valor en área de terreno o de
             construcción y deben de ser mayor de cero
           </div>
-          <input
-            type="number"
-            formControlName="acm2"
-            name="acm2"
-            placeholder="1203"
-          />
+          <input type="number" formControlName="acm2" name="acm2" />
         </div>
 
         <div *ngIf="controlEntrevariables.val_area_privada">
@@ -77,12 +62,7 @@
             Debe de existir al menos un valor en área de construcción o en área
             privada y deben de ser mayor de cero
           </div>
-          <input
-            type="number"
-            formControlName="apm2"
-            name="apm2"
-            placeholder="50"
-          />
+          <input type="number" formControlName="apm2" name="apm2" />
         </div>
 
         <div *ngIf="controlEntrevariables.val_n_lote_finca">
@@ -96,12 +76,7 @@
               caracteres
             </div>
           </div>
-          <input
-            type="text"
-            formControlName="apha"
-            name="apha"
-            placeholder="25"
-          />
+          <input type="text" formControlName="apha" name="apha" />
         </div>
 
         <div *ngIf="controlEntrevariables.val_n_lote">
@@ -115,15 +90,10 @@
               caracteres
             </div>
           </div>
-          <input
-            type="text"
-            formControlName="ac"
-            name="ac"
-            placeholder="1993"
-          />
+          <input type="text" formControlName="ac" name="ac" />
 
           <label for="conser">Conservación</label>
-          <select formControlName="conser" name="conse" placeholder="---">
+          <select formControlName="conser" name="conse">
             <option value="BUENO">BUENO</option>
             <option value="REGULAR">REGULAR</option>
             <option value="MALO">MALO</option>
@@ -135,7 +105,7 @@
         <div class="alerError" *ngIf="desecon.errors?.['required']">
           La destinación económica del predio es obligatoria
         </div>
-        <select formControlName="desecon" name="desecon" placeholder="---">
+        <select formControlName="desecon" name="desecon">
           <option value="ACUICOLA">ACUICOLA</option>
           <option value="AGRICOLA">AGRICOLA</option>
           <option value="AGROINDUSTRIAL">AGROINDUSTRIAL</option>
@@ -195,29 +165,19 @@
               caracteres
             </div>
           </div>
-          <input
-            type="text"
-            formControlName="numpis"
-            name="numpis"
-            placeholder="3"
-          />
+          <input type="text" formControlName="numpis" name="numpis" />
         </div>
 
         <div *ngIf="controlEntrevariables.val_tipo_rural">
           <label for="tir">Tipo de inmueble rural</label>
-          <input
-            type="text"
-            formControlName="tir"
-            name="tir"
-            placeholder="Casa, Finca, Parcela, Condominio..."
-          />
+          <input type="text" formControlName="tir" name="tir" />
         </div>
 
         <label for="tiptipo">Tipologia Tipo</label>
         <div class="alerError" *ngIf="formUserFis.errors?.['required']">
           La tipología del predio es obligatoria
         </div>
-        <select formControlName="tiptipo" name="tiptipo" placeholder="---">
+        <select formControlName="tiptipo" name="tiptipo">
           <option value="RESIDENCIAL_TIPO_1A">RESIDENCIAL TIPO 1A</option>
           <option value="RESIDENCIAL_TIPO_1B">RESIDENCIAL TIPO 1B</option>
           <option value="RESIDENCIAL_TIPO_2A">RESIDENCIAL TIPO 2A</option>
@@ -260,15 +220,10 @@
               caracteres
             </div>
           </div>
-          <input
-            type="text"
-            formControlName="edcul"
-            name="edcul"
-            placeholder="5"
-          />
+          <input type="text" formControlName="edcul" name="edcul" />
 
           <label for="tipcul">Tipo de cultivo</label>
-          <select formControlName="tipcul" name="tipcul" placeholder="---">
+          <select formControlName="tipcul" name="tipcul">
             <option value="PERMANENTE">PERMANENTE</option>
             <option value="SEMIPERMANENTE">SEMIPERMANENTE</option>
             <option value="TRANSITORIO">TRANSITORIO</option>
@@ -287,19 +242,14 @@
               caracteres
             </div>
           </div>
-          <input
-            type="text"
-            formControlName="coef"
-            name="coef"
-            placeholder="4"
-          />
+          <input type="text" formControlName="coef" name="coef" />
         </div>
 
         <label for="serpubl">Servicios publicos</label>
         <div class="alerError" *ngIf="serpubl.errors?.['required']">
           Los Servicios publicos son un campo obligatorio
         </div>
-        <select formControlName="serpubl" name="serpubl" placeholder="---">
+        <select formControlName="serpubl" name="serpubl">
           <option value="BASICOS_MAS_COMPLEMENTARIOS">
             BASICOS MAS COMPLEMENTARIOS
           </option>
@@ -318,12 +268,7 @@
             caracteres
           </div>
         </div>
-        <input
-          type="text"
-          formControlName="estra"
-          name="estra"
-          placeholder="3"
-        />
+        <input type="text" formControlName="estra" name="estra" />
 
         <label for="garaje">Garajes</label>
         <div class="alerError" [hidden]="garaje.valid || garaje.pristine">
@@ -335,12 +280,7 @@
             caracteres
           </div>
         </div>
-        <input
-          type="text"
-          formControlName="garaje"
-          name="garaje"
-          placeholder="2"
-        />
+        <input type="text" formControlName="garaje" name="garaje" />
 
         <div *ngIf="controlEntrevariables.val_n_lote">
           <label for="banos">Numero de baños</label>
@@ -353,12 +293,7 @@
               caracteres
             </div>
           </div>
-          <input
-            type="text"
-            formControlName="banos"
-            name="banos"
-            placeholder="1"
-          />
+          <input type="text" formControlName="banos" name="banos" />
 
           <label for="numhabi">Numero de habitaciones</label>
           <div class="alerError" [hidden]="numhabi.valid || numhabi.pristine">
@@ -370,12 +305,7 @@
               caracteres
             </div>
           </div>
-          <input
-            type="text"
-            formControlName="numhabi"
-            name="numhabi"
-            placeholder="5"
-          />
+          <input type="text" formControlName="numhabi" name="numhabi" />
 
           <label for="numdep">Numero de depositos</label>
           <div class="alerError" [hidden]="numdep.valid || numdep.pristine">
@@ -387,12 +317,7 @@
               caracteres
             </div>
           </div>
-          <input
-            type="text"
-            formControlName="numdep"
-            name="numdep"
-            placeholder="2"
-          />
+          <input type="text" formControlName="numdep" name="numdep" />
 
           <label for="conanex">Construcciones Anexas</label>
           <div class="alerError" [hidden]="conanex.valid || conanex.pristine">
@@ -401,12 +326,7 @@
             </div>
           </div>
 
-          <input
-            type="text"
-            formControlName="conanex"
-            name="conanex"
-            placeholder="Zona dura, Muro de antepecho, Lavadero, Tanque de concreto, etc"
-          />
+          <input type="text" formControlName="conanex" name="conanex" />
         </div>
       </div>
 

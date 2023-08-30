@@ -97,6 +97,10 @@ export class LocPreEditComponent {
     return this.formUserLoca.get('dirrur') as FormControl;
   }
 
+  get direccion() {
+    return this.formUserLoca.get('direccion') as FormControl;
+  }
+
   deptosMpios = {
     '05 ANTIOQUIA': [
       '05001 MEDELLÍN',
@@ -1311,6 +1315,11 @@ export class LocPreEditComponent {
         Validators.min(-83),
         Validators.maxLength(12),
       ],
+    ],
+    direccion: [
+      { value: this.editar.locPre.direccion, disabled: true },
+      ,
+      [Validators.maxLength(100)],
     ],
     dir01: [this.editar.locPreDir.dir01],
     dir02: [

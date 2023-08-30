@@ -46,12 +46,7 @@
               La cantidad de caracteres debe de ser inferior a 30
             </div>
           </div>
-          <input
-            type="text"
-            formControlName="nombar"
-            name="nombar"
-            placeholder="San Benito"
-          />
+          <input type="text" formControlName="nombar" name="nombar" />
         </div>
 
         <label for="nomver">Nombre Vereda</label>
@@ -60,12 +55,7 @@
             La cantidad de caracteres debe de ser inferior a 30
           </div>
         </div>
-        <input
-          type="text"
-          formControlName="nomver"
-          name="nomver"
-          placeholder="Belen"
-        />
+        <input type="text" formControlName="nomver" name="nomver" />
         <!-- <label for="lat">Mapa</label> -->
 
         <label for="lat">Latitud</label>
@@ -87,7 +77,6 @@
           type="number"
           formControlName="lat"
           name="lat"
-          placeholder="5.05314771"
           step="0.00000001"
         />
 
@@ -110,12 +99,19 @@
           type="number"
           formControlName="lon"
           name="lon"
-          placeholder="-73.20648841"
           step="0.00000001"
         />
 
+        <label for="direccion">Dirección almacenada </label>
+        <div class="alerError" [hidden]="direccion.valid || direccion.pristine">
+          <div *ngIf="direccion.errors?.['maxlength']">
+            La cantidad de caracteres debe de ser inferior a 100
+          </div>
+        </div>
+        <input type="text" formControlName="direccion" name="direccion" />
+
         <div *ngIf="noVistaDir">
-          <label for="dir">Dirección Urbana</label>
+          <label for="dir">Dirección Urbana (si desea actualizar)</label>
 
           <div class="alerError" [hidden]="dir01.valid || dir01.pristine"></div>
           <div class="alerError" [hidden]="dir02.valid || dir02.pristine">
@@ -142,12 +138,7 @@
             </div>
 
             <div>
-              <input
-                type="number"
-                formControlName="dir02"
-                name="dir02"
-                placeholder="85"
-              />
+              <input type="number" formControlName="dir02" name="dir02" />
             </div>
 
             <div>
@@ -195,12 +186,7 @@
               </select>
             </div>
             <div>
-              <input
-                type="number"
-                formControlName="dir06"
-                name="dir06"
-                placeholder="15"
-              />
+              <input type="number" formControlName="dir06" name="dir06" />
             </div>
             <div>
               <select formControlName="dir07" name="dir07">
@@ -236,7 +222,6 @@
                 type="number"
                 formControlName="dir08"
                 name="dir08"
-                placeholder="56"
                 maxlength="3"
               />
             </div>
@@ -244,7 +229,7 @@
         </div>
 
         <div *ngIf="!noVistaDir">
-          <label for="dirrur">Dirección Rural</label>
+          <label for="dirrur">Dirección Rural (si desea actualizar)</label>
           <div class="alerError" [hidden]="dirrur.valid || dirrur.pristine">
             <div *ngIf="dirrur.errors?.['required']">
               La Dirección Rural es obligatorio
@@ -253,12 +238,7 @@
               La cantidad de caracteres debe de ser inferior a 100
             </div>
           </div>
-          <input
-            type="text"
-            formControlName="dirrur"
-            name="dirrur"
-            placeholder="Km 3 via Belen, Finca La Hermosa"
-          />
+          <input type="text" formControlName="dirrur" name="dirrur" />
         </div>
       </div>
 
