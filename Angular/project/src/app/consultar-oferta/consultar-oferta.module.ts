@@ -12,6 +12,7 @@ import { NavComponent } from './components/nav/nav.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { DialogsComponent } from './components/dialogs/dialogs.component';
+import { DialognsComponent } from './components/dialogns/dialogns.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { DialogsComponent } from './components/dialogs/dialogs.component';
     HeaderComponent,
     NavComponent,
     DialogsComponent,
+    DialognsComponent,
   ],
   imports: [
     CommonModule,

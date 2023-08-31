@@ -22,6 +22,8 @@ import { resconsulOferI } from 'src/app/modelos/res-consulta-oferta.interface';
 import { Observable } from 'rxjs';
 import { ResEditOferI } from 'src/app/modelos/res-editar-oferta.interface';
 import { infoPerI } from 'src/app/modelos/crear-oferta-personas.interface';
+import { resElimOfertaI } from 'src/app/modelos/res-elim-oferta.interface';
+import { resDupliOfertaI } from 'src/app/modelos/res-dupli-oferta.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -157,8 +159,28 @@ export class ApiService {
     token: String,
     rol: Number
   ): Observable<ResEditOferI> {
-    let direccion = this.url + 'edit_oferta';
-    let contenido = { id_oferta: id_oferta, token: token };
+    let direccion = this.url + 'vali_oferta';
+    let contenido = { id_oferta: id_oferta, token: token, rol: rol };
     return this.http.post<ResEditOferI>(direccion, contenido);
+  }
+
+  eliminarOferta(
+    id_oferta: Number,
+    token: String,
+    rol: Number
+  ): Observable<resElimOfertaI> {
+    let direccion = this.url + 'elim_oferta';
+    let contenido = { id_oferta: id_oferta, token: token, rol: rol };
+    return this.http.post<resElimOfertaI>(direccion, contenido);
+  }
+
+  duplicarOferta(
+    id_oferta: Number,
+    token: String,
+    rol: Number
+  ): Observable<resDupliOfertaI> {
+    let direccion = this.url + 'dupli_oferta';
+    let contenido = { id_oferta: id_oferta, token: token, rol: rol };
+    return this.http.post<resDupliOfertaI>(direccion, contenido);
   }
 }

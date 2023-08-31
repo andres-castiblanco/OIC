@@ -22,9 +22,12 @@ import {
 
 import { MatDialog } from '@angular/material/dialog';
 import { DialogsComponent } from '../../components/dialogs/dialogs.component';
+import { DialognsComponent } from '../../components//dialogns/dialogns.component';
 
 import { Router } from '@angular/router';
 import { ResEditOferI } from 'src/app/modelos/res-editar-oferta.interface';
+import { resElimOfertaI } from 'src/app/modelos/res-elim-oferta.interface';
+import { resDupliOfertaI } from 'src/app/modelos/res-dupli-oferta.interface';
 
 @Component({
   selector: 'app-con-ofer',
@@ -1542,7 +1545,7 @@ export class ConOferComponent {
               return (value = value + 1);
             });
             this.pag_actual = 1;
-            console.log(this.resConsulOferObj.dat_consul.registros);
+            // console.log(this.resConsulOferObj.dat_consul.registros);
           } else {
             const dialogRef = this.dialog.open(DialogsComponent, {
               width: '350px',
@@ -1701,10 +1704,78 @@ export class ConOferComponent {
   }
 
   eliminarOferta(id_oferta: string): any {
+    const dialogRef = this.dialog.open(DialognsComponent, {
+      width: '350px',
+      data: `¿Quiere eliminar la oferta con identitificador ${id_oferta}?`,
+    });
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res) {
+        this.resConsulOferObj.token = String(localStorage.getItem('token'));
+        this.api
+          .eliminarOferta(
+            Number(id_oferta),
+            this.resConsulOferObj.token,
+            Number(this.valrelacionesService.infoPer.rol)
+          )
+          .subscribe((resElimiOfer: resElimOfertaI) => {
+            if (resElimiOfer.status === '200 OK') {
+              localStorage.setItem('token', resElimiOfer.token?.valueOf());
+
+              this.consultarPagina(this.pag_actual);
+
+              const dialogRef2 = this.dialog.open(DialogsComponent, {
+                width: '350px',
+                data: resElimiOfer.msj,
+              });
+              dialogRef2.afterClosed().subscribe((res) => {
+                if (res) {
+                  console.warn(resElimiOfer.msj);
+                }
+              });
+            }
+          });
+      } else {
+        console.log(`No se eliminó la oferta ${id_oferta}`);
+      }
+    });
     console.log(id_oferta);
   }
 
   duplicarOferta(id_oferta: string): any {
+    const dialogRef = this.dialog.open(DialognsComponent, {
+      width: '350px',
+      data: `¿Quiere duplicar la oferta con identitificador ${id_oferta}?`,
+    });
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res) {
+        this.resConsulOferObj.token = String(localStorage.getItem('token'));
+        this.api
+          .duplicarOferta(
+            Number(id_oferta),
+            this.resConsulOferObj.token,
+            Number(this.valrelacionesService.infoPer.rol)
+          )
+          .subscribe((resDupliOfer: resDupliOfertaI) => {
+            if (resDupliOfer.status === '200 OK') {
+              localStorage.setItem('token', resDupliOfer.token?.valueOf());
+
+              this.consultarPagina(this.pag_actual);
+
+              const dialogRef2 = this.dialog.open(DialogsComponent, {
+                width: '350px',
+                data: resDupliOfer.msj,
+              });
+              dialogRef2.afterClosed().subscribe((res) => {
+                if (res) {
+                  console.warn(resDupliOfer.msj);
+                }
+              });
+            }
+          });
+      } else {
+        console.log(`No se duplicó la oferta ${id_oferta}`);
+      }
+    });
     console.log(id_oferta);
   }
 
@@ -1826,7 +1897,7 @@ export class ConOferComponent {
           this.resConsulOferObj = resConsulOfer;
           this.pag_actual = pag;
 
-          console.log(this.resConsulOferObj.dat_consul.registros);
+          // console.log(this.resConsulOferObj.dat_consul.registros);
         } else {
           const dialogRef = this.dialog.open(DialogsComponent, {
             width: '350px',
