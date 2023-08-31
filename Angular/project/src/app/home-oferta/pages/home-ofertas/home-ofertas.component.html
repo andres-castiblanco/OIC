@@ -3,85 +3,83 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
   </head>
   <body>
     <app-header></app-header>
+    <app-nav></app-nav>
 
     <div class="responsive">
-
-        <div class="text-center">
-          <div class="row">
-            <div class="col">
-              
-              <div class="gallery"> 
-                <a target="_self" routerLink="CrearOferta/IdenPre">
-                  <div class="fa-3x">
-                    <i
-                      class="material-icons fal fa-file-plus"
-                      style="font-size: 90px; color: black"
-                      >add</i
-                    >
-                  </div>
-                </a>
-                <div class="desc">Crear Oferta</div>
-              </div>
-
+      <div class="text-center">
+        <div class="row">
+          <div class="col">
+            <div class="gallery">
+              <a target="_self" routerLink="../CrearOferta/IdenPre">
+                <div class="fa-3x">
+                  <i
+                    class="material-icons fal fa-file-plus"
+                    style="font-size: 90px; color: black"
+                    >add</i
+                  >
+                </div>
+              </a>
+              <div class="desc">Crear Oferta</div>
             </div>
-            <div class="col">
-              
-              <div class="gallery">
-                <a target="_self" routerLink="ConOfer">
-                  <div class="fa-3x">
-                    <i
-                      class="material-icons fal fa-file-plus"
-                      style="font-size: 90px; color: black"
-                      >zoom_in</i
-                    >
-                  </div>
-                </a>
-                <div class="desc">Consultar Oferta</div>
-              </div>
-
+          </div>
+          <div class="col">
+            <div class="gallery">
+              <a target="_self" routerLink="../ConOfer">
+                <div class="fa-3x">
+                  <i
+                    class="material-icons fal fa-file-plus"
+                    style="font-size: 90px; color: black"
+                    >zoom_in</i
+                  >
+                </div>
+              </a>
+              <div class="desc">Consultar Oferta</div>
             </div>
           </div>
         </div>
-    
-        <div class="text-center">
-          <div class="row">
-            <div class="col">
-              
-              <div class="gallery">
-                <a target="_self" routerLink="ModOfer/IdenPre">
-                  <div class="fa-3x">
-                    <i class="material-icons fal" style="font-size: 90px; color: black"
-                      >autorenew</i
-                    >
-                  </div>
-                </a>
-                <div class="desc">Modificar Oferta</div>
-              </div>
+      </div>
 
+      <div class="text-center">
+        <div class="row">
+          <div class="col">
+            <div class="gallery">
+              <a target="_self" routerLink="../ModOfer/IdenPre">
+                <div class="fa-3x">
+                  <i
+                    class="material-icons fal"
+                    style="font-size: 90px; color: black"
+                    >autorenew</i
+                  >
+                </div>
+              </a>
+              <div class="desc">Modificar Oferta</div>
             </div>
-            <div class="col">
-              
-              <div class="gallery">
-                <a target="_self" routerLink="ValOfer/IdenPre">
-                  <div class="fa-3x">
-                    <i class="material-icons fal" style="font-size: 90px; color: black"
-                      >check</i
-                    >
-                  </div>
-                </a>
-                <div class="desc">Validar Oferta</div>
-              </div>
-
+          </div>
+          <div class="col">
+            <div class="gallery">
+              <a target="_self" routerLink="../ValOfer/IdenPre">
+                <div class="fa-3x">
+                  <i
+                    class="material-icons fal"
+                    style="font-size: 90px; color: black"
+                    >check</i
+                  >
+                </div>
+              </a>
+              <div class="desc">Validar Oferta</div>
             </div>
           </div>
         </div>
+      </div>
     </div>
 
     <app-footer></app-footer>
   </body>
 </html>
-

@@ -1,1 +1,87 @@
-<p>nav works!</p>
+<label for="btn-nav" class="btn-nav"><i class="fas fa-bars"></i> Menu</label>
+<input type="checkbox" id="btn-nav" />
+
+<nav class="navigation">
+  <!-- <ol>Menu</ol> -->
+  <a routerLink="../HomeOfertas" routerLinkActive="active">Home ofertas</a>
+
+  <details>
+    <summary>Crear oferta</summary>
+    <div *ngIf="valrelacionesService.vistasHabilitar.noVistaIdenPreOfer">
+      <a routerLink="../CrearOferta/IdenPre" routerLinkActive="active"
+        >Identificación predio</a
+      >
+    </div>
+    <div *ngIf="valrelacionesService.vistasHabilitar.noVistaLocOfer">
+      <a routerLink="../CrearOferta/LocPre" routerLinkActive="active"
+        >Localización predio</a
+      >
+    </div>
+    <div *ngIf="valrelacionesService.vistasHabilitar.noVistaDatGen">
+      <a routerLink="../CrearOferta/DatGen" routerLinkActive="active"
+        >Datos generales</a
+      >
+    </div>
+    <div *ngIf="valrelacionesService.vistasHabilitar.noVistaInfoFisi">
+      <a routerLink="../CrearOferta/InfFis" routerLinkActive="active"
+        >Información física</a
+      >
+    </div>
+    <div *ngIf="valrelacionesService.vistasHabilitar.noVistaInfoEnoco">
+      <a routerLink="../CrearOferta/InfEco" routerLinkActive="active"
+        >Información económica</a
+      >
+    </div>
+    <div *ngIf="valrelacionesService.vistasHabilitar.noVistaInfoFuen">
+      <a routerLink="../CrearOferta/InfFue" routerLinkActive="active"
+        >Información fuente</a
+      >
+    </div>
+  </details>
+
+  <a routerLink="../ConOfer" routerLinkActive="active">Consultar oferta</a>
+
+  <details>
+    <summary>Modificar oferta</summary>
+    <a routerLink="../ModOfer/IdenPre" routerLinkActive="active"
+      >Identificación predio</a
+    >
+    <a routerLink="../ModOfer/LocPre" routerLinkActive="active"
+      >Localización predio</a
+    >
+    <a routerLink="../ModOfer/DatGen" routerLinkActive="active"
+      >Datos generales</a
+    >
+    <a routerLink="../ModOfer/InfFis" routerLinkActive="active"
+      >Información física</a
+    >
+    <a routerLink="../ModOfer/InfEco" routerLinkActive="active"
+      >Información económica</a
+    >
+    <a routerLink="../ModOfer/InfFue" routerLinkActive="active"
+      >Información fuente</a
+    >
+  </details>
+
+  <details>
+    <summary>Validar oferta</summary>
+    <a routerLink="../ValOfer/IdenPre" routerLinkActive="active"
+      >Identificación predio</a
+    >
+    <a routerLink="../ValOfer/LocPre" routerLinkActive="active"
+      >Localización predio</a
+    >
+    <a routerLink="../ValOfer/DatGen" routerLinkActive="active"
+      >Datos generales</a
+    >
+    <a routerLink="../ValOfer/InfFis" routerLinkActive="active"
+      >Información física</a
+    >
+    <a routerLink="../ValOfer/InfEco" routerLinkActive="active"
+      >Información económica</a
+    >
+    <a routerLink="../ValOfer/InfFue" routerLinkActive="active"
+      >Información fuente</a
+    >
+  </details>
+</nav>
